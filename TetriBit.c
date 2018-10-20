@@ -42,14 +42,14 @@ int main()
 void afisareHarta(unsigned long long a)
 {
     int i;
-    for(i=63;i>=0;i--){
-        if(((a>>i)&1)==1){
+    for( i = 63 ; i >= 0 ; i-- ){
+        if( ( (a>>i) & 1) == 1){
             printf("#");
         }
-        if(((a>>i)&1)==0){
+        if( ( (a>>i) &1) == 0){
             printf(".");
         }
-        if((i%8)==0){
+        if( (i%8) == 0 ){
             printf("\n");
         }
     }
@@ -69,16 +69,16 @@ void endGame(unsigned long long a,
     if(OK){
         afisareHarta(a);
     }
-    int zeros=0;
+    int zeros = 0;
     int i;
-    for(i=63;i>=0;i--)
+    for( i = 63 ; i >= 0 ; i-- )
     {
-        if(((a>>i)&1)==0){
+        if( ( (a>>i) &1) == 0 ){
             zeros++;
         }
     }
     float scor = sqrt(zeros)
-    + pow(1.25,completedLines);
+    + pow( 1.25 , completedLines);
     printf("GAME OVER!\nScore:%.2f",scor);
 }
 
@@ -87,19 +87,19 @@ void endGame(unsigned long long a,
 //de marginea din dreapta a tablei
 int margineDreapta(unsigned long long b)
 {
-    int OK=1,dif=8,i;
-    for(i=0;i<=56;i+=8){
-        int j=i;
-        while(j<=(i+7)){
-            if((((b>>j)&1)==1)
-               && dif>(j-i)){
+    int OK = 1 , dif = 8,i;
+    for( i = 0 ; i <= 56 ; i += 8 ){
+        int j = i;
+        while( j <= (i+7) ){
+            if( (((b>>j) &1) == 1)
+               && dif > ( j-i )){
                 dif = ( j-i );
             }
             j++;
         }
     }
-    if(dif==0){
-        OK=0;
+    if(dif == 0){
+        OK = 0;
     }
     return OK;
 }
@@ -109,19 +109,19 @@ int margineDreapta(unsigned long long b)
 //de marginea din stanga a tablei
 int margineStanga(unsigned long long b)
 {
-    int OK=1,dif=8,i;
-    for(i=63;i>=7;i-=8){
-        int j=i;
+    int OK = 1 , dif = 8 , i;
+    for( i = 63 ; i >= 7 ; i -= 8 ){
+        int j = i;
         while(j>=(i-7)){
-            if((((b>>j)&1)==1)
-               && dif>(i-j)){
+            if( (((b>>j)&1) == 1)
+               && dif > (i-j)){
                 dif = (i-j);
             }
             j--;
         }
     }
-    if(dif==0){
-        OK=0;
+    if( dif == 0 ){
+        OK = 0;
     }
     return OK;
 }
@@ -133,10 +133,10 @@ unsigned long long miscareStanga(unsigned long long a,
                                  unsigned long long b,
                                  int miscareData)
 {
-    while(miscareData!=0
-          && (a&(b<<1))==0
+    while(miscareData != 0
+          && (a&(b<<1)) == 0
           && margineStanga(b)){
-        b<<=1;
+        b <<= 1;
         miscareData++;
     }
     return b;
@@ -149,11 +149,11 @@ unsigned long long miscareDreapta(unsigned long long a,
                                   unsigned long long b,
                                   int miscareData)
 {
-    while(miscareData!=0
-          && (a&(b>>1))==0
+    while(miscareData != 0
+          && (a&(b>>1)) == 0
           && margineDreapta(b)){
         miscareData--;
-        b>>=1;
+        b >>= 1;
     }
     return b;
 }
@@ -164,10 +164,10 @@ unsigned long long miscareDreapta(unsigned long long a,
 int miscareJos(unsigned long long a,
                unsigned long long b)
 {
-    int OK=1;
-    if(((b>>8)&a)
-       || ((b>>8)==0)){
-        OK=0;
+    int OK = 1;
+    if(( (b>>8) &a )
+       || ( (b>>8) ==0 )){
+        OK = 0;
     }
     return OK;
 }
@@ -182,7 +182,7 @@ int miscareJos(unsigned long long a,
 void initializareJoc(unsigned long long a,
                      int M)
 {
-    int completedLines=0;
+    int completedLines = 0;
     //Afisarea hartii primite ca input,
     afisareHarta(a);
     
@@ -190,12 +190,12 @@ void initializareJoc(unsigned long long a,
     for(i=0;i<M;i++){
         unsigned long long b;
         int miscare;
-        int j=0;
+        int j = 0;
         scanf("%llu",&b);
         //Cazul in care piesa nu ocupa mai mult de un rand
         if(b<256){
-            if(((b<<56)&a)==0){
-                b<<=56;
+            if(((b<<56)&a) == 0){
+                b <<= 56;
             }
             else{
                 //Daca piesa nu mai are loc pe harta,
@@ -209,18 +209,18 @@ void initializareJoc(unsigned long long a,
         //este tratat separat
         
         else{
-            unsigned long long copiePiesa=b;
+            unsigned long long copiePiesa = b;
             scanf("%d",&miscare);
-            if(((b<<56)&a)==0){
-                b<<=56;
-                copiePiesa<<=48;
-                if(miscare<0){
-                    b=miscareStanga(a, b, miscare);
-                    copiePiesa=miscareStanga(0, copiePiesa, miscare);
+            if(((b<<56)&a) == 0){
+                b <<= 56;
+                copiePiesa <<= 48;
+                if(miscare < 0){
+                    b = miscareStanga(a, b, miscare);
+                    copiePiesa = miscareStanga(0, copiePiesa, miscare);
                 }
-                if(miscare>0){
-                    b=miscareDreapta(a, b, miscare);
-                    copiePiesa=miscareDreapta(0, copiePiesa, miscare);
+                if(miscare > 0){
+                    b = miscareDreapta(a, b, miscare);
+                    copiePiesa = miscareDreapta(0, copiePiesa, miscare);
                 }
                 afisareHarta(a|b);
                 if(!miscareJos(a, copiePiesa)){
@@ -229,14 +229,13 @@ void initializareJoc(unsigned long long a,
                     endGame(a|copiePiesa, completedLines, 1);
                     return ;
                 }
-                if(miscareJos(a,b)==1){
-                    b=b>>8;
-                    b=b|copiePiesa;
+                if(miscareJos(a,b) == 1){
+                    b = b>>8;
+                    b = b | copiePiesa;
                 }
                 j++;
             }
-            else
-            {
+            else{
                 //Jocul se intrerupe daca piesa nu incape
                 //pe harta
                 a=a|b;
@@ -247,47 +246,46 @@ void initializareJoc(unsigned long long a,
         
         int OK=1;
         
-        while(j<8 && OK==1){
+        while(j<8 && OK == 1){
             scanf("%d",&miscare);
             if(miscare<0){
-                b=miscareStanga(a, b, miscare);
+                b = miscareStanga(a, b, miscare);
             }
             if(miscare>0){
-                b=miscareDreapta(a, b, miscare);
+                b = miscareDreapta(a, b, miscare);
             }
             afisareHarta(a|b);
-            if((miscareJos(a,b)==1) && j!=7){
-                b=b>>8;
+            if((miscareJos(a,b) == 1) && j != 7){
+                b = b>>8;
             }
             else{
-                OK=0;
+                OK = 0;
             }
             j++;
         }
         
-        a=a|b;
+        a = a|b;
         
         //Cautarea liniei/liniilor complete,
         int k;
         for(k=63;k>=7;k=(k-8)){
-            int linie=1;
+            int linie = 1;
             int p;
             for(p=k;p>=(k-7);p--){
-                if(((a>>p)&1)==0){
-                    linie=0;
+                if(((a>>p)&1) == 0){
+                    linie = 0;
                 }
             }
-            if(linie == 1)
-            {
+            if(linie == 1){
                 //Stergerea unei linii complete
-                unsigned long long mask=0;
-                p=k-8;
-                while(p>=0){
-                    mask=((a>>p)&1);
+                unsigned long long mask = 0;
+                p = (k-8);
+                while(p >= 0){
+                    mask=((a>>p) & 1);
                     p--;
                 }
-                a=a>>8;
-                a=a|mask;
+                a = a>>8;
+                a = a | mask;
                 completedLines++;
             }
         }
