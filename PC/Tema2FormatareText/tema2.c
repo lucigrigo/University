@@ -161,44 +161,45 @@ void citireComenzi(char F[MAX][MAX],
   strcpy(d," ");
   strcpy(s,",");
   formatareInput(argv[1]);
-  char *originalCommand = malloc(strlen(argv[1]) + 1);
+  char *originalCommand =(char *)calloc(strlen(argv[1]) + 1, sizeof(char));
   strcpy(originalCommand,argv[1]);
   char *matriceComenzi[20];
   strtok(originalCommand,s);
   while(originalCommand != NULL){
-    matriceComenzi[nrComenzi] = malloc(strlen(originalCommand) + 1);
+    matriceComenzi[nrComenzi] =(char *)calloc(strlen(originalCommand) + 1 , sizeof(char));
     strcpy(matriceComenzi[nrComenzi],originalCommand);
     nrComenzi++;
     originalCommand = strtok(NULL,s);
   }
+  free(originalCommand);
 
   int i = 0 , initialLinesNumber = *linesNumber;
 	while((i < 10) && (i < nrComenzi)){
-    char *comandaToken = malloc(strlen(matriceComenzi[i]) + 1);
+    char *comandaToken = (char *)calloc(strlen(matriceComenzi[i]) + 1,sizeof(char));
     strcpy(comandaToken,matriceComenzi[i]);
 		char *arg = strtok(comandaToken,d);
-    bool used=false;
+    bool used = false;
     i++;
 
     if(arg!=NULL){
-		if((strcmp(arg,"W")==0) || (strcmp(arg,"w")==0)){
-			arg = strtok(NULL,d);
-      if(arg == NULL){
-        invalidOperation(F,initialLinesNumber,argv);
+  		if((strcmp(arg,"W")==0) || (strcmp(arg,"w")==0)){
+  			arg = strtok(NULL,d);
+        if(arg == NULL){
+          invalidOperation(F,initialLinesNumber,argv);
+        }
+        used = true;
+  			int maxLineLength = (int) strtol(arg,(char**)NULL,10);
+        arg = strtok(NULL,d);
+        if(arg != NULL){
+          invalidOperation(F,initialLinesNumber,argv);
+        }
+  			int maxWordLength = getMaxWordLength(A,*linesNumber);
+  			if(maxLineLength < maxWordLength){
+  				wrapError(F,initialLinesNumber,argv);
+  			} else {
+  				wrapText(maxLineLength,linesNumber,A);
+  			}
       }
-      used=true;
-			int maxLineLength = (int) strtol(arg,(char**)NULL,10);
-      arg=strtok(NULL,d);
-      if(arg != NULL){
-        invalidOperation(F,initialLinesNumber,argv);
-      }
-			int maxWordLength = getMaxWordLength(A,*linesNumber);
-			if(maxLineLength < maxWordLength){
-				wrapError(F,initialLinesNumber,argv);
-			} else {
-				wrapText(maxLineLength,linesNumber,A);
-			}
-    }
   }
 
 
@@ -488,15 +489,18 @@ void citireComenzi(char F[MAX][MAX],
 			}
     }
   }
-    arg = strtok(NULL,d);
-    if(arg != NULL){
-      invalidOperation(F,initialLinesNumber,argv);
-    }
+    // arg = strtok(NULL,d);
+    // printf("\n\n%s\n\n",arg);
+    // if(arg != NULL){
+    //   printf("ASUNDHASD");
+    //   invalidOperation(F,initialLinesNumber,argv);
+    // }
     /* Daca nu a fost dat un parametru valid pentru o operatie (P/p, W/w etc.),
     atunci este o operatie invalida */
     if(used == false){
       invalidOperation(F,initialLinesNumber,argv);
     }
+    free(comandaToken);
 	}
 
   // Se testeaza daca au fost introduse mai mult de 10 operatii in comanda
@@ -504,6 +508,10 @@ void citireComenzi(char F[MAX][MAX],
 		printf("Too many operations! Only the first 10 will be applied.\n");
 	}
   i = 0;
+  while(i < nrComenzi){
+    free(matriceComenzi[i]);
+    i++;
+  }
 }
 
 //  Functia returneaza ultimul indice de pe linia curenta
@@ -524,14 +532,15 @@ int getMaxWordLength(char B[MAX][MAX],int linesNumber){
 
 	int i=0,max=-1;
 	const char s[10]=" \n\t\0,.";
-  char A[MAX][MAX];
+  char *A[MAX];
   //  Copiez intr-o alta matrice pe cea initiala
-  while(i<linesNumber){
+  while(i < linesNumber){
+    A[i] = (char *)calloc(strlen(B[i]) + 1,sizeof(char));
     strcpy(A[i],B[i]);
     i++;
   }
-  i=0;
-	while(i<linesNumber){
+  i = 0;
+	while(i < linesNumber){
     //  Cu strtok() sparg in cuvinte textul
 		char* word = strtok(A[i],s);
 		while(word != NULL){
@@ -543,6 +552,11 @@ int getMaxWordLength(char B[MAX][MAX],int linesNumber){
 		}
 		i++;
 	}
+  i = 0;
+  while(i < linesNumber){
+    free(A[i]);
+    i++;
+  }
   // Functia returneaza -1 daca nu e niciun cuvant in text
 	return max;
 }
@@ -769,10 +783,183 @@ void wrapText(int maxLineLength,
 			        int *linesNumber,
 			        char A[MAX][MAX]) {
 
+//   int i = 0, indexLinieB = 0;
+//   char B[MAX][MAX];
+//   while(i < MAX){
+//     B[i][0] = '\0';
+//     i++;
+//   }
+//   // i = 0;
+//   // while(i < *linesNumber){
+//   //   trimTrailing(A[i]);
+//   //   while(A[i][0] == ' '){
+//   //     strcpy(A[i], A[i] + 1);
+//   //   }
+//   //   i++;
+//   // }
+//   // while(i < MAX){
+//   //   A[i][0] = '\0';
+//   //   i++;
+//   // }
+//
+//   i = 0;
+//   while(i < *linesNumber){
+//     int len = strlen(B[indexLinieB]), OK = 1;
+//     while(len < maxLineLength){
+//       OK = 1;
+//       if(i == 0){
+//         while(A[0][0] == ' '){
+//           strcpy(A[0],A[0] + 1);
+//         }
+//         strcat(B[0],A[0]);
+//         i = 1;
+//         len = strlen(B[0]);
+//         // OK = 0;
+//       } else {
+//         trimTrailing(B[indexLinieB]);
+//         len = strlen(B[indexLinieB]);
+//         B[indexLinieB][len] = ' ';
+//         while(A[i][0] == ' '){
+//           strcpy(A[i],A[i] + 1);
+//         }
+//         strcat(B[indexLinieB], A[i]);
+//         len = strlen(B[indexLinieB]);
+//         i++;
+//         // continue;
+//       }
+//       if(i > *linesNumber){
+//         OK = 0;
+//         break;
+//       }
+//       if(OK == 1){
+//         if(i!=1){
+//           i++;
+//         }
+//         if((strlen(A[i]) == 1) || (A[i][0] == '\0')) {
+//           len = strlen(B[indexLinieB]);
+//           B[indexLinieB][len] = '\n';
+//           B[indexLinieB][len + 1] = '\0';
+//           // printf("\n(%s)\n",B[indexLinieB]);
+//           B[indexLinieB + 1][0] = '\n';
+//           B[indexLinieB + 1][1] = '\0';
+//           if(indexLinieB != 0){
+//             indexLinieB+=2;
+//           } else {
+//             len = strlen(B[indexLinieB]);
+//             while(len > maxLineLength){
+//               int j = 0, lastIndex = 0;
+//               while((j <= maxLineLength)){
+//                 if(B[indexLinieB][j] == '\n'){
+//                   B[indexLinieB][j] = ' ';
+//                   lastIndex = j;
+//                 }
+//                 if(B[indexLinieB][j] == ' '){
+//                   lastIndex = j;
+//                 }
+//                 j++;
+//               }
+//               j = (lastIndex + 2);
+//               len = strlen(B[indexLinieB]);
+//               while(j < len){
+//                 if(B[indexLinieB][j] == '\n'){
+//                   B[indexLinieB][j] = ' ';
+//                 }
+//                 // B[indexLinieB][j] = 0;
+//                 j++;
+//               }
+//               B[indexLinieB][lastIndex] = '\n';
+//               memmove(B[indexLinieB + 1], strchr(B[indexLinieB], '\n') + 1, strlen(B[indexLinieB]));
+//               B[indexLinieB][lastIndex + 1] = '\0';
+//               indexLinieB++;
+//               while(B[indexLinieB][0] == ' '){
+//                 strcpy(B[indexLinieB], B[indexLinieB] + 1);
+//               }
+//               len = strlen(B[indexLinieB]);
+//             }
+//             B[indexLinieB][len] = '\n';
+//             B[indexLinieB][len + 1] = '\0';
+//             B[indexLinieB + 1][0] = '\n';
+//             B[indexLinieB + 1][1] = '\0';
+//             indexLinieB+=2;
+//             len = strlen(B[indexLinieB]);
+//             i++;
+//           }
+//           i++;
+//           // while(A[i][0] == ' '){
+//           //   strcpy(A[i],A[i] + 1);
+//           // }
+//           // strcat(B[indexLinieB],A[i]);
+//           // len = strlen(B[indexLinieB]);
+//           break;
+//         } else {
+//           while(A[i][0] == ' '){
+//             strcpy(A[i],A[i] + 1);
+//           }
+//           strcat(B[indexLinieB],A[i]);
+//           len = strlen(B[indexLinieB]);
+//           i++;
+//         }
+//       }
+//     }
+//     len = strlen(B[indexLinieB]);
+//     while(len > maxLineLength){
+//       int j = 0, lastIndex = 0;
+//       while((j <= maxLineLength)){
+//         if(B[indexLinieB][j] == '\n'){
+//           B[indexLinieB][j] = ' ';
+//           lastIndex = j;
+//         }
+//         if(B[indexLinieB][j] == ' '){
+//           lastIndex = j;
+//         }
+//         j++;
+//       }
+//       j = (lastIndex + 2);
+//       len = strlen(B[indexLinieB]);
+//       while(j < len){
+//         if(B[indexLinieB][j] == '\n'){
+//           B[indexLinieB][j] = ' ';
+//         }
+//         // B[indexLinieB][j] = 0;
+//         j++;
+//       }
+//       B[indexLinieB][lastIndex] = '\n';
+//       memmove(B[indexLinieB + 1], strchr(B[indexLinieB], '\n') + 1, strlen(B[indexLinieB]));
+//       B[indexLinieB][lastIndex + 1] = '\0';
+//       indexLinieB++;
+//       while(B[indexLinieB][0] == ' '){
+//         strcpy(B[indexLinieB], B[indexLinieB] + 1);
+//       }
+//       len = strlen(B[indexLinieB]);
+//     }
+//     // if(len < maxLineLength){
+//     //   B[indexLinieB][len] = '\n';
+//     //   B[indexLinieB][len + 1] = '\0';
+//     //   break;
+//     // }
+//   }
+//
+//   indexLinieB++;
+//   // i = 0;
+//   // while(i < MAX){
+//   //   A[i][0] = '\0';
+//   //   i++;
+//   // }
+//   i = 0;
+//   *linesNumber = indexLinieB;
+//   while(i < *linesNumber){
+//     strcpy(A[i],B[i]);
+//     printf("%s",A[i]);
+//     i++;
+//   }
+//   printf("\n\n");
+// }
+
   int i=0;
   //  Copiez matricea initiala in alta
-   char B[MAX][MAX];
-   while(i<*linesNumber){
+   char *B[MAX];
+   while(i < *linesNumber){
+     B[i] = (char *)calloc(strlen(A[i]) + 1, sizeof(char));
      strcpy(B[i],A[i]);
      i++;
    }
@@ -780,13 +967,18 @@ void wrapText(int maxLineLength,
    strcpy(d," \n\0\r");
    int len=0,j=0;
    // In matricea C voi pune cuvintele, respectand lungimea maxima
-   char C[MAX][MAX];
+   char *C[MAX];
+   i = 0;
+   while(i < MAX){
+     C[i] = (char *) calloc(maxLineLength + 2, sizeof(char));
+     i++;
+   }
    i = 0;
    char *wordToken = NULL;
    int nrSpatii = 0;
    while(A[0][nrSpatii++] == ' ');
 
-   while(i<=*linesNumber){
+   while(i <= *linesNumber){
      // Sparg matricea in cuvinte cu strtok()
      if(i == 0){
        int nrSpacesToBeAdded = 0;
@@ -799,7 +991,7 @@ void wrapText(int maxLineLength,
      if(wordToken == NULL){
        // Daca tokenul e null, atunci linia e goala
        len = strlen(C[j]);
-       C[j][len-1] = '\n';
+       C[j][len - 1] = '\n';
        C[j][len] = '\0';
        C[j+1][0] = '\n';
        C[j+1][1] = '\0';
@@ -836,17 +1028,28 @@ void wrapText(int maxLineLength,
    }
    /* Scad o linie din cauza ca, daca ultimul token e NULL, eu mai adaug 2 linii
    , in loc de una */
-   if((nrSpatii-1) != 0){
+   if((nrSpatii - 1) != 0){
      j--;
    }
-   *linesNumber=(j-1);
-   i=0;
+   i = 0;
+   while(i < *linesNumber){
+     free(B[i]);
+     i++;
+   }
+   *linesNumber = (j - 1);
+   i = 0;
    // Se pune in matricea initiala matricea obtinuta
-   while(i<*linesNumber){
+   while(i < *linesNumber){
      strcpy(A[i],C[i]);
      i++;
    }
-}
+   i = 0;
+   while(i < MAX){
+     free(C[i]);
+     i++;
+   }
+ }
+
 
 //  Realizeaza functia JUSTIFY din cerinta
 void justify(int startLine,
