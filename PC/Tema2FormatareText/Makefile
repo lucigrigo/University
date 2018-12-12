@@ -1,6 +1,11 @@
+								#			Curs : Programarea Calculatoarelor
+								#			Tema 2 - Formatare Text
+								#			Nume si prenume : Grigore Lucian-Florin
+								# 		Grupa : 314CD
+
 CC = gcc
 CFLAGS = -g -Wall
-HEADERS = 
+HEADERS =
 OBJECTS = tema2.o
 EXEC = format_text
 
