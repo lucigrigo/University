@@ -1,0 +1,15 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<GridPane fx:controller="sample.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <TextField fx:id="nameField" GridPane.columnIndex="0"
+                onKeyReleased="#handleKeyReleased"/>
+    <Button fx:id="helloButton" text="Say Hello" GridPane.columnIndex="0" GridPane.rowIndex="1"
+            onAction="#onButtonClicked"/>
+    <Button fx:id="byeButton" text="Say Bye" GridPane.columnIndex="1" GridPane.rowIndex="1"
+            onAction="#onButtonClicked"/>
+</GridPane>
