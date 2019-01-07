@@ -28,9 +28,13 @@ typedef struct bmp_infoheader {
 } bmpInfoHeader;
 
 typedef struct {
-  unsigned int b;
-  unsigned int g;
-  unsigned int r;
+  unsigned char b;
+  unsigned char g;
+  unsigned char r;
 } bmpPixel;
+
+typedef struct {
+  unsigned short p;
+} bmpPaddingPixel;
 
 #pragma pack()
