@@ -4,7 +4,7 @@
 */
 #pragma pack(1)
 
-typedef struct bmp_fileheader {
+typedef struct  {
   unsigned char fileMarker1; /* 'B' */
   unsigned char fileMarker2; /* 'M' */
   unsigned int bfSize;       /* File's size */
@@ -13,7 +13,7 @@ typedef struct bmp_fileheader {
   unsigned int imageDataOffset; /* Offset to the start of image data */
 } bmpFileHeader;
 
-typedef struct bmp_infoheader {
+typedef struct  {
   unsigned int biSize; /* Size of the info header - 40 bytes */
   signed int width;    /* Width of the image */
   signed int height;   /* Height of the image */
@@ -28,9 +28,19 @@ typedef struct bmp_infoheader {
 } bmpInfoHeader;
 
 typedef struct {
-  unsigned int b;
-  unsigned int g;
-  unsigned int r;
+<<<<<<< HEAD
+   unsigned char b;
+   unsigned char g;
+   unsigned char r;
+=======
+  unsigned char b;
+  unsigned char g;
+  unsigned char r;
+>>>>>>> 658ad79b07536f815853140947a2efefddf68a97
 } bmpPixel;
+
+typedef struct {
+  unsigned short p;
+} bmpPaddingPixel;
 
 #pragma pack()
