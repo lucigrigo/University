@@ -28,15 +28,9 @@ typedef struct  {
 } bmpInfoHeader;
 
 typedef struct {
-<<<<<<< HEAD
    unsigned char b;
    unsigned char g;
    unsigned char r;
-=======
-  unsigned char b;
-  unsigned char g;
-  unsigned char r;
->>>>>>> 658ad79b07536f815853140947a2efefddf68a97
 } bmpPixel;
 
 typedef struct {
