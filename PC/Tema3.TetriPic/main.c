@@ -13,7 +13,7 @@ typedef enum { true, false } bool;
 void CitireComanda(char **);
 void Task1();
 void Task2();
-void Task3(bool);
+void Task3(bool, bmpPixel **, bmpFileHeader *, bmpInfoHeader *);
 void Task4();
 void CreateO(bmpFileHeader *, bmpInfoHeader *, char *);
 void CreateJ(bmpFileHeader *, bmpInfoHeader *);
@@ -37,9 +37,13 @@ void Draw(bmpPixel *, int, int, int, int, bmpPixel);
 void DrawMap(bmpPixel **, int, int, int, int, bmpPixel *);
 bmpPixel *CreateBitMap(int, int);
 bmpPixel **CreateGameBitMap(int, int);
-void StartGame(FILE *, int, bmpPixel **, int, int);
+bmpPixel **ReadBitMap(bmpFileHeader *, bmpInfoHeader *);
+void StartGame(FILE *, int, bmpPixel **, int, int, bool);
 void ConvertMatrix(bmpPixel **, char **, int, int);
+void ConvertToMatrix(char **, bmpPixel **, int, int);
 void CheckCompletedLines(char **, int, int);
+int FreeSpot(int, int, char **);
+int BreakingTheGame(int, int, int, int, int, char **);
 bool placeI(char **, int, int, int);
 bool placeO(char **, int, int);
 bool placeS(char **, int, int, int);
@@ -49,15 +53,13 @@ bool placeJ(char **, int, int, int);
 bool placeT(char **, int, int, int);
 
 int main(int argc, char *argv[]) {
-
   if (argc == 2) {
     CitireComanda(argv);
-  };
+  }
   return 0;
 }
 
 void CitireComanda(char *argv[]) {
-
   int taskNumber = atoi(argv[1]);
   switch (taskNumber) {
   case 1:
@@ -67,7 +69,7 @@ void CitireComanda(char *argv[]) {
     Task2();
     break;
   case 3:
-    Task3(true);
+    Task3(true, NULL, NULL, NULL);
     break;
   case 4:
     Task4();
@@ -75,9 +77,33 @@ void CitireComanda(char *argv[]) {
   }
 }
 
+int FreeSpot(int indexH, int indexW, char **charMatrix) {
+  if ((charMatrix[indexH][indexW] == 'N') ||
+      ((charMatrix[indexH][indexW] == 'A'))) {
+    return 1;
+  }
+  return 0;
+}
+
+int BreakingTheGame(int wIndex, int columnSpanToTheRight,
+                    int columnSpanToTheLeft, int hIndex, int matrixHeight,
+                    char **charMatrix) {
+  int i;
+  for (i = hIndex; i < (matrixHeight); i++) {
+    if ((charMatrix[hIndex][wIndex] != 'N') ||
+        (charMatrix[hIndex][wIndex] != 'A') ||
+        (charMatrix[hIndex][wIndex + columnSpanToTheRight] != 'N') ||
+        (charMatrix[hIndex][wIndex + columnSpanToTheRight] != 'A') ||
+        (charMatrix[hIndex][wIndex - columnSpanToTheLeft] != 'N') ||
+        (charMatrix[hIndex][wIndex - columnSpanToTheLeft] != 'A')) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 void Draw(bmpPixel *bitMap, int start, int end, int width, int lineWidth,
           bmpPixel color) {
-
   int i, j;
   for (i = start; i <= end; i += lineWidth) {
     for (j = i; j < (i + width); j++) {
@@ -90,7 +116,6 @@ void Draw(bmpPixel *bitMap, int start, int end, int width, int lineWidth,
 
 void DrawMap(bmpPixel **bitMap, int startH, int endH, int startW, int endW,
              bmpPixel *color) {
-
   int i, j;
   for (i = startH; i < endH; i++) {
     for (j = startW; j < endW; j++) {
@@ -102,7 +127,6 @@ void DrawMap(bmpPixel **bitMap, int startH, int endH, int startW, int endW,
 }
 
 void Task1() {
-
   bmpFileHeader *fileHeader = (bmpFileHeader *)malloc(sizeof(bmpFileHeader));
   bmpInfoHeader *infoHeader = (bmpInfoHeader *)malloc(sizeof(bmpInfoHeader));
   SetDefaultValues(fileHeader, infoHeader);
@@ -120,7 +144,6 @@ void Task1() {
 }
 
 void Task2() {
-
   bmpFileHeader *fileHeader = (bmpFileHeader *)malloc(sizeof(bmpFileHeader));
   bmpInfoHeader *infoHeader = (bmpInfoHeader *)malloc(sizeof(bmpInfoHeader));
   SetDefaultValues(fileHeader, infoHeader);
@@ -142,13 +165,12 @@ void Task2() {
   free(infoHeader);
 }
 
-void Task3(bool newMap) {
-
-  FILE *ffile;
-  ffile = fopen("cerinta3.in", "r");
-
-  if (ffile != NULL) {
-    if (newMap == true) {
+void Task3(bool newMap, bmpPixel **givenBitMap, bmpFileHeader *givenFileHeader,
+           bmpInfoHeader *givenInfoHeader) {
+  if (newMap == true) {
+    FILE *ffile;
+    ffile = fopen("cerinta3.in", "r");
+    if (ffile != NULL) {
       int N, H, L, height, width;
       bool hasPadding = false;
       fscanf(ffile, "%d %d %d\n", &N, &H, &L);
@@ -165,7 +187,7 @@ void Task3(bool newMap) {
       SetDefaultValues(fileHeader, infoHeader);
       SetValues(fileHeader, infoHeader, width, height, hasPadding);
       bmpPixel(**bitMap) = CreateGameBitMap(width, height);
-      StartGame(ffile, N, bitMap, H, L);
+      StartGame(ffile, N, bitMap, H, L, false);
       WriteMap(fileHeader, infoHeader, bitMap, "task3.bmp", hasPadding);
       int i;
       for (i = 0; i < (infoHeader->height); i++) {
@@ -174,23 +196,53 @@ void Task3(bool newMap) {
       free(bitMap);
       free(fileHeader);
       free(infoHeader);
-    } else {
+      fclose(ffile);
     }
-    fclose(ffile);
+  } else {
+    bool hasPadding = false;
+    if (((givenInfoHeader->width) % 4) != 0) {
+      hasPadding = true;
+    }
+    int N;
+    FILE *ffile;
+    ffile = fopen("cerinta4.in", "r");
+    if (ffile != NULL) {
+      fscanf(ffile, "%d\n", &N);
+      StartGame(ffile, N, givenBitMap, (givenInfoHeader->height / 10),
+                (givenInfoHeader->width) / 10, true);
+      if (hasPadding == true) {
+        givenInfoHeader->width += 4;
+      }
+      WriteMap(givenFileHeader, givenInfoHeader, givenBitMap, "task4.bmp",
+               hasPadding);
+      fclose(ffile);
+    }
   }
 }
 
-void Task4() {}
+void Task4() {
+  bmpFileHeader *fileHeader = (bmpFileHeader *)malloc(sizeof(bmpFileHeader));
+  bmpInfoHeader *infoHeader = (bmpInfoHeader *)malloc(sizeof(bmpInfoHeader));
+  bmpPixel(**bitMap) = ReadBitMap(fileHeader, infoHeader);
+  Task3(false, bitMap, fileHeader, infoHeader);
+  int i;
+  for (i = 0; i < (infoHeader->height); i++) {
+    free(bitMap[i]);
+  }
+  free(bitMap);
+  free(infoHeader);
+  free(fileHeader);
+}
 
 void StartGame(FILE *ffile, int numberOfPieces, bmpPixel **bitMap, int height,
-               int width) {
+               int width, bool preLoadedMap) {
 
   int i, j, k;
-  char **charMatrix = (char **)malloc(height + 4);
-  for (i = 0; i < (height + 4); i++) {
+  char **charMatrix = (char **)malloc(height * width);
+  for (i = 0; i < height; i++) {
     charMatrix[i] = (char *)malloc(width);
   }
-
+  height -= 4;
   for (i = 0; i < height; i++) {
     for (j = 0; j < width; j++) {
       charMatrix[i][j] = 'N';
@@ -200,6 +252,9 @@ void StartGame(FILE *ffile, int numberOfPieces, bmpPixel **bitMap, int height,
     for (j = 0; j < width; j++) {
       charMatrix[i][j] = 'A';
     }
+  }
+  if (preLoadedMap == true) {
+    ConvertToMatrix(charMatrix, bitMap, height, width);
   }
   k = 0;
   while (k < numberOfPieces) {
@@ -231,10 +286,9 @@ void StartGame(FILE *ffile, int numberOfPieces, bmpPixel **bitMap, int height,
       endGame = placeT(charMatrix, rotation, widthIndex, height);
       break;
     }
+    CheckCompletedLines(charMatrix, height, width);
     if (endGame == true) {
       break;
-    } else {
-      CheckCompletedLines(charMatrix, height, width);
     }
   }
   ConvertMatrix(bitMap, charMatrix, width, height);
@@ -255,21 +309,14 @@ void CheckCompletedLines(char **charMatrix, int height, int width) {
       }
     }
     if (completedLine == true) {
-      int k, lastLine = (height - 1);
+      int k;
       for (k = i; k < (height - 1); k++) {
         for (j = 0; j < width; j++) {
-          charMatrix[k][j] = charMatrix[k + 1][j];
-        }
-      }
-      for (k = 0; k < height; k++) {
-        for (j = 0; j < width; j++) {
-          if (charMatrix[k][j] != 'N') {
-            lastLine = k;
-          }
+          charMatrix[k][j] = charMatrix[k + 2][j];
         }
       }
       for (k = 0; k < width; k++) {
-        charMatrix[lastLine][k] = 'N';
+        charMatrix[height - 1][k] = 'N';
       }
     }
   }
@@ -279,351 +326,365 @@ bool placeI(char **charMatrix, int rotation, int wIndex, int matrixHeight) {
 
   int i, rowIndex = -1;
   if ((rotation == 0) || (rotation == 180)) {
-    for (i = (matrixHeight - 1); i >= 0; i--) {
-      if (charMatrix[i][wIndex] == 'N') {
+    for (i = matrixHeight; i >= 0; i--) {
+      if (FreeSpot(i, wIndex, charMatrix) &&
+          (BreakingTheGame(wIndex, 0, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if ((rowIndex == -1) || ((matrixHeight - rowIndex) < 0)) {
-      return true;
     }
     for (i = rowIndex; i < (rowIndex + 4); i++) {
       charMatrix[i][wIndex] = 'I';
     }
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 4) < 0)) {
+      return true;
+    }
   } else if ((rotation == 90) || (rotation == 270)) {
-    for (i = (matrixHeight - 1); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i][wIndex + 2] == 'N') &&
-          (charMatrix[i][wIndex + 3] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if (FreeSpot(i, wIndex, charMatrix) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 2), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 3), charMatrix)) &&
+          (BreakingTheGame(wIndex, 3, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'I';
     charMatrix[rowIndex][wIndex + 1] = 'I';
     charMatrix[rowIndex][wIndex + 2] = 'I';
     charMatrix[rowIndex][wIndex + 3] = 'I';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 1) < 0)) {
+      return true;
+    }
   }
   return false;
 }
 
 bool placeO(char **charMatrix, int wIndex, int matrixHeight) {
-
   int i, rowIndex = -1;
-  for (i = (matrixHeight - 2); i >= 0; i--) {
-    if ((charMatrix[i][wIndex] == 'N') && (charMatrix[i][wIndex + 1] == 'N') &&
-        (charMatrix[i + 1][wIndex] == 'N') &&
-        (charMatrix[i + 1][wIndex + 1] == 'N')) {
+  for (i = matrixHeight; i >= 0; i--) {
+    if ((FreeSpot(i, wIndex, charMatrix)) &&
+        (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+        (FreeSpot((i + 1), wIndex, charMatrix)) &&
+        (FreeSpot((i + 1), (wIndex + 1), charMatrix)) &&
+        (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
       rowIndex = i;
     }
-  }
-  if (rowIndex == -1) {
-    return true;
   }
   charMatrix[rowIndex][wIndex] = 'O';
   charMatrix[rowIndex][wIndex + 1] = 'O';
   charMatrix[rowIndex + 1][wIndex] = 'O';
   charMatrix[rowIndex + 1][wIndex + 1] = 'O';
+  if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+    return true;
+  }
   return false;
 }
 
 bool placeS(char **charMatrix, int rotation, int wIndex, int matrixHeight) {
-
   int i, rowIndex = -1;
   if ((rotation == 0) || (rotation == 180)) {
-    for (i = (matrixHeight - 2); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex + 2] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 2), charMatrix)) &&
+          (BreakingTheGame(wIndex, 2, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'S';
     charMatrix[rowIndex][wIndex + 1] = 'S';
     charMatrix[rowIndex + 1][wIndex + 1] = 'S';
     charMatrix[rowIndex + 1][wIndex + 2] = 'S';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+      return true;
+    }
   } else if ((rotation == 90) || (rotation == 270)) {
-    for (i = (matrixHeight - 2); i >= 1; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i - 1][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 1; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot((i - 1), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'S';
     charMatrix[rowIndex + 1][wIndex] = 'S';
     charMatrix[rowIndex][wIndex + 1] = 'S';
     charMatrix[rowIndex - 1][wIndex + 1] = 'S';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   }
   return false;
 }
 
 bool placeZ(char **charMatrix, int rotation, int wIndex, int matrixHeight) {
-
   int i, rowIndex = -1;
   if ((rotation == 0) || (rotation == 180)) {
-    for (i = (matrixHeight - 2); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex + 2] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 2), charMatrix)) &&
+          (BreakingTheGame(wIndex, 2, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'Z';
     charMatrix[rowIndex][wIndex + 1] = 'Z';
     charMatrix[rowIndex + 1][wIndex + 1] = 'Z';
     charMatrix[rowIndex + 1][wIndex + 2] = 'Z';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+      return true;
+    }
   } else if ((rotation == 90) || (rotation == 270)) {
-    for (i = (matrixHeight - 3); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex + 1] == 'N') &&
-          (charMatrix[i + 2][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 2), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'Z';
     charMatrix[rowIndex + 1][wIndex] = 'Z';
     charMatrix[rowIndex + 1][wIndex + 1] = 'Z';
     charMatrix[rowIndex + 2][wIndex + 1] = 'Z';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   }
   return false;
 }
 
 bool placeL(char **charMatrix, int rotation, int wIndex, int matrixHeight) {
-
   int i, rowIndex = -1;
   if (rotation == 0) {
-    for (i = (matrixHeight - 3); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i + 2][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot((i + 2), wIndex, charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'L';
     charMatrix[rowIndex + 1][wIndex] = 'L';
     charMatrix[rowIndex + 2][wIndex] = 'L';
     charMatrix[rowIndex][wIndex + 1] = 'L';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   } else if (rotation == 90) {
-    for (i = (matrixHeight - 2); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex + 2] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 2), charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 2, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'L';
     charMatrix[rowIndex + 1][wIndex] = 'L';
     charMatrix[rowIndex + 1][wIndex + 1] = 'L';
     charMatrix[rowIndex + 1][wIndex + 2] = 'L';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+      return true;
+    }
   } else if (rotation == 180) {
-    for (i = (matrixHeight - 1); i >= 2; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i - 1][wIndex + 1] == 'N') &&
-          (charMatrix[i - 2][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 2; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i - 2), (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i - 1), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'L';
     charMatrix[rowIndex][wIndex + 1] = 'L';
     charMatrix[rowIndex - 1][wIndex + 1] = 'L';
     charMatrix[rowIndex - 2][wIndex + 1] = 'L';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   } else if (rotation == 270) {
-    for (i = (matrixHeight - 3); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i + 2][wIndex] == 'N') &&
-          (charMatrix[i + 2][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 2), charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 2), charMatrix)) &&
+          (BreakingTheGame(wIndex, 2, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'L';
     charMatrix[rowIndex + 1][wIndex] = 'L';
     charMatrix[rowIndex + 2][wIndex] = 'L';
     charMatrix[rowIndex + 2][wIndex + 1] = 'L';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+      return true;
+    }
   }
   return false;
 }
 
 bool placeJ(char **charMatrix, int rotation, int wIndex, int matrixHeight) {
-
   int i, rowIndex = -1;
   if (rotation == 0) {
-    for (i = (matrixHeight - 3); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i + 2][wIndex] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 2), (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 2), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'J';
     charMatrix[rowIndex][wIndex + 1] = 'J';
-    charMatrix[rowIndex + 1][wIndex] = 'J';
-    charMatrix[rowIndex + 2][wIndex] = 'J';
+    charMatrix[rowIndex + 1][wIndex + 1] = 'J';
+    charMatrix[rowIndex + 2][wIndex + 1] = 'J';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   } else if (rotation == 90) {
-    for (i = (matrixHeight - 2); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i][wIndex + 2] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 2), charMatrix)) &&
+          (BreakingTheGame(wIndex, 2, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'J';
     charMatrix[rowIndex + 1][wIndex] = 'J';
     charMatrix[rowIndex][wIndex + 1] = 'J';
     charMatrix[rowIndex][wIndex + 2] = 'J';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+      return true;
+    }
   } else if (rotation == 180) {
-    for (i = (matrixHeight - 3); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i + 2][wIndex] == 'N') &&
-          (charMatrix[i + 2][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot((i + 2), wIndex, charMatrix)) &&
+          (FreeSpot((i + 2), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'J';
     charMatrix[rowIndex + 1][wIndex] = 'J';
     charMatrix[rowIndex + 2][wIndex] = 'J';
     charMatrix[rowIndex + 2][wIndex + 1] = 'J';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   } else if (rotation == 270) {
-    for (i = (matrixHeight - 1); i >= 1; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i][wIndex + 2] == 'N') &&
-          (charMatrix[i - 1][wIndex + 2] == 'N')) {
+    for (i = matrixHeight; i >= 1; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i - 1), (wIndex + 2), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 2), charMatrix)) &&
+          (BreakingTheGame(wIndex, 2, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'J';
     charMatrix[rowIndex][wIndex + 1] = 'J';
     charMatrix[rowIndex][wIndex + 2] = 'J';
     charMatrix[rowIndex - 1][wIndex + 2] = 'J';
+    // if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+    if (rowIndex == -1) {
+      return true;
+    }
   }
   return false;
 }
 
 bool placeT(char **charMatrix, int rotation, int wIndex, int matrixHeight) {
-
   int i, rowIndex = -1;
   if (rotation == 0) {
-    for (i = (matrixHeight - 1); i >= 1; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i][wIndex + 2] == 'N') &&
-          (charMatrix[i - 1][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 1; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i - 1), (wIndex + 1), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 2), charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'T';
     charMatrix[rowIndex][wIndex + 1] = 'T';
     charMatrix[rowIndex][wIndex + 2] = 'T';
     charMatrix[rowIndex - 1][wIndex + 1] = 'T';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+      return true;
+    }
   } else if (rotation == 90) {
-    for (i = (matrixHeight - 2); i >= 1; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex + 1] == 'N') &&
-          (charMatrix[i - 1][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 1; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i - 1), (wIndex + 1), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'T';
     charMatrix[rowIndex][wIndex + 1] = 'T';
     charMatrix[rowIndex + 1][wIndex + 1] = 'T';
     charMatrix[rowIndex - 1][wIndex + 1] = 'T';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   } else if (rotation == 180) {
-    for (i = (matrixHeight - 2); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i][wIndex + 1] == 'N') &&
-          (charMatrix[i][wIndex + 2] == 'N') &&
-          (charMatrix[i + 1][wIndex + 1] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot(i, (wIndex + 2), charMatrix)) &&
+          (FreeSpot(i, (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 1), charMatrix)) &&
+          (BreakingTheGame(wIndex, 2, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'T';
     charMatrix[rowIndex][wIndex + 1] = 'T';
     charMatrix[rowIndex][wIndex + 2] = 'T';
     charMatrix[rowIndex + 1][wIndex + 1] = 'T';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 2) < 0)) {
+      return true;
+    }
   } else if (rotation == 270) {
-    for (i = (matrixHeight - 3); i >= 0; i--) {
-      if ((charMatrix[i][wIndex] == 'N') &&
-          (charMatrix[i + 1][wIndex + 1] == 'N') &&
-          (charMatrix[i + 1][wIndex] == 'N') &&
-          (charMatrix[i + 2][wIndex] == 'N')) {
+    for (i = matrixHeight; i >= 0; i--) {
+      if ((FreeSpot(i, wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), wIndex, charMatrix)) &&
+          (FreeSpot((i + 1), (wIndex + 1), charMatrix)) &&
+          (FreeSpot((i + 2), wIndex, charMatrix)) &&
+          (BreakingTheGame(wIndex, 1, 0, i, matrixHeight, charMatrix)) == 1) {
         rowIndex = i;
       }
-    }
-    if (rowIndex == -1) {
-      return true;
     }
     charMatrix[rowIndex][wIndex] = 'T';
     charMatrix[rowIndex + 1][wIndex + 1] = 'T';
     charMatrix[rowIndex + 1][wIndex] = 'T';
     charMatrix[rowIndex + 2][wIndex] = 'T';
+    if ((rowIndex == -1) || ((matrixHeight - rowIndex - 3) < 0)) {
+      return true;
+    }
   }
   return false;
 }
 
 void CreateO(bmpFileHeader *fileHeaderO, bmpInfoHeader *infoHeaderO,
              char *numePiesa) {
-
   fileHeaderO->bfSize = 4854;
   infoHeaderO->width = 40;
   infoHeaderO->height = 40;
@@ -637,7 +698,6 @@ void CreateO(bmpFileHeader *fileHeaderO, bmpInfoHeader *infoHeaderO,
 }
 
 void CreateJ(bmpFileHeader *fileHeaderJ, bmpInfoHeader *infoHeaderJ) {
-
   fileHeaderJ->bfSize = 6054;
   infoHeaderJ->width = 40;
   infoHeaderJ->height = 50;
@@ -652,7 +712,6 @@ void CreateJ(bmpFileHeader *fileHeaderJ, bmpInfoHeader *infoHeaderJ) {
 }
 
 void CreateL(bmpFileHeader *fileHeaderL, bmpInfoHeader *infoHeaderL) {
-
   fileHeaderL->bfSize = 6054;
   infoHeaderL->width = 40;
   infoHeaderL->height = 50;
@@ -667,7 +726,6 @@ void CreateL(bmpFileHeader *fileHeaderL, bmpInfoHeader *infoHeaderL) {
 }
 
 void CreateLAndJ180(bmpFileHeader *fileHeaderLJ, bmpInfoHeader *infoHeaderLJ) {
-
   fileHeaderLJ->bfSize = 6054;
   infoHeaderLJ->width = 40;
   infoHeaderLJ->height = 50;
@@ -690,7 +748,6 @@ void CreateLAndJ180(bmpFileHeader *fileHeaderLJ, bmpInfoHeader *infoHeaderLJ) {
 
 void CreateLAndJHoriz(bmpFileHeader *fileHeaderLJ,
                       bmpInfoHeader *infoHeaderLJ) {
-
   fileHeaderLJ->bfSize = 6134;
   infoHeaderLJ->width = 52;
   infoHeaderLJ->height = 40;
@@ -728,7 +785,6 @@ void CreateLAndJHoriz(bmpFileHeader *fileHeaderLJ,
 
 void CreateI(bmpFileHeader *fileHeaderI, bmpInfoHeader *infoHeaderI,
              char *numePiesa) {
-
   fileHeaderI->bfSize = 5574;
   infoHeaderI->width = 32;
   infoHeaderI->height = 60;
@@ -742,7 +798,6 @@ void CreateI(bmpFileHeader *fileHeaderI, bmpInfoHeader *infoHeaderI,
 }
 
 void CreateI90And270(bmpFileHeader *fileHeaderI, bmpInfoHeader *infoHeaderI) {
-
   fileHeaderI->bfSize = 5454;
   infoHeaderI->width = 60;
   infoHeaderI->height = 30;
@@ -757,7 +812,6 @@ void CreateI90And270(bmpFileHeader *fileHeaderI, bmpInfoHeader *infoHeaderI) {
 }
 
 void CreateT(bmpFileHeader *fileHeaderT, bmpInfoHeader *infoHeaderT) {
-
   fileHeaderT->bfSize = 6134;
   infoHeaderT->width = 52;
   infoHeaderT->height = 40;
@@ -772,7 +826,6 @@ void CreateT(bmpFileHeader *fileHeaderT, bmpInfoHeader *infoHeaderT) {
 }
 
 void CreateAllT(bmpFileHeader *fileHeaderT, bmpInfoHeader *infoHeaderT) {
-
   fileHeaderT->bfSize = 6134;
   infoHeaderT->width = 52;
   infoHeaderT->height = 40;
@@ -788,7 +841,6 @@ void CreateAllT(bmpFileHeader *fileHeaderT, bmpInfoHeader *infoHeaderT) {
 }
 
 void CreateTVert(bmpFileHeader *fileHeaderT, bmpInfoHeader *infoHeaderT) {
-
   fileHeaderT->bfSize = 6054;
   infoHeaderT->width = 40;
   infoHeaderT->height = 50;
@@ -810,7 +862,6 @@ void CreateTVert(bmpFileHeader *fileHeaderT, bmpInfoHeader *infoHeaderT) {
 
 void CreateZ(bmpFileHeader *fileHeaderZ, bmpInfoHeader *infoHeaderZ,
              char *numePiesa) {
-
   fileHeaderZ->bfSize = 6134;
   infoHeaderZ->width = 52;
   infoHeaderZ->height = 40;
@@ -825,7 +876,6 @@ void CreateZ(bmpFileHeader *fileHeaderZ, bmpInfoHeader *infoHeaderZ,
 }
 
 void CreateZ90And270(bmpFileHeader *fileHeaderZ, bmpInfoHeader *infoHeaderZ) {
-
   fileHeaderZ->bfSize = 6054;
   infoHeaderZ->width = 40;
   infoHeaderZ->height = 50;
@@ -842,7 +892,6 @@ void CreateZ90And270(bmpFileHeader *fileHeaderZ, bmpInfoHeader *infoHeaderZ) {
 
 void CreateS(bmpFileHeader *fileHeaderS, bmpInfoHeader *infoHeaderS,
              char *numePiesa) {
-
   fileHeaderS->bfSize = 6134;
   infoHeaderS->width = 52;
   infoHeaderS->height = 40;
@@ -857,7 +906,6 @@ void CreateS(bmpFileHeader *fileHeaderS, bmpInfoHeader *infoHeaderS,
 }
 
 void CreateS90And270(bmpFileHeader *fileHeaderS, bmpInfoHeader *infoHeaderS) {
-
   fileHeaderS->bfSize = 6054;
   infoHeaderS->width = 40;
   infoHeaderS->height = 50;
@@ -873,7 +921,6 @@ void CreateS90And270(bmpFileHeader *fileHeaderS, bmpInfoHeader *infoHeaderS) {
 }
 
 void SetDefaultValues(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader) {
-
   fileHeader->fileMarker1 = 'B';
   fileHeader->fileMarker2 = 'M';
   fileHeader->unused1 = 0;
@@ -892,11 +939,11 @@ void SetDefaultValues(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader) {
 
 void SetValues(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader, int width,
                int height, bool hasPadding) {
-
   infoHeader->height = (height + 40);
   if (hasPadding == true) {
+    infoHeader->biSizeImage =
+        ((height + 40) * (width - 2) * 3) + (2 * (height + 40));
     infoHeader->width = (width + 2);
-    infoHeader->biSizeImage = ((height + 40) * width * 3) + (2 * height);
   } else {
     infoHeader->width = width;
     infoHeader->biSizeImage = ((height + 40) * width * 3);
@@ -905,7 +952,6 @@ void SetValues(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader, int width,
 }
 
 bmpPixel *CreateBitMap(int width, int height) {
-
   bmpPixel *bitMap = (bmpPixel *)malloc(width * height * (int)sizeof(bmpPixel));
   int i;
   for (i = 0; i < (width * height); i++) {
@@ -917,34 +963,31 @@ bmpPixel *CreateBitMap(int width, int height) {
 }
 
 bmpPixel **CreateGameBitMap(int width, int height) {
-
   bmpPixel **bitMap =
-      (bmpPixel **)malloc((height + (40 * width)) * (int)sizeof(bmpPixel));
+      (bmpPixel **)malloc(((height + 40) * width) * (int)sizeof(bmpPixel));
   int i;
-  for (i = 0; i < (height + (40 * width)); i++) {
+  for (i = 0; i < ((height + 40)); i++) {
     bitMap[i] = (bmpPixel *)malloc(width * (int)sizeof(bmpPixel));
   }
   bmpPixel *colorWhite = (bmpPixel *)malloc(sizeof(bmpPixel));
   colorWhite->b = 255;
-  colorWhite->r = 255;
   colorWhite->g = 255;
   bmpPixel *colorBlack = (bmpPixel *)malloc(sizeof(bmpPixel));
   colorBlack->b = 0;
   colorBlack->r = 0;
   colorBlack->g = 0;
   DrawMap(bitMap, 0, height, 0, width, colorBlack);
-  DrawMap(bitMap, height, (height + (40 * width) - 1), 0, width, colorWhite);
+  DrawMap(bitMap, height, (height + 40), 0, width, colorWhite);
   return bitMap;
 }
 
 void ConvertMatrix(bmpPixel **bitMap, char **charMatrix, int width,
                    int height) {
-
   bmpPixel colorL = {0, 140, 255}, colorJ = {255, 0, 255}, colorI = {255, 0, 0},
            colorO = {0, 255, 255}, colorS = {0, 0, 255}, colorZ = {0, 255, 0},
            colorT = {255, 0, 130};
   int i, j;
-  for (i = 0; i < height; i++) {
+  for (i = 0; i < (height + 4); i++) {
     for (j = 0; j < width; j++) {
       switch (charMatrix[i][j]) {
       case 'L':
@@ -980,9 +1023,80 @@ void ConvertMatrix(bmpPixel **bitMap, char **charMatrix, int width,
   }
 }
 
+void ConvertToMatrix(char **charMatrix, bmpPixel **bitMap, int height,
+                     int width) {
+
+  bmpPixel colorL = {0, 140, 255}, colorJ = {255, 0, 255}, colorI = {255, 0, 0},
+           colorO = {0, 255, 255}, colorS = {0, 0, 255}, colorZ = {0, 255, 0},
+           colorT = {255, 0, 130};
+  int i, j;
+  for (i = 0; i < height; i++) {
+    for (j = 0; j < width; j++) {
+      if (bitMap[i * 10][j * 10].b == colorL.b) {
+        if (bitMap[i * 10][j * 10].g == colorL.g) {
+          charMatrix[i][j] = 'L';
+        } else if ((bitMap[i * 10][j * 10].g == colorS.g) &&
+                   (bitMap[i * 10][j * 10].r == colorS.r)) {
+          charMatrix[i][j] = 'S';
+        } else if ((bitMap[i * 10][j * 10].g == colorZ.g) &&
+                   (bitMap[i * 10][j * 10].r == colorZ.r) &&
+                   (bitMap[i * 10][j * 10].b == colorZ.b)) {
+          charMatrix[i][j] = 'Z';
+        } else if (bitMap[i * 10][j * 10].g == colorO.g) {
+          charMatrix[i][j] = 'O';
+        }
+      } else if (bitMap[i * 10][j * 10].b == colorT.b) {
+        if ((bitMap[i * 10][j * 10].g == colorT.g) &&
+            (bitMap[i * 10][j * 10].r == colorT.r)) {
+          charMatrix[i][j] = 'T';
+        } else if ((bitMap[i * 10][j * 10].g == colorJ.g) &&
+                   (bitMap[i * 10][j * 10].r == colorJ.r)) {
+          charMatrix[i][j] = 'J';
+        } else if ((bitMap[i * 10][j * 10].g == colorI.g) &&
+                   (bitMap[i * 10][j * 10].r == colorI.r)) {
+          charMatrix[i][j] = 'I';
+        }
+      }
+    }
+  }
+}
+
+bmpPixel **ReadBitMap(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader) {
+
+  FILE *ffile = fopen("cerinta4.bmp", "rb");
+  if (ffile != NULL) {
+    bool hasPadding = false;
+    fread(fileHeader, sizeof(bmpFileHeader), 1, ffile);
+    fread(infoHeader, sizeof(bmpInfoHeader), 1, ffile);
+    if ((infoHeader->width % 4) != 0) {
+      hasPadding = true;
+    }
+
+    bmpPixel(**bitMap) = (bmpPixel **)malloc(
+        infoHeader->height * (int)sizeof(bmpPixel) * infoHeader->width);
+    int i;
+    for (i = 0; i < (infoHeader->height); i++) {
+      bitMap[i] = (bmpPixel *)malloc(infoHeader->width * (int)sizeof(bmpPixel));
+    }
+    fseek(ffile, fileHeader->imageDataOffset, SEEK_SET);
+    int j;
+    for (i = 0; i < (infoHeader->height); i++) {
+      for (j = 0; j < (infoHeader->width); j++) {
+        fread(&bitMap[i][j], sizeof(bmpPixel), 1, ffile);
+      }
+      if (hasPadding == true) {
+        fseek(ffile, 2, SEEK_CUR);
+      }
+    }
+    fclose(ffile);
+    return bitMap;
+  }
+  fclose(ffile);
+  return NULL;
+}
+
 void Write(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader,
            bmpPixel *bitMap, char *numeFisier, bool addPadding) {
-
   FILE *ffile = fopen(numeFisier, "wb");
   if (ffile != NULL) {
     fwrite(fileHeader, sizeof(bmpFileHeader), 1, ffile);
@@ -1013,7 +1127,6 @@ void Write(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader,
 
 void WriteMap(bmpFileHeader *fileHeader, bmpInfoHeader *infoHeader,
               bmpPixel **bitMap, char *numeFisier, bool addPadding) {
-
   FILE *ffile = fopen(numeFisier, "wb");
   if (ffile != NULL) {
     fwrite(fileHeader, sizeof(bmpFileHeader), 1, ffile);
