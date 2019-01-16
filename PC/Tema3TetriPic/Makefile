@@ -1,7 +1,11 @@
+										# Curs : Programarea Calculatoarelor
+										# Tema 3 - TetriPic
+										# Nume si prenume : Grigore Lucian-Florin
+										# Grupa : 314CD
 CC = gcc
 CFLAGS = -g -Wall -Wextra -std=c99
-HEADERS = bmp_header.h
-OBJECTS = main.o
+HEADERS = bmp_header.h task1.h task2.h tasks3and4.h taskbonus.h tasks.h utils.h
+OBJECTS = main.o task1.o task2.o tasks3and4.o taskbonus.o tasks.o utils.o
 EXEC = tetris
 
 .PHONY = default build clean
