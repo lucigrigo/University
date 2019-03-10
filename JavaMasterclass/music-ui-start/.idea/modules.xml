@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/academy.learnprogramming.common/academy.learnprogramming.common.iml" filepath="$PROJECT_DIR$/academy.learnprogramming.common/academy.learnprogramming.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/academy.learnprogramming.db/academy.learnprogramming.db.iml" filepath="$PROJECT_DIR$/academy.learnprogramming.db/academy.learnprogramming.db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/academy.learnprogramming.ui/academy.learnprogramming.ui.iml" filepath="$PROJECT_DIR$/academy.learnprogramming.ui/academy.learnprogramming.ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/music-ui-start.iml" filepath="$PROJECT_DIR$/music-ui-start.iml" />
+    </modules>
+  </component>
+</project>
