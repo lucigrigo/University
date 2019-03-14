@@ -12,22 +12,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lucian/grigore/algorithm/kmp/KnuthMorrisPratt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="625">
-              <caret line="49" column="9" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+            <state relative-caret-position="40">
+              <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/lucian/grigore/algorithm/kmp/KnuthMorrisPrattTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="275">
+              <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#236#237#0" expanded="true" />
+                <element signature="e#273#274#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -53,8 +55,8 @@
         <option value="$PROJECT_DIR$/src/test/java/lucian/grigore/algorithm/euclid/EuclidTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/lucian/grigore/algorithm/bruteforce/BruteForceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/lucian/grigore/algorithm/bruteforce/BruteForce.java" />
-        <option value="$PROJECT_DIR$/src/test/java/lucian/grigore/algorithm/kmp/KnuthMorrisPrattTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/lucian/grigore/algorithm/kmp/KnuthMorrisPratt.java" />
+        <option value="$PROJECT_DIR$/src/test/java/lucian/grigore/algorithm/kmp/KnuthMorrisPrattTest.java" />
       </list>
     </option>
   </component>
@@ -75,8 +77,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,15 +114,6 @@
               <item name="algorithm" type="b2602c69:ProjectViewProjectNode" />
               <item name="algorithm" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="algorithm" type="462c0819:PsiDirectoryNode" />
-              <item name="kmp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="algorithm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="algorithm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -139,29 +130,18 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="algorithm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="algorithm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="algorithm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="algorithm" type="462c0819:PsiDirectoryNode" />
-              <item name="kmp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="algorithm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552459261691" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../lib/javafx-sdk-11.0.1/lib/javafx.web.jar!/" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552588782391" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -274,12 +254,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BruteForceTest - 2019.03.11 at 22h 41m 03s.xml">
-      <configuration name="BruteForceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="BruteForceTest - 2019.03.11 at 22h 41m 34s.xml">
-      <configuration name="BruteForceTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="KnuthMorrisPrattTest - 2019.03.13 at 08h 20m 53s.xml">
       <configuration name="KnuthMorrisPrattTest" configurationId="JUnit" />
     </history-entry>
@@ -304,21 +278,28 @@
     <history-entry file="KnuthMorrisPrattTest - 2019.03.13 at 08h 29m 09s.xml">
       <configuration name="KnuthMorrisPrattTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="KnuthMorrisPrattTest - 2019.03.14 at 15h 33m 51s.xml">
+      <configuration name="KnuthMorrisPrattTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="KnuthMorrisPrattTest - 2019.03.14 at 15h 36m 04s.xml">
+      <configuration name="KnuthMorrisPrattTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="Image Layers" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.6703755" visible="true" weight="0.1380597" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" sideWeight="0.6703755" visible="true" weight="0.13980465" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.4073252" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.4064171" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -329,7 +310,7 @@
       <window_info anchor="bottom" id="Changes" order="11" />
       <window_info anchor="bottom" id="Profiler" order="12" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.3873474" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.38716578" />
       <window_info anchor="right" id="Maven" order="0" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Palette&#9;" order="2" />
@@ -417,20 +398,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/lucian/grigore/algorithm/kmp/KnuthMorrisPrattTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lucian/grigore/algorithm/kmp/KnuthMorrisPratt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="40">
+          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lucian/grigore/algorithm/kmp/KnuthMorrisPratt.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/lucian/grigore/algorithm/kmp/KnuthMorrisPrattTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="49" column="9" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+        <state relative-caret-position="275">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#236#237#0" expanded="true" />
+            <element signature="e#273#274#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
