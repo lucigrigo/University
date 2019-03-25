@@ -1,0 +1,50 @@
+FCs:
+club0
+	P: 
+	P: 
+club1
+	P: (n1, atacant, 10, _) (n2, fundas, 20, _) (n4, mijlocas, 50, _) (n3, portar, 50, _) 
+	P: 
+club2
+	P: 
+	P: 
+FCs:
+club0
+	P: 
+	P: 
+club1
+	P: (n5, atacant, 50, _) (b8, atacant, 10, _) (n1, atacant, 10, _) (n7, atacant, 10, _) (n6, atacant, 0, _) (n2, fundas, 20, _) (n4, mijlocas, 50, _) (f4, portar, 50, _) (n3, portar, 50, _) (z4, portar, 50, _) (n9, portar, 10, _) (z5, portar, 10, _) 
+	P: 
+club2
+	P: 
+	P: 
+FCs:
+club0
+	P: 
+	P: 
+club1
+	P: (n5, atacant, 50, _) (b8, atacant, 10, _) (n1, atacant, 10, _) (n7, atacant, 10, _) (n6, atacant, 0, _) (s2, fundas, 27, _) (n2, fundas, 20, _) (s1, fundas, 7, _) (m1, mijlocas, 50, _) (n4, mijlocas, 50, _) (r1, mijlocas, 50, _) (f4, portar, 50, _) (n3, portar, 50, _) (z4, portar, 50, _) (n9, portar, 10, _) (z5, portar, 10, _) 
+	P: 
+club2
+	P: 
+	P: 
+P: (n5, atacant, 50, _) (b8, atacant, 10, _) (n1, atacant, 10, _) (n7, atacant, 10, _) (n6, atacant, 0, _) (s2, fundas, 27, _) (n2, fundas, 20, _) (s1, fundas, 7, _) (m1, mijlocas, 50, _) (n4, mijlocas, 50, _) (r1, mijlocas, 50, _) (f4, portar, 50, _) (n3, portar, 50, _) (z4, portar, 50, _) (n9, portar, 10, _) (z5, portar, 10, _) 
+P: (z5, portar, 10, _) (n9, portar, 10, _) (z4, portar, 50, _) (n3, portar, 50, _) (f4, portar, 50, _) (r1, mijlocas, 50, _) (n4, mijlocas, 50, _) (m1, mijlocas, 50, _) (s1, fundas, 7, _) (n2, fundas, 20, _) (s2, fundas, 27, _) (n6, atacant, 0, _) (n7, atacant, 10, _) (n1, atacant, 10, _) (b8, atacant, 10, _) (n5, atacant, 50, _) 
+P: (a2, atacant, 100, _) (n5, atacant, 50, _) (b8, atacant, 10, _) (n1, atacant, 10, _) (n7, atacant, 10, _) (n6, atacant, 0, _) (s2, fundas, 27, _) (n2, fundas, 20, _) (a1, fundas, 15, _) (s1, fundas, 7, _) (m1, mijlocas, 50, _) (n4, mijlocas, 50, _) (r1, mijlocas, 50, _) (a3, mijlocas, 12, _) (f4, portar, 50, _) (n3, portar, 50, _) (z4, portar, 50, _) (n9, portar, 10, _) (z5, portar, 10, _) 
+P: (z5, portar, 10, _) (n9, portar, 10, _) (z4, portar, 50, _) (n3, portar, 50, _) (f4, portar, 50, _) (a3, mijlocas, 12, _) (r1, mijlocas, 50, _) (n4, mijlocas, 50, _) (m1, mijlocas, 50, _) (s1, fundas, 7, _) (a1, fundas, 15, _) (n2, fundas, 20, _) (s2, fundas, 27, _) (n6, atacant, 0, _) (n7, atacant, 10, _) (n1, atacant, 10, _) (b8, atacant, 10, _) (n5, atacant, 50, _) (a2, atacant, 100, _) 
+P: (a2, atacant, 100, _) 
+P: (a2, atacant, 100, _) 
+P: (s2, fundas, 27, _) 
+P: (s2, fundas, 27, _) 
+P: (f4, portar, 50, _) 
+P: (f4, portar, 50, _) 
+P: (m1, mijlocas, 50, _) 
+P: (m1, mijlocas, 50, _) 
+P: (a2, atacant, 100, _) (f4, portar, 50, _) (m1, mijlocas, 50, _) (a1, fundas, 15, _) (e1, mijlocas, 10, _) 
+P: (e1, mijlocas, 10, _) (a1, fundas, 15, _) (m1, mijlocas, 50, _) (f4, portar, 50, _) (a2, atacant, 100, _) 
+P: (s2, fundas, 27, _) (n2, fundas, 20, _) (a1, fundas, 15, _) (s1, fundas, 7, _) 
+P: (s1, fundas, 7, _) (a1, fundas, 15, _) (n2, fundas, 20, _) (s2, fundas, 27, _) 
+P: (a2, atacant, 100, _) (f4, portar, 50, _) (m1, mijlocas, 50, _) (n3, portar, 50, _) (n4, mijlocas, 50, _) (n5, atacant, 50, _) (r1, mijlocas, 50, _) (z4, portar, 50, _) (s2, fundas, 27, _) (n2, fundas, 20, _) (a1, fundas, 15, _) (a3, mijlocas, 12, _) (b8, atacant, 10, _) (e1, mijlocas, 10, _) (n1, atacant, 10, _) (n7, atacant, 10, _) (n9, portar, 10, _) (z5, portar, 10, _) (s1, fundas, 7, _) (n6, atacant, 0, _) 
+P: (n6, atacant, 0, _) (s1, fundas, 7, _) (z5, portar, 10, _) (n9, portar, 10, _) (n7, atacant, 10, _) (n1, atacant, 10, _) (e1, mijlocas, 10, _) (b8, atacant, 10, _) (a3, mijlocas, 12, _) (a1, fundas, 15, _) (n2, fundas, 20, _) (s2, fundas, 27, _) (z4, portar, 50, _) (r1, mijlocas, 50, _) (n5, atacant, 50, _) (n4, mijlocas, 50, _) (n3, portar, 50, _) (m1, mijlocas, 50, _) (f4, portar, 50, _) (a2, atacant, 100, _) 
+P: (a2, atacant, 100, _) (f4, portar, 50, _) (m1, mijlocas, 50, _) (n4, mijlocas, 50, _) (n5, atacant, 50, _) (r1, mijlocas, 50, _) (s2, fundas, 27, _) (n2, fundas, 20, _) (a1, fundas, 15, _) (b8, atacant, 10, _) (s1, fundas, 7, _) 
+P: (s1, fundas, 7, _) (b8, atacant, 10, _) (a1, fundas, 15, _) (n2, fundas, 20, _) (s2, fundas, 27, _) (r1, mijlocas, 50, _) (n5, atacant, 50, _) (n4, mijlocas, 50, _) (m1, mijlocas, 50, _) (f4, portar, 50, _) (a2, atacant, 100, _) 

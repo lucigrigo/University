@@ -1,0 +1,511 @@
+FCs:
+fc0
+	P: 
+	P: 
+fc1
+	P: 
+	P: (pym0, mijlocas, 40, Y) 
+fc2
+	P: (pyf2, fundas, 2, _) 
+	P: (pyp1, portar, 40, Y) 
+fc3
+	P: (pya3, atacant, 3, _) 
+	P: 
+fc4
+	P: 
+	P: 
+fc5
+	P: 
+	P: (pym4, mijlocas, 40, Y) 
+fc6
+	P: (pyf6, fundas, 6, _) 
+	P: (pyp5, portar, 40, Y) 
+fc7
+	P: (pya7, atacant, 7, _) 
+	P: 
+fc8
+	P: 
+	P: 
+fc9
+	P: 
+	P: (pym8, mijlocas, 40, Y) 
+fc10
+	P: (pyf10, fundas, 10, _) 
+	P: (pyp9, portar, 40, Y) 
+fc11
+	P: (pya11, atacant, 11, _) 
+	P: 
+fc12
+	P: 
+	P: 
+fc13
+	P: 
+	P: (pym12, mijlocas, 40, Y) 
+fc14
+	P: (pyf14, fundas, 14, _) 
+	P: (pyp13, portar, 40, Y) 
+fc15
+	P: (pya15, atacant, 15, _) 
+	P: 
+fc16
+	P: 
+	P: 
+fc17
+	P: 
+	P: (pym16, mijlocas, 40, Y) 
+fc18
+	P: (pyf18, fundas, 18, _) 
+	P: (pyp17, portar, 40, Y) 
+fc19
+	P: (pya19, atacant, 19, _) 
+	P: 
+fc20
+	P: 
+	P: 
+fc21
+	P: 
+	P: (pym20, mijlocas, 40, Y) 
+fc22
+	P: (pyf22, fundas, 22, _) 
+	P: (pyp21, portar, 40, Y) 
+fc23
+	P: (pya23, atacant, 23, _) 
+	P: 
+fc24
+	P: 
+	P: 
+fc25
+	P: 
+	P: (pym24, mijlocas, 40, Y) 
+fc26
+	P: (pyf26, fundas, 26, _) 
+	P: (pyp25, portar, 40, Y) 
+fc27
+	P: (pya27, atacant, 27, _) 
+	P: 
+fc28
+	P: 
+	P: 
+fc29
+	P: 
+	P: (pym28, mijlocas, 40, Y) 
+fc30
+	P: (pyf30, fundas, 30, _) 
+	P: (pyp29, portar, 40, Y) 
+fc31
+	P: (pya31, atacant, 31, _) 
+	P: 
+fc32
+	P: 
+	P: 
+fc33
+	P: 
+	P: (pym32, mijlocas, 40, Y) 
+fc34
+	P: (pyf34, fundas, 34, _) 
+	P: (pyp33, portar, 40, Y) 
+fc35
+	P: (pya35, atacant, 35, _) 
+	P: 
+fc36
+	P: 
+	P: 
+fc37
+	P: 
+	P: (pym36, mijlocas, 40, Y) 
+fc38
+	P: (pyf38, fundas, 38, _) 
+	P: (pyp37, portar, 40, Y) 
+fc39
+	P: (pya39, atacant, 39, _) 
+	P: 
+fc40
+	P: 
+	P: 
+fc41
+	P: 
+	P: (pym40, mijlocas, 40, Y) 
+fc42
+	P: (pyf42, fundas, 42, _) 
+	P: (pyp41, portar, 40, Y) 
+fc43
+	P: (pya43, atacant, 43, _) 
+	P: 
+fc44
+	P: 
+	P: 
+fc45
+	P: 
+	P: (pym44, mijlocas, 40, Y) 
+fc46
+	P: (pyf46, fundas, 46, _) 
+	P: (pyp45, portar, 40, Y) 
+fc47
+	P: (pya47, atacant, 47, _) 
+	P: 
+fc48
+	P: 
+	P: 
+fc49
+	P: 
+	P: (pym48, mijlocas, 40, Y) 
+fc50
+	P: (pyf50, fundas, 50, _) 
+	P: (pyp49, portar, 40, Y) 
+fc51
+	P: (pya51, atacant, 51, _) 
+	P: 
+fc52
+	P: 
+	P: 
+fc53
+	P: 
+	P: (pym52, mijlocas, 40, Y) 
+fc54
+	P: (pyf54, fundas, 54, _) 
+	P: (pyp53, portar, 40, Y) 
+fc55
+	P: (pya55, atacant, 55, _) 
+	P: 
+fc56
+	P: 
+	P: 
+fc57
+	P: 
+	P: (pym56, mijlocas, 40, Y) 
+fc58
+	P: (pyf58, fundas, 58, _) 
+	P: (pyp57, portar, 40, Y) 
+fc59
+	P: (pya59, atacant, 59, _) 
+	P: 
+fc60
+	P: 
+	P: 
+fc61
+	P: 
+	P: (pym60, mijlocas, 40, Y) 
+fc62
+	P: (pyf62, fundas, 62, _) 
+	P: (pyp61, portar, 40, Y) 
+fc63
+	P: (pya63, atacant, 63, _) 
+	P: 
+fc64
+	P: 
+	P: 
+fc65
+	P: 
+	P: (pym64, mijlocas, 40, Y) 
+fc66
+	P: (pyf66, fundas, 66, _) 
+	P: (pyp65, portar, 40, Y) 
+fc67
+	P: (pya67, atacant, 67, _) 
+	P: 
+fc68
+	P: 
+	P: 
+fc69
+	P: 
+	P: (pym68, mijlocas, 40, Y) 
+fc70
+	P: (pyf70, fundas, 70, _) 
+	P: (pyp69, portar, 40, Y) 
+fc71
+	P: (pya71, atacant, 71, _) 
+	P: 
+fc72
+	P: 
+	P: 
+fc73
+	P: 
+	P: (pym72, mijlocas, 40, Y) 
+fc74
+	P: (pyf74, fundas, 74, _) 
+	P: (pyp73, portar, 40, Y) 
+fc75
+	P: (pya75, atacant, 75, _) 
+	P: 
+fc76
+	P: 
+	P: 
+fc77
+	P: 
+	P: (pym76, mijlocas, 40, Y) 
+fc78
+	P: (pyf78, fundas, 78, _) 
+	P: (pyp77, portar, 40, Y) 
+fc79
+	P: (pya79, atacant, 79, _) 
+	P: 
+fc80
+	P: 
+	P: 
+fc81
+	P: 
+	P: (pym80, mijlocas, 40, Y) 
+fc82
+	P: (pyf82, fundas, 82, _) 
+	P: (pyp81, portar, 40, Y) 
+fc83
+	P: (pya83, atacant, 83, _) 
+	P: 
+fc84
+	P: 
+	P: 
+fc85
+	P: 
+	P: (pym84, mijlocas, 40, Y) 
+fc86
+	P: (pyf86, fundas, 86, _) 
+	P: (pyp85, portar, 40, Y) 
+fc87
+	P: (pya87, atacant, 87, _) 
+	P: 
+fc88
+	P: 
+	P: 
+fc89
+	P: 
+	P: (pym88, mijlocas, 40, Y) 
+fc90
+	P: (pyf90, fundas, 90, _) 
+	P: (pyp89, portar, 40, Y) 
+fc91
+	P: (pya91, atacant, 91, _) 
+	P: 
+fc92
+	P: 
+	P: 
+fc93
+	P: 
+	P: (pym92, mijlocas, 40, Y) 
+fc94
+	P: (pyf94, fundas, 94, _) 
+	P: (pyp93, portar, 40, Y) 
+fc95
+	P: (pya95, atacant, 95, _) 
+	P: 
+fc96
+	P: 
+	P: 
+fc97
+	P: 
+	P: (pym96, mijlocas, 40, Y) 
+fc98
+	P: (pyf98, fundas, 98, _) 
+	P: (pyp97, portar, 40, Y) 
+fc99
+	P: (pya99, atacant, 99, _) 
+	P: 
+P: 
+P: 
+P: (pyf2, fundas, 2, _) 
+P: (pyf2, fundas, 2, _) 
+P: (pya3, atacant, 3, _) (pyf2, fundas, 2, _) 
+P: (pyf2, fundas, 2, _) (pya3, atacant, 3, _) 
+P: (pya3, atacant, 3, _) 
+P: (pya3, atacant, 3, _) 
+P: 
+P: 
+P: (pyf6, fundas, 6, _) 
+P: (pyf6, fundas, 6, _) 
+P: (pya7, atacant, 7, _) (pyf6, fundas, 6, _) 
+P: (pyf6, fundas, 6, _) (pya7, atacant, 7, _) 
+P: (pya7, atacant, 7, _) 
+P: (pya7, atacant, 7, _) 
+P: 
+P: 
+P: (pyf10, fundas, 10, _) 
+P: (pyf10, fundas, 10, _) 
+P: (pya11, atacant, 11, _) (pyf10, fundas, 10, _) 
+P: (pyf10, fundas, 10, _) (pya11, atacant, 11, _) 
+P: (pya11, atacant, 11, _) 
+P: (pya11, atacant, 11, _) 
+P: 
+P: 
+P: (pyf14, fundas, 14, _) 
+P: (pyf14, fundas, 14, _) 
+P: (pya15, atacant, 15, _) (pyf14, fundas, 14, _) 
+P: (pyf14, fundas, 14, _) (pya15, atacant, 15, _) 
+P: (pya15, atacant, 15, _) 
+P: (pya15, atacant, 15, _) 
+P: 
+P: 
+P: (pyf18, fundas, 18, _) 
+P: (pyf18, fundas, 18, _) 
+P: (pya19, atacant, 19, _) (pyf18, fundas, 18, _) 
+P: (pyf18, fundas, 18, _) (pya19, atacant, 19, _) 
+P: (pya19, atacant, 19, _) 
+P: (pya19, atacant, 19, _) 
+P: 
+P: 
+P: (pyf22, fundas, 22, _) 
+P: (pyf22, fundas, 22, _) 
+P: (pya23, atacant, 23, _) (pyf22, fundas, 22, _) 
+P: (pyf22, fundas, 22, _) (pya23, atacant, 23, _) 
+P: (pya23, atacant, 23, _) 
+P: (pya23, atacant, 23, _) 
+P: 
+P: 
+P: (pyf26, fundas, 26, _) 
+P: (pyf26, fundas, 26, _) 
+P: (pya27, atacant, 27, _) (pyf26, fundas, 26, _) 
+P: (pyf26, fundas, 26, _) (pya27, atacant, 27, _) 
+P: (pya27, atacant, 27, _) 
+P: (pya27, atacant, 27, _) 
+P: 
+P: 
+P: (pyf30, fundas, 30, _) 
+P: (pyf30, fundas, 30, _) 
+P: (pya31, atacant, 31, _) (pyf30, fundas, 30, _) 
+P: (pyf30, fundas, 30, _) (pya31, atacant, 31, _) 
+P: (pya31, atacant, 31, _) 
+P: (pya31, atacant, 31, _) 
+P: 
+P: 
+P: (pyf34, fundas, 34, _) 
+P: (pyf34, fundas, 34, _) 
+P: (pya35, atacant, 35, _) (pyf34, fundas, 34, _) 
+P: (pyf34, fundas, 34, _) (pya35, atacant, 35, _) 
+P: (pya35, atacant, 35, _) 
+P: (pya35, atacant, 35, _) 
+P: 
+P: 
+P: (pyf38, fundas, 38, _) 
+P: (pyf38, fundas, 38, _) 
+P: (pya39, atacant, 39, _) (pyf38, fundas, 38, _) 
+P: (pyf38, fundas, 38, _) (pya39, atacant, 39, _) 
+P: (pya39, atacant, 39, _) 
+P: (pya39, atacant, 39, _) 
+P: 
+P: 
+P: (pyf42, fundas, 42, _) 
+P: (pyf42, fundas, 42, _) 
+P: (pya43, atacant, 43, _) (pyf42, fundas, 42, _) 
+P: (pyf42, fundas, 42, _) (pya43, atacant, 43, _) 
+P: (pya43, atacant, 43, _) 
+P: (pya43, atacant, 43, _) 
+P: 
+P: 
+P: (pyf46, fundas, 46, _) 
+P: (pyf46, fundas, 46, _) 
+P: (pya47, atacant, 47, _) (pyf46, fundas, 46, _) 
+P: (pyf46, fundas, 46, _) (pya47, atacant, 47, _) 
+P: (pya47, atacant, 47, _) 
+P: (pya47, atacant, 47, _) 
+P: 
+P: 
+P: (pyf50, fundas, 50, _) 
+P: (pyf50, fundas, 50, _) 
+P: (pya51, atacant, 51, _) (pyf50, fundas, 50, _) 
+P: (pyf50, fundas, 50, _) (pya51, atacant, 51, _) 
+P: (pya51, atacant, 51, _) 
+P: (pya51, atacant, 51, _) 
+P: 
+P: 
+P: (pyf54, fundas, 54, _) 
+P: (pyf54, fundas, 54, _) 
+P: (pya55, atacant, 55, _) (pyf54, fundas, 54, _) 
+P: (pyf54, fundas, 54, _) (pya55, atacant, 55, _) 
+P: (pya55, atacant, 55, _) 
+P: (pya55, atacant, 55, _) 
+P: 
+P: 
+P: (pyf58, fundas, 58, _) 
+P: (pyf58, fundas, 58, _) 
+P: (pya59, atacant, 59, _) (pyf58, fundas, 58, _) 
+P: (pyf58, fundas, 58, _) (pya59, atacant, 59, _) 
+P: (pya59, atacant, 59, _) 
+P: (pya59, atacant, 59, _) 
+P: 
+P: 
+P: (pyf62, fundas, 62, _) 
+P: (pyf62, fundas, 62, _) 
+P: (pya63, atacant, 63, _) (pyf62, fundas, 62, _) 
+P: (pyf62, fundas, 62, _) (pya63, atacant, 63, _) 
+P: (pya63, atacant, 63, _) 
+P: (pya63, atacant, 63, _) 
+P: 
+P: 
+P: (pyf66, fundas, 66, _) 
+P: (pyf66, fundas, 66, _) 
+P: (pya67, atacant, 67, _) (pyf66, fundas, 66, _) 
+P: (pyf66, fundas, 66, _) (pya67, atacant, 67, _) 
+P: (pya67, atacant, 67, _) 
+P: (pya67, atacant, 67, _) 
+P: 
+P: 
+P: (pyf70, fundas, 70, _) 
+P: (pyf70, fundas, 70, _) 
+P: (pya71, atacant, 71, _) (pyf70, fundas, 70, _) 
+P: (pyf70, fundas, 70, _) (pya71, atacant, 71, _) 
+P: (pya71, atacant, 71, _) 
+P: (pya71, atacant, 71, _) 
+P: 
+P: 
+P: (pyf74, fundas, 74, _) 
+P: (pyf74, fundas, 74, _) 
+P: (pya75, atacant, 75, _) (pyf74, fundas, 74, _) 
+P: (pyf74, fundas, 74, _) (pya75, atacant, 75, _) 
+P: (pya75, atacant, 75, _) 
+P: (pya75, atacant, 75, _) 
+P: 
+P: 
+P: (pyf78, fundas, 78, _) 
+P: (pyf78, fundas, 78, _) 
+P: (pya79, atacant, 79, _) (pyf78, fundas, 78, _) 
+P: (pyf78, fundas, 78, _) (pya79, atacant, 79, _) 
+P: (pya79, atacant, 79, _) 
+P: (pya79, atacant, 79, _) 
+P: 
+P: 
+P: (pyf82, fundas, 82, _) 
+P: (pyf82, fundas, 82, _) 
+P: (pya83, atacant, 83, _) (pyf82, fundas, 82, _) 
+P: (pyf82, fundas, 82, _) (pya83, atacant, 83, _) 
+P: (pya83, atacant, 83, _) 
+P: (pya83, atacant, 83, _) 
+P: 
+P: 
+P: (pyf86, fundas, 86, _) 
+P: (pyf86, fundas, 86, _) 
+P: (pya87, atacant, 87, _) (pyf86, fundas, 86, _) 
+P: (pyf86, fundas, 86, _) (pya87, atacant, 87, _) 
+P: (pya87, atacant, 87, _) 
+P: (pya87, atacant, 87, _) 
+P: 
+P: 
+P: (pyf90, fundas, 90, _) 
+P: (pyf90, fundas, 90, _) 
+P: (pya91, atacant, 91, _) (pyf90, fundas, 90, _) 
+P: (pyf90, fundas, 90, _) (pya91, atacant, 91, _) 
+P: (pya91, atacant, 91, _) 
+P: (pya91, atacant, 91, _) 
+P: 
+P: 
+P: (pyf94, fundas, 94, _) 
+P: (pyf94, fundas, 94, _) 
+P: (pya95, atacant, 95, _) (pyf94, fundas, 94, _) 
+P: (pyf94, fundas, 94, _) (pya95, atacant, 95, _) 
+P: (pya95, atacant, 95, _) 
+P: (pya95, atacant, 95, _) 
+P: 
+P: 
+P: (pyf98, fundas, 98, _) 
+P: (pyf98, fundas, 98, _) 
+P: (pya99, atacant, 99, _) (pyf98, fundas, 98, _) 
+P: (pyf98, fundas, 98, _) (pya99, atacant, 99, _) 
+P: (pya99, atacant, 99, _) 
+P: (pyf98, fundas, 98, _) 
+P: 
+P: 
+P: (pya99, atacant, 99, _) (pyf98, fundas, 98, _) (pya95, atacant, 95, _) (pyf94, fundas, 94, _) (pya91, atacant, 91, _) (pyf90, fundas, 90, _) (pya87, atacant, 87, _) (pyf86, fundas, 86, _) (pya83, atacant, 83, _) (pyf82, fundas, 82, _) (pya79, atacant, 79, _) (pyf78, fundas, 78, _) (pya75, atacant, 75, _) (pyf74, fundas, 74, _) (pya71, atacant, 71, _) (pyf70, fundas, 70, _) (pya67, atacant, 67, _) (pyf66, fundas, 66, _) (pya63, atacant, 63, _) (pyf62, fundas, 62, _) (pya59, atacant, 59, _) (pyf58, fundas, 58, _) (pya55, atacant, 55, _) (pyf54, fundas, 54, _) (pya51, atacant, 51, _) (pyf50, fundas, 50, _) (pya47, atacant, 47, _) (pyf46, fundas, 46, _) (pya43, atacant, 43, _) (pyf42, fundas, 42, _) (pya39, atacant, 39, _) (pyf38, fundas, 38, _) (pya35, atacant, 35, _) (pyf34, fundas, 34, _) (pya31, atacant, 31, _) (pyf30, fundas, 30, _) (pya27, atacant, 27, _) (pyf26, fundas, 26, _) (pya23, atacant, 23, _) (pyf22, fundas, 22, _) (pya19, atacant, 19, _) (pyf18, fundas, 18, _) (pya15, atacant, 15, _) (pyf14, fundas, 14, _) (pya11, atacant, 11, _) (pyf10, fundas, 10, _) (pya7, atacant, 7, _) (pyf6, fundas, 6, _) (pya3, atacant, 3, _) (pyf2, fundas, 2, _) 
+P: (pyp1, portar, 40, Y) (pyp13, portar, 40, Y) (pyp17, portar, 40, Y) (pyp21, portar, 40, Y) (pyp25, portar, 40, Y) (pyp29, portar, 40, Y) (pyp33, portar, 40, Y) (pyp37, portar, 40, Y) (pyp41, portar, 40, Y) (pyp45, portar, 40, Y) (pyp49, portar, 40, Y) (pyp5, portar, 40, Y) (pyp53, portar, 40, Y) (pyp57, portar, 40, Y) (pyp61, portar, 40, Y) (pyp65, portar, 40, Y) (pyp69, portar, 40, Y) (pyp73, portar, 40, Y) (pyp77, portar, 40, Y) (pyp81, portar, 40, Y) (pyp85, portar, 40, Y) (pyp89, portar, 40, Y) (pyp9, portar, 40, Y) (pyp93, portar, 40, Y) (pyp97, portar, 40, Y) 
+P: (pyp97, portar, 40, Y) (pyp93, portar, 40, Y) (pyp9, portar, 40, Y) (pyp89, portar, 40, Y) (pyp85, portar, 40, Y) (pyp81, portar, 40, Y) (pyp77, portar, 40, Y) (pyp73, portar, 40, Y) (pyp69, portar, 40, Y) (pyp65, portar, 40, Y) (pyp61, portar, 40, Y) (pyp57, portar, 40, Y) (pyp53, portar, 40, Y) (pyp5, portar, 40, Y) (pyp49, portar, 40, Y) (pyp45, portar, 40, Y) (pyp41, portar, 40, Y) (pyp37, portar, 40, Y) (pyp33, portar, 40, Y) (pyp29, portar, 40, Y) (pyp25, portar, 40, Y) (pyp21, portar, 40, Y) (pyp17, portar, 40, Y) (pyp13, portar, 40, Y) (pyp1, portar, 40, Y) 
+P: (pya99, atacant, 99, _) (pya95, atacant, 95, _) (pya91, atacant, 91, _) (pya87, atacant, 87, _) (pya83, atacant, 83, _) (pya79, atacant, 79, _) (pya75, atacant, 75, _) (pya71, atacant, 71, _) (pya67, atacant, 67, _) (pya63, atacant, 63, _) (pya59, atacant, 59, _) (pya55, atacant, 55, _) (pya51, atacant, 51, _) (pya47, atacant, 47, _) (pya43, atacant, 43, _) (pya39, atacant, 39, _) (pya35, atacant, 35, _) (pya31, atacant, 31, _) (pya27, atacant, 27, _) (pya23, atacant, 23, _) (pya19, atacant, 19, _) (pya15, atacant, 15, _) (pya11, atacant, 11, _) (pya7, atacant, 7, _) (pya3, atacant, 3, _) 
+P: (pya3, atacant, 3, _) (pya7, atacant, 7, _) (pya11, atacant, 11, _) (pya15, atacant, 15, _) (pya19, atacant, 19, _) (pya23, atacant, 23, _) (pya27, atacant, 27, _) (pya31, atacant, 31, _) (pya35, atacant, 35, _) (pya39, atacant, 39, _) (pya43, atacant, 43, _) (pya47, atacant, 47, _) (pya51, atacant, 51, _) (pya55, atacant, 55, _) (pya59, atacant, 59, _) (pya63, atacant, 63, _) (pya67, atacant, 67, _) (pya71, atacant, 71, _) (pya75, atacant, 75, _) (pya79, atacant, 79, _) (pya83, atacant, 83, _) (pya87, atacant, 87, _) (pya91, atacant, 91, _) (pya95, atacant, 95, _) (pya99, atacant, 99, _) 
+P: (pya99, atacant, 99, _) (pyf98, fundas, 98, _) (pya95, atacant, 95, _) (pyf94, fundas, 94, _) (pya91, atacant, 91, _) (pyf90, fundas, 90, _) (pya87, atacant, 87, _) (pyf86, fundas, 86, _) (pya83, atacant, 83, _) (pyf82, fundas, 82, _) (pya79, atacant, 79, _) (pyf78, fundas, 78, _) (pya75, atacant, 75, _) (pyf74, fundas, 74, _) (pya71, atacant, 71, _) (pyf70, fundas, 70, _) (pya67, atacant, 67, _) (pyf66, fundas, 66, _) (pya63, atacant, 63, _) (pyf62, fundas, 62, _) (pya59, atacant, 59, _) (pyf58, fundas, 58, _) (pya55, atacant, 55, _) (pyf54, fundas, 54, _) (pya51, atacant, 51, _) (pyf50, fundas, 50, _) 
+P: (pya99, atacant, 99, _) (pyf98, fundas, 98, _) (pya95, atacant, 95, _) (pyf94, fundas, 94, _) (pya91, atacant, 91, _) (pyf90, fundas, 90, _) (pya87, atacant, 87, _) (pyf86, fundas, 86, _) (pya83, atacant, 83, _) (pyf82, fundas, 82, _) (pya79, atacant, 79, _) (pyf78, fundas, 78, _) (pya75, atacant, 75, _) (pyf74, fundas, 74, _) (pya71, atacant, 71, _) (pyf70, fundas, 70, _) (pya67, atacant, 67, _) (pyf66, fundas, 66, _) (pya63, atacant, 63, _) (pyf62, fundas, 62, _) (pya59, atacant, 59, _) (pyf58, fundas, 58, _) (pya55, atacant, 55, _) (pyf54, fundas, 54, _) (pya51, atacant, 51, _) (pyf50, fundas, 50, _) (pya47, atacant, 47, _) (pyf46, fundas, 46, _) (pya43, atacant, 43, _) (pyf42, fundas, 42, _) (pym0, mijlocas, 40, Y) (pym12, mijlocas, 40, Y) (pym16, mijlocas, 40, Y) (pym20, mijlocas, 40, Y) (pym24, mijlocas, 40, Y) (pym28, mijlocas, 40, Y) (pym32, mijlocas, 40, Y) (pym36, mijlocas, 40, Y) (pym4, mijlocas, 40, Y) (pym40, mijlocas, 40, Y) (pym44, mijlocas, 40, Y) (pym48, mijlocas, 40, Y) (pym52, mijlocas, 40, Y) (pym56, mijlocas, 40, Y) (pym60, mijlocas, 40, Y) (pym64, mijlocas, 40, Y) (pym68, mijlocas, 40, Y) (pym72, mijlocas, 40, Y) (pym76, mijlocas, 40, Y) (pym8, mijlocas, 40, Y) (pym80, mijlocas, 40, Y) (pym84, mijlocas, 40, Y) (pym88, mijlocas, 40, Y) (pym92, mijlocas, 40, Y) (pym96, mijlocas, 40, Y) (pyp1, portar, 40, Y) (pyp13, portar, 40, Y) (pyp17, portar, 40, Y) (pyp21, portar, 40, Y) (pyp25, portar, 40, Y) (pyp29, portar, 40, Y) (pyp33, portar, 40, Y) (pyp37, portar, 40, Y) (pyp41, portar, 40, Y) (pyp45, portar, 40, Y) (pyp49, portar, 40, Y) (pyp5, portar, 40, Y) (pyp53, portar, 40, Y) (pyp57, portar, 40, Y) (pyp61, portar, 40, Y) (pyp65, portar, 40, Y) (pyp69, portar, 40, Y) (pyp73, portar, 40, Y) (pyp77, portar, 40, Y) (pyp81, portar, 40, Y) (pyp85, portar, 40, Y) (pyp89, portar, 40, Y) (pyp9, portar, 40, Y) (pyp93, portar, 40, Y) (pyp97, portar, 40, Y) (pya39, atacant, 39, _) (pyf38, fundas, 38, _) (pya35, atacant, 35, _) (pyf34, fundas, 34, _) (pya31, atacant, 31, _) (pyf30, fundas, 30, _) (pya27, atacant, 27, _) (pyf26, fundas, 26, _) (pya23, atacant, 23, _) (pyf22, fundas, 22, _) (pya19, atacant, 19, _) (pyf18, fundas, 18, _) (pya15, atacant, 15, _) (pyf14, fundas, 14, _) (pya11, atacant, 11, _) (pyf10, fundas, 10, _) (pya7, atacant, 7, _) (pyf6, fundas, 6, _) (pya3, atacant, 3, _) (pyf2, fundas, 2, _) 
+P: (pya99, atacant, 99, _) (pyf98, fundas, 98, _) (pya95, atacant, 95, _) (pyf94, fundas, 94, _) (pya91, atacant, 91, _) (pyf90, fundas, 90, _) (pyf86, fundas, 86, _) (pym0, mijlocas, 40, Y) (pym12, mijlocas, 40, Y) (pym16, mijlocas, 40, Y) (pyp1, portar, 40, Y) 

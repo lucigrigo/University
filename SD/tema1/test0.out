@@ -1,0 +1,40 @@
+FCs:
+club1
+	P: (n1, atacant, 1, _) (n7, atacant, -100, _) 
+	P: 
+club2
+	P: (n2, fundas, 2, _) 
+	P: 
+club3
+	P: (n3, mijlocas, 3, _) 
+	P: 
+club4
+	P: (n4, portar, 4, _) (n5, portar, 0, _) 
+	P: 
+P: (n7, atacant, -100, _) (n1, atacant, 1, _) 
+FCs:
+club1
+	P: 
+	P: (n1, atacant, 0, Y) (n7, atacant, -100, Y) 
+club2
+	P: 
+	P: 
+club3
+	P: (n3, mijlocas, 5, _) 
+	P: 
+club4
+	P: (n5, atacant, 0, _) (n4, portar, 4, _) 
+	P: 
+FCs:
+club1
+	P: (n1, atacant, 0, _) 
+	P: (n7, atacant, -100, Y) 
+club2
+	P: (n3, mijlocas, 5, _) 
+	P: 
+club3
+	P: 
+	P: 
+club4
+	P: (n5, atacant, 0, _) (n4, portar, 4, _) 
+	P: 
