@@ -9,16 +9,22 @@ function view_clusters(points, centroids)
 		for k=1:NC
 			dist = norm(points(i) - centroids(k));
 			if dist < minDistance
-				minDist = dist;
+				minDistance = dist;
 				j = k;
 			end
 		end
 		groupIndices(i) = j;
 	end
 
-	#colorsArray
+	colorsArray = [1 1 1; 1 0 1; 1 1 0];
+	hold on;
+	axis equal;
 
-	#for i=1:pointsNumber
-		scatter3([points(:, 1)], [points(:, 2)], [points(:, 3)], 'm', 'filled');
-	#end
+	#scatter3([points(:, 1)], [points(:, 2)], [points(:, 3)], 'r', 'filled');
+	#plot3([points(:, 1)], [points(:, 2)], [points(:, 3)]);
+
+	for i=1:NC
+		specificPoints = points(groupIndices==i,:);
+		scatter3(specificPoints(:, 1), specificPoints(:, 2), specificPoints(:, 3), [], [colorsArray(1)], 'p');
+	end
 end
