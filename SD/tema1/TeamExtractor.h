@@ -98,20 +98,7 @@ Player *get_top_players(FootballClub *clubs, int N)
 	{
 		if (clubPtr->players != NULL)
 		{
-			Player *playerPtr = playersList;
-			if (playerPtr == NULL)
-			{
-				playersList = clubPtr->players;
-			}
-			else
-			{
-				while (playerPtr->next != NULL)
-				{
-					playerPtr = playerPtr->next;
-				}
-				playerPtr->next = playersList;
-				playersList = clubPtr->players;
-			}
+			// addPlayersToList(&playersList, )
 		}
 		clubPtr = clubPtr->next;
 	}

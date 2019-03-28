@@ -3,12 +3,11 @@ function cost = compute_cost_pc(points, centroids)
 	pointsNumber = size(points, 1);
 	NC = size(centroids, 1);
 	groupIndices = zeros(size(points));
-
 	for i=1:pointsNumber
-		minDistance = norm(points(i) - centroids(1));
+		minDistance = norm(points(i,:) - centroids(1,:));
 		j = 1;
 		for k=1:NC
-			dist = norm(points(i) - centroids(k));
+			dist = norm(points(i,:) - centroids(k,:));
 			if dist < minDistance
 				minDistance = dist;
 				j = k;
@@ -16,7 +15,6 @@ function cost = compute_cost_pc(points, centroids)
 		end
 		groupIndices(i) = j;
 	end
-
 	for i=1:pointsNumber
 		cost += norm(points(i,:) - centroids(groupIndices(i),:));
 	end
