@@ -97,12 +97,13 @@ FootballClub *add_club(FootballClub *clubs, char *name)
 	{
 		clubPtr = clubPtr->next;
 	}
-	clubPtr->next = (FootballClub *)malloc(sizeof(FootballClub));
-	clubPtr = clubPtr->next;
-	clubPtr->name = (char *)malloc(sizeof(char) * strlen(name));
-	clubPtr->name = name;
-	clubPtr->players = NULL;
-	clubPtr->injured_players = NULL;
+	FootballClub *newClub = (FootballClub*) malloc(sizeof(FootballClub));
+	newClub -> name = (char*) calloc((strlen(name) + 1), sizeof(char));
+	strcpy(newClub->name, name);
+	newClub -> players = NULL;
+	newClub -> injured_players = NULL;
+	clubPtr -> next = newClub;
+	newClub -> next = NULL;
 	return clubs;
 }
 
@@ -254,11 +255,11 @@ void sortInjuredPlayers(FootballClub **clubsList, char *clubName)
 	while (playerPtr != NULL)
 	{
 		playerPtrTwo = playerPtr;
-		while (playerPtrTwo->next != NULL)
+		while (playerPtrTwo != NULL)
 		{
-			if (strcmp(playerPtrTwo->name, playerPtrTwo->next->name) > 0)
+			if (strcmp(playerPtr->name, playerPtrTwo->name) > 0)
 			{
-				swapPlayers(playerPtrTwo, playerPtrTwo->next);
+				swapPlayers(playerPtr, playerPtrTwo);
 			}
 			playerPtrTwo = playerPtrTwo->next;
 		}
@@ -266,10 +267,11 @@ void sortInjuredPlayers(FootballClub **clubsList, char *clubName)
 	}
 }
 
-void addToInjuredPlayers(FootballClub **clubsList, char *clubName, Player *playerToAdd)
+void addToInjuredPlayers(FootballClub *clubsList, char *clubName, Player *playerToAdd)
 {
-	FootballClub *clubPtr = *clubsList;
-	while ((clubPtr != NULL) && (strcmp(clubName, clubPtr->name)))
+	FootballClub *clubPtr = clubsList;
+	// printf("%s\n", playerToAdd->name);
+	while ((clubPtr != NULL) && (strcmp(clubName, clubPtr->name) != 0))
 	{
 		clubPtr = clubPtr->next;
 	}
@@ -282,7 +284,8 @@ void addToInjuredPlayers(FootballClub **clubsList, char *clubName, Player *playe
 	{
 		clubPtr->injured_players = playerToAdd;
 		playerToAdd->next = NULL;
-		sortInjuredPlayers(clubsList, clubName);
+		playerToAdd->prev = NULL;
+		sortInjuredPlayers(&clubsList, clubName);
 		return;
 	}
 	while (playerPtr->next != NULL)
@@ -292,7 +295,7 @@ void addToInjuredPlayers(FootballClub **clubsList, char *clubName, Player *playe
 	playerPtr->next = playerToAdd;
 	playerToAdd->next = NULL;
 	playerToAdd->prev = playerPtr;
-	sortInjuredPlayers(clubsList, clubName);
+	sortInjuredPlayers(&clubsList, clubName);
 }
 
 void add_player(FootballClub *clubs, char *club_name,
@@ -310,7 +313,8 @@ void add_player(FootballClub *clubs, char *club_name,
 	if (clubPtr->players == NULL)
 	{
 		Player *player = (Player *)malloc(sizeof(Player));
-		player->name = player_name;
+		player->name = (char*) calloc(strlen(player_name) + 1, sizeof(char));
+		strcpy(player->name,player_name);
 		player->position = position;
 		player->score = min(100, score);
 		player->injured = 0;
@@ -324,15 +328,15 @@ void add_player(FootballClub *clubs, char *club_name,
 	{
 		playerPtr = playerPtr->next;
 	}
-	Player *prevPlayer = playerPtr;
-	playerPtr->next = (Player *)malloc(sizeof(Player));
-	playerPtr = playerPtr->next;
-	playerPtr->position = position;
-	playerPtr->name = player_name;
-	playerPtr->injured = 0;
-	playerPtr->score = min(100, score);
-	playerPtr->next = NULL;
-	playerPtr->prev = prevPlayer;
+	Player *newPlayer = (Player *)malloc(sizeof(Player));
+	newPlayer->name = (char*)calloc(strlen(player_name+ 1), sizeof(char));
+	strcpy(newPlayer->name, player_name);
+	newPlayer->next = NULL;
+	newPlayer->position = position;
+	newPlayer -> score = min(100, score);
+	newPlayer -> injured = 0;
+	newPlayer -> prev = playerPtr;
+	playerPtr -> next = newPlayer;
 	sortPlayers(&clubs, club_name);
 }
 
@@ -368,11 +372,11 @@ void transfer_player(FootballClub *clubs, char *player_name,
 	{
 		if(playerPtr -> injured == 0) {
 			clubPtr->players = NULL;
-		} else {
+		} else if (playerPtr -> injured == 1){
 			clubPtr->injured_players = NULL;
 		}
 	}
-	else if (playerPtr->prev == NULL)
+	else if ((playerPtr->prev == NULL) && (playerPtr -> next != NULL))
 	{
 		if(playerPtr -> injured == 0) {
 			clubPtr->players = playerPtr->next;
@@ -382,7 +386,7 @@ void transfer_player(FootballClub *clubs, char *player_name,
 			clubPtr -> injured_players -> prev = NULL;
 		}
 	}
-	else if (playerPtr->next == NULL)
+	else if ((playerPtr->next == NULL) && (playerPtr -> prev != NULL))
 	{
 		playerPtr->prev->next = NULL;
 	}
@@ -390,6 +394,12 @@ void transfer_player(FootballClub *clubs, char *player_name,
 	{
 		playerPtr->next->prev = playerPtr->prev;
 		playerPtr->prev->next = playerPtr->next;
+	}
+	playerPtr -> next = NULL;
+	playerPtr->prev = NULL;
+	if(playerPtr -> injured == 1) {
+		addToInjuredPlayers(clubs, new_club, playerPtr);
+		return;
 	}
 	clubPtr = clubs;
 	while ((clubPtr != NULL) && (strcmp(new_club, clubPtr->name) != 0))
@@ -412,7 +422,6 @@ void transfer_player(FootballClub *clubs, char *player_name,
 		playerPtrTwo = playerPtrTwo->next;
 	}
 	playerPtrTwo -> next = playerPtr;
-	playerPtr -> next = NULL;
 	playerPtr -> prev = playerPtrTwo;
 	sortPlayers(&clubs, new_club);
 }
@@ -602,7 +611,7 @@ void add_injury(FootballClub *clubs, char *club_name,
 	sortPlayers(&clubs, club_name);
 	playerPtr->score = max(((playerPtr->score) - ((0.1) * days_no)), -100);
 	playerPtr->injured = 1;
-	addToInjuredPlayers(&clubs, club_name, playerPtr);
+	addToInjuredPlayers(clubs, club_name, playerPtr);
 	sortInjuredPlayers(&clubs, club_name);
 }
 

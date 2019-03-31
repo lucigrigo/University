@@ -47,6 +47,7 @@ Player *get_best_player(FootballClub *clubs, char *position)
 	bestPlayer->position = position;
 	bestPlayer->name = (char *)malloc(20);
 	FootballClub *clubPtr = clubs;
+	int found = 0;
 	while (clubPtr != NULL)
 	{
 		if (clubPtr->players != NULL)
@@ -57,6 +58,7 @@ Player *get_best_player(FootballClub *clubs, char *position)
 				if ((strcmp(position, playerPtr->position) == 0) &&
 						(bestPlayer->score <= playerPtr->score))
 				{
+					found = 1;
 					if (strcmp("\0", bestPlayer->name) == 0)
 					{
 						strcpy(bestPlayer->name, playerPtr->name);
@@ -79,6 +81,9 @@ Player *get_best_player(FootballClub *clubs, char *position)
 	}
 	bestPlayer->next = NULL;
 	bestPlayer->prev = NULL;
+	if(found == 0) {
+		return NULL;
+	}
 	return bestPlayer;
 }
 
@@ -115,9 +120,10 @@ Player *get_players_by_score(FootballClub *clubs, int score)
 	FootballClub *clubDummy = (FootballClub *) malloc(sizeof(FootballClub));
 	addFirstClub(&clubDummy, "club_dummy", 0);
 	FootballClub *clubPtr = clubs;
+	Player *playerPtr = NULL;
 	while(clubPtr != NULL){
 		if(clubPtr -> players != NULL){
-				Player *playerPtr = clubPtr -> players;
+				playerPtr = clubPtr -> players;
 				while(playerPtr != NULL){
 					if(playerPtr -> score >= score) {
 						add_player(clubDummy, "club_dummy", playerPtr -> name,
@@ -125,6 +131,8 @@ Player *get_players_by_score(FootballClub *clubs, int score)
 					}
 					playerPtr = playerPtr -> next;
 				}
+			}
+			if(clubPtr->injured_players != NULL) {
 				playerPtr = clubPtr -> injured_players;
 				while(playerPtr != NULL){
 					if(playerPtr -> score >= score) {
@@ -133,15 +141,17 @@ Player *get_players_by_score(FootballClub *clubs, int score)
 						updateStatus(&clubDummy->players, playerPtr->name,
 							playerPtr->injured);
 					}
-					playerPtr = playerPtr -> next;
+					playerPtr = playerPtr->next;
 				}
+			}
+			clubPtr = clubPtr -> next;
 		}
-		clubPtr = clubPtr -> next;
-	}
 	sortByScore(clubDummy -> players);
 	sortByName(clubDummy -> players);
 	Player *playerListPtr = clubDummy -> players;
+	free(clubDummy->name);
 	free(clubDummy);
+	playerPtr = playerListPtr;
 	return playerListPtr;
 }
 
@@ -150,9 +160,10 @@ Player *get_players_by_position(FootballClub *clubs, char *position)
 	FootballClub *clubDummy = (FootballClub *) malloc(sizeof(FootballClub));
 	addFirstClub(&clubDummy, "club_dummy", 0);
 	FootballClub *clubPtr = clubs;
+	Player *playerPtr = NULL;
 	while(clubPtr != NULL){
 		if(clubPtr -> players != NULL){
-				Player *playerPtr = clubPtr -> players;
+				playerPtr = clubPtr -> players;
 				while(playerPtr != NULL){
 					if(strcmp(playerPtr ->position, position) == 0) {
 						add_player(clubDummy, "club_dummy", playerPtr -> name,
@@ -160,16 +171,18 @@ Player *get_players_by_position(FootballClub *clubs, char *position)
 					}
 					playerPtr = playerPtr -> next;
 				}
-				playerPtr = clubPtr -> injured_players;
-				while(playerPtr != NULL){
-					if(strcmp(playerPtr ->position, position) == 0) {
-						add_player(clubDummy, "club_dummy", playerPtr -> name,
-								playerPtr -> position, playerPtr -> score);
-						updateStatus(&clubDummy->players, playerPtr->name,
-							playerPtr->injured);
-					}
-					playerPtr = playerPtr -> next;
+		}
+		if(clubPtr->injured_players != NULL) {
+			playerPtr = clubPtr -> injured_players;
+			while(playerPtr != NULL){
+				if(strcmp(playerPtr ->position, position) == 0) {
+					add_player(clubDummy, "club_dummy", playerPtr -> name,
+							playerPtr -> position, playerPtr -> score);
+					updateStatus(&clubDummy->players, playerPtr->name,
+						playerPtr->injured);
 				}
+				playerPtr = playerPtr->next;
+			}
 		}
 		clubPtr = clubPtr -> next;
 	}
@@ -193,6 +206,8 @@ Player *get_best_team(FootballClub *clubs)
 						playerPtr -> position, playerPtr -> score);
 				playerPtr = playerPtr->next;
 			}
+		}
+		if(clubPtr->injured_players != NULL) {
 			playerPtr = clubPtr -> injured_players;
 			while(playerPtr != NULL){
 				add_player(clubDummy, "club_dummy", playerPtr -> name,
