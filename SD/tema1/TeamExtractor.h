@@ -59,7 +59,7 @@ Player *get_best_player(FootballClub *clubs, char *position)
 						(bestPlayer->score <= playerPtr->score))
 				{
 					found = 1;
-					if (strcmp("\0", bestPlayer->name) == 0)
+					if (strcmp("", bestPlayer->name) == 0)
 					{
 						strcpy(bestPlayer->name, playerPtr->name);
 						bestPlayer->score = playerPtr->score;

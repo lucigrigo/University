@@ -97,7 +97,7 @@ FootballClub *add_club(FootballClub *clubs, char *name)
 	{
 		clubPtr = clubPtr->next;
 	}
-	FootballClub *newClub = (FootballClub*) malloc(sizeof(FootballClub));
+	FootballClub *newClub = (FootballClub*) calloc(sizeof(FootballClub),1);
 	newClub -> name = (char*) calloc((strlen(name) + 1), sizeof(char));
 	strcpy(newClub->name, name);
 	newClub -> players = NULL;
@@ -313,7 +313,7 @@ void add_player(FootballClub *clubs, char *club_name,
 	if (clubPtr->players == NULL)
 	{
 		Player *player = (Player *)malloc(sizeof(Player));
-		player->name = (char*) calloc(strlen(player_name) + 1, sizeof(char));
+		player->name = (char*) malloc((strlen(player_name) + 1) * sizeof(char));
 		strcpy(player->name,player_name);
 		player->position = position;
 		player->score = min(100, score);
@@ -329,7 +329,7 @@ void add_player(FootballClub *clubs, char *club_name,
 		playerPtr = playerPtr->next;
 	}
 	Player *newPlayer = (Player *)malloc(sizeof(Player));
-	newPlayer->name = (char*)calloc(strlen(player_name+ 1), sizeof(char));
+	newPlayer->name = (char*) malloc((strlen(player_name) + 1) * sizeof(char));
 	strcpy(newPlayer->name, player_name);
 	newPlayer->next = NULL;
 	newPlayer->position = position;
@@ -674,7 +674,6 @@ void recover_from_injury(FootballClub *clubs, char *club_name,
 	{
 		return;
 	}
-	// printf("%s\t%s\n",playerPtrTwo->name, playerPtr -> name);
 	playerPtrTwo->next = playerPtr;
 	playerPtr->prev = playerPtrTwo;
 	playerPtr->next = NULL;
@@ -684,22 +683,20 @@ void recover_from_injury(FootballClub *clubs, char *club_name,
 // Frees memory for a list of Player.
 void destroy_player_list(Player *player)
 {
-	// if (player == NULL)
-	// {
-	// 	return;
-	// }
-	// if (player->next == NULL)
-	// {
-	// 	free(player);
-	// 	return;
-	// }
-	// Player *playerPtr;
-	// while (player != NULL)
-	// {
-	// 	playerPtr = player->next;
-	// 	free(player);
-	// 	player = playerPtr;
-	// }
+	if (player == NULL)
+	{
+		return;
+	}
+	Player *playerPtr;
+	while (player != NULL)
+	{
+		playerPtr = player->next;
+		if(player->name) {
+			// free(player->name);
+		}
+		free(player);
+		player = playerPtr;
+	}
 }
 
 // Frees memory for a list of FootballClub.
@@ -709,21 +706,20 @@ void destroy_club_list(FootballClub *clubs)
 	{
 		return;
 	}
-	if (clubs->next == NULL)
-	{
-		// destroy_player_list((clubs->injured_players));
-		// destroy_player_list((clubs->players));
+	if(clubs == NULL){
+		destroy_player_list(clubs->players);
+		destroy_player_list(clubs->injured_players);
+		free(clubs->name);
 		free(clubs);
 		return;
 	}
 	FootballClub *clubPtr = clubs->next;
 	while (clubs != NULL)
 	{
-		// destroy_player_list(&(clubs->injured_players));
-		// destroy_player_list(&(clubs->players));
-		// destroy_player_list((clubs->injured_players));
-		// destroy_player_list((clubs->players));
+		destroy_player_list(clubs->players);
+		destroy_player_list(clubs->injured_players);
 		clubPtr = clubs->next;
+		free(clubs->name);
 		free(clubs);
 		clubs = clubPtr;
 	}
