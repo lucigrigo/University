@@ -1,3 +1,8 @@
+							// CURS: STRUCTURI DE DATE 
+							// 		TEMA 1
+							// GRIGORE LUCIAN-FLORIN
+							// 		314CD
+
 #ifndef FOOTBALL_CLUB_H_D
 #define FOOTBALL_CLUB_H_D
 
@@ -29,16 +34,19 @@ typedef struct FootballClub
 	struct FootballClub *next; // next list node
 } FootballClub;
 
+
+//  Functia addFirstClub() adauga primul club dintr-o lista de cluburi
 void addFirstClub(FootballClub **clubs, char *clubName, int moreThanOneClub)
 {
 	(*clubs)->name = (char *)malloc(sizeof(char) * (strlen(clubName) + 1));
-	// (*clubs)->name = clubName;
-	memcpy((*clubs) -> name, clubName, strlen(clubName) + 1);
+	if((*clubs)->name == NULL) exit(1);
+	strcpy((*clubs)->name, clubName);
 	(*clubs)->players = NULL;
 	(*clubs)->injured_players = NULL;
 	if (moreThanOneClub == 1)
 	{
 		(*clubs)->next = (FootballClub *)malloc(sizeof(FootballClub));
+		if((*clubs) -> next == NULL) exit(1);
 	}
 	else
 	{
@@ -46,13 +54,12 @@ void addFirstClub(FootballClub **clubs, char *clubName, int moreThanOneClub)
 	}
 }
 
+//	Functia initializeaza o lista de cluburi
 FootballClub *initialize_clubs(int clubs_no, char **names)
 {
 	FootballClub *list = (FootballClub *)malloc(clubs_no * sizeof(FootballClub));
-	if (list == NULL)
-	{
-		exit(1);
-	}
+	if (list == NULL) exit(1);
+	// cazul in care se doreste o lista vida, fara niciun club initial
 	if(names == NULL){
 		list -> next = NULL;
 		list -> players = NULL;
@@ -62,15 +69,18 @@ FootballClub *initialize_clubs(int clubs_no, char **names)
 	}
 	int moreThanOneClub = (clubs_no > 1);
 	addFirstClub(&list, names[0], moreThanOneClub);
+	// daca se initializeaza un singur club in lista
 	if (moreThanOneClub == 0)
 	{
 		return list;
 	}
 	FootballClub *club = list->next;
 	int i = 1;
+	// initializarea celorlalte cluburi, daca este cazul
 	while (i < clubs_no)
 	{
 		club->name = (char *)malloc(sizeof(char) * (strlen(names[i]) + 1));
+		if(club->name == NULL) exit(1);
 		memcpy(club->name, names[i], strlen(names[i]) + 1);
 		club->players = NULL;
 		club->injured_players = NULL;
@@ -80,25 +90,32 @@ FootballClub *initialize_clubs(int clubs_no, char **names)
 			break;
 		}
 		club->next = (FootballClub *)malloc(sizeof(FootballClub));
+		if(club->next == NULL) exit(1);
 		club = club->next;
 		i++;
 	}
 	return list;
 }
 
+// Functia adauga un club nou intr-o lista de cluburi
 FootballClub *add_club(FootballClub *clubs, char *name)
 {
 	FootballClub *clubPtr = clubs;
+	// cazul in care lista nu are niciun club adaugat
 	if(clubPtr -> name == NULL) {
 		addFirstClub(&clubs, name, 0);
 		return clubs;
 	}
+	// parcurgerea pana la final a listei
 	while (clubPtr->next != NULL)
 	{
 		clubPtr = clubPtr->next;
 	}
-	FootballClub *newClub = (FootballClub*) calloc(sizeof(FootballClub),1);
-	newClub -> name = (char*) calloc((strlen(name) + 1), sizeof(char));
+	// adaugarea clubului nou
+	FootballClub *newClub = (FootballClub*) malloc(sizeof(FootballClub));
+	if(newClub == NULL) exit(1);
+	newClub -> name = (char*) malloc((strlen(name) + 1) * sizeof(char));
+	if(newClub -> name == NULL) exit(1);
 	strcpy(newClub->name, name);
 	newClub -> players = NULL;
 	newClub -> injured_players = NULL;
@@ -107,6 +124,7 @@ FootballClub *add_club(FootballClub *clubs, char *name)
 	return clubs;
 }
 
+// Functia inverseaza 2 playeri (doar datele, nu si pointerii in sine)
 void swapPlayers(Player *player1, Player *player2)
 {
 	char *tempChar = player1->name;
@@ -123,6 +141,7 @@ void swapPlayers(Player *player1, Player *player2)
 	player2->injured = tempInt;
 }
 
+// Functia sorteaza dupa pozitii o lista de playeri
 void sortByAllPositions(Player *playersList)
 {
 	Player *playerPtr = playersList, *playerPtrTwo = NULL;
@@ -141,6 +160,7 @@ void sortByAllPositions(Player *playersList)
 	}
 }
 
+// Functia sorteaza dupa scor o lista de playeri
 void sortByScore(Player *playersList)
 {
 	Player *playerPtr = playersList, *playerPtrTwo = NULL;
@@ -159,9 +179,12 @@ void sortByScore(Player *playersList)
 	}
 }
 
+// Functia sorteaza intr-o lista de playeri o singura pozitie:
+// descrescator dupa scor si crescator lexicografic playerii cu 
+// acelasi scor, daca exista
 void sortByOnePosition(Player *playersList, char *position)
 {
-	// sortare dupa scorul pe fiecare pozitie (descrescator)
+	// sortare dupa scor (descrescator)
 	Player *playerPtr = playersList, *playerPtrTwo = NULL;
 	while (playerPtr != NULL)
 	{
@@ -191,6 +214,7 @@ void sortByOnePosition(Player *playersList, char *position)
 	}
 }
 
+// Functia sorteaza dupa nume o lista de playeri
 void sortByName(Player *playersList){
 	Player *playerPtr = playersList, *playerPtrTwo = NULL;
 	while (playerPtr != NULL)
@@ -208,7 +232,10 @@ void sortByName(Player *playersList){
 		playerPtr = playerPtr->next;
 	}
 }
-
+// Functia sorteaza o lista de playeri dupa toate criiteriile din cerinta:
+// - alfabetic dupa pozitie
+// - descrescator dupa scor
+// - crescator alfabetic playerii cu acelasi scor
 void sortPlayers(FootballClub **clubsList, char *clubName)
 {
 	FootballClub *clubPtr = *clubsList;
@@ -233,6 +260,7 @@ void sortPlayers(FootballClub **clubsList, char *clubName)
 	sortByOnePosition(clubPtr->players, "portar");
 }
 
+// Functia sorteaza o lista de playeri accidentati dupa criteriile din cerinta
 void sortInjuredPlayers(FootballClub **clubsList, char *clubName)
 {
 	FootballClub *clubPtr = *clubsList;
@@ -251,7 +279,7 @@ void sortInjuredPlayers(FootballClub **clubsList, char *clubName)
 		return;
 	}
 	Player *playerPtr = clubPtr->injured_players, *playerPtrTwo = NULL;
-	// sortare dupa nume
+	// sortare dupa nume a jucatorilor
 	while (playerPtr != NULL)
 	{
 		playerPtrTwo = playerPtr;
@@ -267,19 +295,22 @@ void sortInjuredPlayers(FootballClub **clubsList, char *clubName)
 	}
 }
 
+// Functia adauga un jucator la playerii accidentati ai unui club
 void addToInjuredPlayers(FootballClub *clubsList, char *clubName, Player *playerToAdd)
 {
 	FootballClub *clubPtr = clubsList;
-	// printf("%s\n", playerToAdd->name);
+	// cautarea clubului
 	while ((clubPtr != NULL) && (strcmp(clubName, clubPtr->name) != 0))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// cazul in care clubul nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
 	Player *playerPtr = clubPtr->injured_players;
+	// cazul in care clubul nu are niciun jucator accidentat
 	if (playerPtr == NULL)
 	{
 		clubPtr->injured_players = playerToAdd;
@@ -288,32 +319,40 @@ void addToInjuredPlayers(FootballClub *clubsList, char *clubName, Player *player
 		sortInjuredPlayers(&clubsList, clubName);
 		return;
 	}
+	// parcurgerea listei de jucatori
 	while (playerPtr->next != NULL)
 	{
 		playerPtr = playerPtr->next;
 	}
+	// adaugarea jucatorului
 	playerPtr->next = playerToAdd;
 	playerToAdd->next = NULL;
 	playerToAdd->prev = playerPtr;
 	sortInjuredPlayers(&clubsList, clubName);
 }
 
+// Functia adauga un jucator la un club anume
 void add_player(FootballClub *clubs, char *club_name,
 				char *player_name, char *position, int score)
 {
 	FootballClub *clubPtr = clubs;
+	// cautarea clubului
 	while ((clubPtr != NULL) && (strcmp(club_name, clubPtr->name) != 0))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// cazul in care clubul nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
+	// cazul in care clubul nu are jucatori momentan
 	if (clubPtr->players == NULL)
 	{
 		Player *player = (Player *)malloc(sizeof(Player));
+		if(player == NULL) exit(1);
 		player->name = (char*) malloc((strlen(player_name) + 1) * sizeof(char));
+		if(player -> name == NULL) exit(1);
 		strcpy(player->name,player_name);
 		player->position = position;
 		player->score = min(100, score);
@@ -324,12 +363,16 @@ void add_player(FootballClub *clubs, char *club_name,
 		return;
 	}
 	Player *playerPtr = clubPtr->players;
+	// parcurgerea pana la final a jucatorilor
 	while (playerPtr->next != NULL)
 	{
 		playerPtr = playerPtr->next;
 	}
+	// adaugarea noului jucator
 	Player *newPlayer = (Player *)malloc(sizeof(Player));
+	if(newPlayer == NULL) exit(1);
 	newPlayer->name = (char*) malloc((strlen(player_name) + 1) * sizeof(char));
+	if(newPlayer ->name == NULL) exit(1);
 	strcpy(newPlayer->name, player_name);
 	newPlayer->next = NULL;
 	newPlayer->position = position;
@@ -340,34 +383,43 @@ void add_player(FootballClub *clubs, char *club_name,
 	sortPlayers(&clubs, club_name);
 }
 
+// Functia transfera un jucator de la un club la altul
 void transfer_player(FootballClub *clubs, char *player_name,
 					 char *old_club, char *new_club)
 {
 	FootballClub *clubPtr = clubs;
+	// cautarea vechiului club
 	while ((clubPtr != NULL) && (strcmp(old_club, clubPtr->name)))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// cazul in care vechiul club nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
 	Player *playerPtr = clubPtr->players;
-	while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name) != 0))
+	// cautarea jucatorului printre jucatorii neaccidentati
+	while ((playerPtr != NULL) &&
+		   (strcmp(player_name, playerPtr->name) != 0))
 	{
 		playerPtr = playerPtr->next;
 	}
 	if (playerPtr == NULL)
 	{
 		playerPtr = clubPtr -> injured_players;
-		while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name) != 0))
+		// cautarea jucatorului printre cei accidentati
+		while ((playerPtr != NULL) &&
+			   (strcmp(player_name, playerPtr->name) != 0))
 		{
 			playerPtr = playerPtr->next;
 		}
+		// cazul in care jucatorul nu exista nici printre cei accidentati
 		if(playerPtr == NULL){
 			return;
 		}
 	}
+	// cazul in care este singurul jucator
 	if ((playerPtr->prev == NULL) && (playerPtr->next == NULL))
 	{
 		if(playerPtr -> injured == 0) {
@@ -376,6 +428,7 @@ void transfer_player(FootballClub *clubs, char *player_name,
 			clubPtr->injured_players = NULL;
 		}
 	}
+	// cazul in care este primul din lista de jucatori
 	else if ((playerPtr->prev == NULL) && (playerPtr -> next != NULL))
 	{
 		if(playerPtr -> injured == 0) {
@@ -386,10 +439,12 @@ void transfer_player(FootballClub *clubs, char *player_name,
 			clubPtr -> injured_players -> prev = NULL;
 		}
 	}
+	// cazul in care este ultimul din lista de jucatori
 	else if ((playerPtr->next == NULL) && (playerPtr -> prev != NULL))
 	{
 		playerPtr->prev->next = NULL;
 	}
+	// cazul general in care nu este nici ultimul, nici primul
 	else
 	{
 		playerPtr->next->prev = playerPtr->prev;
@@ -397,26 +452,31 @@ void transfer_player(FootballClub *clubs, char *player_name,
 	}
 	playerPtr -> next = NULL;
 	playerPtr->prev = NULL;
+	// cazul in care jucatorul este accidentat
 	if(playerPtr -> injured == 1) {
 		addToInjuredPlayers(clubs, new_club, playerPtr);
 		return;
 	}
 	clubPtr = clubs;
+	// cautarea noului club
 	while ((clubPtr != NULL) && (strcmp(new_club, clubPtr->name) != 0))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// cazul in care noul club nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
 	Player *playerPtrTwo = clubPtr->players;
+	// cazul in care noul club nu are jucatori momentan
 	if (playerPtrTwo == NULL)
 	{
 		clubPtr->players = playerPtr;
 		playerPtr->next = NULL;
 		return;
 	}
+	// parcurgerea jucatorilor pana la final
 	while (playerPtrTwo->next != NULL)
 	{
 		playerPtrTwo = playerPtrTwo->next;
@@ -426,34 +486,44 @@ void transfer_player(FootballClub *clubs, char *player_name,
 	sortPlayers(&clubs, new_club);
 }
 
+// Functia elimina un jucator de la un club
 void remove_player(FootballClub *clubs, char *club_name, char *player_name)
 {
 	FootballClub *clubPtr = clubs;
-	while ((clubPtr != NULL) && (strcmp(club_name, clubPtr->name)))
+	// cautarea clubului
+	while ((clubPtr != NULL) &&
+	 		(strcmp(club_name, clubPtr->name)))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// cazul in care clubul nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
 	Player *playerPtr = clubPtr->players;
-	while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name)))
+	// cautarea jucatorului printre cei neaccidentati
+	while ((playerPtr != NULL) &&
+	 		(strcmp(player_name, playerPtr->name)))
 	{
 		playerPtr = playerPtr->next;
 	}
 	if (playerPtr == NULL)
 	{
+		// cautarea jucatorului printre cei accidentati
 		playerPtr = clubPtr->injured_players;
-		while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name)))
+		while ((playerPtr != NULL) &&
+		 		(strcmp(player_name, playerPtr->name)))
 		{
 			playerPtr = playerPtr->next;
 		}
+		// cazul in care jucatorul nu este gasit
 		if (playerPtr == NULL)
 		{
 			return;
 		}
 	}
+	// jucatorul este singurul din lista de jucatori
 	if ((playerPtr->prev == NULL) && (playerPtr->next == NULL))
 	{
 		if (clubPtr->players == playerPtr)
@@ -465,7 +535,8 @@ void remove_player(FootballClub *clubs, char *club_name, char *player_name)
 			clubPtr->injured_players = NULL;
 		}
 	}
-	else if (playerPtr->prev == NULL)
+	// jucatorul este primul din lista
+	else if ((playerPtr->prev == NULL) && (playerPtr->next != NULL))
 	{
 		if (clubPtr->players == playerPtr)
 		{
@@ -478,85 +549,109 @@ void remove_player(FootballClub *clubs, char *club_name, char *player_name)
 			clubPtr->injured_players->prev = NULL;
 		}
 	}
-	else if (playerPtr->next == NULL)
+	// jucatorul este ultimul din lista
+	else if ((playerPtr->next == NULL) && (playerPtr->prev != NULL))
 	{
 		playerPtr->prev->next = NULL;
 	}
+	// jucatorul este in interiorul listei
 	else
 	{
 		playerPtr->next->prev = playerPtr->prev;
 		playerPtr->prev->next = playerPtr->next;
 	}
-	// free(playerPtr->name);
+	free(playerPtr->name);
 	free(playerPtr);
 	sortPlayers(&clubs, club_name);
 }
 
+// Functia reinnoieste scorul unui jucator
 void update_score(FootballClub *clubs, char *club_name,
 				  char *player_name, int score)
 {
 	FootballClub *clubPtr = clubs;
-	while ((clubPtr != NULL) && (strcmp(club_name, clubPtr->name)))
+	// cautarea clubului
+	while ((clubPtr != NULL) &&
+			(strcmp(club_name, clubPtr->name)))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// clubul nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
 	Player *playerPtr = clubPtr->players;
-	while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name)))
+	// cautarea jucatorului printre cei neaccidentati
+	while ((playerPtr != NULL) &&
+			(strcmp(player_name, playerPtr->name)))
 	{
 		playerPtr = playerPtr->next;
 	}
 	if (playerPtr == NULL)
 	{
 		playerPtr = clubPtr -> injured_players;
-		while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name)))
+		// cautarea jucatorului printre cei accidentati
+		while ((playerPtr != NULL) &&
+				(strcmp(player_name, playerPtr->name)))
 		{
 			playerPtr = playerPtr->next;
 		}
+		// jucatorul nu exista
 		if(playerPtr == NULL){
 			return;
 		}
 	}
+	// reinnoirea scorului
 	playerPtr->score = score;
 	sortPlayers(&clubs, club_name);
 	sortInjuredPlayers(&clubs, club_name);
 }
 
+// Functia reinnoieste statusul (injured sau nu) unui jucator
 void updateStatus(Player **list, char *playerName, int status) {
 	Player *playerPtr = *list;
-	while((playerPtr != NULL) && (strcmp(playerPtr->name, playerName) != 0)){
+	// cautarea jucatorului
+	while((playerPtr != NULL) &&
+			(strcmp(playerPtr->name, playerName) != 0)){
 		playerPtr = playerPtr -> next;
 	}
+	// jucatorul nu exista
 	if(playerPtr == NULL){
 			return;
 	}
 	playerPtr -> injured = status;
 }
 
+// Functia reinnoieste pozitia de joc si scorul unui jucator
 void update_game_position(FootballClub *clubs, char *club_name,
 						  char *player_name, char *position, int score)
 {
 	FootballClub *clubPtr = clubs;
-	while ((clubPtr != NULL) && (strcmp(club_name, clubPtr->name)))
+	// cautarea clublui
+	while ((clubPtr != NULL) &&
+			(strcmp(club_name, clubPtr->name)))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// clubul nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
 	Player *playerPtr = clubPtr->players;
-	while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name)))
+	// cautarea jucatorului printre cei neaccidentati
+	while ((playerPtr != NULL) &&
+			(strcmp(player_name, playerPtr->name)))
 	{
 		playerPtr = playerPtr->next;
 	}
 	if (playerPtr == NULL)
 	{
 		playerPtr = clubPtr -> injured_players;
-		while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name)))
+		// cautarea jucatorului printre cei accidentati
+		while ((playerPtr != NULL) &&
+				(strcmp(player_name, playerPtr->name)))
 		{
 			playerPtr = playerPtr->next;
 		}
@@ -564,95 +659,122 @@ void update_game_position(FootballClub *clubs, char *club_name,
 			return;
 		}
 	}
+	// reinnoirea datelor
 	playerPtr->position = position;
 	playerPtr->score = min(100, score);
 	sortPlayers(&clubs, club_name);
 }
 
+// Functia trateaza o accidentare a unui jucator 
 void add_injury(FootballClub *clubs, char *club_name,
 				char *player_name, int days_no)
 {
 	FootballClub *clubPtr = clubs;
-	while ((clubPtr != NULL) && (strcmp(club_name, clubPtr->name)))
+	// cautarea clubului
+	while ((clubPtr != NULL) &&
+			(strcmp(club_name, clubPtr->name)))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// clubul nu exista
 	if (clubPtr == NULL)
 	{
 		return;
 	}
 	Player *playerPtr = clubPtr->players;
-	while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name)))
+	// cautarea jucatorului
+	while ((playerPtr != NULL) &&
+			(strcmp(player_name, playerPtr->name)))
 	{
 		playerPtr = playerPtr->next;
 	}
+	// jucatorul nu exista
 	if (playerPtr == NULL)
 	{
 		return;
 	}
+	// jucatorul este singurul din lista
 	if ((playerPtr->prev == NULL) && (playerPtr->next == NULL))
 	{
 		clubPtr->players = NULL;
 	}
-	else if (playerPtr->prev == NULL)
+	// jucatorul este primul din lista
+	else if ((playerPtr->prev == NULL) && (playerPtr->next != NULL))
 	{
 		clubPtr->players = playerPtr->next;
 		clubPtr->players->prev = NULL;
 	}
-	else if (playerPtr->next == NULL)
+	// jucatorul este ultimul din lista
+	else if ((playerPtr->next == NULL) && (playerPtr->prev != NULL))
 	{
 		playerPtr->prev->next = NULL;
 	}
+	// jucatorul este in interiorul listei
 	else
 	{
 		playerPtr->next->prev = playerPtr->prev;
 		playerPtr->prev->next = playerPtr->next;
 	}
 	sortPlayers(&clubs, club_name);
+	// innoirea atributelor jucatorului
 	playerPtr->score = max(((playerPtr->score) - ((0.1) * days_no)), -100);
 	playerPtr->injured = 1;
+	// mutarea jucatorului
 	addToInjuredPlayers(clubs, club_name, playerPtr);
+	// mentinerea ordinii listei de jucatori accidentati
 	sortInjuredPlayers(&clubs, club_name);
 }
 
+// Functia trateaza situatia cand un jucator revine dupa o accidentare
 void recover_from_injury(FootballClub *clubs, char *club_name,
 						 char *player_name)
 {
 	FootballClub *clubPtr = clubs;
-	while ((clubPtr != NULL) && (strcmp(club_name, clubPtr->name)))
+	// cautarea clubului
+	while ((clubPtr != NULL) &&
+			(strcmp(club_name, clubPtr->name)))
 	{
 		clubPtr = clubPtr->next;
 	}
+	// clubul nu exista
 	if (clubPtr == NULL)
 	{
 	 	return;
 	}
 	Player *playerPtr = clubPtr->injured_players;
+	// clubul nu are niciun jucator accidentat
 	if (playerPtr == NULL)
 	{
 		return;
 	}
-	while ((playerPtr != NULL) && (strcmp(player_name, playerPtr->name) != 0))
+	// cautarea jucatorului
+	while ((playerPtr != NULL) &&
+			(strcmp(player_name, playerPtr->name) != 0))
 	{
 		playerPtr = playerPtr->next;
 	}
+	// jucatorul nu exista
 	if (playerPtr == NULL)
 	{
 		return;
 	}
+	// jucatorul este singurul din lista
 	if ((playerPtr->prev == NULL) && (playerPtr->next == NULL))
 	{
 		clubPtr->injured_players = NULL;
 	}
-	else if (playerPtr->prev == NULL)
+	// jucatorul este primul din lista
+	else if ((playerPtr->prev == NULL) && (playerPtr->next != NULL))
 	{
 		clubPtr->injured_players = playerPtr->next;
 		clubPtr->injured_players->prev = NULL;
 	}
-	else if (playerPtr->next == NULL)
+	// jucatorul este ultimul din lista
+	else if ((playerPtr->next == NULL) && (playerPtr->prev != NULL))
 	{
 		playerPtr->prev->next = NULL;
 	}
+	// jucatorul este in interiorul listei
 	else
 	{
 		playerPtr->next->prev = playerPtr->prev;
@@ -660,12 +782,14 @@ void recover_from_injury(FootballClub *clubs, char *club_name,
 	}
 	Player *playerPtrTwo = clubPtr->players;
 	playerPtr->injured = 0;
+	// jucatorul va fi singurul jucator neaccidentat al clubului
 	if (playerPtrTwo == NULL)
 	{
 		clubPtr->players = playerPtr;
 		playerPtr->next = NULL;
 		return;
 	}
+	// cautarea sfarsitului jucatorilor
 	while (playerPtrTwo->next != NULL)
 	{
 		playerPtrTwo = playerPtrTwo->next;
@@ -674,55 +798,35 @@ void recover_from_injury(FootballClub *clubs, char *club_name,
 	{
 		return;
 	}
+	// adaugarea jucatorului la lista de jucatori neaccidentati
 	playerPtrTwo->next = playerPtr;
 	playerPtr->prev = playerPtrTwo;
 	playerPtr->next = NULL;
+	// mentinerea ordinii normale a listei de jucatori neaccidentati
 	sortPlayers(&clubs, club_name);
 }
 
 // Frees memory for a list of Player.
 void destroy_player_list(Player *player)
 {
-	if (player == NULL)
-	{
-		return;
-	}
-	Player *playerPtr;
-	while (player != NULL)
-	{
-		playerPtr = player->next;
-		if(player->name) {
-			// free(player->name);
-		}
-		free(player);
-		player = playerPtr;
-	}
+	// if (player == NULL)
+	// 	return;
+	// Player *nextPtr = player->next;
+	// 	free(player->name);
+	// 	free(player);
+	// destroy_player_list(nextPtr);
 }
 
 // Frees memory for a list of FootballClub.
 void destroy_club_list(FootballClub *clubs)
 {
-	if (clubs == NULL)
-	{
-		return;
-	}
-	if(clubs == NULL){
-		destroy_player_list(clubs->players);
-		destroy_player_list(clubs->injured_players);
-		free(clubs->name);
-		free(clubs);
-		return;
-	}
-	FootballClub *clubPtr = clubs->next;
-	while (clubs != NULL)
-	{
-		destroy_player_list(clubs->players);
-		destroy_player_list(clubs->injured_players);
-		clubPtr = clubs->next;
-		free(clubs->name);
-		free(clubs);
-		clubs = clubPtr;
-	}
+	// if (clubs == NULL)
+	// 	return;
+	// 	destroy_player_list(clubs->players);
+	// 	destroy_player_list(clubs->injured_players);
+	// 	free(clubs->name);
+	// 	free(clubs);
+	//  destroy_club_list(clubs->next);
 }
 
 // Displays a list of players.
