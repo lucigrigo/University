@@ -14,7 +14,7 @@ function [A_k S] = task3(image, k)
   end
   % pasul 2
   for i=1:m
-    A(i, :) = A(i, :) .- miu(i);
+    A(i, :) = A(i, :) - miu(i);
   end
   % pasul 3
   Z = (transpose(A) / sqrt(n - 1));
@@ -26,7 +26,6 @@ function [A_k S] = task3(image, k)
   Y = transpose(W) * A;
   % pasul 7
   A_k = W * Y;
-	miu = transpose(miu);
 	for i=1:size(A, 1) 
 		A_k(i, :) += miu(i);
 	end 

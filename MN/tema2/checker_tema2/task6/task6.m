@@ -26,19 +26,19 @@ function task6()
         
         test_image = imread(image_path);
 
-        %figure,imshow(test_image)
-        %title('Test Image');
-        %figure,imshow(selected_image);
-        %title('Equivalent Image');
+        % figure,imshow(test_image)
+        % title('Test Image');
+        % figure,imshow(selected_image);
+        % title('Equivalent Image');
         
         msg = strcat('Matched image is: ',output_name);
-        %disp(msg);
+        disp(msg);
         fprintf(fid, "%s\n", msg);
     elseif (min_dist < max_dif * 5 / 4)
-        %printf(strcat('This image is a human face, but not a known one', '\n'));
+        % printf(strcat('This image is a human face, but not a known one', '\n'));
         fprintf(fid, "This image is a human face, but not a known one\n");
     else
-        %printf(strcat('This image is not a human face', '\n'));
+        % printf(strcat('This image is not a human face', '\n'));
         fprintf(fid, "This image is not a human face\n");
     end
   end

@@ -154,8 +154,8 @@ function checker()
           success = 1;
           txt_out = fgetl (out);
           txt_ref = fgetl (ref);
-          if !strcmp(txt_out,txt_ref)
-               success=0;
+          if !strcmp(txt_out, txt_ref)
+            success=0;
           end
       
         if success == 0 
