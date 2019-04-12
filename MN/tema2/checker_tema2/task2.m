@@ -7,8 +7,8 @@ function task2()
 
    % desenarea celui de-al doilea grafic
    figure(2);
-   nr_k = 130;
-   A = double(imread('./in/images/image3.gif'));
+   nr_k = 150;
+   A = double(imread('./in/images/image2.gif'));
    v = svd(A);
    info = [];
    for k=1:nr_k

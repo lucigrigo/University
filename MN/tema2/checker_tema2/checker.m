@@ -140,38 +140,38 @@ function checker()
     %%% ------------------------------------------------------------------------------------------------------------
 		%%% Testare Cerinta 6
 		%%% ------------------------------------------------------------------------------------------------------------
-    % cd('task6/')
-    % points=0;
-    % if (fid_aux = fopen('./task6.m', 'r')) ~= -1
-		%   fclose(fid_aux);
+    cd('task6/')
+    points=0;
+    if (fid_aux = fopen('./task6.m', 'r')) ~= -1
+		  fclose(fid_aux);
             
-    %   task6()
+      task6()
       	
-    %   ref = fopen ("./ref/task6.txt");
-    %   out = fopen ("./out/task6.txt");
+      ref = fopen ("./ref/task6.txt");
+      out = fopen ("./out/task6.txt");
        
-    %   for i=1:6
-    %       success = 1;
-    %       txt_out = fgetl (out);
-    %       txt_ref = fgetl (ref);
-    %       if !strcmp(txt_out,txt_ref)
-    %            success=0;
-    %       end
+      for i=1:6
+          success = 1;
+          txt_out = fgetl (out);
+          txt_ref = fgetl (ref);
+          if !strcmp(txt_out,txt_ref)
+               success=0;
+          end
       
-    %     if success == 0 
-    %         printf('Cerinta 6,  %s ................................................. Incorect [%d/%d]\n', strcat(int2str(i), '.jpg'), 0, 4.166);
-    %     else
-    %         points += 4.1666;
-    %        printf('Cerinta 6, %s  .......................................... Corect [%d/%d]\n', strcat(int2str(i), '.jpg'), 4.166, 4.166);
-    %     end
-    %   end
+        if success == 0 
+            printf('Cerinta 6,  %s ................................................. Incorect [%d/%d]\n', strcat(int2str(i), '.jpg'), 0, 4.166);
+        else
+            points += 4.1666;
+           printf('Cerinta 6, %s  .......................................... Corect [%d/%d]\n', strcat(int2str(i), '.jpg'), 4.166, 4.166);
+        end
+      end
         
-    % else
-		% 	printf('Cerinta 6 nu a fost implementata \n');
-    % end  
-    % cd('..')
+    else
+			printf('Cerinta 6 nu a fost implementata \n');
+    end  
+    cd('..')
   
-    %total_points += round(points);
+    total_points += round(points);
   
 	printf('\n                                      Punctaj tema: [%d/%d]\n\n', total_points, 70);
 endfunction
