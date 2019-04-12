@@ -17,24 +17,25 @@ function task2()
    plot(info);
 
    % desenarea celui de-al treilea grafic
-   % figure(3);
-   % nr_k = 200;
-   % A_k = task1('./in/images/image1.gif', nr_k);
-   % A = double(imread('./in/images/image1.gif'));
-   % err_aprox = [];
-   % m = size(A_k, 1);
-   % n = size(A_k, 2);
-   % for k=1:nr_k
-   %    err_aprox_temp = 0;
-   %    for i=1:m
-   %       for j=1:n
-   %          err_aprox_temp += ((A(i, j) - A_k(i, j)) ^ 2);
-   %       end
-   %    end
-   %    err_aprox_temp /= (m * n);
-   %    err_aprox(k) = err_aprox_temp;
-   % end
-   % plot(err_aprox);
+   figure(3);
+   nr_k = 130;
+   A = double(imread('./in/images/image3.gif'));
+   err_aprox = [];
+   for k=1:nr_k
+      A_k = task1('./in/images/image3.gif', k);
+      m = size(A_k, 1);
+      n = size(A_k, 2);
+      err_aprox_temp = 0;
+      for i=1:m
+         for j=1:n
+            temp = ((A(i, j) - A_k(i, j)) ^ 2);
+            err_aprox_temp = err_aprox_temp + temp;
+         end
+      end
+      err_aprox_temp /= (m * n);
+      err_aprox(k) = err_aprox_temp;
+   end
+   plot(err_aprox);
 
    % desenarea celui de-al patrulea grafic
    figure(4);
