@@ -32,7 +32,7 @@ function task6()
         % title('Equivalent Image');
         
         msg = strcat('Matched image is: ',output_name);
-        disp(msg);
+        % disp(msg);
         fprintf(fid, "%s\n", msg);
     elseif (min_dist < max_dif * 5 / 4)
         % printf(strcat('This image is a human face, but not a known one', '\n'));
