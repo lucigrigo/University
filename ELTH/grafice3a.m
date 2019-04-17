@@ -1,0 +1,21 @@
+rez = 0.2:0.1:20;
+tem = 13;
+r_int = 0;      % din echivalarea circuitului
+int = tem ./ (rez + r_int);
+power = rez .* (int .^ 2);
+u_borne = rez .* int;
+figure(1);
+plot(rez, int);
+title('Dependenta curentului in functie de rezistenta');
+xlabel('Rezistenta');
+ylabel('Intensitatea curentului');
+figure(2);
+plot(rez, power);
+title('Variatia puterii in functie de rezistenta');
+xlabel('Rezistenta');
+ylabel('Puterea');
+figure(3);
+plot(rez, u_borne);
+title('Dependenta tensiunii la borne in functie de rezistenta');
+xlabel('Rezistenta');
+ylabel('Tensiunea - borne');
