@@ -1,10 +1,11 @@
+% Tema 2 - Metode Numerice
+% Grigore Lucian-Florin 314CD
 function task2()
    % desenarea primului grafic
    figure(1);
    A = double(imread('./in/images/image2.gif'));
    v = svd(A);
    plot(v);
-
    % desenarea celui de-al doilea grafic
    figure(2);
    nr_k = 150;
@@ -15,7 +16,6 @@ function task2()
       info(k) = (sum(v(1:k)) / sum(v(1:nr_k)));
    end
    plot(info);
-
    % desenarea celui de-al treilea grafic
    figure(3);
    nr_k = 130;
@@ -36,7 +36,6 @@ function task2()
       err_aprox(k) = err_aprox_temp;
    end
    plot(err_aprox);
-
    % desenarea celui de-al patrulea grafic
    figure(4);
    A_k = task1('./in/images/image4.gif', nr_k);
@@ -46,6 +45,6 @@ function task2()
    comp_rate = [];
    for k=1:nr_k
       comp_rate(k) = ((m * k + n * k + k) / (m * n));
-   end 
+   end
    plot(comp_rate);
 end

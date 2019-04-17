@@ -1,9 +1,12 @@
+% Tema 2 - Metode Numerice
+% Grigore Lucian-Florin 314CD
 function [A_k S] = task4(image, k)
+  % citirea imaginii
    A = double(imread(image));
-   miu = []; 
+   miu = [];
    m = size(A, 1);
    n = size(A, 2);
-   % pasul 1
+   % calcularea mediei pe fiecare linie din A
    for i=1:m
       temp_miu = 0;
       for j=1:n
@@ -12,7 +15,7 @@ function [A_k S] = task4(image, k)
       temp_miu /= n;
       miu(i) = temp_miu;
    end
-   % pasul 2
+   % actualizarea liniilor din A
    for i=1:m
       A(i, :) = A(i, :) .- miu(i);
    end
@@ -21,14 +24,14 @@ function [A_k S] = task4(image, k)
    Z = (A * transpose(A)) / (n - 1);
    % aplicarea eig
    [V S] = eig(Z);
-   % selectarea celor k-coloane din V
+   % selectarea celor k-coloane din V (spatiul format din componentele princ.)
    W = V(:, 1:k);
-   % pasul 6
+   % calcularea proiectiei lui A in spatiul componentelor principale
    Y = transpose(W) * A;
-   % pasul 7
+   % aproximarea matricei initiale
    A_k = W * Y;
    miu = transpose(miu);
-   for i=1:size(A, 1) 
+   for i=1:size(A, 1)
       A_k(i, :) += miu(i);
-   end  
+   end
 endfunction
