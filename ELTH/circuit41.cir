@@ -1,0 +1,13 @@
+Cerinta 4b - simularea circuitului cu SICI in loc de SRC
+V1 1 0 5
+R1 1 2 1
+V2 3 2 6
+R2 3 4 4.33
+V3 2 4 7
+#I1 0 4 2
+Fsrs 0 4 V1 0.5
+R3 5 4 2
+I2 6 5 2
+V4 7 0 8
+R4 7 6 2
+.op
