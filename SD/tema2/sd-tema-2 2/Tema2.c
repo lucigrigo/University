@@ -130,7 +130,23 @@ void printRange(Range* range, char* fileName){
 
 //-------TODO: Cerinta 2: You can use auxilary functions where needed----------
 void buildTreesFromFile(char* fileName, TTree* modelTree, TTree* priceTree){
-	// TODO: Cerinta 2a
+	FILE *ffile = fopen(fileName, "r");
+	if(ffile == NULL) exit(1);
+	int index = 1;
+	char line[BUFLEN], *delim = ",";
+	while(fgets(line, BUFLEN, ffile) != NULL){
+		char *linePtr = NULL;
+		linePtr = (char *)strtok(line, delim);
+		insert(modelTree, linePtr, &index);
+		linePtr = strtok(NULL, delim);
+		long modelPrice = atoi(linePtr);
+		insert(priceTree, &modelPrice, &index);
+		// if(index == 27) break;
+		index++;
+	}
+	// printListInorder(minimum(modelTree->root));
+	// printTreePreorder(modelTree->root);
+	fclose(ffile);
 }
 
 
@@ -185,7 +201,7 @@ int main(void) {
 
 	buildTreesFromFile("input.csv", modelTree, priceTree);
 	if(isEmpty(modelTree) || isEmpty(priceTree)) goto EmptyTreeException;
-
+	
 	printf("Model Tree In Order:\n");
 	inorderModelTreePrint(modelTree->root);
 	printf("\n\n");
@@ -194,32 +210,33 @@ int main(void) {
 	inorderPriceTreePrint(priceTree->root);
 	printf("\n\n");
 
-	printf("Group Model Search:\n");
-	Range *range = modelGroupQuery(modelTree,"MG3");
-	if(range == NULL) goto NullPointerException;
-	printRange(range,"input.csv");
-	printf("\n\n");
+	// printf("Group Model Search:\n");
+	// Range *range = modelGroupQuery(modelTree,"MG3");
+	// if(range == NULL) goto NullPointerException;
+	// printRange(range,"input.csv");
+	// printf("\n\n");
 
-	printf("Price Range Search:\n");
-	Range *range2 = priceRangeQuery(priceTree,100,400);
-	if(range2 == NULL) goto NullPointerException;
-	printRange(range2,"input.csv");
-	printf("\n\n");
+	// printf("Price Range Search:\n");
+	// Range *range2 = priceRangeQuery(priceTree,100,400);
+	// if(range2 == NULL) goto NullPointerException;
+	// printRange(range2,"input.csv");
+	// printf("\n\n");
 
-	printf("Model Range Search:\n");
-	Range *range3 = modelRangeQuery(modelTree,"L2","M");
-	if(range3 == NULL) goto NullPointerException;
-	printRange(range3,"input.csv");
-	printf("\n\n");
+	// printf("Model Range Search:\n");
+	// Range *range3 = modelRangeQuery(modelTree,"L2","M");
+	// if(range3 == NULL) goto NullPointerException;
+	// printRange(range3,"input.csv");
+	// printf("\n\n");
 
-	printf("Model Price Range Search:\n");
-	Range *range4 = modelPriceRangeQuery("input.csv",modelTree,"L2","M", 300, 600);
-	if(range4 == NULL) goto NullPointerException;
-	printRange(range4,"input.csv");
+	// printf("Model Price Range Search:\n");
+	// Range *range4 = modelPriceRangeQuery("input.csv",modelTree,"L2","M", 300, 600);
+	// if(range4 == NULL) goto NullPointerException;
+	// printRange(range4,"input.csv");
 
 
 	// TODO: DO NOT FORGET TO DE-ALLOCATE EVERYTHING
-
+	destroyTree(modelTree);
+	destroyTree(priceTree);
 	return 0;
 
 NullPointerException:

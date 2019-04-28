@@ -75,13 +75,13 @@ int testInsert(TTree** tree,  float score) {                   // tests insert
 	ASSERT((*tree)->root->lt == NULL, "Insert-02");
 	ASSERT((*tree)->root->rt == NULL, "Insert-03");
 
-	// Test Left Rotate
+	// // Test Left Rotate
 	insert((*tree), values+3, values+3);
 	insert((*tree), values + 4, values + 4);
 	ASSERT(*((long*)(*tree)->root->lt->elem) == 2l, "Insert-04");
 	ASSERT(*((long*)(*tree)->root->rt->elem) == 4l, "Insert-05");
 
-	// Test Right Rotate
+	// // Test Right Rotate
 	insert((*tree),values + 1, values+1);
 	insert((*tree),values, values);
 	ASSERT(*((long*)(*tree)->root->lt->elem) == 1l, "Insert-06");
@@ -89,7 +89,7 @@ int testInsert(TTree** tree,  float score) {                   // tests insert
 	ASSERT(*((long*)(*tree)->root->lt->rt->elem) == 2l, "Insert-08");
 
 
-	// Test Left Rotate
+	// // Test Left Rotate
 	insert((*tree),values + 5, values + 5);
 	insert((*tree),values + 6, values + 6);
 	ASSERT(*((long*)(*tree)->root->rt->elem) == 5l,"Insert-09");
@@ -97,12 +97,12 @@ int testInsert(TTree** tree,  float score) {                   // tests insert
 	ASSERT(*((long*)(*tree)->root->rt->rt->elem) == 6l,"Insert-11");
 
 
-	// Test Zig-Zag case
+	// // Test Zig-Zag case
 	insert((*tree),values + 8, values + 8);
 	insert((*tree),values + 7, values + 7);
-	ASSERT(*((long*)(*tree)->root->rt->rt->elem) == 7l,"Insert-09");
-	ASSERT(*((long*)(*tree)->root->rt->rt->lt->elem) == 6l,"Insert-10");
-	ASSERT(*((long*)(*tree)->root->rt->rt->rt->elem) == 8l,"Insert-11");
+	ASSERT(*((long*)(*tree)->root->rt->rt->elem) == 7l,"Insert-12");
+	ASSERT(*((long*)(*tree)->root->rt->rt->lt->elem) == 6l,"Insert-13");
+	ASSERT(*((long*)(*tree)->root->rt->rt->rt->elem) == 8l,"Insert-14");
 
 
 	printf(". ");
@@ -160,8 +160,7 @@ int testSuccPred(TTree* (*tree),  float score) { 						// test successor predece
 	value = 2;
 	ASSERT(*((long*)successor(search((*tree),(*tree)->root,&value))->elem) == 3l,"Successor-03");
 
-
-	// ASSERT(predecessor(minimum((*tree)->root) == NULL,"Predecesor-01");
+	ASSERT(predecessor(minimum((*tree)->root)) == NULL,"Predecesor-01");
 
 	value = 5;
 	ASSERT(*((long*)predecessor(search((*tree), (*tree)->root,&value))->elem) == 4l,"Predecesor-02")
@@ -201,6 +200,8 @@ int testDelete(TTree **tree, float score) { 						// test delete
 	// Test delete node with 1 child
 	value = 7;
 	delete((*tree),&value);
+	// printTreeInorder((*tree)->root);
+	// printf("\n\n\n");
 	ASSERT(*((long*)(*tree)->root->rt->elem) == 8l, "Delete-10");
 	ASSERT((*tree)->root->rt->height == 1, "Delete-11");
 
@@ -271,7 +272,6 @@ int testTreeListInsert(TTree **tree, float score) {
 	ASSERT(minimum((*tree)->root)->prev == NULL , "InsertList-20");
 	ASSERT(minimum((*tree)->root)->next->next == minimum((*tree)->root)->end->next , "InsertList-21");
 
-
 	insert(*(tree),values + 8, values + 8);
 	ASSERT( *((long*)maximum((*tree)->root)->elem) == 8, "InsertList-22");
 	ASSERT( *((long*)maximum((*tree)->root)->next->elem) == 8, "InsertList-23");
@@ -287,6 +287,7 @@ int testTreeListInsert(TTree **tree, float score) {
 
 
 int testTreeListDelete(TTree **tree, float score) {
+		
 	long value = 3;
 	delete((*tree),&value);
 	ASSERT(*((long*)(*tree)->root->elem) == 3l, "DeleteList-01");
@@ -303,7 +304,7 @@ int testTreeListDelete(TTree **tree, float score) {
 	ASSERT((*tree)->root->end->next == (*tree)->root->next, "DeleteList-09");
 	ASSERT(*((long*)(*tree)->root->end->next->elem) == 4l, "DeleteList-10");
 	ASSERT(*((long*)(*tree)->root->prev->elem) == 2l, "DeleteList-11");
-
+	
 	delete((*tree),&value);
 	ASSERT(*((long*)(*tree)->root->elem) == 4l, "DeleteList-12");
 	ASSERT(*((long*)(*tree)->root->next->elem) == 5l, "DeleteList-13");
@@ -351,8 +352,6 @@ int testTreeListDelete(TTree **tree, float score) {
 	ASSERT(*((long*)minimum((*tree)->root)->end->elem) == 1, "DeleteList-39");
 	ASSERT(*((long*)minimum((*tree)->root)->next->elem) == 2l, "DeleteList-40");
 	ASSERT(minimum((*tree)->root)->prev == NULL , "DeleteList-41");
-
-
 
 	printf(". ");
 	passed("Tree-List-Delete", score);
