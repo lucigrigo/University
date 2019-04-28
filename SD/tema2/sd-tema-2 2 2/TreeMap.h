@@ -66,7 +66,7 @@ void printTreePreorder(TreeNode *node)
 	{
 		return;
 	}
-	printf("%s\n", (char *)node->elem);
+	printf("%ld\n", *(long *)node->elem);
 	printTreePreorder(node->lt);
 	printTreePreorder(node->rt);
 }
@@ -111,6 +111,7 @@ TreeNode *search(TTree *tree, TreeNode *x, void *elem)
 
 TreeNode *minimum(TreeNode *x)
 {
+	if(x == NULL) return NULL;
 	TreeNode *nodePtr = x;
 	while (nodePtr->lt != NULL)
 	{
@@ -121,6 +122,7 @@ TreeNode *minimum(TreeNode *x)
 
 TreeNode *maximum(TreeNode *x)
 {
+	if(x == NULL) return NULL;
 	TreeNode *nodePtr = x;
 	while (nodePtr->rt != NULL)
 	{
@@ -137,10 +139,14 @@ TreeNode *successor(TreeNode *x)
 	{
 		return minimum(x->rt);
 	}
-	TreeNode *nodePtr = x->pt, *copyX = x;
-	while (nodePtr != NULL && nodePtr->rt == copyX)
+	// if(x->pt == NULL) {
+	// 	return x;
+	// }
+	// if(x->pt->rt != x) return x->pt;
+	TreeNode *nodePtr = x->pt;
+	while ((nodePtr != NULL) && (nodePtr->rt == x))
 	{
-		copyX = nodePtr;
+		x = nodePtr;
 		nodePtr = nodePtr->pt;
 	}
 	return nodePtr;
@@ -195,6 +201,7 @@ int abs(int value)
 
 void avlRotateLeft(TTree *tree, TreeNode *x)
 {
+	if(x == NULL) return;
 	TreeNode *nodePtr = x->rt;
 	if (tree->root == x)
 	{
@@ -217,6 +224,7 @@ void avlRotateLeft(TTree *tree, TreeNode *x)
 
 void avlRotateRight(TTree *tree, TreeNode *y)
 {
+	if(y == NULL) return;
 	TreeNode *nodePtr = y->lt;
 	if (tree->root == y)
 	{
@@ -321,9 +329,13 @@ void destroyTreeNode(TTree *tree, TreeNode *node)
 		return;
 
 	// Use object methods to de-alocate node fields
-	tree->destroyElement(node->elem);
-	tree->destroyInfo(node->info);
-
+	if(node->elem != NULL){
+		tree->destroyElement(node->elem);
+	}
+	if(node->info != NULL){
+		tree->destroyInfo(node->info);
+	}
+	
 	// De-allocate the node
 	free(node);
 }
@@ -463,12 +475,14 @@ void delete (TTree *tree, void *elem)
 	if (nodePtr->end == nodePtr)
 	{
 		removeFromList(nodePtr);
-		TreeNode *auxPtr = NULL;
+		TreeNode *auxPtr = NULL, *initNode = nodePtr;
 		if (nodePtr == tree->root)
 		{
+			// nodePtr->pt = NULL;
 			tree->size = tree->size - 1;
 			if (nodePtr->rt == NULL && nodePtr->lt == NULL)
 			{
+				destroyTreeNode(tree, nodePtr);
 				tree->root = NULL;
 				return;
 			}
@@ -494,7 +508,7 @@ void delete (TTree *tree, void *elem)
 				tree->root = auxPtr;
 			}
 			avlFixUp(tree, (nodePtr->rt == NULL) ? nodePtr : nodePtr->rt, 0);
-			// destroyTreeNode(tree, nodePtr);
+			destroyTreeNode(tree, initNode);
 			return;
 		}
 		int leftDeleted;
@@ -544,18 +558,19 @@ void delete (TTree *tree, void *elem)
 		{
 			if (leftDeleted)
 			{
+				// avlFixUp(tree, (auxPtr->rt == NULL) ? auxPtr : successor(auxPtr), 1);
 				avlFixUp(tree, successor(auxPtr), 1);
 			}
 			else
 			{
-				avlFixUp(tree, predecessor(auxPtr), 1);
+				avlFixUp(tree, predecessor(tree->root), 1);
 			}
 		}
 		else
 		{
 			avlFixUp(tree, auxPtr, (int)(nodePtr->pt->rt == nodePtr));
 		}
-		// destroyTreeNode(tree, nodePtr);
+		destroyTreeNode(tree, initNode);
 		tree->size = tree->size - 1;
 	}
 	else
@@ -578,11 +593,18 @@ void delete (TTree *tree, void *elem)
 
 void destroyTree(TTree *tree)
 {
-	// TODO: Cerinta 1
-	/*
-	 * Note: You can use the tree list to
-	 * deallocate the hole tree.
-	 */
+	if(tree == NULL) return;
+	 TreeNode *nodePtr = minimum(tree->root);
+	 if(nodePtr == NULL) {
+		free(tree);
+		return;
+	 }
+	 while(nodePtr != NULL){
+		 TreeNode *auxPtr = nodePtr->next;
+		 destroyTreeNode(tree, nodePtr);
+		 nodePtr = auxPtr;
+	 }
+	 free(tree);
 }
 
 #endif /* TREEMAP_H_ */

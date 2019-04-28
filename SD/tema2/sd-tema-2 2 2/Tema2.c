@@ -331,9 +331,9 @@ int main(void)
 		
 	// printListInorder(minimum(modelTree->root));
 
-	printf("Model Tree In Order:\n");
-	inorderModelTreePrint(modelTree->root);
-	printf("\n\n");
+	// printf("Model Tree In Order:\n");
+	// inorderModelTreePrint(modelTree->root);
+	// printf("\n\n");
 
 	printf("Price Tree In Order:\n");
 	inorderPriceTreePrint(priceTree->root);
@@ -366,8 +366,8 @@ int main(void)
 		goto NullPointerException;
 	printRange(range4, "input.csv");
 
-	destroyTree(modelTree);
-	destroyTree(priceTree);
+	// destroyTree(modelTree);
+	// destroyTree(priceTree);
 	destroyRange(range);
 	destroyRange(range2);
 	destroyRange(range3);
