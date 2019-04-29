@@ -163,113 +163,110 @@ void printRange(Range *range, char *fileName)
 	fclose(file);
 }
 
-//-------TODO: Cerinta 2: You can use auxilary functions where needed----------
+// Functia care realizeaza citirea din fisierul de input si crearea 
+// celor doi arbori
 void buildTreesFromFile(char *fileName, TTree *modelTree, TTree *priceTree)
 {
+	// deschiderea fisierului de input
 	FILE *ffile = fopen(fileName, "r");
 	if (ffile == NULL)
 		exit(1);
 	char line[BUFLEN], *delim = ",";
+	// citirea fiecarei linii din fisier
 	while (fgets(line, BUFLEN, ffile) != NULL)
 	{
+		// stabilirea indexului
 		int index = ftell(ffile) - strlen(line);
 		char *linePtr = NULL;
+		// impartirea liniei citite dupa ','
 		linePtr = (char *)strtok(line, delim);
+		// inserarea in arborele cu numele modelelor
 		insert(modelTree, (void *)linePtr, (void *)(&index));
 		linePtr = (char *)strtok(NULL, delim);
 		long modelPrice = (long)atoi(linePtr);
+		// inserarea in arborele cu pretul modelelor
 		insert(priceTree, (void *)(&modelPrice), (void *)(&index));
 	}
+	// inchiderea fisierului de input
 	fclose(ffile);
 }
 
+// Functia care realizeaza cautarea dupa un anumit nume a modelelor
 Range *modelGroupQuery(TTree *tree, char *q)
 {
-	avlFixList(tree, tree->root);
+	// initializarea elementului de tip Range cu o capacitate initiala
+	// de 10 elemente
 	Range *range = (Range *)malloc(sizeof(Range));
 	range->index = (int *)malloc(10 * sizeof(int));
+	if(range->index == NULL) exit(1);
 	range->capacity = 10;
 	range->size = 0;
-	int it = 0;
-	// TreeNode *nodePtr = minimum(tree->root);
-	// while(nodePtr != NULL){
-	// 	it++;
-	// 	if(strncmp((char *)nodePtr->elem, q, strlen(q)) == 0) {
-	// 		if(range->size == range->capacity) {
-	// 			range->index = realloc(range->index, 2 * range->capacity);
-	// 			range->capacity = range->capacity * 2;
-	// 		}
-	// 		range->index[range->size] = (int)nodePtr->info;
-	// 		range->size = range->size + 1;
-	// 	}
-	// 	nodePtr = nodePtr -> next;
-	// 	// if(it == 200) break;
-	// }
-	//	VARIANTA CU HACK
-	TreeNode *nodePtr = search(tree, tree->root, q);
-	while(tree->compare(nodePtr->elem, q) == 0)
-	{
-		if (range->size == range->capacity)
-		{
-			range->index = realloc(range->index, 2 * range->capacity);
-			range->capacity = range->capacity * 2;
-		}
-		range->index[range->size] = *(int *)(nodePtr->info);
-		range->size = range->size + 1;
-		nodePtr = nodePtr->next;
-	}
-	return range;
-}
-
-Range *priceRangeQuery(TTree *tree, long q, long p)
-{
-	Range *range = (Range *)malloc(sizeof(Range));
-	range->index = (int *)malloc(10 * sizeof(int));
-	range->capacity = 10;
-	range->size = 0;
+	// inceperea parcurgerii de la primul element din lista
+	// adica cel mai mic nod din arbore
 	TreeNode *nodePtr = minimum(tree->root);
 	while (nodePtr != NULL)
 	{
-		if((tree->compare(nodePtr->elem, (void *)(&q)) >= 0) &&
-			(tree->compare(nodePtr->elem, (void *)(&p)) <= 0))
+		// verificarea daca numele elementului actual se potriveste cautarii
+		if (strncmp((char *)nodePtr->elem, q, strlen(q)) == 0)
 		{
-			if (range->size == range->capacity)
-			{
-				range->index = realloc(range->index, 2 * range->capacity);
-				range->capacity = range->capacity * 2;
-			}
-			range->index[range->size] = *(int *)nodePtr->info;
-			range->size = range->size + 1;
-		}
-		nodePtr = nodePtr->next;
-	}
-	return range;
-}
-
-Range *modelRangeQuery(TTree *tree, char *q, char *p)
-{
-	Range *range = (Range *)malloc(sizeof(Range));
-	range->index = (int *)malloc(10 * sizeof(int));
-	range->capacity = 10;
-	range->size = 0;
-	TreeNode *nodePtr = minimum(tree->root);
-	while (nodePtr != NULL)
-	{
-		if((strncmp((char *)nodePtr->elem, q, strlen(q)) >= 0) &&
-			(strncmp((char *)nodePtr->elem, p, strlen(p)) <= 0))
-		{
+			// cazul in care nu mai este loc liber in vectorul de indecsi
 			if (range->size == range->capacity)
 			{
 				int *temp = realloc(range->index, 2 * range->capacity);
-				if(!temp) {
+				if (!temp)
+				{
 					printf("error at realloc!");
 					exit(1);
-				} else {
+				}
+				else
+				{
 					range->index = temp;
 				}
-				// range->index = realloc(range->index, 2 * range->capacity);
 				range->capacity = range->capacity * 2;
 			}
+			// adaugarea indexului elementului gasit in vectorul de indecsi		
+			range->index[range->size] = *(int *)(nodePtr->info);
+			range->size = range->size + 1;
+		}
+		nodePtr = nodePtr->next;
+	}
+	return range;
+}
+
+// Functia care realizeaza cautarea intr-un interval de pret a produselor
+Range *priceRangeQuery(TTree *tree, long q, long p)
+{
+	// initializarea elementului de tip Range cu o capacitate initiala
+	// de 10 elemente 
+	Range *range = (Range *)malloc(sizeof(Range));
+	range->index = (int *)malloc(10 * sizeof(int));
+	range->capacity = 10;
+	range->size = 0;
+	// incepe cautarea de la primul element din lista
+	TreeNode *nodePtr = minimum(tree->root);
+	while (nodePtr != NULL)
+	{
+		// verificarea daca pretul elementului curent se incadreaza
+		// in intervalul specificat
+		if ((tree->compare(nodePtr->elem, (void *)(&q)) >= 0) &&
+			(tree->compare(nodePtr->elem, (void *)(&p)) <= 0))
+		{
+			// cazul in care nu mai e loc in vectorul de indecsi
+			if (range->size == range->capacity)
+			{
+				int *temp = realloc(range->index, 2 * range->capacity);
+				if (!temp)
+				{
+					printf("error at realloc!");
+					exit(1);
+				}
+				else
+				{
+					range->index = temp;
+				}
+				range->capacity = range->capacity * 2;
+			}
+			// adaugarea indexului elementului gasit in vectorul de indecsi
 			range->index[range->size] = *(int *)nodePtr->info;
 			range->size = range->size + 1;
 		}
@@ -278,27 +275,87 @@ Range *modelRangeQuery(TTree *tree, char *q, char *p)
 	return range;
 }
 
-Range *modelPriceRangeQuery(char *fileName, TTree *tree, char *m1, char *m2, long p1, long p2)
+// Functia realizeaza cautarea produselor intr-un range de nume
+Range *modelRangeQuery(TTree *tree, char *q, char *p)
 {
+	// initializarea elementului de tip Range cu o capacitate initiala
+	// de 10 elemente
 	Range *range = (Range *)malloc(sizeof(Range));
 	range->index = (int *)malloc(10 * sizeof(int));
 	range->capacity = 10;
 	range->size = 0;
+	// inceperea cautarii de la primul element din lista
 	TreeNode *nodePtr = minimum(tree->root);
+	while (nodePtr != NULL)
+	{
+		// compararea numelui produsului curent cu intervalul specificat
+		if ((strncmp((char *)nodePtr->elem, q, strlen(q)) >= 0) &&
+			(strncmp((char *)nodePtr->elem, p, strlen(p)) <= 0))
+		{
+			// cazul in care nu mai e loc in vectorul de indecsi
+			if (range->size == range->capacity)
+			{
+				int *temp = realloc(range->index, 2 * range->capacity);
+				if (!temp)
+				{
+					printf("error at realloc!");
+					exit(1);
+				}
+				else
+				{
+					range->index = temp;
+				}
+				range->capacity = range->capacity * 2;
+			}
+			// adaugarea indexului elementului gasit in vectorul de indecsi
+			range->index[range->size] = *(int *)nodePtr->info;
+			range->size = range->size + 1;
+		}
+		nodePtr = nodePtr->next;
+	}
+	return range;
+}
+
+// Functia realizeaza cautarea produselor atat intr-un range de nume, 
+// cat si intr-un interval de preturi
+Range *modelPriceRangeQuery(char *fileName, TTree *tree, char *m1, char *m2, long p1, long p2)
+{
+	// initializarea elementului de tip Range cu o capacitate initiala
+	// de 10 elemente
+	Range *range = (Range *)malloc(sizeof(Range));
+	range->index = (int *)malloc(10 * sizeof(int));
+	range->capacity = 10;
+	range->size = 0;
+	// inceperea cautarii de la primul element din lista
+	TreeNode *nodePtr = minimum(tree->root);
+	// deschiderea fisierului cu date pentru gasirea pretului unui element
 	FILE *ffile = fopen(fileName, "r");
 	while (nodePtr != NULL)
 	{
-		if((strncmp((char *)nodePtr->elem, m1, strlen(m1)) >= 0) &&
+		// verificarea daca numele se incadreaza in range-ul specificat
+		if ((strncmp((char *)nodePtr->elem, m1, strlen(m1)) >= 0) &&
 			(strncmp((char *)nodePtr->elem, m2, strlen(m2)) <= 0))
 		{
 			long modelPrice = getModelPrice(ffile, *(int *)(nodePtr->info));
+			// verificarea daca pretul se afla in intervalul specificat
 			if (modelPrice >= p1 && modelPrice <= p2)
 			{
+				// cazul in care nu mai e loc in vectorul de indecsi
 				if (range->size == (range->capacity - 1))
 				{
-					range->index = realloc(range->index, 2 * range->capacity);
+					int *temp = realloc(range->index, 2 * range->capacity);
+					if (!temp)
+					{
+						printf("error at realloc!");
+						exit(1);
+					}
+					else
+					{
+						range->index = temp;
+					}
 					range->capacity = range->capacity * 2;
 				}
+				// adaugarea indexului elementului gasit in vectorul de indecsi
 				range->index[range->size] = *(int *)nodePtr->info;
 				range->size = range->size + 1;
 			}
@@ -309,11 +366,13 @@ Range *modelPriceRangeQuery(char *fileName, TTree *tree, char *m1, char *m2, lon
 	return range;
 }
 
+// Functie care elibereaza memoria alocata pentru un range
 void destroyRange(Range *range)
 {
 	if (range != NULL)
 	{
-		if(range->index != NULL){
+		if (range->index != NULL)
+		{
 			free(range->index);
 		}
 		free(range);
@@ -322,7 +381,6 @@ void destroyRange(Range *range)
 
 int main(void)
 {
-
 	TTree *modelTree = createTree(createStrElement, destroyStrElement,
 								  createIndexInfo, destroyIndexInfo, compareStr);
 	if (modelTree == NULL)
@@ -336,7 +394,6 @@ int main(void)
 	buildTreesFromFile("input.csv", modelTree, priceTree);
 	if (isEmpty(modelTree) || isEmpty(priceTree))
 		goto EmptyTreeException;
-		
 
 	printf("Model Tree In Order:\n");
 	inorderModelTreePrint(modelTree->root);
@@ -377,12 +434,8 @@ int main(void)
 	printRange(range4, "input.csv");
 	destroyRange(range4);
 
-	// destroyTree(modelTree);
-	// destroyTree(priceTree);
-	// destroyRange(range);
-	// destroyRange(range2);
-	// destroyRange(range3);
-	// destroyRange(range4);
+	destroyTree(modelTree);
+	destroyTree(priceTree);
 	return 0;
 
 NullPointerException:
