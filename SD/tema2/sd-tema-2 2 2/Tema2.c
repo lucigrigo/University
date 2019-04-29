@@ -172,12 +172,12 @@ void buildTreesFromFile(char *fileName, TTree *modelTree, TTree *priceTree)
 	char line[BUFLEN], *delim = ",";
 	while (fgets(line, BUFLEN, ffile) != NULL)
 	{
-		int index = ftell(ffile);
+		int index = ftell(ffile) - strlen(line);
 		char *linePtr = NULL;
 		linePtr = (char *)strtok(line, delim);
-		insert(modelTree, linePtr, (void *)(&index));
-		linePtr = strtok(NULL, delim);
-		long modelPrice = atoi(linePtr);
+		insert(modelTree, (void *)linePtr, (void *)(&index));
+		linePtr = (char *)strtok(NULL, delim);
+		long modelPrice = (long)atoi(linePtr);
 		insert(priceTree, (void *)(&modelPrice), (void *)(&index));
 	}
 	fclose(ffile);
@@ -203,21 +203,21 @@ Range *modelGroupQuery(TTree *tree, char *q)
 	// 		range->size = range->size + 1;
 	// 	}
 	// 	nodePtr = nodePtr -> next;
-	// 	if(it == 200) break;
+	// 	// if(it == 200) break;
 	// }
 	//	VARIANTA CU HACK
-	// TreeNode *nodePtr = search(tree, tree->root, q);
-	// while (strncmp((char *) nodePtr->elem, q, strlen(q)) == 0)
-	// {
-	// 	if (range->size == range->capacity)
-	// 	{
-	// 		range->index = realloc(range->index, 2 * range->capacity);
-	// 		range->capacity = range->capacity * 2;
-	// 	}
-	// 	range->index[range->size] = (int)nodePtr->info;
-	// 	range->size = range->size + 1;
-	// 	nodePtr = nodePtr->next;
-	// }
+	TreeNode *nodePtr = search(tree, tree->root, q);
+	while(tree->compare(nodePtr->elem, q) == 0)
+	{
+		if (range->size == range->capacity)
+		{
+			range->index = realloc(range->index, 2 * range->capacity);
+			range->capacity = range->capacity * 2;
+		}
+		range->index[range->size] = *(int *)(nodePtr->info);
+		range->size = range->size + 1;
+		nodePtr = nodePtr->next;
+	}
 	return range;
 }
 
@@ -230,10 +230,9 @@ Range *priceRangeQuery(TTree *tree, long q, long p)
 	TreeNode *nodePtr = minimum(tree->root);
 	while (nodePtr != NULL)
 	{
-		if((tree->compare(nodePtr->elem, (void *)(&q)) > 0) &&
-			(tree->compare(nodePtr->elem, (void *)(&p)) < 0))
+		if((tree->compare(nodePtr->elem, (void *)(&q)) >= 0) &&
+			(tree->compare(nodePtr->elem, (void *)(&p)) <= 0))
 		{
-			// printf("%d:%ld\n", *(int *)nodePtr->info, *(long *)nodePtr->elem);
 			if (range->size == range->capacity)
 			{
 				range->index = realloc(range->index, 2 * range->capacity);
@@ -253,22 +252,22 @@ Range *modelRangeQuery(TTree *tree, char *q, char *p)
 	range->index = (int *)malloc(10 * sizeof(int));
 	range->capacity = 10;
 	range->size = 0;
-	// TreeNode *nodePtr = minimum(tree->root);
-	// while (nodePtr != NULL)
-	// {
-	// 	if (strncmp((char *)nodePtr->elem, q, strlen(q)) > 0 &&
-	// 		strncmp((char *)nodePtr->elem, p, strlen(p)) < 0)
-	// 	{
-	// 		if (range->size == range->capacity)
-	// 		{
-	// 			range->index = realloc(range->index, 2 * range->capacity);
-	// 			range->capacity = range->capacity * 2;
-	// 		}
-	// 		range->index[range->size] = (int)nodePtr->info;
-	// 		range->size = range->size + 1;
-	// 	}
-	// 	nodePtr = nodePtr->next;
-	// }
+	TreeNode *nodePtr = minimum(tree->root);
+	while (nodePtr != NULL)
+	{
+		if((strncmp((char *)nodePtr->elem, q, strlen(q)) >= 0) &&
+			(strncmp((char *)nodePtr->elem, p, strlen(p)) <= 0))
+		{
+			if (range->size == range->capacity)
+			{
+				range->index = realloc(range->index, 2 * range->capacity);
+				range->capacity = range->capacity * 2;
+			}
+			range->index[range->size] = *(int *)nodePtr->info;
+			range->size = range->size + 1;
+		}
+		nodePtr = nodePtr->next;
+	}
 	return range;
 }
 
@@ -278,28 +277,28 @@ Range *modelPriceRangeQuery(char *fileName, TTree *tree, char *m1, char *m2, lon
 	range->index = (int *)malloc(10 * sizeof(int));
 	range->capacity = 10;
 	range->size = 0;
-	// TreeNode *nodePtr = minimum(tree->root);
-	// FILE *ffile = fopen("input.csv", "r");
-	// while (nodePtr != NULL)
-	// {
-	// 	if (strncmp((char *)nodePtr->elem, m1, strlen(m1)) > 0 &&
-	// 		strncmp((char *)nodePtr->elem, m2, strlen(m2)) < 0)
-	// 	{
-	// 		long modelPrice = getModelPrice(ffile, (int)nodePtr->info);
-	// 		if (modelPrice > p1 && modelPrice < p2)
-	// 		{
-	// 			if (range->size == range->capacity)
-	// 			{
-	// 				range->index = realloc(range->index, 2 * range->capacity);
-	// 				range->capacity = range->capacity * 2;
-	// 			}
-	// 			range->index[range->size] = (int)nodePtr->info;
-	// 			range->size = range->size + 1;
-	// 		}
-	// 	}
-	// 	nodePtr = nodePtr->next;
-	// }
-	// fclose(ffile);
+	TreeNode *nodePtr = minimum(tree->root);
+	FILE *ffile = fopen(fileName, "r");
+	while (nodePtr != NULL)
+	{
+		if((strncmp((char *)nodePtr->elem, m1, strlen(m1)) >= 0) &&
+			(strncmp((char *)nodePtr->elem, m2, strlen(m2)) <= 0))
+		{
+			long modelPrice = getModelPrice(ffile, *(int *)(nodePtr->info));
+			if (modelPrice >= p1 && modelPrice <= p2)
+			{
+				if (range->size == range->capacity)
+				{
+					range->index = realloc(range->index, 2 * range->capacity);
+					range->capacity = range->capacity * 2;
+				}
+				range->index[range->size] = *(int *)nodePtr->info;
+				range->size = range->size + 1;
+			}
+		}
+		nodePtr = nodePtr->next;
+	}
+	fclose(ffile);
 	return range;
 }
 
@@ -329,11 +328,10 @@ int main(void)
 	if (isEmpty(modelTree) || isEmpty(priceTree))
 		goto EmptyTreeException;
 		
-	// printListInorder(minimum(modelTree->root));
 
-	// printf("Model Tree In Order:\n");
-	// inorderModelTreePrint(modelTree->root);
-	// printf("\n\n");
+	printf("Model Tree In Order:\n");
+	inorderModelTreePrint(modelTree->root);
+	printf("\n\n");
 
 	printf("Price Tree In Order:\n");
 	inorderPriceTreePrint(priceTree->root);
@@ -368,10 +366,10 @@ int main(void)
 
 	// destroyTree(modelTree);
 	// destroyTree(priceTree);
-	destroyRange(range);
-	destroyRange(range2);
-	destroyRange(range3);
-	destroyRange(range4);
+	// destroyRange(range);
+	// destroyRange(range2);
+	// destroyRange(range3);
+	// destroyRange(range4);
 	return 0;
 
 NullPointerException:

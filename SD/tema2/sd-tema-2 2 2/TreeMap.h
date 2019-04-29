@@ -5,8 +5,6 @@
 
 #define MAX(a, b) (((a) >= (b)) ? (a) : (b))
 
-//-------------------------------------------------------------------------
-
 typedef struct node
 {
 	void *elem;		   // Node key
@@ -66,7 +64,7 @@ void printTreePreorder(TreeNode *node)
 	{
 		return;
 	}
-	printf("%ld\n", *(long *)node->elem);
+	printf("%s\n", (char *)node->elem);
 	printTreePreorder(node->lt);
 	printTreePreorder(node->rt);
 }
@@ -139,10 +137,6 @@ TreeNode *successor(TreeNode *x)
 	{
 		return minimum(x->rt);
 	}
-	// if(x->pt == NULL) {
-	// 	return x;
-	// }
-	// if(x->pt->rt != x) return x->pt;
 	TreeNode *nodePtr = x->pt;
 	while ((nodePtr != NULL) && (nodePtr->rt == x))
 	{
@@ -245,7 +239,6 @@ void avlRotateRight(TTree *tree, TreeNode *y)
 	y->pt = nodePtr;
 }
 
-/* Get AVL balance factor for node x */
 int avlGetBalance(TreeNode *x)
 {
 	if (x == NULL)
@@ -267,7 +260,6 @@ void avlFixUp(TTree *tree, TreeNode *y, int leftRotation)
 	{
 		return;
 	}
-	// printf("se ajunge aici cu %s\n", *(char *)y->elem);
 	if (avlGetBalance(nodePtr) > 0)
 	{
 		if (leftRotation == 1)
@@ -297,46 +289,25 @@ void avlFixUp(TTree *tree, TreeNode *y, int leftRotation)
 
 TreeNode *createTreeNode(TTree *tree, void *value, void *info)
 {
-	// Allocate node
 	TreeNode *newNode = (TreeNode *)malloc(sizeof(TreeNode));
-
-	// Set its element field
 	newNode->elem = tree->createElement(value);
-
-	//Set its info
 	newNode->info = tree->createInfo(info);
-
-	// Set its tree links
 	newNode->pt = newNode->rt = newNode->lt = NULL;
-
-	// Set its list links
 	newNode->next = newNode->prev = newNode->end = NULL;
-
-	/*
-	 *  The height of a new node is 1,
-	 *  while the height of NULL is 0
-	 */
 	newNode->height = 1;
-	// printf("%lu\n", *(long *)newNode->elem);
-
 	return newNode;
 }
 
 void destroyTreeNode(TTree *tree, TreeNode *node)
 {
-	// Check arguments
 	if (tree == NULL || node == NULL)
 		return;
-
-	// Use object methods to de-alocate node fields
 	if(node->elem != NULL){
 		tree->destroyElement(node->elem);
 	}
 	if(node->info != NULL){
 		tree->destroyInfo(node->info);
 	}
-	
-	// De-allocate the node
 	free(node);
 }
 
@@ -347,10 +318,24 @@ void avlFixList(TTree *tree, TreeNode *node)
 	
 	avlFixList(tree, node->lt);
 	avlFixList(tree, node->rt);
-	// node->next = (tree->compare(maximum(tree->root)->elem, node->elem) == 0) ? NULL : successor(node);
-	// node->prev = (tree->compare(minimum(tree->root)->elem, node->elem) == 0) ? NULL : predecessor(node);
-	node->next = successor(node);
-	node->prev = predecessor(node);
+	
+	TreeNode *auxPtr = node;
+	if(node->end != node){
+		if(auxPtr->next != NULL){
+			while(auxPtr->next != NULL &&
+					tree->compare(auxPtr->next->elem, node->elem) == 0) {
+				auxPtr = auxPtr -> next;
+			}
+		}
+	}
+	auxPtr->next = (tree->compare(maximum(tree->root)->elem, node->elem) == 0) ? NULL : successor(node);
+	node->prev = (tree->compare(minimum(tree->root)->elem, node->elem) == 0) ? NULL : predecessor(node);
+	if(node->prev != NULL){
+		if(node->prev->end != node) {
+			node->prev = node->prev->end;
+			node->prev->next = node;
+		}
+	}
 }
 
 void insert(TTree *tree, void *elem, void *info)
@@ -478,7 +463,6 @@ void delete (TTree *tree, void *elem)
 		TreeNode *auxPtr = NULL, *initNode = nodePtr;
 		if (nodePtr == tree->root)
 		{
-			// nodePtr->pt = NULL;
 			tree->size = tree->size - 1;
 			if (nodePtr->rt == NULL && nodePtr->lt == NULL)
 			{
@@ -559,7 +543,7 @@ void delete (TTree *tree, void *elem)
 			auxPtr->pt = NULL;
 			if (leftDeleted)
 			{
-				// avlFixUp(tree, (auxPtr->rt == NULL) ? auxPtr : successor(auxPtr), 1);
+
 				avlFixUp(tree, successor(auxPtr), 1);
 			}
 			else
