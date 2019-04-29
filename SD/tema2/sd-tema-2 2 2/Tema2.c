@@ -260,7 +260,14 @@ Range *modelRangeQuery(TTree *tree, char *q, char *p)
 		{
 			if (range->size == range->capacity)
 			{
-				range->index = realloc(range->index, 2 * range->capacity);
+				int *temp = realloc(range->index, 2 * range->capacity);
+				if(!temp) {
+					printf("error at realloc!");
+					exit(1);
+				} else {
+					range->index = temp;
+				}
+				// range->index = realloc(range->index, 2 * range->capacity);
 				range->capacity = range->capacity * 2;
 			}
 			range->index[range->size] = *(int *)nodePtr->info;
@@ -287,7 +294,7 @@ Range *modelPriceRangeQuery(char *fileName, TTree *tree, char *m1, char *m2, lon
 			long modelPrice = getModelPrice(ffile, *(int *)(nodePtr->info));
 			if (modelPrice >= p1 && modelPrice <= p2)
 			{
-				if (range->size == range->capacity)
+				if (range->size == (range->capacity - 1))
 				{
 					range->index = realloc(range->index, 2 * range->capacity);
 					range->capacity = range->capacity * 2;
@@ -306,7 +313,9 @@ void destroyRange(Range *range)
 {
 	if (range != NULL)
 	{
-		free(range->index);
+		if(range->index != NULL){
+			free(range->index);
+		}
 		free(range);
 	}
 }
@@ -343,6 +352,7 @@ int main(void)
 		goto NullPointerException;
 	printRange(range, "input.csv");
 	printf("\n\n");
+	destroyRange(range);
 
 	printf("Price Range Search:\n");
 	Range *range2 = priceRangeQuery(priceTree, 100, 400);
@@ -350,6 +360,7 @@ int main(void)
 		goto NullPointerException;
 	printRange(range2, "input.csv");
 	printf("\n\n");
+	destroyRange(range2);
 
 	printf("Model Range Search:\n");
 	Range *range3 = modelRangeQuery(modelTree, "L2", "M");
@@ -357,12 +368,14 @@ int main(void)
 		goto NullPointerException;
 	printRange(range3, "input.csv");
 	printf("\n\n");
+	destroyRange(range3);
 
 	printf("Model Price Range Search:\n");
 	Range *range4 = modelPriceRangeQuery("input.csv", modelTree, "L2", "M", 300, 600);
 	if (range4 == NULL)
 		goto NullPointerException;
 	printRange(range4, "input.csv");
+	destroyRange(range4);
 
 	// destroyTree(modelTree);
 	// destroyTree(priceTree);
