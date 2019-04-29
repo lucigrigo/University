@@ -556,6 +556,7 @@ void delete (TTree *tree, void *elem)
 		}
 		if (auxPtr == tree->root)
 		{
+			auxPtr->pt = NULL;
 			if (leftDeleted)
 			{
 				// avlFixUp(tree, (auxPtr->rt == NULL) ? auxPtr : successor(auxPtr), 1);
