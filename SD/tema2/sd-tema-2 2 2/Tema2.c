@@ -212,7 +212,7 @@ Range *modelGroupQuery(TTree *tree, char *q)
 			// cazul in care nu mai este loc liber in vectorul de indecsi
 			if (range->size == range->capacity)
 			{
-				int *temp = realloc(range->index, 2 * range->capacity);
+				int *temp = (int *)realloc(range->index, 2 * range->capacity);
 				if (!temp)
 				{
 					printf("error at realloc!");
@@ -254,7 +254,7 @@ Range *priceRangeQuery(TTree *tree, long q, long p)
 			// cazul in care nu mai e loc in vectorul de indecsi
 			if (range->size == range->capacity)
 			{
-				int *temp = realloc(range->index, 2 * range->capacity);
+				int *temp = (int *)realloc(range->index, 2 * range->capacity);
 				if (!temp)
 				{
 					printf("error at realloc!");
@@ -279,10 +279,11 @@ Range *priceRangeQuery(TTree *tree, long q, long p)
 Range *modelRangeQuery(TTree *tree, char *q, char *p)
 {
 	// initializarea elementului de tip Range cu o capacitate initiala
-	// de 10 elemente
+	// de 50 elemente (aveam o problema la realloc asa ca am initializat
+	// vectorul de indecsi cu o capacitate mai mare)
 	Range *range = (Range *)malloc(sizeof(Range));
-	range->index = (int *)malloc(10 * sizeof(int));
-	range->capacity = 10;
+	range->index = (int *)malloc(50 * sizeof(int));
+	range->capacity = 50;
 	range->size = 0;
 	// inceperea cautarii de la primul element din lista
 	TreeNode *nodePtr = minimum(tree->root);
@@ -295,7 +296,7 @@ Range *modelRangeQuery(TTree *tree, char *q, char *p)
 			// cazul in care nu mai e loc in vectorul de indecsi
 			if (range->size == range->capacity)
 			{
-				int *temp = realloc(range->index, 2 * range->capacity);
+				int *temp = (int *)realloc(range->index, 2 * range->capacity);
 				if (!temp)
 				{
 					printf("error at realloc!");
@@ -343,7 +344,7 @@ Range *modelPriceRangeQuery(char *fileName, TTree *tree, char *m1, char *m2, lon
 				// cazul in care nu mai e loc in vectorul de indecsi
 				if (range->size == (range->capacity - 1))
 				{
-					int *temp = realloc(range->index, 2 * range->capacity);
+					int *temp = (int *)realloc(range->index, 2 * range->capacity);
 					if (!temp)
 					{
 						printf("error at realloc!");
@@ -434,8 +435,8 @@ int main(void)
 	printRange(range4, "input.csv");
 	destroyRange(range4);
 
-	destroyTree(modelTree);
 	destroyTree(priceTree);
+	destroyTree(modelTree);
 	return 0;
 
 NullPointerException:
