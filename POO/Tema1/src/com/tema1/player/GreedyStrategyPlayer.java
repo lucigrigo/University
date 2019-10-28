@@ -65,43 +65,82 @@ public class GreedyStrategyPlayer implements Player {
 
     @Override
     public void bagCreation() {
+//        System.out.println("are in mana cartile");
+//        for(Goods good : ownCards) {
+////            System.out.print(good.getId() + ",");
+//        }
+//        System.out.println(" ======== ");
+//        if (coins >= 4) {
         ownBag = new Bag();
         ownBag.setBribe(0);
         int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(ownCards);
-        for (int i = 0; i < ownCards.size(); i++) {
-            if (ownCards.get(i).getId() == mostCommonAssetId) {
-                ownBag.getAssets().add(ownCards.get(i));
-            }
-        }
-        if (mostCommonAssetId < 20) {
-            ownBag.setDominantAsset(mostCommonAssetId);
-        } else {
-            ownBag.setDominantAsset(0);
-        }
-        if (Main.utilities.getRoundNr() % 2 == 0 &&
-                ownBag.getAssets().size() < 8 &&
-                Main.utilities.findMostCommonLegalAsset(ownCards) != -1) {
-            for (int i = 0; i < ownCards.size(); i++) {
-                if (ownCards.get(i).getId() == mostCommonAssetId) {
-                    ownBag.getAssets().add(ownCards.get(i));
-                    ownCards.remove(i);
+        if (mostCommonAssetId >= 20) {
+            if (coins >= 4) {
+                ownBag.setDominantAsset(0);
+                for (int i = 0; i < ownCards.size(); i++) {
+                    if (ownCards.get(i).getId() == mostCommonAssetId) {
+                        ownBag.getAssets().add(ownCards.get(i));
+                        ownCards.remove(i);
+                        break;
+                    }
                 }
             }
+//            System.out.println("---" + ownBag.getAssets().get(0).getId());
+        } else {
+            ownBag.setDominantAsset(mostCommonAssetId);
+            int potentialPenalty = 0;
+            for (int i = 0; i < ownCards.size(); i++) {
+                if (ownCards.get(i).getId() == mostCommonAssetId) {
+//                    System.out.println("adauga - " + ownCards.get(i).getId());
+                    potentialPenalty += ownCards.get(i).getPenalty();
+                    if (potentialPenalty > coins) {
+                        break;
+                    }
+                    ownBag.getAssets().add(ownCards.get(i));
+                }
+            }
+            ownCards.removeIf((Goods g) -> g.getId() == mostCommonAssetId);
         }
+        if (!ownCards.isEmpty()) {
+            if (Main.utilities.getRoundNr() % 2 == 0
+                    && ownBag.getAssets().size() < 8
+                    && Main.utilities.findMostProfitableIllegalAsset(ownCards) != -1
+                    && coins >= 4) {
+                int mostProfitableIllegalAsset = Main.utilities.findMostProfitableIllegalAsset(ownCards);
+                for (int i = 0; i < ownCards.size(); i++) {
+                    if (ownCards.get(i).getId() == mostProfitableIllegalAsset) {
+                        ownBag.getAssets().add(ownCards.get(i));
+                        break;
+                    }
+                }
+                ownCards.removeIf((Goods g) -> g.getId() == mostProfitableIllegalAsset);
+            }
+        }
+//        }
+
+        for (Goods good : ownBag.getAssets()) {
+//            System.out.println(good.getId());
+        }
+//        System.out.println("\n");
     }
 
     @Override
     public void inspection(List<Player> players, List<Integer> freeGoods) {
         for (Player player : players) {
             if (player != this) {
-                if (player.getBag().getBribe() == 0) {
-                    if (Main.utilities.searchIllegalItems(player.getBag().getAssets())) {
-                        Main.utilities.confiscateBag(this, player, freeGoods);
+                if (coins >= 16) {
+                    if (player.getBag().getBribe() == 0) {
+                        if (Main.utilities.searchIllegalItems(player.getBag().getAssets(), player.getBag())) {
+                            Main.utilities.confiscateBag(this, player, freeGoods);
+                        } else {
+//                        System.out.println("de 2 ori aici");
+                            Main.utilities.payPenalty(this, player);
+                        }
                     } else {
-                        Main.utilities.payPenalty(this, player);
+                        Main.utilities.acceptBribe(this, player);
                     }
                 } else {
-                    Main.utilities.acceptBribe(this, player);
+                    Main.utilities.acceptBag(this, player);
                 }
             }
         }
@@ -109,6 +148,6 @@ public class GreedyStrategyPlayer implements Player {
 
     @Override
     public void handRefill(List<Integer> freeGoods) {
-        Main.utilities.getCardsIntoHand(ownCards, freeGoods);
+        ownCards = Main.utilities.getCardsIntoHand(ownCards, freeGoods);
     }
 }

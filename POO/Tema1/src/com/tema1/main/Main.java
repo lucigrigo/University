@@ -12,6 +12,7 @@ import java.util.List;
 public class Main {
 
     //    private static Game game;
+    public static Constants constants = null;
     public static Utilities utilities;
     public static GoodsFactory goodsFactory;
 
@@ -29,6 +30,9 @@ public class Main {
 
         // initializarea unei instante a unei clase de utilitati
         utilities = Utilities.getInstance();
+
+        // initializarea unei instante a unei clase de constante
+        constants = Constants.getInstance();
 
         // initializarea datelor legate de bunuri
         goodsFactory = GoodsFactory.getInstance();

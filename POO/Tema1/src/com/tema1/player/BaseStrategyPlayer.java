@@ -15,6 +15,7 @@ public class BaseStrategyPlayer implements Player {
     private Bag ownBag;
     private List<Goods> endGameGoods;
     private List<Goods> ownCards;
+    private boolean canBeInspector = true;
 
     public BaseStrategyPlayer(int orderNr) {
         coins = 80;
@@ -68,41 +69,79 @@ public class BaseStrategyPlayer implements Player {
         ownBag = new Bag();
         ownBag.setBribe(0);
         int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(ownCards);
-        for (int i = 0; i < ownCards.size(); i++) {
-            if (ownCards.get(i).getId() == mostCommonAssetId) {
-                ownBag.getAssets().add(ownCards.get(i));
-//                ownCards.remove(i);
+        if (mostCommonAssetId >= 20) {
+            if (coins > 4) {
+                ownBag.setDominantAsset(0);
+                int mostProfitableIllegalAsset = Main.utilities.findMostProfitableIllegalAsset(ownCards);
+                for (int i = 0; i < ownCards.size(); i++) {
+                    if (ownCards.get(i).getId() == mostProfitableIllegalAsset) {
+                        ownBag.getAssets().add(ownCards.get(i));
+                        ownCards.remove(i);
+                        break;
+                    }
+                }
             }
-        }
-        if (mostCommonAssetId < 20) {
-            ownBag.setDominantAsset(mostCommonAssetId);
         } else {
-            ownBag.setDominantAsset(0);
+            int possiblePenalty = 0;
+            ownBag.setDominantAsset(mostCommonAssetId);
+            for (int i = 0; i < ownCards.size(); i++) {
+                if (ownCards.get(i).getId() == mostCommonAssetId) {
+                    possiblePenalty += ownCards.get(i).getPenalty();
+                    if (possiblePenalty > coins) {
+                        break;
+                    }
+//                    ownCards.remove(i);
+                    ownBag.getAssets().add(ownCards.get(i));
+                }
+            }
+            ownCards.removeIf((Goods g) -> g.getId() == mostCommonAssetId);
         }
+//        }
+
+//            for(int i = 0; i < ownCards.size(); i++){
+//                if(ownCards.get())
+//            }
+//        }
+//        if (mostCommonAssetId < 20) {
+//            ownBag.setDominantAsset(mostCommonAssetId);
+//        } else {
+//            ownBag.setDominantAsset(0);
+//        }
+
+//        System.out.println("Playerul " + getType() + " " + getInitialOrderNr() + " a bagat in sac:");
+//        for(Goods good : ownBag.getAssets()){
+//            System.out.print(good.getId() + " ");
+//        }
+//        System.out.println("\n");
     }
 
     @Override
     public void inspection(List<Player> players, List<Integer> freeGoods) {
         for (Player player : players) {
             if (this != player
-                    && coins > 16) {
+                    && coins >= 16
+                    && canBeInspector) {
                 // intoarcerea mitei in mana comerciantului
                 player.setCoins(player.getCoins() + player.getBag().getBribe());
                 player.getBag().setBribe(0);
                 // verificarea sacilor
-                if (Main.utilities.searchIllegalItems(player.getBag().getAssets())) {
+                if (Main.utilities.searchIllegalItems(player.getBag().getAssets(), player.getBag())) {
                     // cazul in care gaseste un sac ilegal
+//                    System.out.println("aici de multe ori nu?");
                     Main.utilities.confiscateBag(this, player, freeGoods);
                 } else {
                     // cazul in care a cercetat un sac in regula
                     Main.utilities.payPenalty(this, player);
                 }
+            } else if (this != player && coins < 16) {
+                Main.utilities.acceptBag(this, player);
+//                canBeInspector = false;
             }
         }
     }
 
     @Override
     public void handRefill(List<Integer> freeGoods) {
-        Main.utilities.getCardsIntoHand(ownCards, freeGoods);
+        ownCards = Main.utilities.getCardsIntoHand(ownCards, freeGoods);
     }
 }

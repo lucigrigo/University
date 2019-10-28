@@ -18,6 +18,7 @@ public class BribeStrategyPlayer implements Player {
     private Bag ownBag;
     private List<Goods> endGameGoods;
     private List<Goods> ownCards;
+    public boolean canBeInspector = true;
 
     public BribeStrategyPlayer(int orderNr) {
         coins = 80;
@@ -63,7 +64,7 @@ public class BribeStrategyPlayer implements Player {
 
     @Override
     public String getType() {
-        return "BRIBE";
+        return "BRIBED";
     }
 
     @Override
@@ -72,30 +73,55 @@ public class BribeStrategyPlayer implements Player {
         if (coins < 10 ||
                 !Main.utilities.searchIllegalItems(ownCards)) {
             ownBag.setBribe(0);
-            int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(ownCards);
-            for (int i = 0; i < ownCards.size(); i++) {
-                if (ownCards.get(i).getId() == mostCommonAssetId) {
-                    ownBag.getAssets().add(ownCards.get(i));
-                    ownCards.remove(i);
+            if (coins >= 4) {
+//            System.out.println("aici>?");
+                List<Goods> cardsCopy = new ArrayList<>(ownCards);
+                int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(cardsCopy);
+                int potentialPenalty = 0;
+                for (int i = 0; i < cardsCopy.size(); i++) {
+                    if (cardsCopy.get(i).getId() == mostCommonAssetId) {
+                        potentialPenalty += cardsCopy.get(i).getPenalty();
+                        if (potentialPenalty > coins) {
+                            break;
+                        }
+                        ownBag.getAssets().add(cardsCopy.get(i));
+//                    cardsCopy.remove(i);
+                    }
                 }
-            }
-            if (mostCommonAssetId < 20) {
-                ownBag.setDominantAsset(mostCommonAssetId);
-            } else {
-                ownBag.setDominantAsset(0);
+                ownCards.removeIf((Goods g) -> g.getId() == mostCommonAssetId);
+                if (mostCommonAssetId < 20) {
+                    ownBag.setDominantAsset(mostCommonAssetId);
+                } else {
+                    ownBag.setDominantAsset(0);
+                }
+//            ownBag.setDominantAsset(mostCommonAssetId);
+//            for (int i = 0; i < ownCards.size(); i++) {
+//                if (ownCards.get(i).getId() == mostCommonAssetId) {
+//                    ownBag.getAssets().add(ownCards.get(i));
+//                    ownCards.remove(i);
+//                }
+//            }
             }
         } else {
             int nrIllegalGoods = 0;
+            int possiblePenalty = 0;
             ownBag.setDominantAsset(0);
 //            ownCards.sort((Goods good1, Goods good2) ->
 //                    good2.getProfit() - good1.getProfit());
-            ownCards.sort(Comparator.comparing(Goods::getProfit).thenComparing(Goods::getId));
-            Collections.reverse(ownCards);
-            while (!ownCards.isEmpty() &&
-                    ownCards.get(0).getType() == GoodsType.Illegal &&
-                    ownBag.getAssets().size() < 8) {
-                ownBag.getAssets().add(ownCards.get(0));
-                ownCards.remove(0);
+//            ownCards.sort(Comparator.comparing(Goods::getProfit).thenComparing(Goods::getId));
+//            Collections.reverse(ownCards);
+            List<Goods> ownCardsCopy = new ArrayList<>(ownCards);
+//            ownCardsCopy.sort((Goods g1, Goods g2) -> g2.getProfit() - g1.getProfit());
+            ownCardsCopy.sort(Comparator.comparing(Goods::getProfit).thenComparing(Goods::getId));
+            Collections.reverse(ownCardsCopy);
+            while (!ownCardsCopy.isEmpty()
+                    && ownCardsCopy.get(0).getType() == GoodsType.Illegal
+                    && ownBag.getAssets().size() < 8
+                    && possiblePenalty < coins - 4) {
+                ownBag.getAssets().add(ownCardsCopy.get(0));
+//                System.out.println("se adauga" + ownCardsCopy.get(0).getId());
+                possiblePenalty += ownCardsCopy.get(0).getPenalty();
+                ownCardsCopy.remove(0);
                 nrIllegalGoods++;
             }
             if (nrIllegalGoods <= 2) {
@@ -106,31 +132,52 @@ public class BribeStrategyPlayer implements Player {
                 coins -= 10;
             }
             ownBag.setDominantAsset(0);
-            while (!ownCards.isEmpty() &&
-                    ownBag.getAssets().size() < 8) {
-                ownBag.getAssets().add(ownCards.get(0));
-                ownCards.remove(0);
+            while (!ownCardsCopy.isEmpty() &&
+                    ownBag.getAssets().size() < 8
+                    && possiblePenalty < coins - 2) {
+                possiblePenalty += ownCardsCopy.get(0).getPenalty();
+                ownBag.getAssets().add(ownCardsCopy.get(0));
+                ownCardsCopy.remove(0);
             }
         }
+//        System.out.println("itemele lui " + getType() + getInitialOrderNr());
+        for (Goods good : ownBag.getAssets()) {
+//            System.out.print(good.getId() + ",");
+        }
+//        System.out.print(ownBag.getBribe());
+//        System.out.println("\n");
     }
 
     @Override
     public void inspection(List<Player> players, List<Integer> freeGoods) {
         for (Player player : players) {
-            if (player != this) {
+            if (player != this
+                    && canBeInspector) {
                 if (Math.abs(player.getInitialOrderNr() - initialOrderNr) == 1
-                        || Math.abs(player.getInitialOrderNr()) - initialOrderNr == (players.size() - 1)) {
-                    if (this.coins > 16) {
-                        // intoarcerea mitei in mana comerciantului
-                        player.setCoins(player.getCoins() + player.getBag().getBribe());
-                        player.getBag().setBribe(0);
-                        if (Main.utilities.searchIllegalItems(player.getBag().getAssets())) {
-                            Main.utilities.confiscateBag(this, player, freeGoods);
-                        } else {
-                            Main.utilities.payPenalty(this, player);
+                        || (initialOrderNr == 0 && player.getInitialOrderNr() == (players.size() - 1))
+                        || (initialOrderNr == (players.size() - 1) && player.getInitialOrderNr() == 0)) {
+                    if (this.coins >= 16) {
+                        if (canBeInspector) {
+                            // intoarcerea mitei in mana comerciantului
+                            player.setCoins(player.getCoins() + player.getBag().getBribe());
+                            player.getBag().setBribe(0);
+                            if (Main.utilities.searchIllegalItems(player.getBag().getAssets(), player.getBag())) {
+                                Main.utilities.confiscateBag(this, player, freeGoods);
+                            } else {
+//                            System.out.println("mereu aici 4 ori");
+                                Main.utilities.payPenalty(this, player);
+                            }
                         }
+
+                    } else {
+//                        System.out.println("jucatorul " + this.getType() + " " + this.getInitialOrderNr()
+//                                + " nu mai are bani de inspectat pe " + player.getType() + " " + player.getInitialOrderNr());
+//                        Main.utilities.acceptBribe(this, player);
+                        Main.utilities.acceptBag(this, player);
+//                        canBeInspector = false;
                     }
                 } else {
+//                    System.out.println("se si accepta mita?");
                     Main.utilities.acceptBribe(this, player);
                 }
             }
@@ -139,6 +186,6 @@ public class BribeStrategyPlayer implements Player {
 
     @Override
     public void handRefill(List<Integer> freeGoods) {
-        Main.utilities.getCardsIntoHand(ownCards, freeGoods);
+        ownCards = Main.utilities.getCardsIntoHand(ownCards, freeGoods);
     }
 }
