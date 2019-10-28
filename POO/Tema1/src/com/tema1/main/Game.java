@@ -23,8 +23,8 @@ public final class Game {
     public void startGame(List<Player> players, List<Integer> freeGoods, int maxRounds) {
         Main.utilities.setNrRounds(1);
         while (nrRounds < 5 && nrRounds < maxRounds) {
-//            System.out.println("--- RUNDA " + Main.utilities.getNrRounds() + "---");
-            // facem pe rand fiecare jucator serif
+//            System.out.println("---\tRUNDA " + Main.utilities.getNrRounds() + "\t---");
+//             facem pe rand fiecare jucator serif
             for (Player sheriffPlayer : players) {
                 for (Player nonSheriffPlayer : players) {
                     if (sheriffPlayer != nonSheriffPlayer) {

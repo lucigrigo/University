@@ -82,37 +82,19 @@ public class BaseStrategyPlayer implements Player {
                 }
             }
         } else {
-            int possiblePenalty = 0;
+//            int possiblePenalty = 0;
             ownBag.setDominantAsset(mostCommonAssetId);
             for (int i = 0; i < ownCards.size(); i++) {
                 if (ownCards.get(i).getId() == mostCommonAssetId) {
-                    possiblePenalty += ownCards.get(i).getPenalty();
-                    if (possiblePenalty > coins) {
-                        break;
-                    }
-//                    ownCards.remove(i);
+//                    possiblePenalty += ownCards.get(i).getPenalty();
+//                    if (possiblePenalty >= coins) {
+//                        break;
+//                    }
                     ownBag.getAssets().add(ownCards.get(i));
                 }
             }
             ownCards.removeIf((Goods g) -> g.getId() == mostCommonAssetId);
         }
-//        }
-
-//            for(int i = 0; i < ownCards.size(); i++){
-//                if(ownCards.get())
-//            }
-//        }
-//        if (mostCommonAssetId < 20) {
-//            ownBag.setDominantAsset(mostCommonAssetId);
-//        } else {
-//            ownBag.setDominantAsset(0);
-//        }
-
-//        System.out.println("Playerul " + getType() + " " + getInitialOrderNr() + " a bagat in sac:");
-//        for(Goods good : ownBag.getAssets()){
-//            System.out.print(good.getId() + " ");
-//        }
-//        System.out.println("\n");
     }
 
     @Override
@@ -126,14 +108,15 @@ public class BaseStrategyPlayer implements Player {
                 player.getBag().setBribe(0);
                 // verificarea sacilor
                 if (Main.utilities.searchIllegalItems(player.getBag().getAssets(), player.getBag())) {
-                    // cazul in care gaseste un sac ilegal
-//                    System.out.println("aici de multe ori nu?");
+                    // confiscarea unui sac ilegal
                     Main.utilities.confiscateBag(this, player, freeGoods);
                 } else {
                     // cazul in care a cercetat un sac in regula
                     Main.utilities.payPenalty(this, player);
                 }
-            } else if (this != player && coins < 16) {
+            } else if (this != player) {
+//                System.out.println("jucatorul " + this.getType() + " " + this.getInitialOrderNr()
+//                        + " nu mai are bani de inspectat pe " + player.getType() + " " + player.getInitialOrderNr());
                 Main.utilities.acceptBag(this, player);
 //                canBeInspector = false;
             }

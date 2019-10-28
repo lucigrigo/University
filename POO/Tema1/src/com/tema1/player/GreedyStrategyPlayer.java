@@ -140,7 +140,8 @@ public class GreedyStrategyPlayer implements Player {
                         Main.utilities.acceptBribe(this, player);
                     }
                 } else {
-                    Main.utilities.acceptBag(this, player);
+//                    Main.utilities.acceptBag(this, player);
+                    Main.utilities.acceptBribe(this, player);
                 }
             }
         }
