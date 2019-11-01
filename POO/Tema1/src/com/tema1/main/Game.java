@@ -27,10 +27,6 @@ public final class Game {
 <<<<<<< HEAD
             System.out.println("--- RUNDA " + Main.utilities.getNrRounds() + "---");
             // facem pe rand fiecare jucator serif
-=======
-//            System.out.println("---\tRUNDA " + Main.utilities.getNrRounds() + "\t---");
-//             facem pe rand fiecare jucator serif
->>>>>>> df91f3181055b19c86a79eaa0fcab5c280f7f1db
             for (Player sheriffPlayer : players) {
                 for (Player nonSheriffPlayer : players) {
                     if (sheriffPlayer != nonSheriffPlayer) {

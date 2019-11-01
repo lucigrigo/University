@@ -150,7 +150,6 @@ public class BribeStrategyPlayer implements Player {
             } else {
                 ownBag.setBribe(10);
                 coins -= 10;
-<<<<<<< HEAD
             }
 //            possiblePenalty -=
             ownBag.setDominantAsset(0);
@@ -160,9 +159,7 @@ public class BribeStrategyPlayer implements Player {
                 possiblePenalty += ownCardsCopy.get(0).getPenalty();
                 ownBag.getAssets().add(ownCardsCopy.get(0));
                 ownCardsCopy.remove(0);
-=======
 //                    System.out.println("aici de cate ori?");
->>>>>>> df91f3181055b19c86a79eaa0fcab5c280f7f1db
             }
         }
     }
