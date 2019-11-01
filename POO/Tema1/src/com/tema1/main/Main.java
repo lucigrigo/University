@@ -11,7 +11,6 @@ import java.util.List;
 
 public class Main {
 
-    //    private static Game game;
     public static Constants constants = null;
     public static Utilities utilities;
     public static GoodsFactory goodsFactory;
@@ -50,6 +49,9 @@ public class Main {
                 case "basic":
                     players.add(new BaseStrategyPlayer(players.size()));
                     break;
+                default:
+                    System.out.println("TIP DE PLAYER INVALID");
+                    break;
             }
         }
 
@@ -60,8 +62,6 @@ public class Main {
         game.startGame(players, gameInput.getAssetIds(), gameInput.getRounds());
 
         // finalizarea jocului
-        // - calcularea scorului final pentru fiecare jucator
-        // - adaugarea bonusurilor de King/Queen
         game.endGame(players);
     }
 }

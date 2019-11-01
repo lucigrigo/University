@@ -3,12 +3,11 @@ package com.tema1.main;
 import java.util.List;
 
 public class GameInput {
-    // DO NOT MODIFY
     private final List<Integer> mAssetOrder;
     private final List<String> mPlayersOrder;
     private int mRounds;
 
-    GameInput() {
+    public GameInput() {
         mAssetOrder = null;
         mPlayersOrder = null;
         mRounds = -1;

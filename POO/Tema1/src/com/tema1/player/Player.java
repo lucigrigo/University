@@ -5,6 +5,9 @@ import com.tema1.main.Bag;
 
 import java.util.List;
 
+/**
+ * Interfata de jucator in care se incadreaza toate tipurile de jucatori.
+ */
 public interface Player {
 
     List<Goods> getOwnCards();
@@ -25,11 +28,13 @@ public interface Player {
 
     int getInitialOrderNr();
 
+    // intoarce tipul jucatorului
     String getType();
 
-    // TODO inspectarea sacului de catre serif
+    // inspectarea sacului
     void inspection(List<Player> players, List<Integer> freeGoods);
 
+    // re/completarea mainii
     void handRefill(List<Integer> freeGoods);
 }
 

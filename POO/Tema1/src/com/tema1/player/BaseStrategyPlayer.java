@@ -7,17 +7,18 @@ import com.tema1.main.Main;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementeaza strategia de joc BASIC.
+ */
 public class BaseStrategyPlayer implements Player {
-    private static final Strategy strategy = Strategy.BASE;
     private int initialOrderNr;
     private int finalScore;
     private int coins;
     private Bag ownBag;
     private List<Goods> endGameGoods;
     private List<Goods> ownCards;
-    private boolean canBeInspector = true;
 
-    public BaseStrategyPlayer(int orderNr) {
+    public BaseStrategyPlayer(final int orderNr) {
         coins = 80;
         finalScore = 0;
         initialOrderNr = orderNr;
@@ -25,45 +26,75 @@ public class BaseStrategyPlayer implements Player {
         endGameGoods = new ArrayList<>();
     }
 
+    /**
+     * @return cartile din mana
+     */
     public List<Goods> getOwnCards() {
         return ownCards;
     }
 
+    /**
+     * @return bunurile de pe taraba
+     */
     public List<Goods> getEndGameGoods() {
         return endGameGoods;
     }
 
-    public void setFinalScore(int finalScore) {
+    /**
+     * @param finalScore scorul final
+     */
+    public void setFinalScore(final int finalScore) {
         this.finalScore = finalScore;
     }
 
+    /**
+     * @return scorul final
+     */
     public int getFinalScore() {
         return finalScore;
     }
 
+    /**
+     * @return numarul initial de ordine
+     */
     public int getInitialOrderNr() {
         return initialOrderNr;
     }
 
+    /**
+     * @return banii din mana jucatorului
+     */
     public int getCoins() {
         return coins;
     }
 
+    /**
+     * @param nr numarul de coins
+     */
     @Override
-    public void setCoins(int nr) {
+    public void setCoins(final int nr) {
         this.coins = nr;
     }
 
+    /**
+     * @return sacul jucatorului curent
+     */
     @Override
     public Bag getBag() {
         return ownBag;
     }
 
+    /**
+     * @return tipul jucatorului curent
+     */
     @Override
     public String getType() {
         return "BASIC";
     }
 
+    /**
+     * Crearea sacului din perspectiva BASIC.
+     */
     @Override
     public void bagCreation() {
         ownBag = new Bag();
@@ -82,14 +113,9 @@ public class BaseStrategyPlayer implements Player {
                 }
             }
         } else {
-//            int possiblePenalty = 0;
             ownBag.setDominantAsset(mostCommonAssetId);
             for (int i = 0; i < ownCards.size(); i++) {
                 if (ownCards.get(i).getId() == mostCommonAssetId) {
-//                    possiblePenalty += ownCards.get(i).getPenalty();
-//                    if (possiblePenalty >= coins) {
-//                        break;
-//                    }
                     ownBag.getAssets().add(ownCards.get(i));
                 }
             }
@@ -97,12 +123,19 @@ public class BaseStrategyPlayer implements Player {
         }
     }
 
+    /**
+     * Inspectarea din perspectiva BASIC.
+     *
+     * @param players   lista de jucatori
+     * @param freeGoods gramada de carti libere
+     */
     @Override
-    public void inspection(List<Player> players, List<Integer> freeGoods) {
+    public void inspection(final List<Player> players,
+                           final List<Integer> freeGoods) {
+        int initCoins = coins;
         for (Player player : players) {
             if (this != player
-                    && coins >= 16
-                    && canBeInspector) {
+                    && initCoins >= 16) {
                 // intoarcerea mitei in mana comerciantului
                 player.setCoins(player.getCoins() + player.getBag().getBribe());
                 player.getBag().setBribe(0);
@@ -118,13 +151,17 @@ public class BaseStrategyPlayer implements Player {
 //                System.out.println("jucatorul " + this.getType() + " " + this.getInitialOrderNr()
 //                        + " nu mai are bani de inspectat pe " + player.getType() + " " + player.getInitialOrderNr());
                 Main.utilities.acceptBag(this, player);
-//                canBeInspector = false;
             }
         }
     }
 
+    /**
+     * Re/completarea cartilor din mana.
+     *
+     * @param freeGoods gramada de carti libere
+     */
     @Override
-    public void handRefill(List<Integer> freeGoods) {
+    public void handRefill(final List<Integer> freeGoods) {
         ownCards = Main.utilities.getCardsIntoHand(ownCards, freeGoods);
     }
 }

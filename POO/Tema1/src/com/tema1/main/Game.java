@@ -4,6 +4,9 @@ import com.tema1.player.Player;
 
 import java.util.List;
 
+/**
+ * Clasa care implementeaza desfasurarea jocului.
+ */
 public final class Game {
 
     private int nrRounds;
@@ -13,6 +16,9 @@ public final class Game {
         nrRounds = 0;
     }
 
+    /**
+     * @return instanta clasei de joc
+     */
     public static Game getInstance() {
         if (instance == null) {
             instance = new Game();
@@ -20,7 +26,16 @@ public final class Game {
         return instance;
     }
 
-    public void startGame(List<Player> players, List<Integer> freeGoods, int maxRounds) {
+    /**
+     * Functia principala de desfasurare a jocului, realizand toti pasii pentru fiecare runda si sub-runda.
+     *
+     * @param players   jucatorii care iau parte la joc
+     * @param freeGoods cartile care nu au ajuns in mana niciunui jucator
+     * @param maxRounds numarul maxim de runde
+     */
+    public void startGame(final List<Player> players,
+                          final List<Integer> freeGoods,
+                          final int maxRounds) {
         Main.utilities.setNrRounds(1);
         while (nrRounds < 5 && nrRounds < maxRounds) {
 //            System.out.println("---\tRUNDA " + Main.utilities.getNrRounds() + "\t---");
@@ -53,12 +68,17 @@ public final class Game {
         }
     }
 
-    public void endGame(List<Player> players) {
+    /**
+     * Functia care se ocupa de finalizarea jocului.
+     *
+     * @param players jucatorii care iau parte la joc
+     */
+    public void endGame(final List<Player> players) {
 //        System.out.println("---ITEMELE DE LA FINAL SUNT---");
 //        for (Player player : players) {
 //            System.out.println("Player " + player.getType() + " " + player.getInitialOrderNr() + " coins = " + player.getCoins());
 //            for (Goods good : player.getEndGameGoods()) {
-//                System.out.print(good.getId() + ",");
+//                System.out.print(good.getId() + ", ");
 //            }
 //            System.out.println();
 //        }

@@ -8,11 +8,18 @@ import com.tema1.player.Player;
 
 import java.util.*;
 
+/**
+ * O clasa de utilitati, folosita pentru task-uri adiacente, care nu tin neaparat de un player,
+ * sau precum scrierea rezultatlor finale ale jocului etc.
+ */
 public final class Utilities {
 
     private static Utilities instance = null;
     private int nrRounds = 0;
 
+    /**
+     * @return instanta clasei de Utilitati
+     */
     public static Utilities getInstance() {
         if (instance == null) {
             instance = new Utilities();
@@ -20,19 +27,29 @@ public final class Utilities {
         return instance;
     }
 
-    public int getNrRounds() {
-        return nrRounds;
+    /**
+     * @return numarul rundei curente de joc
+     */
+    public int getRoundNr() {
+        return this.nrRounds;
     }
 
+    /**
+     * Seteaza numarul curent al rundei de joc.
+     *
+     * @param nrRounds numarul rundei
+     */
     public void setNrRounds(final int nrRounds) {
         this.nrRounds = nrRounds;
     }
 
+    /**
+     * Functia care realizeaza scrierea rezultatelor finale ale jocului.
+     *
+     * @param players lista cu jucatorii
+     */
     public void writeEndGameResults(final List<Player> players) {
-        players.sort((Player p1, Player p2) ->
-                p2.getFinalScore() - p1.getFinalScore());
-//        players.sort(Comparator.comparing(Player::getFinalScore).thenComparing(Player::getInitialOrderNr));
-//        Collections.reverse(players);
+        players.sort((Player p1, Player p2) -> p2.getFinalScore() - p1.getFinalScore());
         StringBuilder sb = new StringBuilder();
         for (Player player : players) {
             sb.append(player.getInitialOrderNr());
@@ -45,6 +62,11 @@ public final class Utilities {
         System.out.println(sb.toString());
     }
 
+    /**
+     * Functia care calculeaza scorul final al fiecarui jucator, fara king si queen bonus.
+     *
+     * @param players lista cu jucatorii
+     */
     public void computeFinalScore(final List<Player> players) {
         for (Player player : players) {
             int score = 0;
@@ -52,8 +74,8 @@ public final class Utilities {
             for (Goods good : player.getEndGameGoods()) {
                 score += good.getProfit();
                 if (good.getType() == GoodsType.Illegal) {
-                    for (Map.Entry<Goods, Integer> entry :
-                            ((IllegalGoods) good).getIllegalBonus().entrySet()) {
+                    for (Map.Entry<Goods, Integer> entry
+                            : ((IllegalGoods) good).getIllegalBonus().entrySet()) {
                         score += entry.getKey().getProfit() * entry.getValue();
                     }
                 }
@@ -63,23 +85,28 @@ public final class Utilities {
         }
     }
 
+    /**
+     * Functia care adauga la scorul final bonus-urile de king si queen.
+     *
+     * @param players lista cu jucatori
+     */
     public void addKQFinalBonus(final List<Player> players) {
         int[] frequency;
-        int[] illGoodsChecked;
+//        int[] illGoodsChecked;
 //        int kqbonus = 0;
 //        players.sort((Player p1, Player p2) ->
 //                p2.getFinalScore() - p1.getFinalScore());
         for (int i = 0; i < Main.constants.getNrLegalItems(); i++) {
             frequency = new int[players.size()];
             for (Player player : players) {
-                illGoodsChecked = new int[Main.constants.getNrIllegalItems()];
+//                illGoodsChecked = new int[Main.constants.getNrIllegalItems()];
                 for (Goods good : player.getEndGameGoods()) {
                     if (good.getId() == i) {
                         frequency[player.getInitialOrderNr()]++;
                     }
                     if (good.getType() == GoodsType.Illegal) {
 //                            && illGoodsChecked[good.getId() % 20] == 0) {
-                        illGoodsChecked[good.getId() % 20] = 1;
+//                        illGoodsChecked[good.getId() % 20] = 1;
                         for (Map.Entry<Goods, Integer> entry :
                                 ((IllegalGoods) good).getIllegalBonus().entrySet()) {
                             if (entry.getKey().getId() == i) {
@@ -148,11 +175,16 @@ public final class Utilities {
 //        System.out.println(kqbonus);
     }
 
-    public int getRoundNr() {
-        return this.nrRounds;
-    }
-
-    public void confiscateBag(Player sheriff, Player merchant, List<Integer> freeGoods) {
+    /**
+     * Functia care se ocupa de confiscarea unui sac ilegal.
+     *
+     * @param sheriff   seriful la momentul apelului
+     * @param merchant  comerciantului la momentul apelului
+     * @param freeGoods lista cu cartile nefolosite de vreun jucator
+     */
+    public void confiscateBag(final Player sheriff,
+                              final Player merchant,
+                              final List<Integer> freeGoods) {
         int penalty = 0;
         int counterPenalty = 0;
         for (Goods good : merchant.getBag().getAssets()) {
@@ -184,7 +216,14 @@ public final class Utilities {
         merchant.getBag().getAssets().clear();
     }
 
-    public void payPenalty(Player sheriff, Player merchant) {
+    /**
+     * Functia care se ocupa de platirea unu penalty in cazul verificarii unui comerciant sincer.
+     *
+     * @param sheriff  seriful la momentul apelului
+     * @param merchant comerciantului la momentul apelului
+     */
+    public void payPenalty(final Player sheriff,
+                           final Player merchant) {
         int initialCoins = sheriff.getCoins();
         int penalty = 0;
         int counterPenalty = 0;
@@ -215,14 +254,28 @@ public final class Utilities {
 //        System.out.println(penalty);
     }
 
-    public void acceptBribe(Player sheriff, Player merchant) {
+    /**
+     * Functia care se ocupa cu acceptarea mitei de la un comerciant, de catre seriful
+     * de la momentul respectiv.
+     *
+     * @param sheriff  seriful de la momentul respectiv
+     * @param merchant comerciantul de la momentul respectiv
+     */
+    public void acceptBribe(final Player sheriff,
+                            final Player merchant) {
         sheriff.setCoins(sheriff.getCoins() + merchant.getBag().getBribe());
         merchant.getEndGameGoods().addAll(merchant.getBag().getAssets());
         merchant.getBag().getAssets().clear();
         merchant.getBag().setBribe(0);
     }
 
-    public int findMostProfitableIllegalAsset(List<Goods> goods) {
+    /**
+     * Functia care gaseste cel mai profitabil bun ilegal.
+     *
+     * @param goods lista de bunuri
+     * @return id-ul bunului ilegal cel mai profitabil; -1, daca nu gaseste niciunul
+     */
+    public int findMostProfitableIllegalAsset(final List<Goods> goods) {
         List<Goods> goodsCopy = new ArrayList<>(goods);
         goodsCopy.sort((Goods g1, Goods g2) -> g2.getProfit() - g1.getProfit());
         if (goodsCopy.get(0).getType() == GoodsType.Illegal) {
@@ -231,11 +284,19 @@ public final class Utilities {
         return -1;
     }
 
-    public int findMostCommonLegalAsset(List<Goods> goods) {
+    /**
+     * Functia care gaseste cel mai comun bun ilegal; intoarce id-ul celui mai profitabil
+     * bun ilegal, daca sunt doar bunuri ilegale
+     *
+     * @param goods lista de bunuri
+     * @return id-ul unui bun
+     */
+    public int findMostCommonLegalAsset(final List<Goods> goods) {
         boolean hasLegalAssets = false;
         for (Goods good : goods) {
-            if (good.getType() == GoodsType.Legal)
+            if (good.getType() == GoodsType.Legal) {
                 hasLegalAssets = true;
+            }
         }
         if (!hasLegalAssets) {
 //            goods.sort((Goods g1, Goods g2) -> g2.getProfit() - g1.getProfit());
@@ -263,14 +324,14 @@ public final class Utilities {
                     if (id == -1) {
                         id = i;
                         max = countArray[i];
-                    } else if (Main.goodsFactory.getGoodsById(i).getProfit() >
-                            Main.goodsFactory.getGoodsById(id).getProfit()) {
+                    } else if (Main.goodsFactory.getGoodsById(i).getProfit()
+                            > Main.goodsFactory.getGoodsById(id).getProfit()) {
                         id = i;
                         max = countArray[i];
                     }
                     if (countArray[i] == max
-                            && Main.goodsFactory.getGoodsById(i).getProfit() ==
-                            Main.goodsFactory.getGoodsById(id).getProfit()
+                            && Main.goodsFactory.getGoodsById(i).getProfit()
+                            == Main.goodsFactory.getGoodsById(id).getProfit()
                             && i > id) {
                         id = i;
                         max = countArray[i];
@@ -281,14 +342,33 @@ public final class Utilities {
         }
     }
 
-    public void acceptBag(Player sheriff, Player merchant) {
+    /**
+     * Functia care se ocupa de acceptarea sacului unui comerciant, dar nu si a mitei.
+     * Este folosita atunci cand un inspector nu mai are bani sa inspecteze pe cine trebuie.
+     *
+     * @param sheriff  seriful la momentul respectiv
+     * @param merchant comerciantul la momentul respectiv
+     */
+    public void acceptBag(Player sheriff,
+                          final Player merchant) {
+//        for(Goods good : merchant.getBag().getAssets()) {
+//            merchant.getEndGameGoods().add(good);
+//        }
         merchant.setCoins(merchant.getCoins() + merchant.getBag().getBribe());
         merchant.getBag().setBribe(0);
         merchant.getEndGameGoods().addAll(merchant.getBag().getAssets());
         merchant.getBag().getAssets().clear();
     }
 
-    public List<Goods> getCardsIntoHand(List<Goods> hand, List<Integer> cards) {
+    /**
+     * Functia care se ocupe cu re/completarea cartilor din mana unui jucator.
+     *
+     * @param hand  cartile din mana la momentul curent
+     * @param cards gramada de carti libere
+     * @return o noua lista cu noile carti
+     */
+    public List<Goods> getCardsIntoHand(List<Goods> hand,
+                                        final List<Integer> cards) {
         if (hand.size() != 0) {
             hand = new ArrayList<>();
         }
@@ -301,7 +381,13 @@ public final class Utilities {
         return hand;
     }
 
-    public boolean searchIllegalItems(List<Goods> goods) {
+    /**
+     * Functia care se ocupa cu verificarea unei liste de bunuri pentru bunuri ilegale.
+     *
+     * @param goods lista de bunuri
+     * @return true sau false daca lista de bunuri are sau nu bunuri ilegale
+     */
+    public boolean searchIllegalItems(final List<Goods> goods) {
         if (goods == null || goods.isEmpty()) {
             return false;
         }
@@ -313,7 +399,15 @@ public final class Utilities {
         return false;
     }
 
-    public boolean searchIllegalItems(List<Goods> goods, Bag bag) {
+    /**
+     * Functia care cauta intr-un sac ori un bun ilegal, ori un bun nedeclarat.
+     *
+     * @param goods lista de bunuri
+     * @param bag   sacul
+     * @return true sau false daca sacul este sau nu in regula
+     */
+    public boolean searchIllegalItems(final List<Goods> goods,
+                                      final Bag bag) {
         if (goods == null || goods.isEmpty()) {
             return false;
         }

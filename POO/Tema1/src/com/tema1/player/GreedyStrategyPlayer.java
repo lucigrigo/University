@@ -7,8 +7,10 @@ import com.tema1.main.Main;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementeaza strategia de joc GREEDY.
+ */
 public class GreedyStrategyPlayer implements Player {
-    private static final Strategy strategy = Strategy.GREEDY;
     private int initialOrderNr;
     private int finalScore;
     private int coins;
@@ -16,7 +18,7 @@ public class GreedyStrategyPlayer implements Player {
     private List<Goods> endGameGoods;
     private List<Goods> ownCards;
 
-    public GreedyStrategyPlayer(int orderNr) {
+    public GreedyStrategyPlayer(final int orderNr) {
         coins = 80;
         finalScore = 0;
         initialOrderNr = orderNr;
@@ -24,58 +26,82 @@ public class GreedyStrategyPlayer implements Player {
         endGameGoods = new ArrayList<>();
     }
 
+    /**
+     * @return cartile din mana
+     */
     public List<Goods> getOwnCards() {
         return ownCards;
     }
 
+    /**
+     * @return taraba cu bunurile finale
+     */
     public List<Goods> getEndGameGoods() {
         return endGameGoods;
     }
 
-    public void setFinalScore(int finalScore) {
+    /**
+     * @param finalScore scorul final al jucatorului
+     */
+    public void setFinalScore(final int finalScore) {
         this.finalScore = finalScore;
     }
 
+    /**
+     * @return scorul final al player-ului
+     */
     public int getFinalScore() {
         return finalScore;
     }
 
+    /**
+     * @return numarul initial de ordine al player-ului
+     */
     public int getInitialOrderNr() {
         return initialOrderNr;
     }
 
+    /**
+     * @return numarul de bani ai jucatorului curent
+     */
     public int getCoins() {
         return coins;
     }
 
+    /**
+     * @param nr setarea banutilor jocului curent
+     */
     @Override
-    public void setCoins(int nr) {
+    public void setCoins(final int nr) {
         this.coins = nr;
     }
 
+    /**
+     * @return sacul player-ului curent
+     */
     @Override
     public Bag getBag() {
         return ownBag;
     }
 
+    /**
+     * @return numele tipului de player
+     */
     @Override
     public String getType() {
         return "GREEDY";
     }
 
+    /**
+     * Crearea sacului din perspectiva GREEDY.
+     */
     @Override
     public void bagCreation() {
-//        System.out.println("are in mana cartile");
-//        for(Goods good : ownCards) {
-////            System.out.print(good.getId() + ",");
-//        }
-//        System.out.println(" ======== ");
-//        if (coins >= 4) {
         ownBag = new Bag();
         ownBag.setBribe(0);
         int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(ownCards);
         if (mostCommonAssetId >= 20) {
-            if (coins >= 4) {
+            if (coins > 4) {
                 ownBag.setDominantAsset(0);
                 for (int i = 0; i < ownCards.size(); i++) {
                     if (ownCards.get(i).getId() == mostCommonAssetId) {
@@ -88,14 +114,14 @@ public class GreedyStrategyPlayer implements Player {
 //            System.out.println("---" + ownBag.getAssets().get(0).getId());
         } else {
             ownBag.setDominantAsset(mostCommonAssetId);
-            int potentialPenalty = 0;
+//            int potentialPenalty = 0;
             for (int i = 0; i < ownCards.size(); i++) {
                 if (ownCards.get(i).getId() == mostCommonAssetId) {
 //                    System.out.println("adauga - " + ownCards.get(i).getId());
-                    potentialPenalty += ownCards.get(i).getPenalty();
-                    if (potentialPenalty > coins) {
-                        break;
-                    }
+//                    potentialPenalty += ownCards.get(i).getPenalty();
+//                    if (potentialPenalty > coins) {
+//                        break;
+//                    }
                     ownBag.getAssets().add(ownCards.get(i));
                 }
             }
@@ -105,7 +131,7 @@ public class GreedyStrategyPlayer implements Player {
             if (Main.utilities.getRoundNr() % 2 == 0
                     && ownBag.getAssets().size() < 8
                     && Main.utilities.findMostProfitableIllegalAsset(ownCards) != -1
-                    && coins >= 4) {
+                    && coins > 4) {
                 int mostProfitableIllegalAsset = Main.utilities.findMostProfitableIllegalAsset(ownCards);
                 for (int i = 0; i < ownCards.size(); i++) {
                     if (ownCards.get(i).getId() == mostProfitableIllegalAsset) {
@@ -116,19 +142,21 @@ public class GreedyStrategyPlayer implements Player {
                 ownCards.removeIf((Goods g) -> g.getId() == mostProfitableIllegalAsset);
             }
         }
-//        }
-
-        for (Goods good : ownBag.getAssets()) {
-//            System.out.println(good.getId());
-        }
-//        System.out.println("\n");
     }
 
+    /**
+     * Inspectarea jucatorilor din perspectiva GREEDY.
+     *
+     * @param players   lista de jucatori
+     * @param freeGoods gramada de carti libere
+     */
     @Override
-    public void inspection(List<Player> players, List<Integer> freeGoods) {
+    public void inspection(final List<Player> players,
+                           final List<Integer> freeGoods) {
+        int initCoins = coins;
         for (Player player : players) {
             if (player != this) {
-                if (coins >= 16) {
+                if (initCoins >= 16) {
                     if (player.getBag().getBribe() == 0) {
                         if (Main.utilities.searchIllegalItems(player.getBag().getAssets(), player.getBag())) {
                             Main.utilities.confiscateBag(this, player, freeGoods);
@@ -140,15 +168,20 @@ public class GreedyStrategyPlayer implements Player {
                         Main.utilities.acceptBribe(this, player);
                     }
                 } else {
-//                    Main.utilities.acceptBag(this, player);
-                    Main.utilities.acceptBribe(this, player);
+                    Main.utilities.acceptBag(this, player);
+//                    Main.utilities.acceptBribe(this, player);
                 }
             }
         }
     }
 
+    /**
+     * Re/completarea cartilor din mana.
+     *
+     * @param freeGoods gramada de carti libere
+     */
     @Override
-    public void handRefill(List<Integer> freeGoods) {
+    public void handRefill(final List<Integer> freeGoods) {
         ownCards = Main.utilities.getCardsIntoHand(ownCards, freeGoods);
     }
 }
