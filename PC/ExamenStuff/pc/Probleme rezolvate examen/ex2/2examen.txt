@@ -1,0 +1,24 @@
+3
+1 2 1
+Tolkien
+UK
+LOTR
+1890
+64
+3
+Martin
+US
+GoT1
+1996
+128
+5
+GoT2
+1998
+192
+3
+Rowling
+UK
+HP
+1990
+0
+7

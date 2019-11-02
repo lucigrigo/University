@@ -1,6 +1,5 @@
 package com.tema1.main;
 
-import com.tema1.goods.Goods;
 import com.tema1.player.Player;
 
 import java.util.List;
@@ -39,26 +38,26 @@ public final class Game {
                           final int maxRounds) {
         Main.utilities.setNrRounds(1);
         while (nrRounds < 5 && nrRounds < maxRounds) {
-            System.out.println("--- RUNDA " + Main.utilities.getNrRounds() + "---");
-            // facem pe rand fiecare jucator serif
+//            System.out.println("---\tRUNDA " + Main.utilities.getNrRounds() + "\t---");
+//             facem pe rand fiecare jucator serif
             for (Player sheriffPlayer : players) {
                 for (Player nonSheriffPlayer : players) {
                     if (sheriffPlayer != nonSheriffPlayer) {
                         // fiecare jucator ia in mana 10 carti de joc
                         nonSheriffPlayer.handRefill(freeGoods);
                         // crearea sacilor celorlalti jucatori
-                        System.out.println("CARTILE lui " + nonSheriffPlayer.getType() + " " + nonSheriffPlayer.getInitialOrderNr() + " (coins = " + nonSheriffPlayer.getCoins() + ") sunt:");
-                        for (Goods good : nonSheriffPlayer.getOwnCards()) {
-                            System.out.print(good.getId() + ",");
-                        }
-                        System.out.println();
+//                        System.out.println("CARTILE lui " + nonSheriffPlayer.getType() + " " + nonSheriffPlayer.getInitialOrderNr() + " (coins = " + nonSheriffPlayer.getCoins() + ") sunt:");
+//                        for (Goods good : nonSheriffPlayer.getOwnCards()) {
+//                            System.out.print(good.getId() + ",");
+//                        }
+//                        System.out.println();
                         nonSheriffPlayer.bagCreation();
-                        System.out.println("si baga in SAC cartile:");
-                        for (Goods good : nonSheriffPlayer.getBag().getAssets()) {
-                            System.out.print(good.getId() + ",");
-                        }
-                        System.out.println("\nbribe = " + nonSheriffPlayer.getBag().getBribe());
-                        System.out.println("\n");
+//                        System.out.println("si baga in SAC cartile:");
+//                        for (Goods good : nonSheriffPlayer.getBag().getAssets()) {
+//                            System.out.print(good.getId() + ",");
+//                        }
+//                        System.out.println("\nbribe = " + nonSheriffPlayer.getBag().getBribe());
+//                        System.out.println("\n");
                     }
                 }
                 // inspectarea sacilor celorlalti jucatori

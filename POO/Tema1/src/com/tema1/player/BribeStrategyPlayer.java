@@ -195,7 +195,6 @@ public class BribeStrategyPlayer implements Player {
 //            ownCardsCopy.sort((Goods g1, Goods g2) -> g2.getProfit() - g1.getProfit());
             ownCardsCopy.sort(Comparator.comparing(Goods::getProfit).thenComparing(Goods::getId));
             Collections.reverse(ownCardsCopy);
-//            possiblePenalty += ownCardsCopy.get(0).getPenalty();
             while (!ownCardsCopy.isEmpty()
                     && ownCardsCopy.get(0).getType() == GoodsType.Illegal
                     && ownBag.getAssets().size() < 8) {
@@ -249,15 +248,6 @@ public class BribeStrategyPlayer implements Player {
             } else {
                 ownBag.setBribe(10);
                 coins -= 10;
-            }
-//            possiblePenalty -=
-            ownBag.setDominantAsset(0);
-            while (!ownCardsCopy.isEmpty() &&
-                    ownBag.getAssets().size() < 8
-                    && possiblePenalty < coins - 2) {
-                possiblePenalty += ownCardsCopy.get(0).getPenalty();
-                ownBag.getAssets().add(ownCardsCopy.get(0));
-                ownCardsCopy.remove(0);
 //                    System.out.println("aici de cate ori?");
             }
         }

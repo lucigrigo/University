@@ -102,8 +102,6 @@ Player *get_best_player(FootballClub *clubs, char *position) {
   }
   // daca niciun jucator nu este gasit
   if (found == 0) {
-    free(bestPlayer->name);
-    free(bestPlayer);
     return NULL;
   }
   return bestPlayer;

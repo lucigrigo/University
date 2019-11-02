@@ -125,7 +125,7 @@ void test2() {
 	show_list(f, union_teams(clubs, "club1", "club2"), 1);
 	show_list_reverse(f, union_teams(clubs, "club1", "club2"), 1);
 	show_list(f, union_teams(clubs, "club1", "club0"), 1);
-	// show_list_reverse(f, union_teams(clubs, "club1", "club0"), 1);
+	show_list_reverse(f, union_teams(clubs, "club1", "club0"), 1);
 	show_list(f, get_best_player(clubs, "atacant"), 1);
 	show_list_reverse(f, get_best_player(clubs, "atacant"), 1);
 	show_list(f, get_best_player(clubs, "fundas"), 1);
@@ -136,13 +136,13 @@ void test2() {
 	show_list_reverse(f, get_best_player(clubs, "mijlocas"), 1);
 	add_player(clubs, "club2", "e1", "mijlocas", 10);
 	show_list(f, get_top_players(clubs, 2), 1);
-	// show_list_reverse(f, get_top_players(clubs, 2), 1);
-	// show_list(f, get_players_by_position(clubs, "fundas"), 1);
-	// show_list_reverse(f, get_players_by_position(clubs, "fundas"), 1);
-	// show_list(f, get_players_by_score(clubs, 0), 1);
-	// show_list_reverse(f, get_players_by_score(clubs, 0), 1);
-	// show_list(f, get_best_team(clubs), 1);
-	// show_list_reverse(f, get_best_team(clubs), 1);
+	show_list_reverse(f, get_top_players(clubs, 2), 1);
+	show_list(f, get_players_by_position(clubs, "fundas"), 1);
+	show_list_reverse(f, get_players_by_position(clubs, "fundas"), 1);
+	show_list(f, get_players_by_score(clubs, 0), 1);
+	show_list_reverse(f, get_players_by_score(clubs, 0), 1);
+	show_list(f, get_best_team(clubs), 1);
+	show_list_reverse(f, get_best_team(clubs), 1);
 	destroy_club_list(clubs);
 	for (int i = 0; i < 3; i++) {
 		free(names[i]);
@@ -344,7 +344,7 @@ int main() {
 	test0();
 	test1();
 	test2();
-	// test3();
-	// test4();
+	test3();
+	test4();
 	return 0;
 }

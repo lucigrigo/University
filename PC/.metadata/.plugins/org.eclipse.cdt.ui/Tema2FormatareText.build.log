@@ -1,0 +1,127 @@
+17:33:22 **** Incremental Build of configuration Debug for project Tema2FormatareText ****
+make all 
+Building file: ../src/Tema2FormatareText.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Tema2FormatareText.d" -MT"src/Tema2FormatareText.o" -o "src/Tema2FormatareText.o" "../src/Tema2FormatareText.c"
+../src/Tema2FormatareText.c:39:24: warning: unused variable 'finalLinesNumber' [-Wunused-variable]
+  int linesNumber = 0, finalLinesNumber = 0, i;
+                       ^
+../src/Tema2FormatareText.c:38:31: warning: unused variable 'F' [-Wunused-variable]
+  char buf[MAX], A[MAX][MAX], F[MAX][MAX];
+                              ^
+../src/Tema2FormatareText.c:241:24: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                list(1,linesNumber,listType,specialCharacter,A,linesNumber);
+                                                   ^~~~~~~~
+                                                   &
+../src/Tema2FormatareText.c:21:26: note: passing argument to parameter here
+void list(int ,int ,char [*],char [*],char [*][*],int );
+                         ^
+../src/Tema2FormatareText.c:241:33: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                list(1,linesNumber,listType,specialCharacter,A,linesNumber);
+                                                            ^~~~~~~~~~~~~~~~
+                                                            &
+../src/Tema2FormatareText.c:21:35: note: passing argument to parameter here
+void list(int ,int ,char [*],char [*],char [*][*],int );
+                                  ^
+../src/Tema2FormatareText.c:248:32: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                list(startLine,linesNumber,listType,specialCharacter,A,linesNumber);
+                                                           ^~~~~~~~
+                                                           &
+../src/Tema2FormatareText.c:21:26: note: passing argument to parameter here
+void list(int ,int ,char [*],char [*],char [*][*],int );
+                         ^
+../src/Tema2FormatareText.c:248:41: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                list(startLine,linesNumber,listType,specialCharacter,A,linesNumber);
+                                                                    ^~~~~~~~~~~~~~~~
+                                                                    &
+../src/Tema2FormatareText.c:21:35: note: passing argument to parameter here
+void list(int ,int ,char [*],char [*],char [*][*],int );
+                                  ^
+../src/Tema2FormatareText.c:254:28: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                list(startLine,endLine,listType,specialCharacter,A,linesNumber);
+                                                       ^~~~~~~~
+                                                       &
+../src/Tema2FormatareText.c:21:26: note: passing argument to parameter here
+void list(int ,int ,char [*],char [*],char [*][*],int );
+                         ^
+../src/Tema2FormatareText.c:254:37: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                list(startLine,endLine,listType,specialCharacter,A,linesNumber);
+                                                                ^~~~~~~~~~~~~~~~
+                                                                &
+../src/Tema2FormatareText.c:21:35: note: passing argument to parameter here
+void list(int ,int ,char [*],char [*],char [*][*],int );
+                                  ^
+../src/Tema2FormatareText.c:270:45: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(1,linesNumber,linesNumber,A,listType,specialCharacter,ordering);
+                                                                        ^~~~~~~~
+                                                                        &
+../src/Tema2FormatareText.c:25:50: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                 ^
+../src/Tema2FormatareText.c:270:54: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(1,linesNumber,linesNumber,A,listType,specialCharacter,ordering);
+                                                                                 ^~~~~~~~~~~~~~~~
+                                                                                 &
+../src/Tema2FormatareText.c:25:59: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                          ^
+../src/Tema2FormatareText.c:270:71: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(1,linesNumber,linesNumber,A,listType,specialCharacter,ordering);
+                                                                                                  ^~~~~~~~
+                                                                                                  &
+../src/Tema2FormatareText.c:25:68: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                                   ^
+../src/Tema2FormatareText.c:277:53: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(startLine,linesNumber,linesNumber,A,listType,specialCharacter,ordering);
+                                                                                ^~~~~~~~
+                                                                                &
+../src/Tema2FormatareText.c:25:50: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                 ^
+../src/Tema2FormatareText.c:277:62: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(startLine,linesNumber,linesNumber,A,listType,specialCharacter,ordering);
+                                                                                         ^~~~~~~~~~~~~~~~
+                                                                                         &
+../src/Tema2FormatareText.c:25:59: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                          ^
+../src/Tema2FormatareText.c:277:79: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(startLine,linesNumber,linesNumber,A,listType,specialCharacter,ordering);
+                                                                                                          ^~~~~~~~
+                                                                                                          &
+../src/Tema2FormatareText.c:25:68: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                                   ^
+../src/Tema2FormatareText.c:283:49: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(startLine,endLine,linesNumber,A,listType,specialCharacter,ordering);
+                                                                            ^~~~~~~~
+                                                                            &
+../src/Tema2FormatareText.c:25:50: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                 ^
+../src/Tema2FormatareText.c:283:58: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(startLine,endLine,linesNumber,A,listType,specialCharacter,ordering);
+                                                                                     ^~~~~~~~~~~~~~~~
+                                                                                     &
+../src/Tema2FormatareText.c:25:59: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                          ^
+../src/Tema2FormatareText.c:283:75: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+                                orderedList(startLine,endLine,linesNumber,A,listType,specialCharacter,ordering);
+                                                                                                      ^~~~~~~~
+                                                                                                      &
+../src/Tema2FormatareText.c:25:68: note: passing argument to parameter here
+void orderedList(int ,int ,int ,char [*][*],char [*],char [*],char [*]);
+                                                                   ^
+17 warnings generated.
+Finished building: ../src/Tema2FormatareText.c
+ 
+Building target: Tema2FormatareText
+Invoking: MacOS X C Linker
+gcc  -o "Tema2FormatareText"  ./src/Tema2FormatareText.o   
+Finished building target: Tema2FormatareText
+ 
+
+17:33:22 Build Finished. 0 errors, 17 warnings. (took 197ms)
+
