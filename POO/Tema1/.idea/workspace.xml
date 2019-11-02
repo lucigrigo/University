@@ -226,6 +226,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -269,6 +272,7 @@
       </list>
     </option>
   </component>
+  <component name="ProjectFrameBounds" extendedState="6">
   <component name="MavenProjectNavigator">
     <treeState>
       <expand />
@@ -280,6 +284,7 @@
     <option name="width" value="1680" />
     <option name="height" value="974" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -343,6 +348,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -393,6 +399,14 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainTestDebugWindows" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.tema1.main.Main" />
+      <module name="Tema1" />
+      <option name="PROGRAM_PARAMETERS" value="src\\checker\\tests\\in\\2round3players-mixed-test2.in 1.out" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -465,6 +479,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <frame x="0" y="23" width="1680" height="974" extended-state="0" />
     <editor active="true" />
     <layout>
@@ -472,6 +487,7 @@
       <window_info id="UI Designer" order="1" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
+      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.6703755" visible="true" weight="0.13219616" />
       <window_info content_ui="combo" id="Project" order="4" sideWeight="0.6703755" visible="true" weight="0.15384616" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="6" side_tool="true" />
@@ -658,6 +674,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/checker/tests/ref/2round3players-illegal-only-test2.ref">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/checker/tests/ref/2round3players-mixed-test1.ref">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
@@ -732,6 +755,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tema1/main/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="64" column="9" lean-forward="true" selection-start-line="57" selection-start-column="30" selection-end-line="64" selection-end-column="9" />
+          <folding>
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tema1/main/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="308" column="54" lean-forward="true" selection-start-line="308" selection-start-column="54" selection-end-line="308" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6200#6201#0" expanded="true" />
+            <element signature="e#6236#6237#0" expanded="true" />
     <entry file="file://$PROJECT_DIR$/src/com/tema1/goods/GoodsFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1640">
@@ -950,7 +991,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited>JavaFX</last-edited>
+          <last-edited>JavaFX-11</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
