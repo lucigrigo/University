@@ -1,7 +1,0 @@
-README
-
-Veti pune checker-ul in directorul proiectului temei voastre, alaturi 
-de celelalte directoare, precum src si bin.
-Checker-ul se ruleaza folosind comanda ./checker.sh. Nu este necesara compilarea 
-surselor voastre inainte de a rula checker-ul.
-

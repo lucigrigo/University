@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clasa care reprezinta sacul unui jucator la un moment de timp.
+ * Clasa care reprezinta sacul unui jucator la un moment de timp,
+ * inainte de a fi dat spre inspectie.
  */
 public class Bag {
     private int bribe;

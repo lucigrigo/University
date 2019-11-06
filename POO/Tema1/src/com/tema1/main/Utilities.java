@@ -6,7 +6,11 @@ import com.tema1.goods.IllegalGoods;
 import com.tema1.goods.LegalGoods;
 import com.tema1.player.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * O clasa de utilitati, folosita pentru task-uri adiacente, care nu tin neaparat de un player,
@@ -80,7 +84,6 @@ public final class Utilities {
                     }
                 }
             }
-//            System.out.println(score);
             player.setFinalScore(score);
         }
     }
@@ -92,23 +95,16 @@ public final class Utilities {
      */
     public void addKQFinalBonus(final List<Player> players) {
         int[] frequency;
-//        int[] illGoodsChecked;
-//        int kqbonus = 0;
-//        players.sort((Player p1, Player p2) ->
-//                p2.getFinalScore() - p1.getFinalScore());
-        for (int i = 0; i < Main.constants.getNrLegalItems(); i++) {
+        for (int i = 0; i < Main.constants.getLegalGoodsNumber(); i++) {
             frequency = new int[players.size()];
             for (Player player : players) {
-//                illGoodsChecked = new int[Main.constants.getNrIllegalItems()];
                 for (Goods good : player.getEndGameGoods()) {
                     if (good.getId() == i) {
                         frequency[player.getInitialOrderNr()]++;
                     }
                     if (good.getType() == GoodsType.Illegal) {
-//                            && illGoodsChecked[good.getId() % 20] == 0) {
-//                        illGoodsChecked[good.getId() % 20] = 1;
-                        for (Map.Entry<Goods, Integer> entry :
-                                ((IllegalGoods) good).getIllegalBonus().entrySet()) {
+                        for (Map.Entry<Goods, Integer> entry
+                                : ((IllegalGoods) good).getIllegalBonus().entrySet()) {
                             if (entry.getKey().getId() == i) {
                                 frequency[player.getInitialOrderNr()] += entry.getValue();
                             }
@@ -125,28 +121,18 @@ public final class Utilities {
                 }
             }
             if (maxIndex != -1) {
-//                System.out.println("KING bonus pt itemul " + i + " la playerul " + maxIndex);
-//                kqbonus += ((LegalGoods) Main.goodsFactory.getGoodsById(i)).getKingBonus();
                 players.get(maxIndex).setFinalScore(players.get(maxIndex).getFinalScore()
                         + ((LegalGoods) Main.goodsFactory.getGoodsById(i)).getKingBonus());
-//                players.sort((Player p1, Player p2) ->
-//                        p2.getFinalScore() - p1.getFinalScore());
                 boolean equalGoodsNr = false;
                 int otherIndex = -1;
                 for (int j = 0; j < frequency.length; j++) {
-//                    System.out.print(frequency[j] + " ");
-//                for (int j = frequency.length - 1; j >= 0; j--) {
                     if (frequency[j] == max && j != maxIndex) {
                         equalGoodsNr = true;
                         otherIndex = j;
                         break;
                     }
                 }
-//                System.out.println();
                 if (equalGoodsNr) {
-//                    System.out.println("aici clar nu");
-//                    System.out.println("se ajunge aici pt itemul " + i);
-//                    System.out.println("QUEEN bonus pt itemul " + i + " la playerul " + otherIndex);
                     players.get(otherIndex).setFinalScore(players.get(otherIndex).getFinalScore()
                             + ((LegalGoods) Main.goodsFactory.getGoodsById(i)).getQueenBonus());
                     continue;
@@ -156,23 +142,17 @@ public final class Utilities {
                 max = 0;
                 maxIndex = -1;
                 for (int j = 0; j < frequency.length; j++) {
-//                for (int j = frequency.length - 1; j >= 0; j--) {
                     if (frequency[j] > max) {
-//                            && otherIndex != j) {
                         maxIndex = j;
                         max = frequency[j];
-//                        break;
                     }
                 }
                 if (maxIndex != -1) {
-//                    System.out.println("aici clar nu");
-//                    System.out.println("QUEEN bonus pt itemul " + i + " la playerul " + maxIndex);
                     players.get(maxIndex).setFinalScore(players.get(maxIndex).getFinalScore()
                             + ((LegalGoods) Main.goodsFactory.getGoodsById(i)).getQueenBonus());
                 }
             }
         }
-//        System.out.println(kqbonus);
     }
 
     /**
@@ -197,8 +177,6 @@ public final class Utilities {
                 counterPenalty += good.getPenalty();
             }
         }
-//        penalty -= counterPenalty;
-//        System.out.println(penalty);
         // platirea amenzii catre serif
         merchant.setCoins(merchant.getCoins() - penalty);
         sheriff.setCoins(sheriff.getCoins() + penalty);
@@ -227,31 +205,21 @@ public final class Utilities {
         int initialCoins = sheriff.getCoins();
         int penalty = 0;
         int counterPenalty = 0;
-//        System.out.println(sheriff.getType() + " " + sheriff.getInitialOrderNr() + " il verifica pe " +
-//                merchant.getType() + " " + merchant.getInitialOrderNr());
         for (Goods good : merchant.getBag().getAssets()) {
-//            System.out.print(good.getId() + ",");
             if (good.getId() != merchant.getBag().getDominantAsset()
                     || good.getType() == GoodsType.Illegal) {
-//                penalty += good.getPenalty();
                 counterPenalty += good.getPenalty();
             }
             if (good.getId() == merchant.getBag().getDominantAsset()
                     && good.getType() != GoodsType.Illegal) {
-//                System.out.println("aici se ajunge");
-//                counterPenalty += good.getPenalty();
                 penalty += good.getPenalty();
 
             }
         }
-//        System.out.println();
-//        penalty -= counterPenalty;
         merchant.getEndGameGoods().addAll(merchant.getBag().getAssets());
         merchant.getBag().getAssets().clear();
         sheriff.setCoins(initialCoins - penalty);
         merchant.setCoins(merchant.getCoins() + penalty);
-//        System.out.println(merchant.getCoins());
-//        System.out.println(penalty);
     }
 
     /**
@@ -286,7 +254,7 @@ public final class Utilities {
 
     /**
      * Functia care gaseste cel mai comun bun ilegal; intoarce id-ul celui mai profitabil
-     * bun ilegal, daca sunt doar bunuri ilegale
+     * bun ilegal, daca sunt doar bunuri ilegale.
      *
      * @param goods lista de bunuri
      * @return id-ul unui bun
@@ -299,14 +267,12 @@ public final class Utilities {
             }
         }
         if (!hasLegalAssets) {
-//            goods.sort((Goods g1, Goods g2) -> g2.getProfit() - g1.getProfit());
             List<Goods> goodsCopy = new ArrayList<>(goods);
-//            goodsCopy.sort((Goods g1, Goods g2) -> g2.getProfit() - g1.getProfit());
             goodsCopy.sort(Comparator.comparing(Goods::getProfit).thenComparing(Goods::getId));
             Collections.reverse(goodsCopy);
             return goodsCopy.get(0).getId();
         } else {
-            int[] countArray = new int[10];
+            int[] countArray = new int[Main.constants.getLegalGoodsNumber()];
             for (Goods good : goods) {
                 if (good.getType() == GoodsType.Legal) {
                     countArray[good.getId()]++;
@@ -346,14 +312,9 @@ public final class Utilities {
      * Functia care se ocupa de acceptarea sacului unui comerciant, dar nu si a mitei.
      * Este folosita atunci cand un inspector nu mai are bani sa inspecteze pe cine trebuie.
      *
-     * @param sheriff  seriful la momentul respectiv
      * @param merchant comerciantul la momentul respectiv
      */
-    public void acceptBag(Player sheriff,
-                          final Player merchant) {
-//        for(Goods good : merchant.getBag().getAssets()) {
-//            merchant.getEndGameGoods().add(good);
-//        }
+    public void acceptBag(final Player merchant) {
         merchant.setCoins(merchant.getCoins() + merchant.getBag().getBribe());
         merchant.getBag().setBribe(0);
         merchant.getEndGameGoods().addAll(merchant.getBag().getAssets());
@@ -361,24 +322,21 @@ public final class Utilities {
     }
 
     /**
-     * Functia care se ocupe cu re/completarea cartilor din mana unui jucator.
+     * Functia care se ocupa cu re/completarea cartilor din mana unui jucator.
      *
-     * @param hand  cartile din mana la momentul curent
      * @param cards gramada de carti libere
      * @return o noua lista cu noile carti
      */
-    public List<Goods> getCardsIntoHand(List<Goods> hand,
-                                        final List<Integer> cards) {
-        if (hand.size() != 0) {
-            hand = new ArrayList<>();
-        }
+    public List<Goods> getCardsIntoHand(final List<Integer> cards) {
+        List<Goods> newHand = new ArrayList<>();
         int count = 0;
-        while (count < 10 && !cards.isEmpty()) {
-            hand.add(Main.goodsFactory.getGoodsById(cards.get(0)));
+        while (count < Main.constants.getCardsInHandNr()
+                && !cards.isEmpty()) {
+            newHand.add(Main.goodsFactory.getGoodsById(cards.get(0)));
             cards.remove(0);
             count++;
         }
-        return hand;
+        return newHand;
     }
 
     /**

@@ -1,10 +1,13 @@
 package com.tema1.goods;
 
-public final class LegalGoods extends Goods {
+public abstract class LegalGoods extends Goods {
     private final int kingBonus;
     private final int queenBonus;
 
-    public LegalGoods(final int id, final int profit, final int penalty, final int kingBonus,
+    public LegalGoods(final int id,
+                      final int profit,
+                      final int penalty,
+                      final int kingBonus,
                       final int queenBonus) {
         super(id, GoodsType.Legal, profit, penalty);
 
@@ -12,10 +15,16 @@ public final class LegalGoods extends Goods {
         this.queenBonus = queenBonus;
     }
 
+    /**
+     * @return bonusul de king pentru un bun anume
+     */
     public int getKingBonus() {
         return kingBonus;
     }
 
+    /**
+     * @return bonusul de queen pentru un bun anume
+     */
     public int getQueenBonus() {
         return queenBonus;
     }

@@ -1,5 +1,7 @@
 package com.tema1.goods;
 
+import com.tema1.main.Main;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,59 +19,44 @@ public final class GoodsFactory {
 
     private void initLegalGoods() {
         // create the types of legal goods
-        Goods good0 = new LegalGoods(0, 2, 2, 20, 10);
-        Goods good1 = new LegalGoods(1, 3, 2, 19, 9);
-        Goods good2 = new LegalGoods(2, 4, 2, 18, 9);
-        Goods good3 = new LegalGoods(3, 4, 2, 17, 8);
-        Goods good4 = new LegalGoods(4, 3, 2, 16, 7);
-        Goods good5 = new LegalGoods(5, 2, 2, 15, 6);
-        Goods good6 = new LegalGoods(6, 3, 2, 14, 5);
-        Goods good7 = new LegalGoods(7, 5, 2, 13, 4);
-        Goods good8 = new LegalGoods(8, 2, 2, 12, 3);
-        Goods good9 = new LegalGoods(9, 3, 2, 11, 2);
+        Goods good0 = new Apple();
+        Goods good1 = new Cheese();
+        Goods good2 = new Bread();
+        Goods good3 = new Chicken();
+        Goods good4 = new Tomato();
+        Goods good5 = new Corn();
+        Goods good6 = new Potato();
+        Goods good7 = new Wine();
+        Goods good8 = new Salt();
+        Goods good9 = new Sugar();
 
         // insert legal goods into a hashMap
-        goodsById.put(0, good0);
-        goodsById.put(1, good1);
-        goodsById.put(2, good2);
-        goodsById.put(3, good3);
-        goodsById.put(4, good4);
-        goodsById.put(5, good5);
-        goodsById.put(6, good6);
-        goodsById.put(7, good7);
-        goodsById.put(8, good8);
-        goodsById.put(9, good9);
+        goodsById.put(Main.constants.getGoodsIds().get("Apple"), good0);
+        goodsById.put(Main.constants.getGoodsIds().get("Cheese"), good1);
+        goodsById.put(Main.constants.getGoodsIds().get("Bread"), good2);
+        goodsById.put(Main.constants.getGoodsIds().get("Chicken"), good3);
+        goodsById.put(Main.constants.getGoodsIds().get("Tomato"), good4);
+        goodsById.put(Main.constants.getGoodsIds().get("Corn"), good5);
+        goodsById.put(Main.constants.getGoodsIds().get("Potato"), good6);
+        goodsById.put(Main.constants.getGoodsIds().get("Wine"), good7);
+        goodsById.put(Main.constants.getGoodsIds().get("Salt"), good8);
+        goodsById.put(Main.constants.getGoodsIds().get("Sugar"), good9);
     }
 
     private void initIllegalGoods() {
-        // create LegalGoods - quantity hashMaps
-        Map<Goods, Integer> bonus0 = new HashMap<>();
-        Map<Goods, Integer> bonus1 = new HashMap<>();
-        Map<Goods, Integer> bonus2 = new HashMap<>();
-        Map<Goods, Integer> bonus3 = new HashMap<>();
-        Map<Goods, Integer> bonus4 = new HashMap<>();
+//         create the types of illegal goods
+        Goods good0 = new Silk();
+        Goods good1 = new Pepper();
+        Goods good2 = new Barrel();
+        Goods good3 = new Beer();
+        Goods good4 = new Seafood();
 
-        bonus0.put(goodsById.get(1), 3);
-        bonus1.put(goodsById.get(3), 2);
-        bonus2.put(goodsById.get(2), 2);
-        bonus3.put(goodsById.get(7), 4);
-        bonus4.put(goodsById.get(3), 1);
-        bonus4.put(goodsById.get(4), 2);
-        bonus4.put(goodsById.get(6), 3);
-
-        // create the types of illegal goods
-        Goods good0 = new IllegalGoods(20, 9, 4, bonus0);
-        Goods good1 = new IllegalGoods(21, 8, 4, bonus1);
-        Goods good2 = new IllegalGoods(22, 7, 4, bonus2);
-        Goods good3 = new IllegalGoods(23, 6, 4, bonus3);
-        Goods good4 = new IllegalGoods(24, 12, 4, bonus4);
-
-        // insert legal goods into a hashMap
-        goodsById.put(20, good0);
-        goodsById.put(21, good1);
-        goodsById.put(22, good2);
-        goodsById.put(23, good3);
-        goodsById.put(24, good4);
+        // insert illegal goods into a hashMap
+        goodsById.put(Main.constants.getGoodsIds().get("Silk"), good0);
+        goodsById.put(Main.constants.getGoodsIds().get("Pepper"), good1);
+        goodsById.put(Main.constants.getGoodsIds().get("Barrel"), good2);
+        goodsById.put(Main.constants.getGoodsIds().get("Beer"), good3);
+        goodsById.put(Main.constants.getGoodsIds().get("Seafood"), good4);
     }
 
     public static GoodsFactory getInstance() {

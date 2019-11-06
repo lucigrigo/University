@@ -1,6 +1,0 @@
-ProgramNode
-	ActNode I
-		SceneNode I
-	ActNode II
-	ActNode III
-		SceneNode I

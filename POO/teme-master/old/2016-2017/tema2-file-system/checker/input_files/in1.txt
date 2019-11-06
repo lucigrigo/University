@@ -1,7 +1,0 @@
-mkdir /
-adduser andrei
-chuser marius
-adduser marius
-chuser marius
-deluser andrei
-chuser andrei

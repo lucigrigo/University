@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Interfata de jucator in care se incadreaza toate tipurile de jucatori.
+ * Toate metodele declarate aici sunt explicate in fiecare clasa.
  */
 public interface Player {
 
@@ -28,13 +29,10 @@ public interface Player {
 
     int getInitialOrderNr();
 
-    // intoarce tipul jucatorului
     String getType();
 
-    // inspectarea sacului
     void inspection(List<Player> players, List<Integer> freeGoods);
 
-    // re/completarea mainii
     void handRefill(List<Integer> freeGoods);
 }
 

@@ -1,6 +1,6 @@
 package com.tema1.goods;
 
-public abstract class Goods {
+public class Goods {
     private final int id;
     private final GoodsType type;
     private final int profit;
