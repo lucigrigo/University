@@ -3,7 +3,8 @@ package com.tema1.player;
 import com.tema1.goods.Goods;
 import com.tema1.goods.GoodsType;
 import com.tema1.main.Bag;
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
+import com.tema1.main.Utilities;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +23,7 @@ public class BribeStrategyPlayer implements Player {
     private List<Goods> ownCards;
 
     public BribeStrategyPlayer(final int orderNr) {
-        coins = Main.constants.getStandardInitialCoins();
+        coins = Constants.getInstance().getStandardInitialCoins();
         finalScore = 0;
         initialOrderNr = orderNr;
         ownCards = new ArrayList<>();
@@ -101,16 +102,16 @@ public class BribeStrategyPlayer implements Player {
     @Override
     public void bagCreation() {
         ownBag = new Bag();
-        if (coins <= Main.constants.getMinimumBribe()
-                || !Main.utilities.searchIllegalItems(ownCards)) {
+        if (coins <= Constants.getInstance().getMinimumBribe()
+                || !Utilities.getInstance().searchIllegalItems(ownCards)) {
             ownBag = new Bag();
             ownBag.setBribe(0);
-            int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(ownCards);
-            if (mostCommonAssetId >= Main.constants.getSmallestIllegalId()) {
-                if (coins >= Main.constants.getIllegalGoodPenalty()) {
+            int mostCommonAssetId = Utilities.getInstance().findMostCommonLegalAsset(ownCards);
+            if (mostCommonAssetId >= Constants.getInstance().getSmallestIllegalId()) {
+                if (coins >= Constants.getInstance().getIllegalGoodPenalty()) {
                     ownBag.setDominantAsset(0);
                     int mostProfitableIllegalAsset
-                            = Main.utilities.findMostProfitableIllegalAsset(ownCards);
+                            = Utilities.getInstance().findMostProfitableIllegalAsset(ownCards);
                     for (int i = 0; i < ownCards.size(); i++) {
                         if (ownCards.get(i).getId() == mostProfitableIllegalAsset) {
                             ownBag.getAssets().add(ownCards.get(i));
@@ -122,7 +123,8 @@ public class BribeStrategyPlayer implements Player {
             } else {
                 ownBag.setDominantAsset(mostCommonAssetId);
                 for (int i = 0; i < ownCards.size()
-                        && ownBag.getAssets().size() < Main.constants.getMaximumBagSize(); i++) {
+                        && ownBag.getAssets().size()
+                        < Constants.getInstance().getMaximumBagSize(); i++) {
                     if (ownCards.get(i).getId() == mostCommonAssetId) {
                         ownBag.getAssets().add(ownCards.get(i));
                     }
@@ -130,7 +132,7 @@ public class BribeStrategyPlayer implements Player {
                 int nr = 0;
                 for (int i = ownCards.size() - 1; i >= 0; i--) {
                     if (ownCards.get(i).getId() == mostCommonAssetId
-                            && nr < 8) {
+                            && nr < Constants.getInstance().getMaximumBagSize()) {
                         ownCards.remove(i);
                         nr++;
                     }
@@ -147,7 +149,7 @@ public class BribeStrategyPlayer implements Player {
             // punerea in sac a cator mai multe bunuri ilegale
             while (!ownCardsCopy.isEmpty()
                     && ownCardsCopy.get(0).getType() == GoodsType.Illegal
-                    && ownBag.getAssets().size() < Main.constants.getMaximumBagSize()) {
+                    && ownBag.getAssets().size() < Constants.getInstance().getMaximumBagSize()) {
                 possiblePenalty += ownCardsCopy.get(0).getPenalty();
                 if (possiblePenalty >= coins) {
                     possiblePenalty -= ownCardsCopy.get(0).getPenalty();
@@ -159,7 +161,8 @@ public class BribeStrategyPlayer implements Player {
             }
             // completarea sacului cu bunuri legale
             for (int i = 0; i < ownCardsCopy.size()
-                    && ownBag.getAssets().size() < Main.constants.getMaximumBagSize(); i++) {
+                    && ownBag.getAssets().size()
+                    < Constants.getInstance().getMaximumBagSize(); i++) {
                 if (ownCardsCopy.get(i).getType() == GoodsType.Legal) {
                     possiblePenalty += ownCardsCopy.get(i).getPenalty();
                     if (possiblePenalty >= coins) {
@@ -171,11 +174,11 @@ public class BribeStrategyPlayer implements Player {
             // stabilirea mitei puse in sac in functie de numarul
             // de bunuri ilegale
             if (nrIllegalGoods <= 2) {
-                ownBag.setBribe(Main.constants.getMinimumBribe());
-                coins -= Main.constants.getMinimumBribe();
+                ownBag.setBribe(Constants.getInstance().getMinimumBribe());
+                coins -= Constants.getInstance().getMinimumBribe();
             } else {
-                ownBag.setBribe(Main.constants.getMaximumBribe());
-                coins -= Main.constants.getMaximumBribe();
+                ownBag.setBribe(Constants.getInstance().getMaximumBribe());
+                coins -= Constants.getInstance().getMaximumBribe();
             }
         }
 
@@ -198,28 +201,28 @@ public class BribeStrategyPlayer implements Player {
                         && player.getInitialOrderNr() == (players.size() - 1))
                         || (initialOrderNr == (players.size() - 1)
                         && player.getInitialOrderNr() == 0)) {
-                    if (initCoins >= Main.constants.getInspectionMinimumRequirement()) {
+                    if (initCoins >= Constants.getInstance().getInspectionMinimumRequirement()) {
                         // intoarcerea mitei in mana comerciantului
                         player.setCoins(player.getCoins() + player.getBag().getBribe());
                         player.getBag().setBribe(0);
                         // cautarea unei neregularitati in sacul celui inspectat
-                        if (Main.utilities.searchIllegalItems(
+                        if (Utilities.getInstance().searchIllegalItems(
                                 player.getBag().getAssets(), player.getBag())) {
                             // confiscarea sacului
-                            Main.utilities.confiscateBag(this, player, freeGoods);
+                            Utilities.getInstance().confiscateBag(this, player, freeGoods);
                         } else {
                             // platirea penalty-ul in cazul unui sac regulamentar
-                            Main.utilities.payPenalty(this, player);
+                            Utilities.getInstance().payPenalty(this, player);
                         }
 
                     } else {
                         // acceptarea sacului, dar nu si a mitei, cand seriful nu are destui
                         // bani ca sa inspecteze
-                        Main.utilities.acceptBag(player);
+                        Utilities.getInstance().acceptBag(player);
                     }
                 } else {
                     // acceptarea mitei de la jucatorii care nu sunt vecinii serifului
-                    Main.utilities.acceptBribe(this, player);
+                    Utilities.getInstance().acceptBribe(this, player);
 
                 }
             }
@@ -233,6 +236,6 @@ public class BribeStrategyPlayer implements Player {
      */
     @Override
     public void handRefill(final List<Integer> freeGoods) {
-        ownCards = Main.utilities.getCardsIntoHand(freeGoods);
+        ownCards = Utilities.getInstance().getCardsIntoHand(freeGoods);
     }
 }

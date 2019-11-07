@@ -1,14 +1,14 @@
 package com.tema1.goods;
 
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
 
 public class Salt extends LegalGoods {
 
     public Salt() {
-        super(Main.constants.getGoodsIds().get("Salt"),
-                Main.constants.getGoodsProfit().get("Salt"),
-                Main.constants.getLegalGoodPenalty(),
-                Main.constants.getKingBonus().get("Salt"),
-                Main.constants.getQueenBonus().get("Salt"));
+        super(Constants.getInstance().getGoodsIds().get("Salt"),
+                Constants.getInstance().getGoodsProfit().get("Salt"),
+                Constants.getInstance().getLegalGoodPenalty(),
+                Constants.getInstance().getKingBonus().get("Salt"),
+                Constants.getInstance().getQueenBonus().get("Salt"));
     }
 }

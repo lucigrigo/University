@@ -1,6 +1,7 @@
 package com.tema1.main;
 
 import com.tema1.goods.Goods;
+import com.tema1.goods.GoodsFactory;
 import com.tema1.goods.GoodsType;
 import com.tema1.goods.IllegalGoods;
 import com.tema1.goods.LegalGoods;
@@ -95,7 +96,7 @@ public final class Utilities {
      */
     public void addKQFinalBonus(final List<Player> players) {
         int[] frequency;
-        for (int i = 0; i < Main.constants.getLegalGoodsNumber(); i++) {
+        for (int i = 0; i < Constants.getInstance().getLegalGoodsNumber(); i++) {
             frequency = new int[players.size()];
             for (Player player : players) {
                 for (Goods good : player.getEndGameGoods()) {
@@ -122,7 +123,7 @@ public final class Utilities {
             }
             if (maxIndex != -1) {
                 players.get(maxIndex).setFinalScore(players.get(maxIndex).getFinalScore()
-                        + ((LegalGoods) Main.goodsFactory.getGoodsById(i)).getKingBonus());
+                        + ((LegalGoods) GoodsFactory.getInstance().getGoodsById(i)).getKingBonus());
                 boolean equalGoodsNr = false;
                 int otherIndex = -1;
                 for (int j = 0; j < frequency.length; j++) {
@@ -134,11 +135,11 @@ public final class Utilities {
                 }
                 if (equalGoodsNr) {
                     players.get(otherIndex).setFinalScore(players.get(otherIndex).getFinalScore()
-                            + ((LegalGoods) Main.goodsFactory.getGoodsById(i)).getQueenBonus());
+                            + ((LegalGoods) GoodsFactory.getInstance().
+                            getGoodsById(i)).getQueenBonus());
                     continue;
                 }
                 frequency[maxIndex] = 0;
-                otherIndex = maxIndex;
                 max = 0;
                 maxIndex = -1;
                 for (int j = 0; j < frequency.length; j++) {
@@ -149,7 +150,8 @@ public final class Utilities {
                 }
                 if (maxIndex != -1) {
                     players.get(maxIndex).setFinalScore(players.get(maxIndex).getFinalScore()
-                            + ((LegalGoods) Main.goodsFactory.getGoodsById(i)).getQueenBonus());
+                            + ((LegalGoods) GoodsFactory.getInstance().
+                            getGoodsById(i)).getQueenBonus());
                 }
             }
         }
@@ -272,7 +274,7 @@ public final class Utilities {
             Collections.reverse(goodsCopy);
             return goodsCopy.get(0).getId();
         } else {
-            int[] countArray = new int[Main.constants.getLegalGoodsNumber()];
+            int[] countArray = new int[Constants.getInstance().getLegalGoodsNumber()];
             for (Goods good : goods) {
                 if (good.getType() == GoodsType.Legal) {
                     countArray[good.getId()]++;
@@ -290,14 +292,14 @@ public final class Utilities {
                     if (id == -1) {
                         id = i;
                         max = countArray[i];
-                    } else if (Main.goodsFactory.getGoodsById(i).getProfit()
-                            > Main.goodsFactory.getGoodsById(id).getProfit()) {
+                    } else if (GoodsFactory.getInstance().getGoodsById(i).getProfit()
+                            > GoodsFactory.getInstance().getGoodsById(id).getProfit()) {
                         id = i;
                         max = countArray[i];
                     }
                     if (countArray[i] == max
-                            && Main.goodsFactory.getGoodsById(i).getProfit()
-                            == Main.goodsFactory.getGoodsById(id).getProfit()
+                            && GoodsFactory.getInstance().getGoodsById(i).getProfit()
+                            == GoodsFactory.getInstance().getGoodsById(id).getProfit()
                             && i > id) {
                         id = i;
                         max = countArray[i];
@@ -330,9 +332,9 @@ public final class Utilities {
     public List<Goods> getCardsIntoHand(final List<Integer> cards) {
         List<Goods> newHand = new ArrayList<>();
         int count = 0;
-        while (count < Main.constants.getCardsInHandNr()
+        while (count < Constants.getInstance().getCardsInHandNr()
                 && !cards.isEmpty()) {
-            newHand.add(Main.goodsFactory.getGoodsById(cards.get(0)));
+            newHand.add(GoodsFactory.getInstance().getGoodsById(cards.get(0)));
             cards.remove(0);
             count++;
         }

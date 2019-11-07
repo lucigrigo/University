@@ -1,6 +1,5 @@
 package com.tema1.main;
 
-import com.tema1.goods.GoodsFactory;
 import com.tema1.player.BaseStrategyPlayer;
 import com.tema1.player.BribeStrategyPlayer;
 import com.tema1.player.GreedyStrategyPlayer;
@@ -9,12 +8,11 @@ import com.tema1.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public final class Main {
 
-    public static Constants constants = null;
-    public static Utilities utilities;
-    public static GoodsFactory goodsFactory;
-
+    private Main() {
+        // doar ca sa treaca la checkstyle
+    }
 
     public static void main(final String[] args) {
         // citirea datelor in fisierul de intrare
@@ -26,15 +24,6 @@ public class Main {
             System.out.println("INPUT INVALID!");
             System.exit(1);
         }
-
-        // initializarea unei instante a unei clase de utilitati
-        utilities = Utilities.getInstance();
-
-        // initializarea unei instante a unei clase de constante
-        constants = Constants.getInstance();
-
-        // initializarea datelor legate de bunuri
-        goodsFactory = GoodsFactory.getInstance();
 
         // initializarea jucatorilor din meci
         List<Player> players = new ArrayList<>(gameInput.getPlayerNames().size());

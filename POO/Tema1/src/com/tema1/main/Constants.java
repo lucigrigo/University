@@ -149,6 +149,14 @@ public final class Constants {
         }
     };
 
+    private static final int SILK_BONUS_CHEESE_QUANTITY = 3;
+    private static final int PEPPER_BONUS_CHICKEN_QUANTITY = 2;
+    private static final int BARREL_BONUS_BREAD_QUANTITY = 2;
+    private static final int BEER_BONUS_WINE_QUANTITY = 4;
+    private static final int SEAFOOD_BONUS_TOMATO_QUANTITY = 2;
+    private static final int SEAFOOD_BONUS_POTATO_QUANTITY = 3;
+    private static final int SEAFOOD_BONUS_CHICKEN_QUANTITY = 1;
+
     public int getLegalGoodsNumber() {
         return LEGAL_GOODS_NUMBER;
     }
@@ -211,5 +219,33 @@ public final class Constants {
 
     public Map<String, Integer> getQueenBonus() {
         return QUEEN_BONUS;
+    }
+
+    public static int getSilkBonusCheeseQuantity() {
+        return SILK_BONUS_CHEESE_QUANTITY;
+    }
+
+    public static int getPepperBonusChickenQuantity() {
+        return PEPPER_BONUS_CHICKEN_QUANTITY;
+    }
+
+    public static int getBarrelBonusBreadQuantity() {
+        return BARREL_BONUS_BREAD_QUANTITY;
+    }
+
+    public static int getBeerBonusWineQuantity() {
+        return BEER_BONUS_WINE_QUANTITY;
+    }
+
+    public static int getSeafoodBonusTomatoQuantity() {
+        return SEAFOOD_BONUS_TOMATO_QUANTITY;
+    }
+
+    public static int getSeafoodBonusPotatoQuantity() {
+        return SEAFOOD_BONUS_POTATO_QUANTITY;
+    }
+
+    public static int getSeafoodBonusChickenQuantity() {
+        return SEAFOOD_BONUS_CHICKEN_QUANTITY;
     }
 }

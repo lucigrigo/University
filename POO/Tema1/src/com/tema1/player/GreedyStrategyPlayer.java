@@ -2,7 +2,8 @@ package com.tema1.player;
 
 import com.tema1.goods.Goods;
 import com.tema1.main.Bag;
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
+import com.tema1.main.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class GreedyStrategyPlayer implements Player {
     private List<Goods> ownCards;
 
     public GreedyStrategyPlayer(final int orderNr) {
-        coins = Main.constants.getStandardInitialCoins();
+        coins = Constants.getInstance().getStandardInitialCoins();
         finalScore = 0;
         initialOrderNr = orderNr;
         ownCards = new ArrayList<>();
@@ -99,9 +100,9 @@ public class GreedyStrategyPlayer implements Player {
     public void bagCreation() {
         ownBag = new Bag();
         ownBag.setBribe(0);
-        int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(ownCards);
-        if (mostCommonAssetId >= Main.constants.getSmallestIllegalId()) {
-            if (coins > Main.constants.getIllegalGoodPenalty()) {
+        int mostCommonAssetId = Utilities.getInstance().findMostCommonLegalAsset(ownCards);
+        if (mostCommonAssetId >= Constants.getInstance().getSmallestIllegalId()) {
+            if (coins > Constants.getInstance().getIllegalGoodPenalty()) {
                 ownBag.setDominantAsset(0);
                 for (int i = 0; i < ownCards.size(); i++) {
                     if (ownCards.get(i).getId() == mostCommonAssetId) {
@@ -114,7 +115,8 @@ public class GreedyStrategyPlayer implements Player {
         } else {
             ownBag.setDominantAsset(mostCommonAssetId);
             for (int i = 0; i < ownCards.size()
-                    && ownBag.getAssets().size() < Main.constants.getMaximumBagSize(); i++) {
+                    && ownBag.getAssets().size()
+                    < Constants.getInstance().getMaximumBagSize(); i++) {
                 if (ownCards.get(i).getId() == mostCommonAssetId) {
                     ownBag.getAssets().add(ownCards.get(i));
                 }
@@ -122,19 +124,19 @@ public class GreedyStrategyPlayer implements Player {
             int nr = 0;
             for (int i = ownCards.size() - 1; i >= 0; i--) {
                 if (ownCards.get(i).getId() == mostCommonAssetId
-                        && nr < 8) {
+                        && nr < Constants.getInstance().getMaximumBagSize()) {
                     ownCards.remove(i);
                     nr++;
                 }
             }
         }
         if (!ownCards.isEmpty()) {
-            if (Main.utilities.getRoundNr() % 2 == 0
-                    && ownBag.getAssets().size() < Main.constants.getMaximumBagSize()
-                    && Main.utilities.findMostProfitableIllegalAsset(ownCards) != -1
-                    && coins > Main.constants.getIllegalGoodPenalty()) {
+            if (Utilities.getInstance().getRoundNr() % 2 == 0
+                    && ownBag.getAssets().size() < Constants.getInstance().getMaximumBagSize()
+                    && Utilities.getInstance().findMostProfitableIllegalAsset(ownCards) != -1
+                    && coins > Constants.getInstance().getIllegalGoodPenalty()) {
                 int mostProfitableIllegalAsset
-                        = Main.utilities.findMostProfitableIllegalAsset(ownCards);
+                        = Utilities.getInstance().findMostProfitableIllegalAsset(ownCards);
                 for (int i = 0; i < ownCards.size(); i++) {
                     if (ownCards.get(i).getId() == mostProfitableIllegalAsset) {
                         ownBag.getAssets().add(ownCards.get(i));
@@ -158,19 +160,19 @@ public class GreedyStrategyPlayer implements Player {
         int initCoins = coins;
         for (Player player : players) {
             if (player != this) {
-                if (initCoins >= Main.constants.getInspectionMinimumRequirement()) {
+                if (initCoins >= Constants.getInstance().getInspectionMinimumRequirement()) {
                     if (player.getBag().getBribe() == 0) {
-                        if (Main.utilities.searchIllegalItems(
+                        if (Utilities.getInstance().searchIllegalItems(
                                 player.getBag().getAssets(), player.getBag())) {
-                            Main.utilities.confiscateBag(this, player, freeGoods);
+                            Utilities.getInstance().confiscateBag(this, player, freeGoods);
                         } else {
-                            Main.utilities.payPenalty(this, player);
+                            Utilities.getInstance().payPenalty(this, player);
                         }
                     } else {
-                        Main.utilities.acceptBribe(this, player);
+                        Utilities.getInstance().acceptBribe(this, player);
                     }
                 } else {
-                    Main.utilities.acceptBag(player);
+                    Utilities.getInstance().acceptBag(player);
                 }
             }
         }
@@ -183,6 +185,6 @@ public class GreedyStrategyPlayer implements Player {
      */
     @Override
     public void handRefill(final List<Integer> freeGoods) {
-        ownCards = Main.utilities.getCardsIntoHand(freeGoods);
+        ownCards = Utilities.getInstance().getCardsIntoHand(freeGoods);
     }
 }

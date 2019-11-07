@@ -1,14 +1,14 @@
 package com.tema1.goods;
 
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
 
 public final class Tomato extends LegalGoods {
 
     public Tomato() {
-        super(Main.constants.getGoodsIds().get("Tomato"),
-                Main.constants.getGoodsProfit().get("Tomato"),
-                Main.constants.getLegalGoodPenalty(),
-                Main.constants.getKingBonus().get("Tomato"),
-                Main.constants.getQueenBonus().get("Tomato"));
+        super(Constants.getInstance().getGoodsIds().get("Tomato"),
+                Constants.getInstance().getGoodsProfit().get("Tomato"),
+                Constants.getInstance().getLegalGoodPenalty(),
+                Constants.getInstance().getKingBonus().get("Tomato"),
+                Constants.getInstance().getQueenBonus().get("Tomato"));
     }
 }

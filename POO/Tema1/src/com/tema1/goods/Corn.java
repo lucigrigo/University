@@ -1,14 +1,14 @@
 package com.tema1.goods;
 
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
 
 public class Corn extends LegalGoods {
 
     public Corn() {
-        super(Main.constants.getGoodsIds().get("Corn"),
-                Main.constants.getGoodsProfit().get("Corn"),
-                Main.constants.getLegalGoodPenalty(),
-                Main.constants.getKingBonus().get("Corn"),
-                Main.constants.getQueenBonus().get("Corn"));
+        super(Constants.getInstance().getGoodsIds().get("Corn"),
+                Constants.getInstance().getGoodsProfit().get("Corn"),
+                Constants.getInstance().getLegalGoodPenalty(),
+                Constants.getInstance().getKingBonus().get("Corn"),
+                Constants.getInstance().getQueenBonus().get("Corn"));
     }
 }

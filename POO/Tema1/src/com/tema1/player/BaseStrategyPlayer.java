@@ -2,7 +2,8 @@ package com.tema1.player;
 
 import com.tema1.goods.Goods;
 import com.tema1.main.Bag;
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
+import com.tema1.main.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class BaseStrategyPlayer implements Player {
     private List<Goods> ownCards;
 
     public BaseStrategyPlayer(final int orderNr) {
-        coins = Main.constants.getStandardInitialCoins();
+        coins = Constants.getInstance().getStandardInitialCoins();
         finalScore = 0;
         initialOrderNr = orderNr;
         ownCards = new ArrayList<>();
@@ -99,12 +100,12 @@ public class BaseStrategyPlayer implements Player {
     public void bagCreation() {
         ownBag = new Bag();
         ownBag.setBribe(0);
-        int mostCommonAssetId = Main.utilities.findMostCommonLegalAsset(ownCards);
-        if (mostCommonAssetId >= Main.constants.getSmallestIllegalId()) {
-            if (coins > Main.constants.getIllegalGoodPenalty()) {
+        int mostCommonAssetId = Utilities.getInstance().findMostCommonLegalAsset(ownCards);
+        if (mostCommonAssetId >= Constants.getInstance().getSmallestIllegalId()) {
+            if (coins > Constants.getInstance().getIllegalGoodPenalty()) {
                 ownBag.setDominantAsset(0);
                 int mostProfitableIllegalAsset
-                        = Main.utilities.findMostProfitableIllegalAsset(ownCards);
+                        = Utilities.getInstance().findMostProfitableIllegalAsset(ownCards);
                 for (int i = 0; i < ownCards.size(); i++) {
                     if (ownCards.get(i).getId() == mostProfitableIllegalAsset) {
                         ownBag.getAssets().add(ownCards.get(i));
@@ -123,7 +124,7 @@ public class BaseStrategyPlayer implements Player {
             int nr = 0;
             for (int i = ownCards.size() - 1; i >= 0; i--) {
                 if (ownCards.get(i).getId() == mostCommonAssetId
-                        && nr < 8) {
+                        && nr < Constants.getInstance().getMaximumBagSize()) {
                     ownCards.remove(i);
                     nr++;
                 }
@@ -143,21 +144,21 @@ public class BaseStrategyPlayer implements Player {
         int initCoins = coins;
         for (Player player : players) {
             if (this != player
-                    && initCoins >= Main.constants.getInspectionMinimumRequirement()) {
+                    && initCoins >= Constants.getInstance().getInspectionMinimumRequirement()) {
                 // intoarcerea mitei in mana comerciantului
                 player.setCoins(player.getCoins() + player.getBag().getBribe());
                 player.getBag().setBribe(0);
                 // verificarea sacilor
-                if (Main.utilities.searchIllegalItems(
+                if (Utilities.getInstance().searchIllegalItems(
                         player.getBag().getAssets(), player.getBag())) {
                     // confiscarea unui sac ilegal
-                    Main.utilities.confiscateBag(this, player, freeGoods);
+                    Utilities.getInstance().confiscateBag(this, player, freeGoods);
                 } else {
                     // cazul in care a cercetat un sac in regula
-                    Main.utilities.payPenalty(this, player);
+                    Utilities.getInstance().payPenalty(this, player);
                 }
             } else if (this != player) {
-                Main.utilities.acceptBag(player);
+                Utilities.getInstance().acceptBag(player);
             }
         }
     }
@@ -169,6 +170,6 @@ public class BaseStrategyPlayer implements Player {
      */
     @Override
     public void handRefill(final List<Integer> freeGoods) {
-        ownCards = Main.utilities.getCardsIntoHand(freeGoods);
+        ownCards = Utilities.getInstance().getCardsIntoHand(freeGoods);
     }
 }

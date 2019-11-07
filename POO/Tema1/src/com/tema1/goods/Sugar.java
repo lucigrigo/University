@@ -1,14 +1,14 @@
 package com.tema1.goods;
 
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
 
 public class Sugar extends LegalGoods {
 
     public Sugar() {
-        super(Main.constants.getGoodsIds().get("Sugar"),
-                Main.constants.getGoodsProfit().get("Sugar"),
-                Main.constants.getLegalGoodPenalty(),
-                Main.constants.getKingBonus().get("Sugar"),
-                Main.constants.getQueenBonus().get("Sugar"));
+        super(Constants.getInstance().getGoodsIds().get("Sugar"),
+                Constants.getInstance().getGoodsProfit().get("Sugar"),
+                Constants.getInstance().getLegalGoodPenalty(),
+                Constants.getInstance().getKingBonus().get("Sugar"),
+                Constants.getInstance().getQueenBonus().get("Sugar"));
     }
 }

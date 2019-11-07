@@ -37,8 +37,8 @@ public final class Game {
     public void startGame(final List<Player> players,
                           final List<Integer> freeGoods,
                           final int maxRounds) {
-        Main.utilities.setNrRounds(1);
-        while (nrRounds < Main.constants.getMaximumRoundsNumber()
+        Utilities.getInstance().setNrRounds(1);
+        while (nrRounds < Constants.getInstance().getMaximumRoundsNumber()
                 && nrRounds < maxRounds) {
 //             facem pe rand fiecare jucator serif
             for (Player sheriffPlayer : players) {
@@ -54,7 +54,7 @@ public final class Game {
                 sheriffPlayer.inspection(players, freeGoods);
             }
             nrRounds++;
-            Main.utilities.setNrRounds(nrRounds + 1);
+            Utilities.getInstance().setNrRounds(nrRounds + 1);
         }
     }
 
@@ -65,12 +65,12 @@ public final class Game {
      */
     public void endGame(final List<Player> players) {
         // calcularea scorului final - fara bonusuri
-        Main.utilities.computeFinalScore(players);
+        Utilities.getInstance().computeFinalScore(players);
 
         // adaugarea bonusurilor la scorul final
-        Main.utilities.addKQFinalBonus(players);
+        Utilities.getInstance().addKQFinalBonus(players);
 
         // scrierea rezultatelor jocului in fisierul de output
-        Main.utilities.writeEndGameResults(players);
+        Utilities.getInstance().writeEndGameResults(players);
     }
 }

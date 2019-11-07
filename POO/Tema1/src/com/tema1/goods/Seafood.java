@@ -1,20 +1,21 @@
 package com.tema1.goods;
 
-import com.tema1.main.Main;
+import com.tema1.main.Constants;
 
 import java.util.HashMap;
 
 public class Seafood extends IllegalGoods {
 
     public Seafood() {
-        super(Main.constants.getGoodsIds().get("Seafood"),
-                Main.constants.getGoodsProfit().get("Seafood"),
-                Main.constants.getIllegalGoodPenalty(),
+        super(Constants.getInstance().getGoodsIds().get("Seafood"),
+                Constants.getInstance().getGoodsProfit().get("Seafood"),
+                Constants.getInstance().getIllegalGoodPenalty(),
                 new HashMap<Goods, Integer>() {
                     {
-                        put(new Tomato(), 2);
-                        put(new Potato(), 3);
-                        put(new Chicken(), 1);
+                        put(new Tomato(), Constants.getInstance().getSeafoodBonusTomatoQuantity());
+                        put(new Potato(), Constants.getInstance().getSeafoodBonusPotatoQuantity());
+                        put(new Chicken(), Constants.getInstance().
+                                getSeafoodBonusChickenQuantity());
                     }
                 }
 

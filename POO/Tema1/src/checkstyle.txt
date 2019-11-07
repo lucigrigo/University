@@ -1,13 +1,2 @@
 Starting audit...
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/goods/Beer.java:15:42: '4' is a magic number. [MagicNumber]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/goods/Silk.java:15:43: '3' is a magic number. [MagicNumber]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/goods/Seafood.java:16:43: '3' is a magic number. [MagicNumber]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/main/Main.java:12:1: Utility classes should not have a public or default constructor. [HideUtilityClassConstructor]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/main/Main.java:14:29: Variable 'constants' must be private and have accessor methods. [VisibilityModifier]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/main/Main.java:15:29: Variable 'utilities' must be private and have accessor methods. [VisibilityModifier]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/main/Main.java:16:32: Variable 'goodsFactory' must be private and have accessor methods. [VisibilityModifier]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/player/BribeStrategyPlayer.java:133:37: '8' is a magic number. [MagicNumber]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/player/GreedyStrategyPlayer.java:125:33: '8' is a magic number. [MagicNumber]
-[ERROR] /Users/grigorelucian/Documents/ACS/Anul2/Sem1/POO/Tema1/src/com/tema1/player/BaseStrategyPlayer.java:126:33: '8' is a magic number. [MagicNumber]
 Audit done.
-Checkstyle ends with 10 errors.
