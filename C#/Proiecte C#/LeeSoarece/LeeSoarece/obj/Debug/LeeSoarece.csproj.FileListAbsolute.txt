@@ -1,0 +1,18 @@
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\bin\Debug\LeeSoarece.exe.config
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\bin\Debug\LeeSoarece.exe
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\bin\Debug\LeeSoarece.pdb
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.csprojResolveAssemblyReference.cache
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.Form1.resources
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.Properties.Resources.resources
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.csproj.GenerateResource.Cache
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.exe
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.pdb
+E:\Visual Studio\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.ReprezentareaInformatiilor.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\bin\Debug\LeeSoarece.exe.config
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.exe
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.pdb
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.csprojResolveAssemblyReference.cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.Form1.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.Properties.Resources.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.ReprezentareaInformatiilor.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\LeeSoarece\LeeSoarece\obj\Debug\LeeSoarece.csproj.GenerateResource.Cache

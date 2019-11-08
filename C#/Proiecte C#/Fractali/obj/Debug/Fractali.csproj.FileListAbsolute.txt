@@ -1,0 +1,27 @@
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\bin\Debug\Fractali.exe.config
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\bin\Debug\Fractali.exe
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\bin\Debug\Fractali.pdb
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\obj\Debug\Fractali.csprojResolveAssemblyReference.cache
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\obj\Debug\Fractali.Form1.resources
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\obj\Debug\Fractali.Properties.Resources.resources
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\obj\Debug\Fractali.csproj.GenerateResource.Cache
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\obj\Debug\Fractali.exe
+c:\users\samsung\documents\visual studio 2013\Projects\Fractali\Fractali\obj\Debug\Fractali.pdb
+E:\Visual Studio\Proiecte C#\Fractali\bin\Debug\Fractali.exe.config
+E:\Visual Studio\Proiecte C#\Fractali\obj\Debug\Fractali.exe
+E:\Visual Studio\Proiecte C#\Fractali\obj\Debug\Fractali.pdb
+E:\Visual Studio\Proiecte C#\Fractali\bin\Debug\Fractali.exe
+E:\Visual Studio\Proiecte C#\Fractali\bin\Debug\Fractali.pdb
+E:\Visual Studio\Proiecte C#\Fractali\obj\Debug\Fractali.csprojResolveAssemblyReference.cache
+E:\Visual Studio\Proiecte C#\Fractali\obj\Debug\Fractali.Form1.resources
+E:\Visual Studio\Proiecte C#\Fractali\obj\Debug\Fractali.Properties.Resources.resources
+E:\Visual Studio\Proiecte C#\Fractali\obj\Debug\Fractali.csproj.GenerateResource.Cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\bin\Debug\Fractali.exe.config
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\bin\Debug\Fractali.exe
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\bin\Debug\Fractali.pdb
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.Form1.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.Properties.Resources.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.csproj.GenerateResource.cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.csproj.CoreCompileInputs.cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.exe
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.pdb

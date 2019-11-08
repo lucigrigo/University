@@ -1,0 +1,29 @@
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\bin\Debug\Reginele.exe.config
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\bin\Debug\Reginele.exe
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\bin\Debug\Reginele.pdb
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\obj\Debug\Reginele.csprojResolveAssemblyReference.cache
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\obj\Debug\Reginele.Form1.resources
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\obj\Debug\Reginele.Properties.Resources.resources
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\obj\Debug\Reginele.csproj.GenerateResource.Cache
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\obj\Debug\Reginele.exe
+c:\users\samsung\documents\visual studio 2013\Projects\Reginele\Reginele\obj\Debug\Reginele.pdb
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\bin\Debug\Reginele.exe.config
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.exe
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.pdb
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\bin\Debug\Reginele.exe
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\bin\Debug\Reginele.pdb
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.csprojAssemblyReference.cache
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.Form1.resources
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.Properties.Resources.resources
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.csproj.GenerateResource.cache
+E:\Visual Studio\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.csproj.CoreCompileInputs.cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\bin\Debug\Reginele.exe.config
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\bin\Debug\Reginele.exe
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\bin\Debug\Reginele.pdb
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.csprojAssemblyReference.cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.Form1.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.Properties.Resources.resources
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.csproj.GenerateResource.cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.csproj.CoreCompileInputs.cache
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.exe
+C:\Users\LuciGrigore\Documents\GitHub\GIT\C#\Proiecte C#\Reginele\Reginele\obj\Debug\Reginele.pdb
