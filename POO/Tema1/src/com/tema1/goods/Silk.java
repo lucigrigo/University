@@ -4,6 +4,9 @@ import com.tema1.main.Constants;
 
 import java.util.HashMap;
 
+/**
+ * Clasa care reprezinta bunul "Silk".
+ */
 public class Silk extends IllegalGoods {
 
     public Silk() {

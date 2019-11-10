@@ -2,6 +2,9 @@ package com.tema1.goods;
 
 import com.tema1.main.Constants;
 
+/**
+ * Clasa care reprezinta bunul "Apple".
+ */
 public class Apple extends LegalGoods {
 
     public Apple() {

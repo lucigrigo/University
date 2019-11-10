@@ -1,6 +1,9 @@
 package com.tema1.goods;
 
-public abstract class LegalGoods extends Goods {
+/**
+ * Clasa care simbolizeaza un bun legal.
+ */
+public class LegalGoods extends Goods {
     private final int kingBonus;
     private final int queenBonus;
 

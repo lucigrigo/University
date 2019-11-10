@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *  Clasa care se ocupa de citirea datelor de intrare.
+ *  (putin modificata fata de schelet)
+ */
 public final class GameInputLoader {
     private final String mInputPath;
     private final String mOutputPath;
@@ -13,10 +17,6 @@ public final class GameInputLoader {
     public GameInputLoader(final String inputPath, final String outputPath) {
         mInputPath = inputPath;
         mOutputPath = outputPath;
-    }
-
-    public String getmOutputPath() {
-        return mOutputPath;
     }
 
     public GameInput load() {
@@ -27,6 +27,7 @@ public final class GameInputLoader {
         int noGoods = 0;
         File inputFile = new File(mInputPath);
 
+        // aici am schimbat scheletul si am folosit un Scanner
         try {
             Scanner scanner = new Scanner(inputFile);
             rounds = scanner.nextInt();

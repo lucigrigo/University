@@ -4,6 +4,9 @@ import com.tema1.main.Constants;
 
 import java.util.HashMap;
 
+/**
+ * Clasa care reprezinta bunul "Beer".
+ */
 public class Beer extends IllegalGoods {
 
     public Beer() {

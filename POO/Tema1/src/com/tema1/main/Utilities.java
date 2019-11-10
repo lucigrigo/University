@@ -98,6 +98,7 @@ public final class Utilities {
         int[] frequency;
         for (int i = 0; i < Constants.getInstance().getLegalGoodsNumber(); i++) {
             frequency = new int[players.size()];
+            // cautarea nr ale bunului "i" pentru fiecare jucator
             for (Player player : players) {
                 for (Goods good : player.getEndGameGoods()) {
                     if (good.getId() == i) {
@@ -113,6 +114,7 @@ public final class Utilities {
                     }
                 }
             }
+            // cautarea maximului
             int max = 0;
             int maxIndex = -1;
             for (int j = 0; j < frequency.length; j++) {
@@ -122,10 +124,12 @@ public final class Utilities {
                 }
             }
             if (maxIndex != -1) {
+                // acordarea bonusului de king
                 players.get(maxIndex).setFinalScore(players.get(maxIndex).getFinalScore()
                         + ((LegalGoods) GoodsFactory.getInstance().getGoodsById(i)).getKingBonus());
                 boolean equalGoodsNr = false;
                 int otherIndex = -1;
+                // cautarea unui alt player cu acelasi nr de bunuri (ca primul)
                 for (int j = 0; j < frequency.length; j++) {
                     if (frequency[j] == max && j != maxIndex) {
                         equalGoodsNr = true;
@@ -134,6 +138,7 @@ public final class Utilities {
                     }
                 }
                 if (equalGoodsNr) {
+                    // acordarea bonusului de queen in cazul unui nr egal maxim de bunuri
                     players.get(otherIndex).setFinalScore(players.get(otherIndex).getFinalScore()
                             + ((LegalGoods) GoodsFactory.getInstance().
                             getGoodsById(i)).getQueenBonus());
@@ -149,6 +154,7 @@ public final class Utilities {
                     }
                 }
                 if (maxIndex != -1) {
+                    // acordarea bunului de queen in cazul general
                     players.get(maxIndex).setFinalScore(players.get(maxIndex).getFinalScore()
                             + ((LegalGoods) GoodsFactory.getInstance().
                             getGoodsById(i)).getQueenBonus());
@@ -168,15 +174,10 @@ public final class Utilities {
                               final Player merchant,
                               final List<Integer> freeGoods) {
         int penalty = 0;
-        int counterPenalty = 0;
         for (Goods good : merchant.getBag().getAssets()) {
             if (good.getId() != merchant.getBag().getDominantAsset()
                     || good.getType() == GoodsType.Illegal) {
                 penalty += good.getPenalty();
-            }
-            if (good.getId() == merchant.getBag().getDominantAsset()
-                    && good.getType() != GoodsType.Illegal) {
-                counterPenalty += good.getPenalty();
             }
         }
         // platirea amenzii catre serif
@@ -206,12 +207,7 @@ public final class Utilities {
                            final Player merchant) {
         int initialCoins = sheriff.getCoins();
         int penalty = 0;
-        int counterPenalty = 0;
         for (Goods good : merchant.getBag().getAssets()) {
-            if (good.getId() != merchant.getBag().getDominantAsset()
-                    || good.getType() == GoodsType.Illegal) {
-                counterPenalty += good.getPenalty();
-            }
             if (good.getId() == merchant.getBag().getDominantAsset()
                     && good.getType() != GoodsType.Illegal) {
                 penalty += good.getPenalty();
@@ -268,12 +264,14 @@ public final class Utilities {
                 hasLegalAssets = true;
             }
         }
+        // daca lista de bunuri nu are bunuri legale
         if (!hasLegalAssets) {
             List<Goods> goodsCopy = new ArrayList<>(goods);
             goodsCopy.sort(Comparator.comparing(Goods::getProfit).thenComparing(Goods::getId));
             Collections.reverse(goodsCopy);
             return goodsCopy.get(0).getId();
         } else {
+            // cautarea celui mai frecvent si mai profitabil bun legal
             int[] countArray = new int[Constants.getInstance().getLegalGoodsNumber()];
             for (Goods good : goods) {
                 if (good.getType() == GoodsType.Legal) {

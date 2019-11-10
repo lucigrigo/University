@@ -1,3 +1,8 @@
+// Tema 1 - POO - Sheriff of Nottingham
+// Grigore Lucian - Florin
+// 324 CD
+// Facultatea de Automatica si Calculatoare
+// Universitatea Politehnica, Bucuresti
 package com.tema1.main;
 
 import com.tema1.player.BaseStrategyPlayer;
@@ -11,7 +16,7 @@ import java.util.List;
 public final class Main {
 
     private Main() {
-        // doar ca sa treaca la checkstyle
+        // doar ca sa treaca la checkstyle :)
     }
 
     public static void main(final String[] args) {

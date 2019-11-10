@@ -2,6 +2,10 @@ package com.tema1.main;
 
 import java.util.List;
 
+/**
+ * Clasa care semnifica input-ul primit de program la inceput.
+ * (am lasat-o exact ca in schelet)
+ */
 public class GameInput {
     private final List<Integer> mAssetOrder;
     private final List<String> mPlayersOrder;

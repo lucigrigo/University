@@ -101,6 +101,7 @@ public class BaseStrategyPlayer implements Player {
         ownBag = new Bag();
         ownBag.setBribe(0);
         int mostCommonAssetId = Utilities.getInstance().findMostCommonLegalAsset(ownCards);
+        // cazul in care in mana sunt doar carti ilegale
         if (mostCommonAssetId >= Constants.getInstance().getSmallestIllegalId()) {
             if (coins > Constants.getInstance().getIllegalGoodPenalty()) {
                 ownBag.setDominantAsset(0);
@@ -115,6 +116,7 @@ public class BaseStrategyPlayer implements Player {
                 }
             }
         } else {
+            // punerea in sac a bunului legal cel mai frecvent si profitabil
             ownBag.setDominantAsset(mostCommonAssetId);
             for (int i = 0; i < ownCards.size(); i++) {
                 if (ownCards.get(i).getId() == mostCommonAssetId) {
@@ -122,6 +124,7 @@ public class BaseStrategyPlayer implements Player {
                 }
             }
             int nr = 0;
+            // scoaterea din mana a cartilor puse in sac
             for (int i = ownCards.size() - 1; i >= 0; i--) {
                 if (ownCards.get(i).getId() == mostCommonAssetId
                         && nr < Constants.getInstance().getMaximumBagSize()) {

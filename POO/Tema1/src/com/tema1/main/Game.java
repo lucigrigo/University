@@ -40,20 +40,22 @@ public final class Game {
         Utilities.getInstance().setNrRounds(1);
         while (nrRounds < Constants.getInstance().getMaximumRoundsNumber()
                 && nrRounds < maxRounds) {
-//             facem pe rand fiecare jucator serif
+            // facem pe rand fiecare jucator serif
             for (Player sheriffPlayer : players) {
                 for (Player nonSheriffPlayer : players) {
                     if (sheriffPlayer != nonSheriffPlayer) {
-                        // fiecare jucator ia in mana 10 carti de joc
+                        // fiecare jucator care nu e serif ia in mana 10 carti de joc
                         nonSheriffPlayer.handRefill(freeGoods);
-                        // crearea sacilor celorlalti jucatori
+                        // crearea sacilor jucatorilor
                         nonSheriffPlayer.bagCreation();
                     }
                 }
                 // inspectarea sacilor celorlalti jucatori
                 sheriffPlayer.inspection(players, freeGoods);
             }
+            // incrementarea numarului de runde
             nrRounds++;
+            // acest numar de runde (din Utilities) e folosit in cazul jucatorului "GREEDY"
             Utilities.getInstance().setNrRounds(nrRounds + 1);
         }
     }
@@ -66,10 +68,8 @@ public final class Game {
     public void endGame(final List<Player> players) {
         // calcularea scorului final - fara bonusuri
         Utilities.getInstance().computeFinalScore(players);
-
         // adaugarea bonusurilor la scorul final
         Utilities.getInstance().addKQFinalBonus(players);
-
         // scrierea rezultatelor jocului in fisierul de output
         Utilities.getInstance().writeEndGameResults(players);
     }

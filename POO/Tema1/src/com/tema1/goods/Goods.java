@@ -1,5 +1,8 @@
 package com.tema1.goods;
 
+/**
+ * Clasa care reprezinta un bun in general.
+ */
 public class Goods {
     private final int id;
     private final GoodsType type;

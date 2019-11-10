@@ -100,9 +100,11 @@ public class GreedyStrategyPlayer implements Player {
     public void bagCreation() {
         ownBag = new Bag();
         ownBag.setBribe(0);
+        // aplicarea strategiei de baza
         int mostCommonAssetId = Utilities.getInstance().findMostCommonLegalAsset(ownCards);
         if (mostCommonAssetId >= Constants.getInstance().getSmallestIllegalId()) {
             if (coins > Constants.getInstance().getIllegalGoodPenalty()) {
+                // cazul cand in mana are doar carti ilegale
                 ownBag.setDominantAsset(0);
                 for (int i = 0; i < ownCards.size(); i++) {
                     if (ownCards.get(i).getId() == mostCommonAssetId) {
@@ -113,6 +115,7 @@ public class GreedyStrategyPlayer implements Player {
                 }
             }
         } else {
+            // punerea in sac a bunului cel mai frecvent si profitabil
             ownBag.setDominantAsset(mostCommonAssetId);
             for (int i = 0; i < ownCards.size()
                     && ownBag.getAssets().size()
@@ -130,6 +133,7 @@ public class GreedyStrategyPlayer implements Player {
                 }
             }
         }
+        // punerea in sac a unui bun ilegal in rundele pare
         if (!ownCards.isEmpty()) {
             if (Utilities.getInstance().getRoundNr() % 2 == 0
                     && ownBag.getAssets().size() < Constants.getInstance().getMaximumBagSize()
@@ -162,16 +166,21 @@ public class GreedyStrategyPlayer implements Player {
             if (player != this) {
                 if (initCoins >= Constants.getInstance().getInspectionMinimumRequirement()) {
                     if (player.getBag().getBribe() == 0) {
+                        // inspectarea sacilor fara mita
                         if (Utilities.getInstance().searchIllegalItems(
                                 player.getBag().getAssets(), player.getBag())) {
+                            // confiscarea unui sac nonconform
                             Utilities.getInstance().confiscateBag(this, player, freeGoods);
                         } else {
+                            // platirea amenzii pentru un sac corect
                             Utilities.getInstance().payPenalty(this, player);
                         }
                     } else {
+                        // acceptarea mitei
                         Utilities.getInstance().acceptBribe(this, player);
                     }
                 } else {
+                    // acceptarea sacilor, dar nu si a mitei cand jucatorul nu are destui bani
                     Utilities.getInstance().acceptBag(player);
                 }
             }

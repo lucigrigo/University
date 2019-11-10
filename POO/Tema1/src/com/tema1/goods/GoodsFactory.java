@@ -5,6 +5,10 @@ import com.tema1.main.Constants;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Un 'factory' care initializeaza toate bunurile din joc.
+ * Am facut-o singleton.
+ */
 public final class GoodsFactory {
     private static GoodsFactory instance = null;
 
@@ -18,7 +22,7 @@ public final class GoodsFactory {
     }
 
     private void initLegalGoods() {
-        // create the types of legal goods
+        // crearea bunurilor legale
         Goods good0 = new Apple();
         Goods good1 = new Cheese();
         Goods good2 = new Bread();
@@ -30,7 +34,7 @@ public final class GoodsFactory {
         Goods good8 = new Salt();
         Goods good9 = new Sugar();
 
-        // insert legal goods into a hashMap
+        // punerea bunurilor legale intr-un HashMap
         goodsById.put(Constants.getInstance().getGoodsIds().get("Apple"), good0);
         goodsById.put(Constants.getInstance().getGoodsIds().get("Cheese"), good1);
         goodsById.put(Constants.getInstance().getGoodsIds().get("Bread"), good2);
@@ -44,14 +48,14 @@ public final class GoodsFactory {
     }
 
     private void initIllegalGoods() {
-//         create the types of illegal goods
+        // crearea bunurilor ilegale
         Goods good0 = new Silk();
         Goods good1 = new Pepper();
         Goods good2 = new Barrel();
         Goods good3 = new Beer();
         Goods good4 = new Seafood();
 
-        // insert illegal goods into a hashMap
+        // punerea bunurilor ilegale intr-un HashMap
         goodsById.put(Constants.getInstance().getGoodsIds().get("Silk"), good0);
         goodsById.put(Constants.getInstance().getGoodsIds().get("Pepper"), good1);
         goodsById.put(Constants.getInstance().getGoodsIds().get("Barrel"), good2);

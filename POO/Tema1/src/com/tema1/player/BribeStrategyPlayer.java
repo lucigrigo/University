@@ -108,6 +108,7 @@ public class BribeStrategyPlayer implements Player {
             ownBag.setBribe(0);
             int mostCommonAssetId = Utilities.getInstance().findMostCommonLegalAsset(ownCards);
             if (mostCommonAssetId >= Constants.getInstance().getSmallestIllegalId()) {
+                // cazul cand joaca strategia de baza doar cu carti ilegale
                 if (coins >= Constants.getInstance().getIllegalGoodPenalty()) {
                     ownBag.setDominantAsset(0);
                     int mostProfitableIllegalAsset
@@ -121,6 +122,7 @@ public class BribeStrategyPlayer implements Player {
                     }
                 }
             } else {
+                // aplicarea strategiei de baza cand sunt bunuri legale in sac
                 ownBag.setDominantAsset(mostCommonAssetId);
                 for (int i = 0; i < ownCards.size()
                         && ownBag.getAssets().size()
@@ -130,6 +132,7 @@ public class BribeStrategyPlayer implements Player {
                     }
                 }
                 int nr = 0;
+                // scoaterea din sac a bunurilor puse in sac
                 for (int i = ownCards.size() - 1; i >= 0; i--) {
                     if (ownCards.get(i).getId() == mostCommonAssetId
                             && nr < Constants.getInstance().getMaximumBagSize()) {
@@ -139,6 +142,7 @@ public class BribeStrategyPlayer implements Player {
                 }
             }
         } else {
+            // aplicarea strategiei "BRIBE"
             int nrIllegalGoods = 0;
             int possiblePenalty = 0;
             // declararea sacului ca fiind doar cu mere
