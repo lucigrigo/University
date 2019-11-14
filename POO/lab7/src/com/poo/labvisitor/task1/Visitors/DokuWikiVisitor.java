@@ -1,6 +1,10 @@
 package com.poo.labvisitor.task1.Visitors;
 
-import com.poo.labvisitor.task1.document.*;
+import com.poo.labvisitor.task1.document.BoldTextSegment;
+import com.poo.labvisitor.task1.document.ItalicTextSegment;
+import com.poo.labvisitor.task1.document.PlainTextSegment;
+import com.poo.labvisitor.task1.document.TextSegment;
+import com.poo.labvisitor.task1.document.UrlSegment;
 
 public class DokuWikiVisitor implements Visitor {
 
