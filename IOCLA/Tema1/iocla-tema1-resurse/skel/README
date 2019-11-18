@@ -1,0 +1,16 @@
+============== Checker Tema 1 IOCLA ==============
+
+Checker-ul poate rula doar pe Linux.
+Pentru testare puteti copia fisierul binar tema1 in directorul checkerului sau puteti copia toate fisierele
+checkerului in directorul cu rezolvarea temei. Daca fisierul binar ./tema1 nu exista atunci checkerul va
+incerca sa ruleze comanda make.
+Fișierele input sunt în directorul inputs, iar valorile folosite ca referințe pentru verificarea rezultatelor
+sunt în directorul outputs.
+
+Rulare:
+	python checker.py
+
+Cerințe:
+	- gcc
+	- nasm
+	- python >= 3.0
