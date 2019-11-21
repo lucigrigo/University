@@ -78,7 +78,7 @@ convert:
     mov cl, byte[edx + esi]
     cmp cl, 45
     jne skipSign
-    mov byte [isNegativeNumber], 1
+    mov byte[isNegativeNumber], 1
     inc byte[index]
     jmp convert
 skipSign:
@@ -88,20 +88,20 @@ skipSign:
     inc byte[index]
     mov esi, [index]
     cmp byte[edx + esi], 0x00
-    je endConvert
+    je convertNegative
     mov ebx, edx
     mov edx, 10
     mul edx
     mov edx, ebx
     jmp convert
     ; cazul in care numarul este negativ
-endConvert:
-    cmp byte [isNegativeNumber], 1
-    jne positiveNumber
+convertNegative:
+    cmp byte[isNegativeNumber], 1
+    jne endConvert
     NEG eax
     mov byte[isNegativeNumber], 0
     ; la final, il punem pe stiva
-positiveNumber:
+endConvert:
     push eax
     mov ecx, [indexTemp]
     mov ebx, edi
