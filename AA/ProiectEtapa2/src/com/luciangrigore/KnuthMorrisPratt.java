@@ -1,15 +1,23 @@
 package com.luciangrigore;
 
-public class KnuthMorrisPratt {
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Knuth-Morris-Pratt Algorithm.
+ * It uses a special table named failure-function table or longest-suffix-prefix table
+ * to skip a number of characters when a partial match has been made.
+ */
+class KnuthMorrisPratt {
 
     /**
      * This computes the table of the longest suffix and longest prefix for the pattern.
      * This is to be used by the Knuth-Morris-Pratt main algorithm.
      *
-     * @param pattern
-     * @return
+     * @param pattern given pattern
+     * @return failure-function table
      */
-    public int[] computeLSPTable(char[] pattern) {
+    private int[] computeLSPTable(char[] pattern) {
         int[] lsp = new int[pattern.length];
         int j = 0;
         for (int i = 1; i < pattern.length; i++) {
@@ -30,11 +38,15 @@ public class KnuthMorrisPratt {
      * This method returns the index for the first match of the pattern into the array;
      * It will return -1 in case it does not match.
      *
-     * @param array
-     * @param pattern
-     * @return
+     * @param array   text to search the pattern into
+     * @param pattern given pattern
+     * @return list of matches (can be empty)
      */
-    public int search(char[] array, char[] pattern) {
+    List<Integer> search(char[] array, char[] pattern) {
+        if (array == null || pattern == null) {
+            return null;
+        }
+        List<Integer> matchesIndexes = new ArrayList<>();
         int[] lsp = computeLSPTable(pattern);
         int j = 0;
         for (int i = 0; i < array.length; i++) {
@@ -44,10 +56,11 @@ public class KnuthMorrisPratt {
             if (array[i] == pattern[j]) {
                 j++;
                 if (j == pattern.length) {
-                    return (i - (j - 1));
+                    matchesIndexes.add((i - (j - 1)));
+                    j = 0;
                 }
             }
         }
-        return -1;
+        return matchesIndexes;
     }
 }
