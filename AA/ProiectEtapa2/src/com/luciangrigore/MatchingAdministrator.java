@@ -20,8 +20,8 @@ class MatchingAdministrator {
      * @param inputPath  input file
      * @param outputPath output file
      */
-    void runAllTests(final String inputPath,
-                     final String outputPath) {
+    void runSingleTests(final String inputPath,
+                        final String outputPath) {
         if (inputPath == null || outputPath == null) {
             System.out.println("Invalid arguments!");
             return;
@@ -32,14 +32,13 @@ class MatchingAdministrator {
 
         try {
             Scanner scanner = new Scanner(inputFile);
-            pattern = scanner.next();
-            text = scanner.next();
+            pattern = scanner.nextLine();
+            text = scanner.nextLine();
             scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(2);
         }
-
         RabinKarp rabinKarp = new RabinKarp();
         KnuthMorrisPratt knuthMorrisPratt = new KnuthMorrisPratt();
 
@@ -50,7 +49,6 @@ class MatchingAdministrator {
         long endTime = System.nanoTime();
         displayResult("Rabin-Karp", (endTime - startTime),
                 rabinKarpResult, outputPath);
-        ;
 
         startTime = System.nanoTime();
         List<Integer> knuthMorrisPrattResult =
@@ -118,17 +116,18 @@ class MatchingAdministrator {
                 for (Integer integer : matches) {
                     System.out.println("\tmatch " + match++ + " at " + integer);
                 }
+                System.out.println();
             }
         } else {
             File outputFile = new File(outputPath);
             try {
-                FileWriter fileWriter = new FileWriter(outputFile);
+                FileWriter fileWriter = new FileWriter(outputFile, true);
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("Algorithm ")
                         .append(algorithmName)
                         .append(" took ")
                         .append(duration)
-                        .append(" nanosec\nto search given pattern in the ")
+                        .append(" nanoseconds\nto search given pattern in the ")
                         .append("given text.\n");
                 if (matches.isEmpty()) {
                     stringBuilder.append("No matches found!\n");
@@ -139,9 +138,11 @@ class MatchingAdministrator {
                         stringBuilder.append("\tmatch ")
                                 .append(match++)
                                 .append(" at ")
-                                .append(integer);
+                                .append(integer)
+                                .append("\n");
                     }
                 }
+                stringBuilder.append("\n");
                 fileWriter.write(stringBuilder.toString());
                 fileWriter.flush();
                 fileWriter.close();

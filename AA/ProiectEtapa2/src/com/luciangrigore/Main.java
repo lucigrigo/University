@@ -6,8 +6,8 @@ public class Main {
         if (args[0] != null) {
             MatchingAdministrator administrator = new MatchingAdministrator();
             switch (args[0]) {
-                case "tests":
-                    administrator.runAllTests(args[1], args[2]);
+                case "test":
+                    administrator.runSingleTests(args[1], args[2]);
                     break;
                 case "manual":
                     administrator.runOneTest(args[1], args[2]);

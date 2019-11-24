@@ -2,19 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f200e4f-b9b9-4e04-ae9d-56fd8eba3d94" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/luciangrigore/MatchingAdministrator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../POO/lab8/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test10.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test11.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test12.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test13.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test14.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test15.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test16.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test17.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test18.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test19.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test20.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test7.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test8.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/in/test9.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/SubsequencesGenerator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/GenerateSubsequences.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/KnuthMorrisPratt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/KnuthMorrisPratt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/RabinKarp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/RabinKarp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IOCLA/Tema1/iocla-tema1-resurse/skel/tema1.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../POO/lab8/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../POO/lab8/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../POO/lab8/out/production/lab8/META-INF/lab8.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/MatchingAdministrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/MatchingAdministrator.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +75,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.luciangrigore.Main" />
       <module name="Etapa2" />
-      <option name="PROGRAM_PARAMETERS" value="manual &quot;mere&quot; &quot;ana are mere si mere&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="test src/tests/in/test20.txt src/tests/out/outTEST.txt" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
@@ -81,8 +93,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1574507013141</updated>
-      <workItem from="1574590562380" duration="4352000" />
+      <workItem from="1574590562380" duration="8831000" />
     </task>
+    <task id="LOCAL-00001" summary="Algorithms implemented.&#10;Tests to be added.&#10;Script to be written.">
+      <created>1574596985241</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574596985241</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,5 +118,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Algorithms implemented.&#10;Tests to be added.&#10;Script to be written." />
+    <option name="LAST_COMMIT_MESSAGE" value="Algorithms implemented.&#10;Tests to be added.&#10;Script to be written." />
   </component>
 </project>

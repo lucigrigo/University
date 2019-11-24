@@ -57,7 +57,7 @@ class KnuthMorrisPratt {
                 j++;
                 if (j == pattern.length) {
                     matchesIndexes.add((i - (j - 1)));
-                    j = 0;
+                    j = lsp[j - 1];
                 }
             }
         }
