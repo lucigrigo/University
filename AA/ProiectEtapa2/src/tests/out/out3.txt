@@ -1,0 +1,10 @@
+Algorithm Rabin-Karp took 133405 nanoseconds
+to search given pattern in the given text.
+Matches found at index(es):
+	match 1 at 128
+
+Algorithm Knuth-Morris-Pratt took 22030 nanoseconds
+to search given pattern in the given text.
+Matches found at index(es):
+	match 1 at 128
+

@@ -1,3 +1,10 @@
+/**
+ * Analiza Algoritmilor - Proiect Etapa 2
+ * Algoritmii Rabin-Karp si Knuth-Morris-Pratt
+ * Grigore Lucian-Florin 324CDb
+ * Facultatea de Automatica si Calculatoare
+ * Universitatea Politehnica, Bucuresti
+ */
 package com.luciangrigore;
 
 public class Main {
