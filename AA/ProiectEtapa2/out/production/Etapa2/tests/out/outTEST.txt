@@ -742,3 +742,11 @@ Algorithm Knuth-Morris-Pratt took 386864 nanosec
 to search given pattern in the given text.
 No matches found!
 
+Algorithm Rabin-Karp took 1037740 nanoseconds
+to search given pattern in the given text.
+No matches found!
+
+Algorithm Knuth-Morris-Pratt took 395251 nanoseconds
+to search given pattern in the given text.
+No matches found!
+
