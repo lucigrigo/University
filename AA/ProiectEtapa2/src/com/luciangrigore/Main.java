@@ -1,3 +1,5 @@
+package com.luciangrigore;
+
 /**
  * Analiza Algoritmilor - Proiect Etapa 2
  * Algoritmii Rabin-Karp si Knuth-Morris-Pratt
@@ -5,8 +7,6 @@
  * Facultatea de Automatica si Calculatoare
  * Universitatea Politehnica, Bucuresti
  */
-package com.luciangrigore;
-
 public class Main {
 
     public static void main(final String[] args) {
@@ -17,7 +17,7 @@ public class Main {
                     administrator.runSingleTests(args[1], args[2]);
                     break;
                 case "manual":
-                    administrator.runOneTest(args[1], args[2]);
+                    administrator.runManualTest(args[1], args[2]);
                     break;
                 default:
                     System.out.println("Input invalid!");

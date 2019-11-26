@@ -31,8 +31,8 @@ class RabinKarp {
         int n = array.length, m = pattern.length, lastCharacterIndex = (n - m);
         long patternHash, arrayHash;
         if (!useBadHash) {
-            patternHash = calculateHash(pattern, m);
-            arrayHash = calculateHash(array, m);
+            patternHash = calculateHash(pattern, m, 0);
+            arrayHash = calculateHash(array, m, 0);
         } else {
             patternHash = calculateBADHashValue(pattern, m);
             arrayHash = calculateBADHashValue(array, m);
@@ -45,7 +45,8 @@ class RabinKarp {
             }
             if (i < lastCharacterIndex) {
                 if (!useBadHash) {
-                    arrayHash = recalculateHash(arrayHash, array[i], array[i + m], m);
+//                    arrayHash = recalculateHash(arrayHash, array[i], array[i + m], m);
+                    arrayHash = calculateHash(array, m, i + 1);
                 } else {
                     arrayHash = recalculateBADHashValue(arrayHash, array[i], array[i + m]);
                 }
@@ -83,10 +84,12 @@ class RabinKarp {
      * @return hash value
      */
     private long calculateHash(final char[] text,
-                               final int hashSize) {
+                               final int hashSize,
+                               final int startIndex) {
         long hash = 0;
-        for (int i = 0; i < hashSize; i++) {
-            hash += characterValue(text[i]) * Math.pow(prime, i);
+        for (int i = startIndex; i < (startIndex + hashSize); i++) {
+//            hash += characterValue(text[i]) * Math.pow(prime, i);
+            hash = 33 * hash + text[i];
         }
         return hash;
     }
@@ -107,6 +110,7 @@ class RabinKarp {
                                  final int maxLength) {
         return (((oldValue - characterValue(oldChar))
                 / prime) + (long) Math.pow(prime, maxLength - 1) * characterValue(newChar));
+//        return ((((oldValue - oldChar) / prime) + newChar) * 33);
     }
 
     /**

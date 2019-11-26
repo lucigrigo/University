@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f200e4f-b9b9-4e04-ae9d-56fd8eba3d94" name="Default Changelist" comment="">
+    <list default="true" id="2f200e4f-b9b9-4e04-ae9d-56fd8eba3d94" name="Default Changelist" comment="Bad hashing function added.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Etapa2/checker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/checker.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/MatchingAdministrator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/MatchingAdministrator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/checker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/checker.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/RabinKarp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/RabinKarp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/MatchingAdministrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/MatchingAdministrator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/RabinKarp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/RabinKarp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/out/out1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out1.txt" afterDir="false" />
@@ -83,7 +83,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.luciangrigore.Main" />
       <module name="Etapa2" />
-      <option name="PROGRAM_PARAMETERS" value="manual &quot;mere&quot; &quot;Ana are mere.&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="manual &quot;mere&quot; &quot;Ana are mere emre reme.&quot;" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
@@ -102,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574507013141</updated>
       <workItem from="1574590562380" duration="11809000" />
-      <workItem from="1574674705974" duration="4424000" />
+      <workItem from="1574674705974" duration="6573000" />
     </task>
     <task id="LOCAL-00001" summary="Algorithms implemented.&#10;Tests to be added.&#10;Script to be written.">
       <created>1574596985241</created>
@@ -132,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574676843367</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Displays added.">
+      <created>1574794730444</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1574794730444</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +164,8 @@
     <MESSAGE value="Tests added." />
     <MESSAGE value="Last tests added." />
     <MESSAGE value="Script done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Script done." />
+    <MESSAGE value="Displays added." />
+    <MESSAGE value="Bad hashing function added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Bad hashing function added." />
   </component>
 </project>

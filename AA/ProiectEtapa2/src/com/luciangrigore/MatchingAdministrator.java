@@ -77,8 +77,8 @@ class MatchingAdministrator {
      * @param pattern given pattern
      * @param text    given text
      */
-    void runOneTest(final String pattern,
-                    final String text) {
+    void runManualTest(final String pattern,
+                       final String text) {
         if (pattern == null || text == null) {
             System.out.println("Invalid arguments!");
             return;
@@ -95,6 +95,14 @@ class MatchingAdministrator {
         displayResult("Rabin-Karp (with an efficient hash function)", (endTime - startTime),
                 rabinKarpResult, null);
         long duration1 = endTime - startTime;
+
+        startTime = System.nanoTime();
+        List<Integer> badRKResult =
+                rabinKarp.search(Arrays.copyOf(text.toCharArray(), text.length()),
+                        Arrays.copyOf(pattern.toCharArray(), pattern.length()), true);
+        endTime = System.nanoTime();
+        long duration3 = endTime - startTime;
+        displayBadRKResults(duration1, duration3, null);
 
         startTime = System.nanoTime();
         List<Integer> knuthMorrisPrattResult =
@@ -122,7 +130,7 @@ class MatchingAdministrator {
                                final String outputPath) {
         if (outputPath == null) {
             System.out.println("Algorithm " + algorithmName
-                    + " took " + duration + " nanoseconds\n"
+                    + " took " + duration + " nanoseconds (" + (double) duration / Math.pow(10, 9) + " seconds)\n"
                     + "to search given pattern in the " + "given text.");
             if (matches.isEmpty()) {
                 System.out.println("No matches found!");
@@ -200,7 +208,8 @@ class MatchingAdministrator {
             File outputFile = new File(outputPath);
             try {
                 FileWriter fileWriter = new FileWriter(outputFile, true);
-                StringBuilder stringBuilder = new StringBuilder("\n---------------------------------------\nThe conclusion of this test is:\n");
+                StringBuilder stringBuilder =
+                        new StringBuilder("\n---------------------------------------\nThe conclusion of this test is:\n");
                 if (RKDuration < KMPDuration) {
                     stringBuilder.append("Algorithm Rabin-Karp was faster than Knuth-Morris-Pratt by ")
                             .append(KMPDuration - RKDuration)
@@ -223,9 +232,44 @@ class MatchingAdministrator {
         }
     }
 
+    /**
+     * Displays a brief description of the conclusion regarding using a bad hash function
+     * or a efficient one.
+     *
+     * @param goodDuration time spent using efficient hash function
+     * @param badDuration  time spend using a bad hashing function
+     * @param outputPath   file to write to
+     */
     private void displayBadRKResults(final long goodDuration,
                                      final long badDuration,
                                      final String outputPath) {
-        // TODO
+        if (outputPath == null) {
+            System.out.println("The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in "
+                    + badDuration + " nanoseconds (" + (double) badDuration / Math.pow(10, 9) + " seconds).");
+            System.out.println("The difference between the efficient version and this one is "
+                    + (goodDuration - badDuration) + " nanoseconds ("
+                    + (double) (goodDuration - badDuration) / Math.pow(10, 9) + " seconds).\n");
+        } else {
+            File outputFile = new File(outputPath);
+            try {
+                FileWriter fileWriter = new FileWriter(outputFile, true);
+
+                String stringBuilder = "\nThe Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in " +
+                        badDuration +
+                        " nanoseconds (" +
+                        (double) badDuration / Math.pow(10, 9) +
+                        " seconds).\n" +
+                        "The difference between the efficient version and this one is " +
+                        (goodDuration - badDuration) +
+                        " nanoseconds (" +
+                        (double) (goodDuration - badDuration) / Math.pow(10, 9) +
+                        " seconds).\n\n";
+                fileWriter.write(stringBuilder);
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
