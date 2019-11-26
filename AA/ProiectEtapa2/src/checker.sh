@@ -10,6 +10,8 @@
 #
 # Urmatorul script ruleaza testele create si pune rezultatele lor in folderul src/tests/out.
 #
+# ! A SE RULA CU SUDO ! (pentru comenzile din functia cleanOutDir)
+#
 
 ## Functions ##
 function cleanOutDir
@@ -25,7 +27,7 @@ function makeTest
 {
   java com.luciangrigore.Main test "tests/in/test$1.txt" "tests/out/out$1.txt" > /dev/null
   # cat "tests/out/out$1.txt"
-  echo "Test$1 done."
+  echo "Test$1 ................................. done."
 }
 function clean
 {

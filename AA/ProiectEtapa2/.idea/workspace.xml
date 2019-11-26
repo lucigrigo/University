@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f200e4f-b9b9-4e04-ae9d-56fd8eba3d94" name="Default Changelist" comment="" />
+    <list default="true" id="2f200e4f-b9b9-4e04-ae9d-56fd8eba3d94" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Etapa2/checker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/checker.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/MatchingAdministrator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Etapa2/com/luciangrigore/MatchingAdministrator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/checker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/checker.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/MatchingAdministrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/MatchingAdministrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/luciangrigore/RabinKarp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/luciangrigore/RabinKarp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out11.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out12.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out13.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out14.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out14.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out15.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out15.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out16.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out16.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out17.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out17.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out18.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out18.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out19.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out19.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out20.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out21.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out21.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out22.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out22.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out23.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out23.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out24.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out24.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out25.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out25.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/out/out9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/out/out9.txt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +83,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.luciangrigore.Main" />
       <module name="Etapa2" />
-      <option name="PROGRAM_PARAMETERS" value="test src/tests/in/test25.txt src/tests/out/outTEST.txt" />
+      <option name="PROGRAM_PARAMETERS" value="manual &quot;mere&quot; &quot;Ana are mere.&quot;" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
@@ -69,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574507013141</updated>
       <workItem from="1574590562380" duration="11809000" />
-      <workItem from="1574674705974" duration="1362000" />
+      <workItem from="1574674705974" duration="4424000" />
     </task>
     <task id="LOCAL-00001" summary="Algorithms implemented.&#10;Tests to be added.&#10;Script to be written.">
       <created>1574596985241</created>
