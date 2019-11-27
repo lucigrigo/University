@@ -1,75 +1,74 @@
-Algorithm Rabin-Karp (with an efficient hash function) took 84926 nanoseconds (8.4926E-5 seconds)
-to search given pattern in the given text.
-Matches (29) found at index(es):
-	match 1 at 22
-	match 2 at 28
-	match 3 at 34
-	match 4 at 40
-	match 5 at 46
-	match 6 at 52
-	match 7 at 58
-	match 8 at 85
-	match 9 at 91
-	match 10 at 97
-	match 11 at 103
-	match 12 at 109
-	match 13 at 115
-	match 14 at 121
-	match 15 at 149
-	match 16 at 155
-	match 17 at 161
-	match 18 at 167
-	match 19 at 173
-	match 20 at 179
-	match 21 at 185
-	match 22 at 210
-	match 23 at 216
-	match 24 at 222
-	match 25 at 228
-	match 26 at 234
-	match 27 at 240
-	match 28 at 246
-	match 29 at 252
-
-
 The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
-finished the current test in 78473 nanoseconds (7.8473E-5 seconds).
-The difference between the efficient version and this one is 6453 nanoseconds (6.453E-6 seconds).
+finished the current test in 67394 nanoseconds (6.7394E-5 seconds).
+The difference between the efficient version and this one is 17843 nanoseconds (1.7843E-5 seconds).
 
-Algorithm Knuth-Morris-Pratt took 40821 nanoseconds (4.0821E-5 seconds)
+Algorithm Rabin-Karp (with an efficient hash function) took 85237 nanoseconds (8.5237E-5 seconds)
 to search given pattern in the given text.
 Matches (29) found at index(es):
-	match 1 at 22
-	match 2 at 28
-	match 3 at 34
-	match 4 at 40
-	match 5 at 46
-	match 6 at 52
-	match 7 at 58
-	match 8 at 85
-	match 9 at 91
-	match 10 at 97
-	match 11 at 103
-	match 12 at 109
-	match 13 at 115
-	match 14 at 121
-	match 15 at 149
-	match 16 at 155
-	match 17 at 161
-	match 18 at 167
-	match 19 at 173
-	match 20 at 179
-	match 21 at 185
-	match 22 at 210
-	match 23 at 216
-	match 24 at 222
-	match 25 at 228
-	match 26 at 234
-	match 27 at 240
-	match 28 at 246
-	match 29 at 252
+	match 1 at index 22
+	match 2 at index 28
+	match 3 at index 34
+	match 4 at index 40
+	match 5 at index 46
+	match 6 at index 52
+	match 7 at index 58
+	match 8 at index 85
+	match 9 at index 91
+	match 10 at index 97
+	match 11 at index 103
+	match 12 at index 109
+	match 13 at index 115
+	match 14 at index 121
+	match 15 at index 149
+	match 16 at index 155
+	match 17 at index 161
+	match 18 at index 167
+	match 19 at index 173
+	match 20 at index 179
+	match 21 at index 185
+	match 22 at index 210
+	match 23 at index 216
+	match 24 at index 222
+	match 25 at index 228
+	match 26 at index 234
+	match 27 at index 240
+	match 28 at index 246
+	match 29 at index 252
+
+Algorithm Knuth-Morris-Pratt took 37030 nanoseconds (3.703E-5 seconds)
+to search given pattern in the given text.
+Matches (29) found at index(es):
+	match 1 at index 22
+	match 2 at index 28
+	match 3 at index 34
+	match 4 at index 40
+	match 5 at index 46
+	match 6 at index 52
+	match 7 at index 58
+	match 8 at index 85
+	match 9 at index 91
+	match 10 at index 97
+	match 11 at index 103
+	match 12 at index 109
+	match 13 at index 115
+	match 14 at index 121
+	match 15 at index 149
+	match 16 at index 155
+	match 17 at index 161
+	match 18 at index 167
+	match 19 at index 173
+	match 20 at index 179
+	match 21 at index 185
+	match 22 at index 210
+	match 23 at index 216
+	match 24 at index 222
+	match 25 at index 228
+	match 26 at index 234
+	match 27 at index 240
+	match 28 at index 246
+	match 29 at index 252
 
 
 ---------------------------------------
 The conclusion of this test is:
-Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 44105 nanoseconds (4.4105E-5 seconds).
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 48207 nanoseconds (4.8207E-5 seconds).

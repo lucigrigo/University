@@ -1,93 +1,92 @@
-Algorithm Rabin-Karp (with an efficient hash function) took 296108 nanoseconds (2.96108E-4 seconds)
-to search given pattern in the given text.
-Matches (38) found at index(es):
-	match 1 at 43
-	match 2 at 58
-	match 3 at 68
-	match 4 at 80
-	match 5 at 97
-	match 6 at 107
-	match 7 at 119
-	match 8 at 136
-	match 9 at 146
-	match 10 at 158
-	match 11 at 170
-	match 12 at 180
-	match 13 at 216
-	match 14 at 247
-	match 15 at 259
-	match 16 at 316
-	match 17 at 479
-	match 18 at 539
-	match 19 at 544
-	match 20 at 593
-	match 21 at 608
-	match 22 at 618
-	match 23 at 630
-	match 24 at 647
-	match 25 at 657
-	match 26 at 669
-	match 27 at 686
-	match 28 at 696
-	match 29 at 708
-	match 30 at 720
-	match 31 at 730
-	match 32 at 766
-	match 33 at 797
-	match 34 at 809
-	match 35 at 866
-	match 36 at 1029
-	match 37 at 1089
-	match 38 at 1094
-
-
 The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
-finished the current test in 267010 nanoseconds (2.6701E-4 seconds).
-The difference between the efficient version and this one is 29098 nanoseconds (2.9098E-5 seconds).
+finished the current test in 235229 nanoseconds (2.35229E-4 seconds).
+The difference between the efficient version and this one is -53136 nanoseconds (-5.3136E-5 seconds).
 
-Algorithm Knuth-Morris-Pratt took 57542 nanoseconds (5.7542E-5 seconds)
+Algorithm Rabin-Karp (with an efficient hash function) took 182093 nanoseconds (1.82093E-4 seconds)
 to search given pattern in the given text.
 Matches (38) found at index(es):
-	match 1 at 43
-	match 2 at 58
-	match 3 at 68
-	match 4 at 80
-	match 5 at 97
-	match 6 at 107
-	match 7 at 119
-	match 8 at 136
-	match 9 at 146
-	match 10 at 158
-	match 11 at 170
-	match 12 at 180
-	match 13 at 216
-	match 14 at 247
-	match 15 at 259
-	match 16 at 316
-	match 17 at 479
-	match 18 at 539
-	match 19 at 544
-	match 20 at 593
-	match 21 at 608
-	match 22 at 618
-	match 23 at 630
-	match 24 at 647
-	match 25 at 657
-	match 26 at 669
-	match 27 at 686
-	match 28 at 696
-	match 29 at 708
-	match 30 at 720
-	match 31 at 730
-	match 32 at 766
-	match 33 at 797
-	match 34 at 809
-	match 35 at 866
-	match 36 at 1029
-	match 37 at 1089
-	match 38 at 1094
+	match 1 at index 43
+	match 2 at index 58
+	match 3 at index 68
+	match 4 at index 80
+	match 5 at index 97
+	match 6 at index 107
+	match 7 at index 119
+	match 8 at index 136
+	match 9 at index 146
+	match 10 at index 158
+	match 11 at index 170
+	match 12 at index 180
+	match 13 at index 216
+	match 14 at index 247
+	match 15 at index 259
+	match 16 at index 316
+	match 17 at index 479
+	match 18 at index 539
+	match 19 at index 544
+	match 20 at index 593
+	match 21 at index 608
+	match 22 at index 618
+	match 23 at index 630
+	match 24 at index 647
+	match 25 at index 657
+	match 26 at index 669
+	match 27 at index 686
+	match 28 at index 696
+	match 29 at index 708
+	match 30 at index 720
+	match 31 at index 730
+	match 32 at index 766
+	match 33 at index 797
+	match 34 at index 809
+	match 35 at index 866
+	match 36 at index 1029
+	match 37 at index 1089
+	match 38 at index 1094
+
+Algorithm Knuth-Morris-Pratt took 63081 nanoseconds (6.3081E-5 seconds)
+to search given pattern in the given text.
+Matches (38) found at index(es):
+	match 1 at index 43
+	match 2 at index 58
+	match 3 at index 68
+	match 4 at index 80
+	match 5 at index 97
+	match 6 at index 107
+	match 7 at index 119
+	match 8 at index 136
+	match 9 at index 146
+	match 10 at index 158
+	match 11 at index 170
+	match 12 at index 180
+	match 13 at index 216
+	match 14 at index 247
+	match 15 at index 259
+	match 16 at index 316
+	match 17 at index 479
+	match 18 at index 539
+	match 19 at index 544
+	match 20 at index 593
+	match 21 at index 608
+	match 22 at index 618
+	match 23 at index 630
+	match 24 at index 647
+	match 25 at index 657
+	match 26 at index 669
+	match 27 at index 686
+	match 28 at index 696
+	match 29 at index 708
+	match 30 at index 720
+	match 31 at index 730
+	match 32 at index 766
+	match 33 at index 797
+	match 34 at index 809
+	match 35 at index 866
+	match 36 at index 1029
+	match 37 at index 1089
+	match 38 at index 1094
 
 
 ---------------------------------------
 The conclusion of this test is:
-Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 238566 nanoseconds (2.38566E-4 seconds).
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 119012 nanoseconds (1.19012E-4 seconds).

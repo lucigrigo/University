@@ -1,41 +1,40 @@
-Algorithm Rabin-Karp (with an efficient hash function) took 67542 nanoseconds (6.7542E-5 seconds)
-to search given pattern in the given text.
-Matches (12) found at index(es):
-	match 1 at 0
-	match 2 at 11
-	match 3 at 24
-	match 4 at 36
-	match 5 at 50
-	match 6 at 61
-	match 7 at 74
-	match 8 at 86
-	match 9 at 100
-	match 10 at 111
-	match 11 at 124
-	match 12 at 136
-
-
 The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
-finished the current test in 48938 nanoseconds (4.8938E-5 seconds).
-The difference between the efficient version and this one is 18604 nanoseconds (1.8604E-5 seconds).
+finished the current test in 42737 nanoseconds (4.2737E-5 seconds).
+The difference between the efficient version and this one is 47689 nanoseconds (4.7689E-5 seconds).
 
-Algorithm Knuth-Morris-Pratt took 71092 nanoseconds (7.1092E-5 seconds)
+Algorithm Rabin-Karp (with an efficient hash function) took 90426 nanoseconds (9.0426E-5 seconds)
 to search given pattern in the given text.
 Matches (12) found at index(es):
-	match 1 at 0
-	match 2 at 11
-	match 3 at 24
-	match 4 at 36
-	match 5 at 50
-	match 6 at 61
-	match 7 at 74
-	match 8 at 86
-	match 9 at 100
-	match 10 at 111
-	match 11 at 124
-	match 12 at 136
+	match 1 at index 0
+	match 2 at index 11
+	match 3 at index 24
+	match 4 at index 36
+	match 5 at index 50
+	match 6 at index 61
+	match 7 at index 74
+	match 8 at index 86
+	match 9 at index 100
+	match 10 at index 111
+	match 11 at index 124
+	match 12 at index 136
+
+Algorithm Knuth-Morris-Pratt took 28360 nanoseconds (2.836E-5 seconds)
+to search given pattern in the given text.
+Matches (12) found at index(es):
+	match 1 at index 0
+	match 2 at index 11
+	match 3 at index 24
+	match 4 at index 36
+	match 5 at index 50
+	match 6 at index 61
+	match 7 at index 74
+	match 8 at index 86
+	match 9 at index 100
+	match 10 at index 111
+	match 11 at index 124
+	match 12 at index 136
 
 
 ---------------------------------------
 The conclusion of this test is:
-Algorithm Rabin-Karp was faster than Knuth-Morris-Pratt by 3550 nanoseconds (3.55E-6 seconds).
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 62066 nanoseconds (6.2066E-5 seconds).

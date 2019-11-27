@@ -14,7 +14,7 @@ public class Main {
             MatchingAdministrator administrator = new MatchingAdministrator();
             switch (args[0]) {
                 case "test":
-                    administrator.runSingleTests(args[1], args[2]);
+                    administrator.runSingleTest(args[1], args[2]);
                     break;
                 case "manual":
                     administrator.runManualTest(args[1], args[2]);
