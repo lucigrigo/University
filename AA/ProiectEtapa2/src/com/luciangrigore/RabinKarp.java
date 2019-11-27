@@ -21,13 +21,22 @@ class RabinKarp {
      * @param pattern given pattern
      * @return list of matches(can be empty)
      */
-    List<Integer> search(char[] array, char[] pattern) {
+    List<Integer> search(final char[] array,
+                         final char[] pattern,
+                         final boolean useBadHash) {
         if (array == null || pattern == null) {
             return null;
         }
         List<Integer> matchesIndexes = new ArrayList<>();
         int n = array.length, m = pattern.length, lastCharacterIndex = (n - m);
-        long patternHash = calculateHash(pattern, m), arrayHash = calculateHash(array, m);
+        long patternHash, arrayHash;
+        if (!useBadHash) {
+            patternHash = calculateHash(pattern, m, 0);
+            arrayHash = calculateHash(array, m, 0);
+        } else {
+            patternHash = calculateBADHashValue(pattern, m);
+            arrayHash = calculateBADHashValue(array, m);
+        }
         for (int i = 0; i <= lastCharacterIndex; i++) {
             if (patternHash == arrayHash) {
                 if (match(array, pattern, i)) {
@@ -35,7 +44,12 @@ class RabinKarp {
                 }
             }
             if (i < lastCharacterIndex) {
-                arrayHash = recalculateHash(arrayHash, array[i], array[i + m], m);
+                if (!useBadHash) {
+//                    arrayHash = recalculateHash(arrayHash, array[i], array[i + m], m);
+                    arrayHash = calculateHash(array, m, i + 1);
+                } else {
+                    arrayHash = recalculateBADHashValue(arrayHash, array[i], array[i + m]);
+                }
             }
         }
         return matchesIndexes;
@@ -49,7 +63,9 @@ class RabinKarp {
      * @param index   starting index of the possible match
      * @return true or false if a match has been found or not
      */
-    private boolean match(char[] array, char[] pattern, int index) {
+    private boolean match(final char[] array,
+                          final char[] pattern,
+                          final int index) {
         int i = index;
         while (i < (index + pattern.length)) {
             if (pattern[i - index] != array[i]) {
@@ -61,16 +77,19 @@ class RabinKarp {
     }
 
     /**
-     * Computes initial value of the hash
+     * Computes initial value of the hash.
      *
      * @param text     given array
      * @param hashSize given length
      * @return hash value
      */
-    private long calculateHash(char[] text, int hashSize) {
+    private long calculateHash(final char[] text,
+                               final int hashSize,
+                               final int startIndex) {
         long hash = 0;
-        for (int i = 0; i < hashSize; i++) {
-            hash += characterValue(text[i]) * Math.pow(prime, i);
+        for (int i = startIndex; i < (startIndex + hashSize); i++) {
+//            hash += characterValue(text[i]) * Math.pow(prime, i);
+            hash = 33 * hash + text[i];
         }
         return hash;
     }
@@ -85,9 +104,13 @@ class RabinKarp {
      * @param maxLength array length
      * @return new hash value
      */
-    private long recalculateHash(long oldValue, char oldChar, char newChar, int maxLength) {
+    private long recalculateHash(final long oldValue,
+                                 final char oldChar,
+                                 final char newChar,
+                                 final int maxLength) {
         return (((oldValue - characterValue(oldChar))
                 / prime) + (long) Math.pow(prime, maxLength - 1) * characterValue(newChar));
+//        return ((((oldValue - oldChar) / prime) + newChar) * 33);
     }
 
     /**
@@ -100,5 +123,33 @@ class RabinKarp {
         return (val - 96);
     }
 
-    // TODO add a bad hash function
+    /**
+     * Function that computes initial hash value of an array using an inefficient approach.
+     *
+     * @param text     given array
+     * @param hashSize array length
+     * @return hash value
+     */
+    private long calculateBADHashValue(final char[] text,
+                                       final int hashSize) {
+        long hash = 0;
+        for (int i = 0; i < hashSize; i++) {
+            hash += characterValue(text[i]);
+        }
+        return hash;
+    }
+
+    /**
+     * Function that computes rolling hash value of an array using an inefficient approach.
+     *
+     * @param oldvalue old hash value
+     * @param oldchar  char to be removed
+     * @param newChar  char to be added
+     * @return new hash value
+     */
+    private long recalculateBADHashValue(final long oldvalue,
+                                         final char oldchar,
+                                         final char newChar) {
+        return oldvalue - characterValue(oldchar) + characterValue(newChar);
+    }
 }

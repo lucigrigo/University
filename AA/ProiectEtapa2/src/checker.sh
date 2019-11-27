@@ -1,4 +1,5 @@
 #!/bin/bash
+# ! A SE RULA CU SUDO ! (pentru comenzile din functia cleanOutDir)
 
 ## Description ##
 #
@@ -8,27 +9,22 @@
 # Facultatea de Automatica si Calculatoare
 # Universitatea Politehnica, Bucuresti
 #
-# Urmatorul script ruleaza testele create si pune rezultatele lor in folderul src/tests/out.
-#
+# Urmatorul script ruleaza testele predefinite si pune rezultatele lor in folderul out.
+##
 
 ## Functions ##
-function cleanOutDir
-{
+function cleanOutDir() {
   rm -rf tests/out
   mkdir tests/out
 }
-function compile
-{
+function compile() {
   javac -g com/luciangrigore/Main.java
 }
-function makeTest
-{
-  java com.luciangrigore.Main test "tests/in/test$1.txt" "tests/out/out$1.txt" > /dev/null
-  # cat "tests/out/out$1.txt"
-  echo "Test$1 done."
+function makeTest() {
+  java com.luciangrigore.Main test "tests/in/test$1.txt" "tests/out/out$1.txt" >/dev/null
+  echo "Test$1 ................................. done."
 }
-function clean
-{
+function clean() {
   find . -name "*.class" -type f -delete
 }
 
@@ -40,6 +36,7 @@ echo ""
 echo "---   ---"
 echo "Cleaning previous results..."
 cleanOutDir
+clean
 echo "Cleaning done!"
 echo "---   ---"
 echo "Starting testing..."
@@ -70,6 +67,11 @@ makeTest "22"
 makeTest "23"
 makeTest "24"
 makeTest "25"
+makeTest "26"
+makeTest "27"
+makeTest "28"
+makeTest "29"
+makeTest "30"
 clean
 echo "---   ---"
 echo "Testing done!"

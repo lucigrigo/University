@@ -20,8 +20,8 @@ class MatchingAdministrator {
      * @param inputPath  input file
      * @param outputPath output file
      */
-    void runSingleTests(final String inputPath,
-                        final String outputPath) {
+    void runSingleTest(final String inputPath,
+                       final String outputPath) {
         if (inputPath == null || outputPath == null) {
             System.out.println("Invalid arguments!");
             return;
@@ -39,15 +39,25 @@ class MatchingAdministrator {
             e.printStackTrace();
             System.exit(2);
         }
+
         RabinKarp rabinKarp = new RabinKarp();
         KnuthMorrisPratt knuthMorrisPratt = new KnuthMorrisPratt();
 
         long startTime = System.nanoTime();
         List<Integer> rabinKarpResult =
                 rabinKarp.search(Arrays.copyOf(text.toCharArray(), text.length()),
-                        Arrays.copyOf(pattern.toCharArray(), pattern.length()));
+                        Arrays.copyOf(pattern.toCharArray(), pattern.length()), false);
         long endTime = System.nanoTime();
-        displayResult("Rabin-Karp", (endTime - startTime),
+        long duration1 = endTime - startTime;
+
+        startTime = System.nanoTime();
+        List<Integer> badRKResult =
+                rabinKarp.search(Arrays.copyOf(text.toCharArray(), text.length()),
+                        Arrays.copyOf(pattern.toCharArray(), pattern.length()), true);
+        endTime = System.nanoTime();
+        long duration3 = endTime - startTime;
+        displayBadRKResults(duration1, duration3, outputPath);
+        displayResult("Rabin-Karp (with an efficient hash function)", duration1,
                 rabinKarpResult, outputPath);
 
         startTime = System.nanoTime();
@@ -57,6 +67,9 @@ class MatchingAdministrator {
         endTime = System.nanoTime();
         displayResult("Knuth-Morris-Pratt", (endTime - startTime),
                 knuthMorrisPrattResult, outputPath);
+        long duration2 = endTime - startTime;
+
+        displayConclusion(duration1, duration2, outputPath);
     }
 
     /**
@@ -65,8 +78,8 @@ class MatchingAdministrator {
      * @param pattern given pattern
      * @param text    given text
      */
-    void runOneTest(final String pattern,
-                    final String text) {
+    void runManualTest(final String pattern,
+                       final String text) {
         if (pattern == null || text == null) {
             System.out.println("Invalid arguments!");
             return;
@@ -78,9 +91,18 @@ class MatchingAdministrator {
         long startTime = System.nanoTime();
         List<Integer> rabinKarpResult =
                 rabinKarp.search(Arrays.copyOf(text.toCharArray(), text.length()),
-                        Arrays.copyOf(pattern.toCharArray(), pattern.length()));
+                        Arrays.copyOf(pattern.toCharArray(), pattern.length()), false);
         long endTime = System.nanoTime();
-        displayResult("Rabin-Karp", (endTime - startTime),
+        long duration1 = endTime - startTime;
+
+        startTime = System.nanoTime();
+        List<Integer> badRKResult =
+                rabinKarp.search(Arrays.copyOf(text.toCharArray(), text.length()),
+                        Arrays.copyOf(pattern.toCharArray(), pattern.length()), true);
+        endTime = System.nanoTime();
+        long duration3 = endTime - startTime;
+        displayBadRKResults(duration1, duration3, null);
+        displayResult("Rabin-Karp (with an efficient hash function)", duration1,
                 rabinKarpResult, null);
 
         startTime = System.nanoTime();
@@ -90,6 +112,9 @@ class MatchingAdministrator {
         endTime = System.nanoTime();
         displayResult("Knuth-Morris-Pratt", (endTime - startTime),
                 knuthMorrisPrattResult, null);
+        long duration2 = endTime - startTime;
+
+        displayConclusion(duration1, duration2, null);
     }
 
     /**
@@ -106,15 +131,15 @@ class MatchingAdministrator {
                                final String outputPath) {
         if (outputPath == null) {
             System.out.println("Algorithm " + algorithmName
-                    + " took " + duration + " nanoseconds\n"
+                    + " took " + duration + " nanoseconds (" + (double) duration / Math.pow(10, 9) + " seconds)\n"
                     + "to search given pattern in the " + "given text.");
             if (matches.isEmpty()) {
                 System.out.println("No matches found!");
             } else {
-                System.out.println("Matches found at index(es):");
+                System.out.println("Matches(" + matches.size() + ") found at index(es):");
                 int match = 1;
                 for (Integer integer : matches) {
-                    System.out.println("\tmatch " + match++ + " at " + integer);
+                    System.out.println("\tmatch " + match++ + " at index " + integer);
                 }
                 System.out.println();
             }
@@ -127,17 +152,22 @@ class MatchingAdministrator {
                         .append(algorithmName)
                         .append(" took ")
                         .append(duration)
-                        .append(" nanoseconds\nto search given pattern in the ")
+                        .append(" nanoseconds (")
+                        .append((double) duration / Math.pow(10, 9))
+                        .append(" seconds)")
+                        .append("\nto search given pattern in the ")
                         .append("given text.\n");
                 if (matches.isEmpty()) {
                     stringBuilder.append("No matches found!\n");
                 } else {
-                    stringBuilder.append("Matches found at index(es):\n");
+                    stringBuilder.append("Matches (")
+                            .append(matches.size())
+                            .append(") found at index(es):\n");
                     int match = 1;
                     for (Integer integer : matches) {
                         stringBuilder.append("\tmatch ")
                                 .append(match++)
-                                .append(" at ")
+                                .append(" at index ")
                                 .append(integer)
                                 .append("\n");
                     }
@@ -149,6 +179,97 @@ class MatchingAdministrator {
             } catch (IOException e) {
                 e.printStackTrace();
                 System.exit(2);
+            }
+        }
+    }
+
+    /**
+     * Prints a brief result of the two algorithms applied to the current test.
+     *
+     * @param RKDuration  duration of the RK algorithm
+     * @param KMPDuration duration of the KMP algorithm
+     * @param outputPath  path to the file to write to
+     */
+    private void displayConclusion(final long RKDuration,
+                                   final long KMPDuration,
+                                   final String outputPath) {
+
+        if (outputPath == null) {
+            System.out.println("---------------------------------------\nThe conclusion of this test is:");
+            if (RKDuration < KMPDuration) {
+                System.out.println("Algorithm Rabin-Karp was faster than Knuth-Morris-Pratt by "
+                        + (KMPDuration - RKDuration) + " nanoseconds (" + (double) (KMPDuration - RKDuration)
+                        / Math.pow(10, 9) + " seconds).");
+            } else {
+                System.out.println("Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by "
+                        + (RKDuration - KMPDuration) + " nanoseconds (" + (double) (RKDuration - KMPDuration)
+                        / Math.pow(10, 9) + " seconds).");
+            }
+        } else {
+            File outputFile = new File(outputPath);
+            try {
+                FileWriter fileWriter = new FileWriter(outputFile, true);
+                StringBuilder stringBuilder =
+                        new StringBuilder("\n---------------------------------------\nThe conclusion of this test is:\n");
+                if (RKDuration < KMPDuration) {
+                    stringBuilder.append("Algorithm Rabin-Karp was faster than Knuth-Morris-Pratt by ")
+                            .append(KMPDuration - RKDuration)
+                            .append(" nanoseconds (")
+                            .append((double) (KMPDuration - RKDuration)
+                                    / Math.pow(10, 9)).append(" seconds).\n");
+                } else {
+                    stringBuilder.append("Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by ")
+                            .append(RKDuration - KMPDuration)
+                            .append(" nanoseconds (")
+                            .append((double) (RKDuration - KMPDuration)
+                                    / Math.pow(10, 9)).append(" seconds).");
+                }
+                fileWriter.write(stringBuilder.toString());
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Displays a brief description of the conclusion regarding using a bad hash function
+     * or a efficient one.
+     *
+     * @param goodDuration time spent using efficient hash function
+     * @param badDuration  time spend using a bad hashing function
+     * @param outputPath   file to write to
+     */
+    private void displayBadRKResults(final long goodDuration,
+                                     final long badDuration,
+                                     final String outputPath) {
+        if (outputPath == null) {
+            System.out.println("The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in "
+                    + badDuration + " nanoseconds (" + (double) badDuration / Math.pow(10, 9) + " seconds).");
+            System.out.println("The difference between the efficient version and this one is "
+                    + (goodDuration - badDuration) + " nanoseconds ("
+                    + (double) (goodDuration - badDuration) / Math.pow(10, 9) + " seconds).\n");
+        } else {
+            File outputFile = new File(outputPath);
+            try {
+                FileWriter fileWriter = new FileWriter(outputFile, true);
+
+                String stringBuilder = "The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in " +
+                        badDuration +
+                        " nanoseconds (" +
+                        (double) badDuration / Math.pow(10, 9) +
+                        " seconds).\n" +
+                        "The difference between the efficient version and this one is " +
+                        (goodDuration - badDuration) +
+                        " nanoseconds (" +
+                        (double) (goodDuration - badDuration) / Math.pow(10, 9) +
+                        " seconds).\n\n";
+                fileWriter.write(stringBuilder);
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
