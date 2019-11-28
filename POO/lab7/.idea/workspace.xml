@@ -2,11 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37d69708-6af6-40b4-b6a8-3a7325c0ae1f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab7/META-INF/lab7.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lab7/com/poo/labvisitor/task1/Visitors/DokuWikiVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab7/com/poo/labvisitor/task1/Visitors/DokuWikiVisitor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/poo/labvisitor/task1/Visitors/DokuWikiVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/poo/labvisitor/task1/Visitors/DokuWikiVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/description.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/project-template.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/lab9.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab9/src/com/luciangrigore/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out11.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out12.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out13.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out14.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out14.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out15.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out15.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out16.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out16.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out17.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out17.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out18.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out18.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out19.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out19.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out20.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out21.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out21.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out22.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out22.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out23.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out23.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out24.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out24.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out25.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out25.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out26.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out26.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out27.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out27.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out28.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out28.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out29.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out29.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out30.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out30.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AA/ProiectEtapa2/src/tests/out/out9.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,6 +137,7 @@
       <updated>1573464949816</updated>
       <workItem from="1573714196603" duration="863000" />
       <workItem from="1573715903303" duration="105000" />
+      <workItem from="1574922212601" duration="25000" />
     </task>
     <servers />
   </component>

@@ -12,7 +12,7 @@ import java.util.List;
  */
 class RabinKarp {
 
-    private final int prime = 3;
+    private final int prime = 33;
 
     /**
      * This method returns the index of the first match of the pattern in the array.
@@ -34,8 +34,8 @@ class RabinKarp {
             patternHash = calculateHash(pattern, m, 0);
             arrayHash = calculateHash(array, m, 0);
         } else {
-            patternHash = calculateBADHashValue(pattern, m);
-            arrayHash = calculateBADHashValue(array, m);
+            patternHash = calculateBADHashValue(pattern, m, 0);
+            arrayHash = calculateBADHashValue(array, m, 0);
         }
         for (int i = 0; i <= lastCharacterIndex; i++) {
             if (patternHash == arrayHash) {
@@ -45,10 +45,9 @@ class RabinKarp {
             }
             if (i < lastCharacterIndex) {
                 if (!useBadHash) {
-//                    arrayHash = recalculateHash(arrayHash, array[i], array[i + m], m);
                     arrayHash = calculateHash(array, m, i + 1);
                 } else {
-                    arrayHash = recalculateBADHashValue(arrayHash, array[i], array[i + m]);
+                    arrayHash = calculateBADHashValue(array, m, i);
                 }
             }
         }
@@ -88,29 +87,35 @@ class RabinKarp {
                                final int startIndex) {
         long hash = 0;
         for (int i = startIndex; i < (startIndex + hashSize); i++) {
-//            hash += characterValue(text[i]) * Math.pow(prime, i);
-            hash = 33 * hash + text[i];
+            hash = prime * hash + text[i];
         }
         return hash;
     }
 
+
+//    private long recalculateHash(final long oldValue,
+//                                 final char oldChar,
+//                                 final char newChar,
+//                                 final int maxLength) {
+//        return (((oldValue - characterValue(oldChar))
+//                / prime) + (long) Math.pow(prime, maxLength - 1) * characterValue(newChar));
+//    }
+
     /**
-     * Recomputes the hash value of a given array by removing first character's
-     * value and adding a new one.
+     * Function that computes initial hash value of an array using an inefficient approach.
      *
-     * @param oldValue  old hash value
-     * @param oldChar   character to be removed
-     * @param newChar   character to be added
-     * @param maxLength array length
-     * @return new hash value
+     * @param text     given array
+     * @param hashSize array length
+     * @return hash value
      */
-    private long recalculateHash(final long oldValue,
-                                 final char oldChar,
-                                 final char newChar,
-                                 final int maxLength) {
-        return (((oldValue - characterValue(oldChar))
-                / prime) + (long) Math.pow(prime, maxLength - 1) * characterValue(newChar));
-//        return ((((oldValue - oldChar) / prime) + newChar) * 33);
+    private long calculateBADHashValue(final char[] text,
+                                       final int hashSize,
+                                       final int index) {
+        long hash = 0;
+        for (int i = index; i < hashSize + index; i++) {
+            hash += characterValue(text[i]);
+        }
+        return hash;
     }
 
     /**
@@ -121,35 +126,5 @@ class RabinKarp {
      */
     private long characterValue(char val) {
         return (val - 96);
-    }
-
-    /**
-     * Function that computes initial hash value of an array using an inefficient approach.
-     *
-     * @param text     given array
-     * @param hashSize array length
-     * @return hash value
-     */
-    private long calculateBADHashValue(final char[] text,
-                                       final int hashSize) {
-        long hash = 0;
-        for (int i = 0; i < hashSize; i++) {
-            hash += characterValue(text[i]);
-        }
-        return hash;
-    }
-
-    /**
-     * Function that computes rolling hash value of an array using an inefficient approach.
-     *
-     * @param oldvalue old hash value
-     * @param oldchar  char to be removed
-     * @param newChar  char to be added
-     * @return new hash value
-     */
-    private long recalculateBADHashValue(final long oldvalue,
-                                         final char oldchar,
-                                         final char newChar) {
-        return oldvalue - characterValue(oldchar) + characterValue(newChar);
     }
 }

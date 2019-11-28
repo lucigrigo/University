@@ -1,9 +1,8 @@
-
 The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
-finished the current test in 53137 nanoseconds (5.3137E-5 seconds).
-The difference between the efficient version and this one is 56565 nanoseconds (5.6565E-5 seconds).
+finished the current test in 121870 nanoseconds (1.2187E-4 seconds).
+The difference between the efficient version and this one is -19836 nanoseconds (-1.9836E-5 seconds).
 
-Algorithm Rabin-Karp (with an efficient hash function) took 109702 nanoseconds (1.09702E-4 seconds)
+Algorithm Rabin-Karp (with an efficient hash function) took 102034 nanoseconds (1.02034E-4 seconds)
 to search given pattern in the given text.
 Matches (6) found at index(es):
 	match 1 at index 11
@@ -13,7 +12,7 @@ Matches (6) found at index(es):
 	match 5 at index 144
 	match 6 at index 178
 
-Algorithm Knuth-Morris-Pratt took 25444 nanoseconds (2.5444E-5 seconds)
+Algorithm Knuth-Morris-Pratt took 27290 nanoseconds (2.729E-5 seconds)
 to search given pattern in the given text.
 Matches (6) found at index(es):
 	match 1 at index 11
@@ -26,4 +25,4 @@ Matches (6) found at index(es):
 
 ---------------------------------------
 The conclusion of this test is:
-Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 84258 nanoseconds (8.4258E-5 seconds).
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 74744 nanoseconds (7.4744E-5 seconds).

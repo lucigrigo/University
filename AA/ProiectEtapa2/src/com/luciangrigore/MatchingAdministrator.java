@@ -248,8 +248,8 @@ class MatchingAdministrator {
             System.out.println("The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in "
                     + badDuration + " nanoseconds (" + (double) badDuration / Math.pow(10, 9) + " seconds).");
             System.out.println("The difference between the efficient version and this one is "
-                    + (goodDuration - badDuration) + " nanoseconds ("
-                    + (double) (goodDuration - badDuration) / Math.pow(10, 9) + " seconds).\n");
+                    + (badDuration - goodDuration) + " nanoseconds ("
+                    + (double) (badDuration - goodDuration) / Math.pow(10, 9) + " seconds).\n");
         } else {
             File outputFile = new File(outputPath);
             try {
@@ -261,9 +261,9 @@ class MatchingAdministrator {
                         (double) badDuration / Math.pow(10, 9) +
                         " seconds).\n" +
                         "The difference between the efficient version and this one is " +
-                        (goodDuration - badDuration) +
+                        (badDuration - goodDuration) +
                         " nanoseconds (" +
-                        (double) (goodDuration - badDuration) / Math.pow(10, 9) +
+                        (double) (badDuration - goodDuration) / Math.pow(10, 9) +
                         " seconds).\n\n";
                 fileWriter.write(stringBuilder);
                 fileWriter.flush();
