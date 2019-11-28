@@ -12,8 +12,6 @@ import java.util.List;
  */
 class RabinKarp {
 
-    private final int prime = 33;
-
     /**
      * This method returns the index of the first match of the pattern in the array.
      *
@@ -87,19 +85,13 @@ class RabinKarp {
                                final int startIndex) {
         long hash = 0;
         for (int i = startIndex; i < (startIndex + hashSize); i++) {
-            hash = prime * hash + text[i];
+            hash = 33 * hash + text[i];
         }
         return hash;
     }
 
-
-//    private long recalculateHash(final long oldValue,
-//                                 final char oldChar,
-//                                 final char newChar,
-//                                 final int maxLength) {
 //        return (((oldValue - characterValue(oldChar))
 //                / prime) + (long) Math.pow(prime, maxLength - 1) * characterValue(newChar));
-//    }
 
     /**
      * Function that computes initial hash value of an array using an inefficient approach.
@@ -113,7 +105,7 @@ class RabinKarp {
                                        final int index) {
         long hash = 0;
         for (int i = index; i < hashSize + index; i++) {
-            hash += characterValue(text[i]);
+            hash = hash + characterValue(text[i]);
         }
         return hash;
     }
