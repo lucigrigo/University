@@ -5,14 +5,13 @@ import java.util.List;
  * Rabin-Karp Algorithm
  * It uses hashing to find a match between a pattern and an array of characters.
  * It uses rolling hashes function to recalculate the hash of the subsequent
- * possible matches. It will return the index of the match. It will return -1
- * otherwise.
+ * possible matches. It will return a list of the indexes of the matches made.
  */
 public class RabinKarp {
 
   /**
-   * This method returns the index of the first match of the pattern in the
-   * array.
+   * This method returns the indexes of the matches in a list that can be
+   * empty.
    *
    * @param array   text to search given pattern into
    * @param pattern given pattern
@@ -72,7 +71,7 @@ public class RabinKarp {
   }
 
   /**
-   * Computes initial value of the hash.
+   * Computes initial value of the hash with recommended hash function.
    *
    * @param text     given array
    * @param hashSize given length
@@ -86,7 +85,7 @@ public class RabinKarp {
     }
     return hash;
   }
-  
+
   /**
    * Function that computes initial hash value of an array using an inefficient
    * approach.
@@ -103,12 +102,4 @@ public class RabinKarp {
     }
     return hash;
   }
-
-  /**
-   * Converts ascii values to decimal ones.
-   *
-   * @param val ascii value
-   * @return actual value
-   */
-  private long characterValue(char val) { return (val - 96); }
 }

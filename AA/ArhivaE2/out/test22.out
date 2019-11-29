@@ -1,8 +1,9 @@
+
 The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
-finished the current test in 4818798 nanoseconds (0.004818798 seconds).
-The difference between the efficient version and this one is 538916 nanoseconds (5.38916E-4 seconds).
+finished the current test in 3591112 nanoseconds (0.003591112 seconds).
+The difference between the efficient version and this one is -192515 nanoseconds (-1.92515E-4 seconds).
 
-Algorithm Rabin-Karp (with an efficient hash function) took 4279882 nanoseconds (0.004279882 seconds)
+Algorithm Rabin-Karp (with an efficient hash function) took 3783627 nanoseconds (0.003783627 seconds)
 to search given pattern in the given text.
 Matches (133) found at index(es):
 	match 1 at index 24908
@@ -30,116 +31,9 @@ Matches (133) found at index(es):
 	match 23 at index 38289
 	match 24 at index 38369
 	match 25 at index 38449
-	match 26 at index 38706
-	match 27 at index 39305
-	match 28 at index 39390
-	match 29 at index 39765
-	match 30 at index 40625
-	match 31 at index 40840
-	match 32 at index 41250
-	match 33 at index 42182
-	match 34 at index 42259
-	match 35 at index 42743
-	match 36 at index 42902
-	match 37 at index 43116
-	match 38 at index 43225
-	match 39 at index 43236
-	match 40 at index 43412
-	match 41 at index 43595
-	match 42 at index 43703
-	match 43 at index 43891
-	match 44 at index 44026
-	match 45 at index 44239
-	match 46 at index 44441
-	match 47 at index 44763
-	match 48 at index 44838
-	match 49 at index 45508
-	match 50 at index 46479
-	match 51 at index 46663
-	match 52 at index 47400
-	match 53 at index 48083
-	match 54 at index 48170
-	match 55 at index 48603
-	match 56 at index 50162
-	match 57 at index 50459
-	match 58 at index 52360
-	match 59 at index 52807
-	match 60 at index 53193
-	match 61 at index 53443
-	match 62 at index 54132
-	match 63 at index 54425
-	match 64 at index 54843
-	match 65 at index 55078
-	match 66 at index 55842
-	match 67 at index 56070
-	match 68 at index 57638
-	match 69 at index 57767
-	match 70 at index 57875
-	match 71 at index 57937
-	match 72 at index 58125
-	match 73 at index 58320
-	match 74 at index 58462
-	match 75 at index 58535
-	match 76 at index 58612
-	match 77 at index 59141
-	match 78 at index 59339
-	match 79 at index 59589
-	match 80 at index 59674
-	match 81 at index 60541
-	match 82 at index 61222
-	match 83 at index 61493
-	match 84 at index 61581
-	match 85 at index 61666
-	match 86 at index 62402
-	match 87 at index 62801
-	match 88 at index 63079
-	match 89 at index 63486
-	match 90 at index 63753
-	match 91 at index 64503
-	match 92 at index 64908
-	match 93 at index 65366
-	match 94 at index 65594
-	match 95 at index 65986
-	match 96 at index 72013
-	match 97 at index 72615
-	match 98 at index 74434
-	match 99 at index 77907
-	match 100 at index 79267
-	match 101 at index 80490
-	match 102 at index 81032
-	match 103 at index 82653
-	match 104 at index 83252
-	match 105 at index 86338
-	match 106 at index 86617
-	match 107 at index 86962
-	match 108 at index 87784
-	match 109 at index 87823
-	match 110 at index 88217
-	match 111 at index 88305
-	match 112 at index 88415
-	match 113 at index 88695
-	match 114 at index 89050
-	match 115 at index 89335
-	match 116 at index 89524
-	match 117 at index 89863
-	match 118 at index 91199
-	match 119 at index 91446
-	match 120 at index 91468
-	match 121 at index 91923
-	match 122 at index 92062
-	match 123 at index 92398
-	match 124 at index 92497
-	match 125 at index 93489
-	match 126 at index 93916
-	match 127 at index 94180
-	match 128 at index 94420
-	match 129 at index 94883
-	match 130 at index 95106
-	match 131 at index 95536
-	match 132 at index 95712
-	match 133 at index 95846
+	... + 107 other matches
 
-Algorithm Knuth-Morris-Pratt took 1633894 nanoseconds (0.001633894 seconds)
+Algorithm Knuth-Morris-Pratt took 1443224 nanoseconds (0.001443224 seconds)
 to search given pattern in the given text.
 Matches (133) found at index(es):
 	match 1 at index 24908
@@ -167,116 +61,10 @@ Matches (133) found at index(es):
 	match 23 at index 38289
 	match 24 at index 38369
 	match 25 at index 38449
-	match 26 at index 38706
-	match 27 at index 39305
-	match 28 at index 39390
-	match 29 at index 39765
-	match 30 at index 40625
-	match 31 at index 40840
-	match 32 at index 41250
-	match 33 at index 42182
-	match 34 at index 42259
-	match 35 at index 42743
-	match 36 at index 42902
-	match 37 at index 43116
-	match 38 at index 43225
-	match 39 at index 43236
-	match 40 at index 43412
-	match 41 at index 43595
-	match 42 at index 43703
-	match 43 at index 43891
-	match 44 at index 44026
-	match 45 at index 44239
-	match 46 at index 44441
-	match 47 at index 44763
-	match 48 at index 44838
-	match 49 at index 45508
-	match 50 at index 46479
-	match 51 at index 46663
-	match 52 at index 47400
-	match 53 at index 48083
-	match 54 at index 48170
-	match 55 at index 48603
-	match 56 at index 50162
-	match 57 at index 50459
-	match 58 at index 52360
-	match 59 at index 52807
-	match 60 at index 53193
-	match 61 at index 53443
-	match 62 at index 54132
-	match 63 at index 54425
-	match 64 at index 54843
-	match 65 at index 55078
-	match 66 at index 55842
-	match 67 at index 56070
-	match 68 at index 57638
-	match 69 at index 57767
-	match 70 at index 57875
-	match 71 at index 57937
-	match 72 at index 58125
-	match 73 at index 58320
-	match 74 at index 58462
-	match 75 at index 58535
-	match 76 at index 58612
-	match 77 at index 59141
-	match 78 at index 59339
-	match 79 at index 59589
-	match 80 at index 59674
-	match 81 at index 60541
-	match 82 at index 61222
-	match 83 at index 61493
-	match 84 at index 61581
-	match 85 at index 61666
-	match 86 at index 62402
-	match 87 at index 62801
-	match 88 at index 63079
-	match 89 at index 63486
-	match 90 at index 63753
-	match 91 at index 64503
-	match 92 at index 64908
-	match 93 at index 65366
-	match 94 at index 65594
-	match 95 at index 65986
-	match 96 at index 72013
-	match 97 at index 72615
-	match 98 at index 74434
-	match 99 at index 77907
-	match 100 at index 79267
-	match 101 at index 80490
-	match 102 at index 81032
-	match 103 at index 82653
-	match 104 at index 83252
-	match 105 at index 86338
-	match 106 at index 86617
-	match 107 at index 86962
-	match 108 at index 87784
-	match 109 at index 87823
-	match 110 at index 88217
-	match 111 at index 88305
-	match 112 at index 88415
-	match 113 at index 88695
-	match 114 at index 89050
-	match 115 at index 89335
-	match 116 at index 89524
-	match 117 at index 89863
-	match 118 at index 91199
-	match 119 at index 91446
-	match 120 at index 91468
-	match 121 at index 91923
-	match 122 at index 92062
-	match 123 at index 92398
-	match 124 at index 92497
-	match 125 at index 93489
-	match 126 at index 93916
-	match 127 at index 94180
-	match 128 at index 94420
-	match 129 at index 94883
-	match 130 at index 95106
-	match 131 at index 95536
-	match 132 at index 95712
-	match 133 at index 95846
+	... + 107 other matches
 
 
 ---------------------------------------
 The conclusion of this test is:
-Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 2645988 nanoseconds (0.002645988 seconds).
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 2340403 nanoseconds (0.002340403 seconds).
+

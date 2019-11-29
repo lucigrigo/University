@@ -91,6 +91,9 @@ Descrierea setului de teste:
 	Pentru a vedea rezultatele unui test anume (cu fisierul corespondent
 	test[nr].in), se poate folosi comanda:
 		cat out/test[nr].out
+	Am decis sa afisez doar primele 25 de potriviri (in cazul testelor foarte
+	mari) pentru o urmarire mai usoara a rezultatelor si pentru a vedea mai usor
+  si cat timp ia KMP.
 
 Pachete necesare testarii:
 	- java

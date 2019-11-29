@@ -34,8 +34,8 @@ public class KnuthMorrisPratt {
   }
 
   /**
-   * This method returns the index for the first match of the pattern into the
-   * array; It will return -1 in case it does not match.
+   * This method returns the indexes of the matches found or an empty list
+   * if no matches are made.
    *
    * @param array   text to search the pattern into
    * @param pattern given pattern

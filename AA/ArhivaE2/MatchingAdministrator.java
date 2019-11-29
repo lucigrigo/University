@@ -148,8 +148,16 @@ public class MatchingAdministrator {
         System.out.println("Matches(" + matches.size() +
                            ") found at index(es):");
         int match = 1;
+        int maxMatch = 26;
         for (Integer integer : matches) {
           System.out.println("\tmatch " + match++ + " at index " + integer);
+          if (match == maxMatch) {
+            break;
+          }
+        }
+        if (matches.size() > maxMatch) {
+          System.out.println("\t... + " + (matches.size() - maxMatch) +
+                             " other matches");
         }
         System.out.println();
       }
@@ -174,12 +182,21 @@ public class MatchingAdministrator {
               .append(matches.size())
               .append(") found at index(es):\n");
           int match = 1;
+          int maxMatch = 26;
           for (Integer integer : matches) {
             stringBuilder.append("\tmatch ")
                 .append(match++)
                 .append(" at index ")
                 .append(integer)
                 .append("\n");
+            if (match == maxMatch) {
+              break;
+            }
+          }
+          if (matches.size() > maxMatch) {
+            stringBuilder.append("\t... + ")
+                .append(matches.size() - maxMatch)
+                .append(" other matches\n");
           }
         }
         stringBuilder.append("\n");
@@ -211,13 +228,13 @@ public class MatchingAdministrator {
             "Algorithm Rabin-Karp was faster than Knuth-Morris-Pratt by " +
             (KMPDuration - RKDuration) + " nanoseconds (" +
             (double)(KMPDuration - RKDuration) / Math.pow(10, 9) +
-            " seconds).");
+            " seconds).\n");
       } else {
         System.out.println(
             "Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by " +
             (RKDuration - KMPDuration) + " nanoseconds (" +
             (double)(RKDuration - KMPDuration) / Math.pow(10, 9) +
-            " seconds).");
+            " seconds).\n");
       }
     } else {
       File outputFile = new File(outputPath);
@@ -232,7 +249,7 @@ public class MatchingAdministrator {
               .append(KMPDuration - RKDuration)
               .append(" nanoseconds (")
               .append((double)(KMPDuration - RKDuration) / Math.pow(10, 9))
-              .append(" seconds).\n");
+              .append(" seconds).\n\n");
         } else {
           stringBuilder
               .append(
@@ -240,7 +257,7 @@ public class MatchingAdministrator {
               .append(RKDuration - KMPDuration)
               .append(" nanoseconds (")
               .append((double)(RKDuration - KMPDuration) / Math.pow(10, 9))
-              .append(" seconds).");
+              .append(" seconds).\n\n");
         }
         fileWriter.write(stringBuilder.toString());
         fileWriter.flush();
@@ -264,7 +281,7 @@ public class MatchingAdministrator {
                                    final String outputPath) {
     if (outputPath == null) {
       System.out.println(
-          "The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in " +
+          "\nThe Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in " +
           badDuration + " nanoseconds (" +
           (double)badDuration / Math.pow(10, 9) + " seconds).");
       System.out.println(
@@ -278,7 +295,7 @@ public class MatchingAdministrator {
         FileWriter fileWriter = new FileWriter(outputFile, true);
 
         String stringBuilder =
-            "The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in " +
+            "\nThe Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION\nfinished the current test in " +
             badDuration + " nanoseconds (" +
             (double)badDuration / Math.pow(10, 9) + " seconds).\n"
             + "The difference between the efficient version and this one is " +
