@@ -25,7 +25,61 @@ section .bss
     img_width:  resd 1
     img_height: resd 1
 
+
 section .text
+
+bruteforce_task1:
+	push ebp
+	mov ebp,esp
+	push ebx
+	push ecx
+	mov ecx, [edi + eax]
+	push eax
+	push edx
+	;PRINT_DEC 4, ecx
+	;NEWLINE
+
+	;mov ecx, 114
+	xor ebx, ebx
+	mov eax, ecx
+
+iter_bruteforce_task1:
+	cmp ebx, 255
+	je end_iter_bruteforce_task1
+	xor eax, ebx
+	cmp eax, 114
+	je start_verif_sequence_task1
+	xor eax, ebx
+	inc ebx
+	jmp iter_bruteforce_task1
+
+start_verif_sequence_task1:
+	pop edx
+	pop ecx
+
+	PRINT_DEC 4, [ebp + 16] ; 'e'
+	NEWLINE
+
+match_bruteforce_task:
+
+	;push 0
+	;call exit
+
+no_match_bruteforce_task1:
+	push ecx
+	push edx
+	xor eax, ebx
+	inc ebx
+	jmp iter_bruteforce_task1
+
+end_iter_bruteforce_task1:
+	pop edx
+	pop eax
+	pop ecx
+	pop ebx
+	pop ebp
+	ret
+
 global main
 main:
     ; Prologue
@@ -84,8 +138,55 @@ not_zero_param:
     jmp done
 
 solve_task1:
-    ; TODO Task1
+		push 114
+		push 101
+		push 118
+		push 105
+		push 101
+		push 110
+		push 116
+    mov edi, [img]
+		xor ecx, ecx
+
+search_lines_task1:
+		cmp ecx, [img_height]
+		je end_task1
+		mov eax, ecx
+		mov edx, 4
+		mul dx
+		mov edx, [img_width]
+		mul dx
+		inc ecx
+		mov esi, eax
+		xor ebx, ebx
+		;NEWLINE
+
+search_single_line_task1:
+		cmp ebx, [img_width]
+		je search_lines_task1
+		mov eax, ebx
+		mov edx, 4
+		mul dx
+		add eax, esi
+		;PRINT_DEC 4, [edi + eax]
+	 	;NEWLINE
+		;push eax
+		;push
+		;je find
+		cmp byte [edi + eax], 0x00
+		je end_task1
+		;push BYTE[edi + eax]
+		call bruteforce_task1
+		;sub esp, 4
+		inc ebx
+		jmp search_single_line_task1
+
+end_task1:
+		; todo store info in eax for task2
+		;PRINT_STRING "aici la final"
+		;NEWLINE
     jmp done
+
 solve_task2:
     ; TODO Task2
     jmp done
@@ -113,4 +214,3 @@ done:
     xor eax, eax
     leave
     ret
-    
