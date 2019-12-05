@@ -275,20 +275,49 @@ print_decrypted_message_task1: ; afisam mesajul decriptat
 
 		PRINT_DEC 4, esi ; linia
 		NEWLINE
+
+		; mov ah, bl
+		; mov	al, byte[esi]
     jmp done
 
 solve_task2:
-		;jmp solve_task1
-    PRINT_STRING "HEI"
-		NEWLINE
-    jmp done
-		PRINT_DEC 4, esi
-		NEWLINE
-		PRINT_DEC 4, ebx
-		NEWLINE
+		; jmp solve_task1
+    ; PRINT_STRING "HEI"
+		; NEWLINE
+		;
+		; PRINT_DEC 1, al
+		; NEWLINE
+
+		jmp done
 
 solve_task3:
+		; citirea argumentelor
+		; mov eax, [ebp + 16]
+		; mov ebx, [eax]
+		; mov eax, [ebx]
+		; PRINT_STRING [eax + 28] ; inceputul argumentelor
+		; NEWLINE
+		; PRINT_STRING [eax + 12] ; cautam dupa spatiu ca sa gasim offsetul
+		; NEWLINE
 
+		; PRINT_STRING [ebx + 29]
+		; NEWLINE
+		;mov ecx, "----"
+		;push ecx
+		 ; push "----"
+		 ; push ""
+		; mov eax, [ebp - 4]
+		; PRINT_DEC 4, eax
+		; PRINT_STRING [eax]
+		;lea eax, [ecx]
+		 ;PRINT_DEC 4, [ebp - 4]
+		;PRINT_STRING [ebp - 4]
+		; mov eax, [ebp - 4]
+		; PRINT_DEC 4, eax
+		; NEWLINE
+		;push eax
+		;pop ebx
+		;PRINT_DEC 4, ebx
 
     jmp done
 
