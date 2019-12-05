@@ -3,6 +3,7 @@
 extern atoi
 extern printf
 extern exit
+extern putchar
 
 ; Functions to read/free/print the image.
 ; The image is passed in argv[1].
@@ -46,28 +47,85 @@ bruteforce_task1:
 iter_bruteforce_task1:
 	cmp ebx, 255
 	je end_iter_bruteforce_task1
+
 	xor eax, ebx
-	cmp eax, 114
+	cmp eax, [ebp + 4 * 4 + 4 * 6]
+	; cmp eax, [ebp + 4 * 4 + 4 * 2]
 	je start_verif_sequence_task1
 	xor eax, ebx
 	inc ebx
 	jmp iter_bruteforce_task1
 
 start_verif_sequence_task1:
-	pop edx
 	pop ecx
+	pop edx
 
-	PRINT_DEC 4, [ebp + 16] ; 'e'
-	NEWLINE
+	mov ecx, [edi + edx + 4]
+	xor ecx, ebx
+	cmp ecx, [ebp + 4 * 4 + 4 * 5]
+	jne no_match_bruteforce_task1
+	; PRINT_DEC 4, ebx
+	; PRINT_
+	; NEWLINE
+	mov ecx, [edi + edx + 8]
+	xor ecx, ebx
+	cmp ecx, [ebp + 4 * 4 + 4 * 4]
+	jne no_match_bruteforce_task1
+	;PRINT_DEC 4, ebx
+	;NEWLINE
+	;PRINT_UDEC 4, [ebp + 4 * 4 + 4 * 0]
+	;NEWLINE
+	;PRINT_STRING "aici"
+	mov ecx, [edi + edx + 12]
+	xor ecx, ebx
+	cmp ecx, [ebp + 4 * 4 + 4 * 3]
+	jne no_match_bruteforce_task1
+	mov ecx, [edi + edx + 16]
+	xor ecx, ebx
+	cmp ecx, [ebp + 4 * 4 + 4 * 2]
+	jne no_match_bruteforce_task1
+	mov ecx, [edi + edx + 20]
+	xor ecx, ebx
+	cmp ecx, [ebp + 4 * 4 + 4 * 1]
+	jne no_match_bruteforce_task1
+	mov ecx, [edi + edx + 24]
+	xor ecx, ebx
+	cmp ecx, [ebp + 4 * 4 + 4 * 0]
+	jne no_match_bruteforce_task1
 
+	; mov ecx, [edi + edx + 4]
+	; xor ecx, ebx
+	; cmp ecx, [ebp + 4 * 4 + 4 * 1]
+	; jne no_match_bruteforce_task1
+	; mov ecx, [edi + edx + 8]
+	; xor ecx, ebx
+	; cmp ecx, [ebp + 4 * 4 + 4 * 0]
+	; jne no_match_bruteforce_task1
+
+; PRINT_STRING
 match_bruteforce_task:
+	mov [ebp + 12], ebx
 
-	;push 0
-	;call exit
+	push eax
+	push ebx
+	push edx
+
+	xor edx, edx
+	mov eax, esi
+	mov ebx, 4
+	div ebx
+	xor edx, edx
+	mov ebx, [img_width]
+	div ebx
+	mov [ebp + 8], eax
+
+	pop edx
+	pop ebx
+	pop eax
 
 no_match_bruteforce_task1:
-	push ecx
 	push edx
+	push ecx
 	xor eax, ebx
 	inc ebx
 	jmp iter_bruteforce_task1
@@ -145,10 +203,14 @@ solve_task1:
 		push 101
 		push 110
 		push 116
+		push 0
+		push 0
     mov edi, [img]
+; start_iter:
 		xor ecx, ecx
 
 search_lines_task1:
+		;xor ecx, ecx
 		cmp ecx, [img_height]
 		je end_task1
 		mov eax, ecx
@@ -159,7 +221,7 @@ search_lines_task1:
 		inc ecx
 		mov esi, eax
 		xor ebx, ebx
-		;NEWLINE
+
 
 search_single_line_task1:
 		cmp ebx, [img_width]
@@ -168,31 +230,68 @@ search_single_line_task1:
 		mov edx, 4
 		mul dx
 		add eax, esi
-		;PRINT_DEC 4, [edi + eax]
-	 	;NEWLINE
-		;push eax
-		;push
-		;je find
+		; PRINT_DEC 4, eax
+		; NEWLINE
 		cmp byte [edi + eax], 0x00
-		je end_task1
-		;push BYTE[edi + eax]
+		;xor ebx, ebx
+		je search_lines_task1
 		call bruteforce_task1
-		;sub esp, 4
 		inc ebx
 		jmp search_single_line_task1
 
 end_task1:
-		; todo store info in eax for task2
-		;PRINT_STRING "aici la final"
-		;NEWLINE
+		pop eax
+		pop ebx
+		cmp eax, 0
+		je done
+		cmp ebx, 0
+		je done
+
+		mov esi, eax
+		mov edx, [img_width]
+		mul edx
+		mov edx, 4
+		mul edx
+		; in eax avem acum offset-ul liniei pe care este pus mesajul
+		xor ecx, ecx
+		add eax, edi
+		mov edi, eax
+
+print_decrypted_message_task1: ; afisam mesajul decriptat
+		mov eax, [edi + ecx * 4]
+		xor eax, ebx
+		push ecx
+		push eax
+		call putchar
+		pop eax
+		pop ecx
+		inc ecx
+		cmp eax, 46 ; ne oprim cand ajungem la '.'
+		jne print_decrypted_message_task1
+		NEWLINE
+
+		PRINT_DEC 4, ebx ; cheia
+		NEWLINE
+
+		PRINT_DEC 4, esi ; linia
+		NEWLINE
     jmp done
 
 solve_task2:
-    ; TODO Task2
+		;jmp solve_task1
+    PRINT_STRING "HEI"
+		NEWLINE
     jmp done
+		PRINT_DEC 4, esi
+		NEWLINE
+		PRINT_DEC 4, ebx
+		NEWLINE
+
 solve_task3:
-    ; TODO Task3
+
+
     jmp done
+
 solve_task4:
     ; TODO Task4
     jmp done
