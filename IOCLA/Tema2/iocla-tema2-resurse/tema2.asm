@@ -671,7 +671,195 @@ solve_task5:
     jmp done
 solve_task6:
 
+		mov eax, [img_width]
+		mov ebx, [img_height]
+		mul ebx
+		mov ebx, 4
+		mul ebx
+		; PRINT_DEC 4, eax
+		; NEWLINE
+		; in eax avem nr maxim de octeti din imagine
+		mov ecx, eax
 
+		mov eax, 45
+		mov ebx, 0
+		int 0x80
+
+		mov esi, eax ; inceputul zonei de heap
+
+		mov eax, 45
+		mov ebx, esi
+		add ebx, ecx
+		int 0x80
+
+		; esi acum pointeaza catre zona de heap alocata
+
+		mov edi, [img]
+		; mov ecx, 1
+
+; start_new_line_task6:
+; 		mov ebx, 2
+		; mov eax, 0
+		; push eax
+		mov eax, 1
+		mov ebx, [img_width]
+		mul ebx
+		mov ebx, 4
+		mul ebx
+		add eax, 4 ; offsetul primului pixel de la care trebuie sa bluram
+		mov ebx, 2
+		push ebx
+		mov edx, 0
+
+		; PRINT_DEC 4, [edi + eax]
+		; NEWLINE
+
+blur_one_line_task6:
+		cmp ebx, [img_width]
+		je skip_line_task6
+		inc ebx
+		; push ebx
+		xor ecx, ecx
+		; ; add cl, byte[edi + eax]
+		; ; add cl, byte[edi + eax + 4]
+		; ; add cl, byte[edi + eax - 4]
+		; PRINT_DEC 4, [edi + eax]
+		; PRINT_STRING " "
+		add ecx, [edi + eax]
+		add ecx, [edi + eax + 4]
+		add ecx, [edi + eax - 4]
+		push eax
+		sub eax, [img_width]
+		sub eax, [img_width]
+		sub eax, [img_width]
+		sub eax, [img_width]
+		add ecx, [edi + eax]
+		; mov eax, [esp + 4]
+		add eax, [img_width]
+		add eax, [img_width]
+		add eax, [img_width]
+		add eax, [img_width]
+		add eax, [img_width]
+		add eax, [img_width]
+		add eax, [img_width]
+		add eax, [img_width]
+		add ecx, [edi + eax]
+		push edx
+		mov eax, ecx
+		push ebx
+		xor edx, edx
+		mov ebx, 5
+		div ebx
+
+		pop ebx
+		pop edx
+		; push ecx
+		; mov ecx, eax
+		; mov eax, [img_width]
+		; push ebx
+		; mov ebx, 4
+		; mul ebx
+		; neg eax
+		; add eax, ecx
+		; pop ebx
+		; pop ecx
+		; add ecx, [edi + eax]
+		; push ecx
+		; mov ecx, eax
+		; mov eax, [img_width]
+		; push ebx
+		; mov ebx, 8
+		; mul ebx
+		; neg eax
+		; add eax, ecx
+		; pop ebx
+		; pop ecx
+		; add ecx, [edi + eax]
+		; mov eax, ecx
+		; push edx
+		; xor edx, edx
+		; push ebx
+		; mov ebx, 5
+		; div ebx
+		;
+		; ; PRINT_DEC 4, eax
+		; ; PRINT_CHAR " "
+		; pop ebx
+		; pop edx
+		mov [esi + edx], eax
+		add edx, 4
+		; PRINT_DEC 4, [esi + edx - 4]
+
+		; PRINT_DEC 4, eax
+		; PRINT_STRING " "
+		; ; push eax
+		; ; mov eax, [ebp - 4]
+		; ; mov byte[esi + eax], cl
+		pop eax
+		add eax, 4
+		jmp blur_one_line_task6
+
+skip_line_task6:
+		; add eax, 4
+		pop ebx
+		inc ebx
+		cmp ebx, [img_height]
+		je finish_blur
+		; inc ebx
+		; PRINT_DEC 4, ebx
+		; PRINT_STRING " "
+		; NEWLINE
+		push ebx
+		mov ebx, 2
+		add eax, 8
+		jmp blur_one_line_task6
+
+finish_blur:
+; TODO copy values to image
+
+mov eax, 1
+mov ebx, [img_width]
+mul ebx
+mov ebx, 4
+mul ebx
+add eax, 4 ; offsetul primului pixel de la care trebuie sa bluram
+mov ebx, 2
+push ebx
+xor ecx, ecx
+
+write_new_blurred_line:
+cmp ebx, [img_width]
+je check_end_blur
+inc ebx
+mov edx, [esi + ecx]
+mov byte[edi + eax], dl
+; PRINT_DEC 1, edx
+; NEWLINE
+add ecx, 4
+add eax, 4
+jmp write_new_blurred_line
+
+check_end_blur:
+pop ebx
+inc ebx
+cmp ebx, [img_height]
+je write_result_task6
+push ebx
+mov ebx, 2
+add eax, 8
+jmp write_new_blurred_line
+		; PRINT_DEC 4, edx
+		; NEWLINE
+
+
+write_result_task6:
+		; add esp, 8
+		; mov ebp, esp
+
+		push DWORD[img_width]
+		push DWORD[img_height]
+		push DWORD[img]
+		call print_image
     jmp done
 
     ; Free the memory allocated for the image.
