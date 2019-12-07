@@ -316,19 +316,30 @@ search_offset_value_task3:
 		; PRINT_STRING [edi + eax + 1]
 		; NEWLINE
 
+		mov ebx, ecx
 		mov eax, [ebp + 12]
 		; mov eax, [eax]
 		;mov ecx, eax
-		push DWORD[eax + ecx + 1]
-		; call atoi
+		push DWORD[eax + 16]
+		call atoi
 		add esp, 4
 		; PRINT_STRING [eax + ecx]
 		; PRINT_STRING [edi + ecx + 1]
 		;mov ebx, eax
-		NEWLINE
+		; PRINT_DEC 4, eax
+		; NEWLINE
 
+		; PRINT_DEC 4, ebx
+		; NEWLINE
+		; jmp start_writing_message_task3
+
+		; push DWORD[0x00]
+		push 0x00
+		mov ecx, ebx
 		dec ecx
 start_crypting_task3:
+		; PRINT_STRING [edi + ecx]
+		; NEWLINE
 		cmp ecx, 28
 		je start_writing_message_task3
 		cmp byte[edi + ecx], "A"
@@ -383,141 +394,266 @@ start_crypting_task3:
 		je crypt_Y
 		cmp byte[edi + ecx], "Z"
 		je crypt_Z
-	;	dec ecx
+		cmp byte[edi + ecx], ","
+		je crypt_comma
 		jmp start_crypting_task3
 
 crypt_A:
-
 push " "
+push "-"
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_B:
-
 push " "
+push "."
+push "."
+push "."
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_C:
-
 push " "
+push "."
+push "-"
+push "."
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_D:
-
 push " "
+push "."
+push "."
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_E:
-
 push " "
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_F:
-
 push " "
+push "."
+push "-"
+push "."
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_G:
-
 push " "
+push "."
+push "-"
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_H:
-
 push " "
+push "."
+push "."
+push "."
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_I:
-
 push " "
+push "."
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_J:
-
 push " "
+push "-"
+push "-"
+push "-"
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_K:
-
 push " "
+push "-"
+push "."
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_L:
-
 push " "
+push "."
+push "."
+push "-"
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_M:
-
 push " "
+push "-"
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_N:
-
 push " "
+push "."
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_O:
-
 push " "
+push "-"
+push "-"
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_P:
-
 push " "
+push "."
+push "-"
+push "-"
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_Q:
-
 push " "
+push "-"
+push "."
+push "-"
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_R:
-
 push " "
+push "."
+push "-"
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_S:
-
 push " "
+push "."
+push "."
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_T:
-
 push " "
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_U:
-
 push " "
+push "-"
+push "."
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_V:
-
 push " "
+push "-"
+push "."
+push "."
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_W:
-
 push " "
+push "-"
+push "-"
+push "."
 dec ecx
 jmp start_crypting_task3
+
 crypt_X:
-
 push " "
+push "-"
+push "."
+push "."
+push "-"
 dec ecx
 jmp start_crypting_task3
+
 crypt_Y:
-
 push " "
+push "-"
+push "-"
+push "."
+push "-"
 dec ecx
 jmp start_crypting_task3
-crypt_Z:
 
+crypt_Z:
 		push " "
+		push "."
+		push "."
+		push "-"
+		push "-"
 		dec ecx
 		jmp start_crypting_task3
 
+crypt_comma:
+push " "
+push "-"
+push "-"
+push "."
+push "."
+push "-"
+push "-"
+dec ecx
+jmp start_crypting_task3
+
 start_writing_message_task3:
+		mov edi, [img]
+		mov ebx, 4
+		mul ebx
+		; mov edi, [edi]
+		; mov edi, [ebx]
+		; mov bl, byte[esp]
+		; sub esp, 1
+iteration_writing_message_task3:
+		pop ebx
+		cmp ebx, 0
+		; PRINT_DEC 4, ebx
+		; PRINT_DEC 4, eax
+		; PRINT_STRING [ebx]
+		; NEWLINE
+		; mov ebx, [ebx]
+		; mov edx, [ebx]
+		je end_message_task3
+		mov	byte[edi + eax], bl
+		add eax, 4
+		jmp iteration_writing_message_task3
+
+		; mov esp, ebp
+end_message_task3:
+		sub eax, 4
+		mov byte[edi + eax], 0
+
+		push DWORD[img_height]
+		push DWORD[img_width]
+		push DWORD[img]
+		call print_image
+		add esp, 12
+
 
 		; parcurgem textul de la final si il codificam
 
@@ -534,7 +670,8 @@ solve_task5:
     ; TODO Task5
     jmp done
 solve_task6:
-    ; TODO Task6
+
+
     jmp done
 
     ; Free the memory allocated for the image.
