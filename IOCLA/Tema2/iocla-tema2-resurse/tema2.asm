@@ -665,10 +665,15 @@ end_message_task3:
 
 solve_task4:
     ; TODO Task4
+
+
     jmp done
 solve_task5:
+
+
     ; TODO Task5
     jmp done
+
 solve_task6:
 
 		mov eax, [img_width]
@@ -827,6 +832,8 @@ mov ebx, 2
 push ebx
 xor ecx, ecx
 
+; PRINT_DEC 4, eax
+; NEWLINE
 write_new_blurred_line:
 cmp ebx, [img_width]
 je check_end_blur
@@ -856,8 +863,8 @@ write_result_task6:
 		; add esp, 8
 		; mov ebp, esp
 
-		push DWORD[img_width]
 		push DWORD[img_height]
+		push DWORD[img_width]
 		push DWORD[img]
 		call print_image
     jmp done
