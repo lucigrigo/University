@@ -260,11 +260,12 @@ end_task1:
 print_decrypted_message_task1: ; afisam mesajul decriptat
 		mov eax, [edi + ecx * 4]
 		xor eax, ebx
-		push ecx
-		push eax
-		call putchar
-		pop eax
-		pop ecx
+		; push ecx
+		; push eax
+		; call putchar
+		; pop eax
+		; pop ecx
+		PRINT_CHAR eax
 		inc ecx
 		cmp eax, 46 ; ne oprim cand ajungem la '.'
 		jne print_decrypted_message_task1
@@ -287,37 +288,242 @@ solve_task2:
 		;
 		; PRINT_DEC 1, al
 		; NEWLINE
-
+		; 'C'est un proverbe francais.'
+		; new_key = floor((2 * old_key + 3) / 5) - 4
 		jmp done
 
 solve_task3:
 		; citirea argumentelor
-		; mov eax, [ebp + 16]
+		; mov eax, [ebp + 12]
 		; mov ebx, [eax]
 		; mov eax, [ebx]
-		; PRINT_STRING [eax + 28] ; inceputul argumentelor
-		; NEWLINE
-		; PRINT_STRING [eax + 12] ; cautam dupa spatiu ca sa gasim offsetul
+		; PRINT_STRING [ebx + 29] ; inceputul argumentelor
 		; NEWLINE
 
-		; PRINT_STRING [ebx + 29]
+
+		; cautam offsetul care se afla dupa spatiu
+		mov eax, [ebp + 12]
+		mov edi, [eax] ; in edi avem argumentele
+		mov ecx, 28
+
+search_offset_value_task3:
+		inc ecx
+	;	PRINT_STRING [edi + eax]
+	;	NEWLINE
+		cmp byte[edi + ecx], 0x00
+		jne search_offset_value_task3
+	 	; mov eax, [edi + ecx + 1]
+		; PRINT_STRING [edi + eax + 1]
 		; NEWLINE
-		;mov ecx, "----"
-		;push ecx
-		 ; push "----"
-		 ; push ""
-		; mov eax, [ebp - 4]
-		; PRINT_DEC 4, eax
-		; PRINT_STRING [eax]
-		;lea eax, [ecx]
-		 ;PRINT_DEC 4, [ebp - 4]
-		;PRINT_STRING [ebp - 4]
-		; mov eax, [ebp - 4]
-		; PRINT_DEC 4, eax
-		; NEWLINE
-		;push eax
-		;pop ebx
-		;PRINT_DEC 4, ebx
+
+		mov eax, [ebp + 12]
+		; mov eax, [eax]
+		;mov ecx, eax
+		push DWORD[eax + ecx + 1]
+		; call atoi
+		add esp, 4
+		; PRINT_STRING [eax + ecx]
+		; PRINT_STRING [edi + ecx + 1]
+		;mov ebx, eax
+		NEWLINE
+
+		dec ecx
+start_crypting_task3:
+		cmp ecx, 28
+		je start_writing_message_task3
+		cmp byte[edi + ecx], "A"
+		je crypt_A
+		cmp byte[edi + ecx], "B"
+		je crypt_B
+		cmp byte[edi + ecx], "C"
+		je crypt_C
+		cmp byte[edi + ecx], "D"
+		je crypt_D
+		cmp byte[edi + ecx], "E"
+		je crypt_E
+		cmp byte[edi + ecx], "F"
+		je crypt_F
+		cmp byte[edi + ecx], "G"
+		je crypt_G
+		cmp byte[edi + ecx], "H"
+		je crypt_H
+		cmp byte[edi + ecx], "I"
+		je crypt_I
+		cmp byte[edi + ecx], "J"
+		je crypt_J
+		cmp byte[edi + ecx], "K"
+		je crypt_K
+		cmp byte[edi + ecx], "L"
+		je crypt_L
+		cmp byte[edi + ecx], "M"
+		je crypt_M
+		cmp byte[edi + ecx], "N"
+		je crypt_N
+		cmp byte[edi + ecx], "O"
+		je crypt_O
+		cmp byte[edi + ecx], "P"
+		je crypt_P
+		cmp byte[edi + ecx], "Q"
+		je crypt_Q
+		cmp byte[edi + ecx], "R"
+		je crypt_R
+		cmp byte[edi + ecx], "S"
+		je crypt_S
+		cmp byte[edi + ecx], "T"
+		je crypt_T
+		cmp byte[edi + ecx], "U"
+		je crypt_U
+		cmp byte[edi + ecx], "V"
+		je crypt_V
+		cmp byte[edi + ecx], "W"
+		je crypt_W
+		cmp byte[edi + ecx], "X"
+		je crypt_X
+		cmp byte[edi + ecx], "Y"
+		je crypt_Y
+		cmp byte[edi + ecx], "Z"
+		je crypt_Z
+	;	dec ecx
+		jmp start_crypting_task3
+
+crypt_A:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_B:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_C:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_D:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_E:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_F:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_G:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_H:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_I:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_J:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_K:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_L:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_M:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_N:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_O:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_P:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_Q:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_R:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_S:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_T:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_U:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_V:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_W:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_X:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_Y:
+
+push " "
+dec ecx
+jmp start_crypting_task3
+crypt_Z:
+
+		push " "
+		dec ecx
+		jmp start_crypting_task3
+
+start_writing_message_task3:
+
+		; parcurgem textul de la final si il codificam
+
+		; punem codificarea pe stiva
+
+		; punem in imagine valorile de pe stiva
 
     jmp done
 
