@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainEx1 {
+
     private static void readAndPrintLine() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -20,6 +21,14 @@ public class MainEx1 {
             } catch (IOException e2) {
                 e2.printStackTrace();
             }
+        }
+
+        try (BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.println("Print smth:");
+            String input1 = reader1.readLine();
+            System.out.println("\ninput was:\n" + input1);
+        } catch (IOException e3) {
+            e3.printStackTrace();
         }
     }
 

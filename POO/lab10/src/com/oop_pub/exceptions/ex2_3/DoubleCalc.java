@@ -8,9 +8,9 @@ public class DoubleCalc implements Calculator {
     public Double add(Double nr1, Double nr2) throws NullParameterException, OverflowException, UnderflowException {
         if (nr1 == null || nr2 == null)
             throw new NullParameterException("add method.");
-        if (nr1 + nr2 > Double.POSITIVE_INFINITY)
+        if (nr1 + nr2 == Double.POSITIVE_INFINITY)
             throw new OverflowException("add method.");
-        if (nr1 + nr2 < Double.NEGATIVE_INFINITY)
+        if (nr1 + nr2 == Double.NEGATIVE_INFINITY)
             throw new UnderflowException("add method.");
         return nr1 + nr2;
     }
