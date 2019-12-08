@@ -664,10 +664,107 @@ end_message_task3:
     jmp done
 
 solve_task4:
-    ; TODO Task4
+		; in eax memoram offsetul de la care trebuie sa incepem
+		mov eax, [ebp + 12]
+		push DWORD[eax + 16]
+		call atoi
+		add esp, 4
+		mov ebx, 4
+		mul ebx
+		sub eax, 4
+		; in edi memoram adresa imaginii
+		mov edi, [img]
+		xor edx, edx
+		mov edx, -1
+		; in esi avem stringul ce trebuie codificat
+		mov esi, [ebp + 12]
+		mov esi, [esi + 12]
 
+crypt_word_task4:
+		xor ecx, ecx
+		add edx, 1
+		; PRINT_DEC 4, edx
+		; PRINT_STRING [esi + edx]
+		; NEWLINE
+		cmp byte[esi + edx], 0
+		je final_byte_task4
 
+crypt_single_byte_task4:
+		cmp ecx, 8
+		je crypt_word_task4
+		xor ebx, ebx
+		mov bl, [esi + edx]
+		shl bl, cl
+		and bl, 128
+		shr bl, 7
+		; PRINT_DEC 1, bl
+		; NEWLINE
+		cmp bl, 0
+		je crypt_0_task4
+		cmp bl, 1
+		je crypt_1_task4
+
+crypt_0_task4:
+		push ecx
+		xor ecx, ecx
+		mov ecx, [edi + eax]
+		; PRINT_STRING "BEFORE "
+		; PRINT_DEC 4, [edi + eax]
+		; NEWLINE
+		and cl, 254
+		; mov ebx, 254
+		; PRINT_DEC 4, ebx
+		; NEWLINE
+		mov byte[edi + eax], cl
+		; PRINT_STRING "AFTER RESET "
+		; PRINT_DEC 4, [edi + eax]
+		; NEWLINE
+		add eax, 4
+		pop ecx
+		inc ecx
+		jmp crypt_single_byte_task4
+
+crypt_1_task4:
+		push ecx
+		xor ecx, ecx
+		mov ecx, [edi + eax]
+		; PRINT_STRING "offset eax "
+		; PRINT_DEC 4, eax
+		; PRINT_STRING " BEFORE "
+		; PRINT_DEC 4, [edi + eax]
+		; NEWLINE
+		or cl, 1
+		mov byte[edi + eax], cl
+		; PRINT_STRING "AFTER SET "
+		; PRINT_DEC 4, [edi + eax]
+		; NEWLINE
+		add eax, 4
+		pop ecx
+		inc ecx
+		jmp crypt_single_byte_task4
+
+final_byte_task4:
+		xor ecx, ecx
+
+writing_null_terminator_task4:
+		cmp ecx, 8
+		je print_result_task4
+		xor ebx, ebx
+		mov bl, byte[edi + eax]
+		and ebx, 254
+		mov byte[edi + eax], bl
+		add eax, 4
+		inc ecx
+		jmp writing_null_terminator_task4
+
+print_result_task4:
+		; afisam imaginea rezultata
+		push DWORD[img_height]
+		push DWORD[img_width]
+		push DWORD[img]
+		call print_image
     jmp done
+
 solve_task5:
 
 
