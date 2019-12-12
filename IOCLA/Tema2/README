@@ -1,0 +1,116 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+================================= Tema 2 IOCLA ================================
+
+Grigore Lucian-Florin
+Grupa 324CD, Anul II
+Facultatea de Automatica si Calculatoare
+Universitatea Politehnica, Bucuresti
+
+===============================================================================
+
+Descrierea rezolvarii:
+
+-------------------------------------------------------------------------------
+
+Task 1:
+  Pentru rezolvarea primului task am generat pe rand valorile de la 0 la 255
+  (valoarea maxima pentru un octet) si am aplicat xor pe cate un byte al
+  imaginii, dar fara sa ii modific valoarea initiala. Cand am gasit, prin apli-
+  carea xor-ului, litera "r", incep sa verific urmatorii byti din imagine pentru
+  a vedea daca am gasit cuvantul "revient". Daca nu, continui iterarea prin ima-
+  gine cu cheia curenta ca valoare pentru xor. Daca am gasit cuvantul revient,
+  memorez linia si cheia curenta pe stiva, unde am plasat anterior doua valori
+  pe post de dummy, doar pentru a le putea da 'pop' la final. La final, calculez
+  valoarea offset-ului pentru linia pe care am gasit cuvantul si afisez caracter
+  cu caracter mesajul de pe acea linie, pana la caracterul ".". In timpul itera-
+  tiei pentru o cheie, memorez pe stiva valoarea liniei curente pentru a nu fi
+  necesare alte calcule in momentul gasirii cuvantului cautat sau la finalul
+  functiei, cand trebuie stiuta aceasta valoare.
+
+-------------------------------------------------------------------------------
+
+Task 2:
+  Am inceput taskul 2 prin a aplica xor cu cheia gasita la primul pe intreaga
+  imagine. Urmatorul pas a fost sa calculez noau valoare a cheii de criptare
+  care urmeaza a fi folosite. Dupa am inceput scrierea mesajului "C'est un
+  proverbe francais." pe linia urmatoare frazei care contine "revient", dupa ce
+  am calculat offset-ul corespunzator. In final, am aplicat xor cu cheia
+  calculata pe intreaga imagine si am printat imaginea rezultata.
+
+-------------------------------------------------------------------------------
+
+Task 3:
+  Primul pas in rezolvarea acestui task a fost extragerea valorii in decimal
+  a offset-ului de la care sa inceapa criptarea (folosind atoi). Urmatorul a
+  fost memorarea adresei de final a mesajului ce se doreste criptat. Am realizat
+  criptarea mesajului folosind stiva si punand pe ea, in ordine inversa, codi-
+  ficarile fiecarui caracter al mesajului ce se vrea criptat, luat de la coada
+  la inceput. Prima valoare pusa pe stiva pentru fiecare caracter a fost " ".
+  Prima valoarea pusa pe stiva a fost null terminator, facand si un caz separat
+  pentru el, in care nu mai scriu efectiv caracterul, ci suprascriu ultimul
+  caracter scris, acesta din urma fiind, logic, un spatiu. In final, am printat
+  imaginea rezultata.
+
+-------------------------------------------------------------------------------
+
+Task 4:
+  Am inceput rezolvarea acestui task prin calcularea offsetului de la care sa
+  incep criptarea messajului, precum si memorarea adreselor atat pentru imagi-
+  ne, cat si pentru mesajul care trebuie scris. Am parcurs fiecare byte din
+  mesaj, si fiecare bit din acesta, si l-am adus pe pozitia LSB prin shiftari
+  la stanga (egale cu nr. indexului bitului curent din byte-ul curent) si la
+  dreapta (de 7 ori). Apoi, am facut cate un caz separat pentru 0 sau 1. Daca
+  bitul curent este 0, am aplicat pe byte-ul curent din imagine operatorul
+  and cu masca 254. In caz contrar, am aplicat opratorul or cu masca 1. De
+  asemenea, pentru a memora cand trebuie oprita criptarea mesajului (caracterul
+  nul), am memorat pe stiva suma tuturor bitilor dintr-un byte al mesajului.
+  Aceasta suma este verificata la fiecare noua iteratie prin bytii mesajului si,
+  daca este 0, inseamna ca abia ce am scris caracterul "\0", deci ma pot opri
+  din criptare. La final, am printat imaginea rezultata.
+
+-------------------------------------------------------------------------------
+
+Task 5:
+  Spre deosebire de taskul de care este foarte legat (task 4), pe acesta l-am
+  considerat mult mai simplu. Am inceput, din nou, prin a calcula offsetul de
+  la care trebuie sa incep decriptarea mesajului. Apoi am parcurs din byte in
+  byte imaginea data, construind la fiecare pas byteul din mesajul ce este
+  format. Am realizat asta shiftand fiecare byte din imagine la stanga cu 7,
+  apoi shiftandul la dreapta cu valoarea unui contor (care simbolizeaza pozitia
+  din byteul nou construit) si aplicand 'or' intre rezultatul curent si byteul
+  construit pana la pasul curent. Cand contorul respectiv ajunge la valoarea 8,
+  verific daca tocmai am scris '\0', caz in care ma opresc din criptare. Pentru
+  a realiza verificarea scrierii terminatorului de sir, am pus pe stiva valoarea
+  de byte construita la fiecare pas. Daca aceasta este 0, atunci am terminat
+  decriptarea. La final, am printat mesajul rezultat.
+
+-------------------------------------------------------------------------------
+
+Task 6:
+  Am inceput acest task prin alocarea unei zone de memorie in care sa memorez
+  noile valori ale pixelilor egala cu 4 * img_width * img_height (doar ca o
+  masura de precautie, stiind ca nu o voi ocupa vreodata complet). Apoi am
+  parcurs pixelii din interiorul imaginii pe fiecare linie, punand in zona nou
+  alocata valorile calculata prin formula data in cerinta (media aritmetica
+  a valorile din stanga, dreapta, deasupra, dedesubtul pixelului si valoarea
+  acestuia). Pentru a ma asigura ca parcurg doar interiorul imaginii, am inceput
+  de la offsetul primului byte care nu este pe marginea imaginii. Apoi am numa-
+  rat de cate ori parcurg pixelii, oprindu-ma la (img_width - 2), 2-ul venind de
+  la pixelii care raman neparcursi. Apoi, la finalul unei linii, recalculam va-
+  loarea de offset pentru urmatoarea linie si aplicam acelasi procedeu. In mod
+  asemanator am tinut cont si de parcurgerea pe verticala, memorand temporar pe
+  stiva numarul de linii parcurse si oprindu-ma cand am parcurs (img_height
+  - 2) linii. La final, am suprascris valorile din imaginea originala, parcur-
+  gand-o pe cea veche similar celui explicat mai sus, iar valorile noi parcur-
+  gandu-le cu un contor separat, din byte in byte. La final, am printat noua
+  imagine.
+
+-------------------------------------------------------------------------------
+
+Observatii:
+
+
+===============================================================================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
