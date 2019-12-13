@@ -1,0 +1,70 @@
+
+The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
+finished the current test in 2623669 nanoseconds (0.002623669 seconds).
+The difference between the efficient version and this one is -878240 nanoseconds (-8.7824E-4 seconds).
+
+Algorithm Rabin-Karp (with an efficient hash function) took 3501909 nanoseconds (0.003501909 seconds)
+to search given pattern in the given text.
+Matches (92) found at index(es):
+	match 1 at index 181
+	match 2 at index 309
+	match 3 at index 433
+	match 4 at index 1464
+	match 5 at index 1637
+	match 6 at index 1678
+	match 7 at index 3397
+	match 8 at index 7236
+	match 9 at index 8458
+	match 10 at index 8811
+	match 11 at index 8833
+	match 12 at index 9585
+	match 13 at index 10615
+	match 14 at index 10765
+	match 15 at index 11185
+	match 16 at index 15544
+	match 17 at index 15753
+	match 18 at index 15779
+	match 19 at index 19048
+	match 20 at index 21098
+	match 21 at index 22941
+	match 22 at index 24386
+	match 23 at index 24875
+	match 24 at index 24987
+	match 25 at index 26619
+	... + 66 other matches
+
+Algorithm Knuth-Morris-Pratt took 1705369 nanoseconds (0.001705369 seconds)
+to search given pattern in the given text.
+Matches (92) found at index(es):
+	match 1 at index 181
+	match 2 at index 309
+	match 3 at index 433
+	match 4 at index 1464
+	match 5 at index 1637
+	match 6 at index 1678
+	match 7 at index 3397
+	match 8 at index 7236
+	match 9 at index 8458
+	match 10 at index 8811
+	match 11 at index 8833
+	match 12 at index 9585
+	match 13 at index 10615
+	match 14 at index 10765
+	match 15 at index 11185
+	match 16 at index 15544
+	match 17 at index 15753
+	match 18 at index 15779
+	match 19 at index 19048
+	match 20 at index 21098
+	match 21 at index 22941
+	match 22 at index 24386
+	match 23 at index 24875
+	match 24 at index 24987
+	match 25 at index 26619
+	... + 66 other matches
+
+
+---------------------------------------
+The conclusion of this test is:
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 1796540 nanoseconds (0.00179654 seconds).
+

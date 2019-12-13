@@ -1,0 +1,58 @@
+\documentclass[runningheads]{llncs}
+\usepackage{graphicx}
+\usepackage[colorlinks,allcolors=black]{hyperref}
+\usepackage{hyperref}
+\renewcommand{\refname}{Referinte}
+\renewcommand{\labelitemi}{\textbullet}
+\renewcommand{\labelitemii}{\textasteriskcentered}
+\renewcommand{\contentsname}{Cuprins}
+\begin{document}
+\title{\huge{Analiza Algoritmilor\\Tema - Etapa 1}}
+\author{\textit{\large{Grigore Lucian-Florin}}}
+\institute{\textit{\large{Grupa 324CD\\Facultatea de Automatica si Calculatoare\\Universitatea Politehnica, Bucuresti}}}
+
+\maketitle
+\bigbreak
+
+\section{\Large{Descrierea problemei rezolvate}}
+\par Problema abordata presupune gasirea celei mai lungi secvente comune pentru doua siruri de caractere. De asemenea, ne intereseaza complexitatea pentru fiecare solutie propusa daca am sti ca cea mai lunga secventa comuna are lungimea M.
+
+
+\bigbreak
+\section{\Large{Specificarea solutiilor alese}}
+\par Solutiile alese pentru rezolvarea cerintei sunt urmatorii algoritmi
+\begin{itemize}
+	\item \textbf{Rabin-Karp} \\
+	Dorim sa gasim probabilitatea unei false potriviri in functie de dimensiunea spatiului 	cheilor, precum si folosirea mai multor tipuri de functii hash in implementare. In schimb, se pot elimina foarte usor secventele care nu se potrivesc cu ajutorul functiei hash. In cazul unui “false positive”, dorim sa verificam potrivirea dintre fiecare litera a celor doua secvente, pentru a fi siguri de aceasta (parcugem cele doua secvente litera cu litera). \\
+		\item \textbf{Knuth-Morris-Pratt} \\
+		Dorim sa gasim doua probleme care poti fi rezolvate eficient cu acest algoritm, dar nu si cu Rabin-Karp. Aceasta solutie este mai eficienta in cazul cautarii unei singure secvente intr-un text, fata de prima solutie propusa. Acest algoritm presupune si construirea unei tabele speciale (denumita “failure function” sau “partial match table”), fiind de fapt un vector care sa ne ajute sa nu mai verificam un numar de caractere in cazul unei potriviri false.
+\end{itemize} 
+ 
+ \pagebreak
+ \section{\Large{Criteriile de evaluare pentru solutia propusa}}
+\par Ne propunem sa evaluam cei doi algoritmi propusi dupa criteriile urmatoare:
+\begin{itemize}
+	\item In cazul algoritmului \textbf{Rabin-Karp}, dorim sa gasim cazuri de functii hash care sa nu functioneze mereu, dar si alegerea unor alte functii hash care sa fie cat mai fail-proof.
+	\item Cazurile cand algoritmul \textbf{Knuth-Morris-Pratt} functioneaza mai bine decat Rabin-Karp, si invers.
+	\item Complexitatile fiecarui algoritm pentru un set de date de dimensiune cunoscuta \textit{(cea mai lunga secventa fiind de o lungime M, cunoscuta)}.
+	\item Dorim sa intocmim un \textbf{set de teste} care sa se asigure ca solutiile propuse functioneaza cat mai eficient din punctul de vedere al memoriei si timpului de executare. Testele propuse ar trebui sa acopere situatii precum: potrivirea multipla intre secvente de aceeasi lungime (preferabil lungime mare, pentru a vedea consumul resurselor), secvente care sa para la fel pentru functii hash slabe (de exemplu "aab" si "aba" ar avea aceeasi valoare hash pentru o functie care nu se foloseste de indexul literelor) sau secvente cu grupuri de litere repetitive care sa puna la incercare tabela caracteristica algoritmului KMP.
+\end{itemize}
+
+\bigbreak
+\begin{thebibliography}{8}
+\bibitem RRabin-Karp  Algorithm \\
+\href {https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm} {Link Wikipedia RB} \\
+\href{https://brilliant.org/wiki/rabin-karp-algorithm/#_=_} {Link Brilliant RB} \\
+
+\bibitem KKnuth-Morris-Pratt Algorithm \\
+\href {https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm} {Link Wikipedia KMP} \\
+\href {https://brilliant.org/wiki/knuth-morris-pratt-algorithm/} {Link Brilliant KMP} \\
+
+\bibitem SString Matching Algorithms Presentation \\
+\href{https://www.cs.auckland.ac.nz/courses/compsci369s1c/lectures/GG-notes/CS369-StringAlgs.pdf} {Link} \\
+
+\bibitem LLCS problem \\
+\href{https://en.wikipedia.org/wiki/Longest_common_subsequence_problem#Reduce_strings_to_hashes}{Wikipedia Link}\\
+
+\end{thebibliography}
+\end{document}

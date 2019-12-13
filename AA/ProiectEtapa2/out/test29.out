@@ -1,0 +1,70 @@
+
+The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
+finished the current test in 29258497 nanoseconds (0.029258497 seconds).
+The difference between the efficient version and this one is 8988141 nanoseconds (0.008988141 seconds).
+
+Algorithm Rabin-Karp (with an efficient hash function) took 20270356 nanoseconds (0.020270356 seconds)
+to search given pattern in the given text.
+Matches (4072) found at index(es):
+	match 1 at index 25
+	match 2 at index 673
+	match 3 at index 1328
+	match 4 at index 2600
+	match 5 at index 6974
+	match 6 at index 7616
+	match 7 at index 8081
+	match 8 at index 8269
+	match 9 at index 10416
+	match 10 at index 11749
+	match 11 at index 12686
+	match 12 at index 13700
+	match 13 at index 13749
+	match 14 at index 14190
+	match 15 at index 14793
+	match 16 at index 15486
+	match 17 at index 16205
+	match 18 at index 16216
+	match 19 at index 16569
+	match 20 at index 17851
+	match 21 at index 20627
+	match 22 at index 20762
+	match 23 at index 21073
+	match 24 at index 21260
+	match 25 at index 21362
+	... + 4046 other matches
+
+Algorithm Knuth-Morris-Pratt took 15442148 nanoseconds (0.015442148 seconds)
+to search given pattern in the given text.
+Matches (4072) found at index(es):
+	match 1 at index 25
+	match 2 at index 673
+	match 3 at index 1328
+	match 4 at index 2600
+	match 5 at index 6974
+	match 6 at index 7616
+	match 7 at index 8081
+	match 8 at index 8269
+	match 9 at index 10416
+	match 10 at index 11749
+	match 11 at index 12686
+	match 12 at index 13700
+	match 13 at index 13749
+	match 14 at index 14190
+	match 15 at index 14793
+	match 16 at index 15486
+	match 17 at index 16205
+	match 18 at index 16216
+	match 19 at index 16569
+	match 20 at index 17851
+	match 21 at index 20627
+	match 22 at index 20762
+	match 23 at index 21073
+	match 24 at index 21260
+	match 25 at index 21362
+	... + 4046 other matches
+
+
+---------------------------------------
+The conclusion of this test is:
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 4828208 nanoseconds (0.004828208 seconds).
+

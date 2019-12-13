@@ -1,0 +1,70 @@
+
+The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
+finished the current test in 19564731 nanoseconds (0.019564731 seconds).
+The difference between the efficient version and this one is 12034704 nanoseconds (0.012034704 seconds).
+
+Algorithm Rabin-Karp (with an efficient hash function) took 7530027 nanoseconds (0.007530027 seconds)
+to search given pattern in the given text.
+Matches (2141) found at index(es):
+	match 1 at index 6
+	match 2 at index 36
+	match 3 at index 221
+	match 4 at index 735
+	match 5 at index 791
+	match 6 at index 1160
+	match 7 at index 1186
+	match 8 at index 1284
+	match 9 at index 1424
+	match 10 at index 1550
+	match 11 at index 1624
+	match 12 at index 1754
+	match 13 at index 1990
+	match 14 at index 1995
+	match 15 at index 2257
+	match 16 at index 2404
+	match 17 at index 2551
+	match 18 at index 3469
+	match 19 at index 3535
+	match 20 at index 3683
+	match 21 at index 3796
+	match 22 at index 4022
+	match 23 at index 4443
+	match 24 at index 4598
+	match 25 at index 4760
+	... + 2115 other matches
+
+Algorithm Knuth-Morris-Pratt took 4238036 nanoseconds (0.004238036 seconds)
+to search given pattern in the given text.
+Matches (2141) found at index(es):
+	match 1 at index 6
+	match 2 at index 36
+	match 3 at index 221
+	match 4 at index 735
+	match 5 at index 791
+	match 6 at index 1160
+	match 7 at index 1186
+	match 8 at index 1284
+	match 9 at index 1424
+	match 10 at index 1550
+	match 11 at index 1624
+	match 12 at index 1754
+	match 13 at index 1990
+	match 14 at index 1995
+	match 15 at index 2257
+	match 16 at index 2404
+	match 17 at index 2551
+	match 18 at index 3469
+	match 19 at index 3535
+	match 20 at index 3683
+	match 21 at index 3796
+	match 22 at index 4022
+	match 23 at index 4443
+	match 24 at index 4598
+	match 25 at index 4760
+	... + 2115 other matches
+
+
+---------------------------------------
+The conclusion of this test is:
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 3291991 nanoseconds (0.003291991 seconds).
+

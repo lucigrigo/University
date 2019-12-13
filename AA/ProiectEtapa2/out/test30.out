@@ -1,0 +1,70 @@
+
+The Rabin-Karp version with a LESS EFFICIENT HASHING FUNCTION
+finished the current test in 34449250 nanoseconds (0.03444925 seconds).
+The difference between the efficient version and this one is 7817609 nanoseconds (0.007817609 seconds).
+
+Algorithm Rabin-Karp (with an efficient hash function) took 26631641 nanoseconds (0.026631641 seconds)
+to search given pattern in the given text.
+Matches (13120) found at index(es):
+	match 1 at index 111
+	match 2 at index 6080
+	match 3 at index 7059
+	match 4 at index 9404
+	match 5 at index 9707
+	match 6 at index 10044
+	match 7 at index 10188
+	match 8 at index 10784
+	match 9 at index 11050
+	match 10 at index 11192
+	match 11 at index 11228
+	match 12 at index 11353
+	match 13 at index 12121
+	match 14 at index 12218
+	match 15 at index 12598
+	match 16 at index 13391
+	match 17 at index 13779
+	match 18 at index 13984
+	match 19 at index 14038
+	match 20 at index 14482
+	match 21 at index 14599
+	match 22 at index 14651
+	match 23 at index 15680
+	match 24 at index 15890
+	match 25 at index 15925
+	... + 13094 other matches
+
+Algorithm Knuth-Morris-Pratt took 20184047 nanoseconds (0.020184047 seconds)
+to search given pattern in the given text.
+Matches (13120) found at index(es):
+	match 1 at index 111
+	match 2 at index 6080
+	match 3 at index 7059
+	match 4 at index 9404
+	match 5 at index 9707
+	match 6 at index 10044
+	match 7 at index 10188
+	match 8 at index 10784
+	match 9 at index 11050
+	match 10 at index 11192
+	match 11 at index 11228
+	match 12 at index 11353
+	match 13 at index 12121
+	match 14 at index 12218
+	match 15 at index 12598
+	match 16 at index 13391
+	match 17 at index 13779
+	match 18 at index 13984
+	match 19 at index 14038
+	match 20 at index 14482
+	match 21 at index 14599
+	match 22 at index 14651
+	match 23 at index 15680
+	match 24 at index 15890
+	match 25 at index 15925
+	... + 13094 other matches
+
+
+---------------------------------------
+The conclusion of this test is:
+Algorithm Knuth-Morris-Pratt was faster than Rabin-Karp by 6447594 nanoseconds (0.006447594 seconds).
+
