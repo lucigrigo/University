@@ -87,7 +87,7 @@ namespace Reginele
             Pen p = new Pen(culoare, 2f);
             Graphics g = panel1.CreateGraphics();
             g.DrawEllipse(p, L * (coloana - 1) + 2 , l * (linie - 1)+2 , L-4 , l-4 );
-            System.Threading.Thread.Sleep(timer);
+            Thread.Sleep(timer);
         }
         
         private void DesenareTabla()
