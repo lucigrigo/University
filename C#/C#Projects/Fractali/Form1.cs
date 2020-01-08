@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Fractali
 {
+    // Main function for the Fractal Project
     public partial class Form1 : Form
     {
         Color[] Culori = new Color[6] { Color.Red, Color.Green, Color.White, Color.Blue, Color.Yellow, Color.Ivory };
@@ -29,9 +30,7 @@ namespace Fractali
         }
 
 
-        //COVORUL LUI SIERBINSKI
-
-
+        //  COVORUL LUI SIERBINSKI
         private void button1_Click(object sender, EventArgs e)
         {
             Graphics g = panel1.CreateGraphics();
@@ -56,9 +55,7 @@ namespace Fractali
         }
 
 
-        //TRIUNGHIUL LUI SIERBINSKI
-
-
+        // TRIUNGHIUL LUI SIERBINSKI
         private void button2_Click(object sender, EventArgs e)
         {
             Graphics g = panel1.CreateGraphics();
@@ -96,9 +93,7 @@ namespace Fractali
         }
 
 
-        //LINIA LUI KOCH
-
-
+        //  LINIA LUI KOCH
         private void button3_Click(object sender, EventArgs e)
         {
             Graphics g = panel1.CreateGraphics();
@@ -136,14 +131,12 @@ namespace Fractali
         }
 
         // FULGUL LUI KOCH
-
         private void button4_Click(object sender, EventArgs e)
         {
             Graphics g = panel1.CreateGraphics();
             g.Clear(Color.Gainsboro);
             Fulg();
         }
-
         private void Fulg()
         {
             // TODO implement koch fractal
