@@ -12,7 +12,7 @@ namespace Fractali
 {
     public partial class Form1 : Form
     {
-        Color[] Culori = new Color[6] { Color.Red, Color.Green, Color.White, Color.Blue, Color.Yellow , Color.Ivory};
+        Color[] Culori = new Color[6] { Color.Red, Color.Green, Color.White, Color.Blue, Color.Yellow, Color.Ivory };
         Random R = new Random();
 
         public Form1()
@@ -36,22 +36,22 @@ namespace Fractali
         {
             Graphics g = panel1.CreateGraphics();
             g.Clear(Color.Gainsboro);
-            Covor(150,150,200,0);
+            Covor(150, 150, 200, 0);
         }
-        private void Covor(int x, int y, int l,int k)
+        private void Covor(int x, int y, int l, int k)
         {
             if (l > 5)
             {
                 System.Threading.Thread.Sleep(5);
                 Rectangle r = new Rectangle(x, y, l, l);
                 Graphics g = panel1.CreateGraphics();
-             //   Pen p = new Pen(Culori[R.Next(0,5)], 2);
+                //   Pen p = new Pen(Culori[R.Next(0,5)], 2);
                 Pen p = new Pen(Culori[k % 6], 2);
                 g.DrawRectangle(p, r);
-                Covor(x - l / 4, y - l / 4, l / 2,k+1);
-                Covor(x + l - l / 4, y - l / 4, l / 2,k+1);
-                Covor(x + l - l / 4, y + l - l / 4, l / 2,k+1);
-                Covor(x - l / 4, y + l - l / 4, l / 2,k+1);
+                Covor(x - l / 4, y - l / 4, l / 2, k + 1);
+                Covor(x + l - l / 4, y - l / 4, l / 2, k + 1);
+                Covor(x + l - l / 4, y + l - l / 4, l / 2, k + 1);
+                Covor(x - l / 4, y + l - l / 4, l / 2, k + 1);
             }
         }
 
@@ -73,14 +73,14 @@ namespace Fractali
             PointF A = new PointF(X - L / 2, Y + (float)H / 3);
             PointF B = new PointF(X + L / 2, A.Y);
             PointF C = new PointF(X, Y - 2 * (float)H / 3);
-            Triangle t = new Triangle(A,B,C,Color.White);
+            Triangle t = new Triangle(A, B, C, Color.White);
             t.Draw(g);
-            Sierpinski(t,0);
+            Sierpinski(t, 0);
         }
-        private void Sierpinski(Triangle t,int nr)
+        private void Sierpinski(Triangle t, int nr)
         {
             float l = t.GetY().X - t.GetX().X;
-            if (l>10)
+            if (l > 10)
             {
                 System.Threading.Thread.Sleep(50);
                 Graphics g = panel1.CreateGraphics();
@@ -89,9 +89,9 @@ namespace Fractali
                 PointF C = new PointF((t.GetY().X + t.GetZ().X) / 2f, (t.GetY().Y + t.GetZ().Y) / 2f);
                 Triangle T = new Triangle(A, B, C);
                 T.Draw(g);
-                Sierpinski(new Triangle(t.GetX(), A, B),nr+1);
-                Sierpinski(new Triangle(A, t.GetY(), C),nr+1);
-                Sierpinski(new Triangle(B, C, t.GetZ()),nr+1);
+                Sierpinski(new Triangle(t.GetX(), A, B), nr + 1);
+                Sierpinski(new Triangle(A, t.GetY(), C), nr + 1);
+                Sierpinski(new Triangle(B, C, t.GetZ()), nr + 1);
             }
         }
 
@@ -107,18 +107,18 @@ namespace Fractali
         }
         private void Linie()
         {
-            int L=450;
-            PointF A=new PointF(panel1.Width/2f-L/2,panel1.Height/2),B=new PointF(panel1.Width/2f+L/2,panel1.Height/2);
+            int L = 450;
+            PointF A = new PointF(panel1.Width / 2f - L / 2, panel1.Height / 2), B = new PointF(panel1.Width / 2f + L / 2, panel1.Height / 2);
             Graphics g = panel1.CreateGraphics();
             Pen p = new Pen(Color.White, 2);
-            g.DrawLine(p,A,B);
-            Koch1(A, B,0);
+            g.DrawLine(p, A, B);
+            Koch1(A, B, 0);
         }
-        private void Koch1(PointF A,PointF B,int nr)
+        private void Koch1(PointF A, PointF B, int nr)
         {
             if (nr <= 2)
             {
-                float L = (float)Math.Sqrt(Math.Pow(A.X-B.X,2) + Math.Pow(A.Y-B.Y,2)), l = L / 3;
+                float L = (float)Math.Sqrt(Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2)), l = L / 3;
                 PointF M = new PointF(A.X + l, A.Y), N = new PointF(B.X - l, B.Y);
                 double H = l * Math.Sqrt(3 / 4f);
                 PointF P = new PointF((B.X + A.X) / 2f, M.Y - (float)H);
@@ -143,7 +143,7 @@ namespace Fractali
             g.Clear(Color.Gainsboro);
             Fulg();
         }
- 
+
         private void Fulg()
         {
             // TODO implement koch fractal
