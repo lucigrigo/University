@@ -1,0 +1,143 @@
+================================================================================
+
+	Introducere in Organizarea Calculatoarelor si Limbaj de Asamblare
+				 Tema 3
+			"Exploit ELFs, not elves"
+
+--------------------------------------------------------------------------------
+
+Grigore Lucian-Florin 324CD
+Facultatea de Automatica si Calculatoare
+Universitatea Politehnica, Bucuresti
+id acs: lucian.grigore
+
+--------------------------------------------------------------------------------
+
+Task 1 - Analiza binarului
+
+	Functia vulnerabila din cod se afla la adresa 0x804864C si se poate numi
+in acest fel deoarece apeleaza o adresa care se afla pe stiva, la un offset 
+fata de pointerul ebp. Apelul adresei, care nu este verificat de program, se 
+face la adresa 0x8048667. Inainte de aceasta, exista 3 apeluri pentru functia 
+_read(neincluzand pe cel din functia vulnerabila). La fiecare apel de functie se 
+pune pe stiva memorie pentru un buffer de o anumita dimensiune. Inaintea 
+blocului de cod vulnerabil exista o functie menita sa marcheze incheierea 
+citirilor, dar care poate fi depasit de overflow. In blocul de cod vulnerabil se 
+scade din stack pointer o anumita valoare, menita sa acorde loc noului buffer 
+pentru citire. Daca adunam toate aceste valori, plus si micul offset de la care 
+se face citirea, putem afla locul exact intr-un buffer de dimensiune indeajuns 
+de mare din care se citeste adresa care se apeleaza.
+	Astfel, se poate face buffer overflow si un posibil atacator ar putea 
+pune in acel loc de pe stiva adresa unei functii din program care poate returna/
+afisa/dezvalui informatii importante/sensibile despre sistem sau program.
+
+--------------------------------------------------------------------------------
+
+Task 2 - Spargerea binarului
+
+	Avand in vedere ca putem vedea dimensiunile bufferelor utilizate pentru
+functiile read care preced zona vulnerabila de cod, putem calcula suma lor, se
+face buffer overflow si putem pune dupa buffer adresa functiei print_flag() din
+binarul nice. Mai trebuie sa avem in vedere "locul facut" pentru ultimul buffer
+de citire, precum si micul offset de la care se citeste adresa care se apeleaza.
+
+Dimensiunile bufferelor sunt 0F2h, 0CAh, 0BEh.
+Spatiul pentru ultimul buffer este 1F6h.
+Offsetul de citire este 0C.
+
+Suma acestor valori este:
+	0F2h + 0CAh + 0BEh + 1F6h + 0C =
+	= 242 + 202 + 190 + 502 + 12 = 1148
+
+Astfel, daca umplem bufferul de input pentru binarul nice de 1148 caractere care
+nu conteaza (de exemplu, "0") si dupa punem adresa functiei print_flag(), adica
+0x80485B1, in format little endian ("B1", "85", "04", "08"), in momentul rularii aceasta va
+fi apelata si flag-ul va fi printat.
+
+Flag-ul pentru binarul nice este:
+NICE_FLAG{64b4e2f422c395d4f5426084f5ce8d6b}
+
+--------------------------------------------------------------------------------
+
+Task 3 - Spargerea binarului v2
+
+	Avand in vedere scopul acestei cerinte, nu exista mari diferente fata de
+spargerea precedenta. Daca analizam binarul naughty, insa, trebuie sa avem in
+vedere niste aspecte in plus. Inainte de functia vulnerabila care se afla la 
+adresa 0x80486B2 (apelul vulnerabil este la adresa 0x80486E0), se fac un numar
+de 5 citiri, de aceasta data fiind si o comparatie in plus la fiecare citire
+in care se compara un element aflat pe stiva la un anumit offset fata de ebp-ul
+functiei curente. Daca comparatia nu indica egalitate, programul iese din executie. Astfel, in buffer trebuie plasate niste valori astfel incat aceste comparatii sa fie trecute. Trebuie construit un buffer astfel:
+	- trebuie umplut cu caractere care nu conteaza (am considerat "0") inaintea primului sir care e comparat, intre fiecare 2 siruri, si intre ultimul
+sir si adresa pe care o dorim apelata
+	- la anumite pozitii in buffer trebuie sa punem acele valori din 
+comparatii care sunt verificate (in little endian)
+	- dupa ultimul padding cu 0 punem adresa functiei print_flag(), care este la fel ca la executabilul nice (0x80485B1)
+
+Sirurile care trebuie injectate in buffer sunt:
+1. 5A9AF9A3h
+2. 559954A0h
+3. 2AEC35A3h
+4. 0D63D7BD1h
+5. 0E7F2BF3Ah
+
+Ele vor puse in buffer astfel (in ordine), cu valorile in zecimal de:
+1. A3, F9, 9A, 5A -> 163, 249, 154, 90 
+2. A0, 54, 99, 55 -> 160, 84, 153, 85
+3. A3, 35, EC, 2A -> 163, 53, 236, 42
+4. D1, 7B, 3D, D6 -> 209, 123, 61, 214
+5. 3A, BF, F2, E7 -> 58, 191, 242, 231
+
+	Pentru a afla la ce offset din buffer trebuie plasat un anumit sir,
+trebuie utilizata urmatoarea formula:
+address_i = sum(push_0, push_1, ..., push_i-1) + sub_i - offset_i
+unde:
+- address_j = pozitia din buffer unde trebuie pus al j-lea sir din sirul de 
+		comparatii
+- push_j = dimensiunea bufferului care este alocat pentru a j-a citire (_read)
+- sub_j = cu cat este modificat stack pointer la pasul j (doar in cadrul 
+		functiei curente)
+- offset_j = la ce offset fata de ebp actual (din functia j) se face comparatia
+
+Aplicand formula de mai sus pentru sirurile de mai sus gasim adresele urmatoare:
+1. 164h - 9Eh = 356 - 158 = 198
+2. 149h + 10AH - 0A2h = 329 + 266 - 162 = 433
+3. 149h + 0AFh + 100h - 0BEh = 329 + 175 + 256 - 190 = 570
+4. 149h + 0AFh + 9Dh + 124h - 0AFh = 329 + 175 + 157 + 292 - 175 = 778 
+5. 149h + 0AFh + 9Dh + 87h + 195h - 9E = 329 + 175 + 157 + 135 + 405 - 158 
+									= 1043
+
+	Pentru a finaliza overflowul pentru binarul naughty, pana la punerea in 
+buffer a adresei functiei print_flag() mai trebuie umplut cu un anumit numar 
+de caractere "0", rezultat din diferenta offsetului fata de base pointer dintre
+	- locul ultimei comparari, chiar in functia vulnerabila
+	- locul de unde se ia adresa ce urmeaza a fi apelata
+
+Astfel, pentru binarul naughty se obtine flag-ul:
+NAUGHTY_FLAG{51262e750428365d2571e6bf2b4f1085}
+
+--------------------------------------------------------------------------------
+
+Bonus - Shellcode
+	
+	Din pacate, nu am reusit sa rezolv si cerinta bonus. In schimb, am
+analizat in continuare binarul naughty pentru o perioada de timp si am observat
+un numar de locatii in care s-ar putea realiza crearea shellcode-ului, locuri
+unde se iau de pe stiva mai multi parametri (necesari unui syscall, poate?) si
+se apeleaza o adresa luata de asemenea de pe stiva. Astfel, se poate considera
+construirea in continuare a bufferului de la cerinta 3 pana la un moment dat
+cand se pot pune valorile necesare pe stiva pentru apelul de sistem. Pe de alta
+parte, nu exista in cod niciun syscall sau interrupt, ceea ce ma duce cu gandul
+la unele bucati de cod unde apare __x86_get_pc_thunk_bx, care din cate am citit muta (sau copiaza anumite bucati de cod in anumiti registri). Asta poate fi 
+locul unde generarea shellcodeului se poate realiza.
+
+--------------------------------------------------------------------------------
+
+Observatii:
+	- pentru generarea oricaruia din cele 2 payloaduri am scris un cod 
+simplu in C, care sa faca acest lucru automat; in acest fel, este mai usor de urmarit si de reparat ceva, in opinia mea
+	- am incercat si cu "echo -n -e" aceasta generare, care ar trebui sa puna aceleasi lucruri in buffer ca codul in C, dar nu a mers, nu stiu din ce motiv
+	- daca mi-ati putea spune cum ar fi trebuit generat shellcode-ul, as
+aprecia mult :)
+
+================================================================================
