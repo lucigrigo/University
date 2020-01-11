@@ -1,4 +1,5 @@
-# Random Selection
+# Random Selection demo for REINFORMENT LEARNING
+# should not be used in practice
 
 # Importing the libraries
 import numpy as np
