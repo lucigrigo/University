@@ -37,7 +37,7 @@ for n in range(0, N):
     
 # Visualising the results
 plt.hist(ads_selected)
-plt.title('Histogram of ads_selected')
+plt.title('Histogram of ads_selected (Upper-confidence bound)')
 plt.xlabel('Ads')
 plt.ylabel('Number of times each add was selected')
 plt.show()
