@@ -124,8 +124,9 @@ namespace Fractali
                 g.DrawLine(p, M, P);
                 g.DrawLine(p, P, N);
                 Koch1(A, M, nr + 1);
-                Koch1(M, P, nr + 1);
-                Koch1(P, N, nr + 1);
+                // TODO add angle to make sure new points are are located properly
+               // Koch1(M, P, nr + 1);
+               // Koch1(P, N, nr + 1);
                 Koch1(N, B, nr + 1);
             }
         }
@@ -140,6 +141,7 @@ namespace Fractali
         private void Fulg()
         {
             // TODO implement koch fractal
+
         }
     }
 }

@@ -35,3 +35,13 @@ E:\Repos\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.csproj.GenerateResource.
 E:\Repos\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.csproj.CoreCompileInputs.cache
 E:\Repos\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.exe
 E:\Repos\GIT\C#\Proiecte C#\Fractali\obj\Debug\Fractali.pdb
+E:\Repos\GIT\C#\C#Projects\Fractali\bin\Debug\Fractali.exe.config
+E:\Repos\GIT\C#\C#Projects\Fractali\bin\Debug\Fractali.exe
+E:\Repos\GIT\C#\C#Projects\Fractali\bin\Debug\Fractali.pdb
+E:\Repos\GIT\C#\C#Projects\Fractali\obj\Debug\Fractali.csprojAssemblyReference.cache
+E:\Repos\GIT\C#\C#Projects\Fractali\obj\Debug\Fractali.Form1.resources
+E:\Repos\GIT\C#\C#Projects\Fractali\obj\Debug\Fractali.Properties.Resources.resources
+E:\Repos\GIT\C#\C#Projects\Fractali\obj\Debug\Fractali.csproj.GenerateResource.cache
+E:\Repos\GIT\C#\C#Projects\Fractali\obj\Debug\Fractali.csproj.CoreCompileInputs.cache
+E:\Repos\GIT\C#\C#Projects\Fractali\obj\Debug\Fractali.exe
+E:\Repos\GIT\C#\C#Projects\Fractali\obj\Debug\Fractali.pdb
