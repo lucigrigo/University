@@ -34,7 +34,7 @@ print("\n === Signal module")
 # fast_fourier_transform_3d = signal.fft3d(tensor1)
 # print(fast_fourier_transform_3d)
 
-# set module
+# Sets module
 print("\n === Sets module")
 set1 = collections.OrderedDict([
     ((0, 0, 0), 1),
@@ -64,5 +64,11 @@ print("~~~\nunion: ")
 print(tf.sets.union(set1, set2))
 print("~~~\ndifference set1-set2: ")
 print(tf.sets.difference(set1, set2))
+
+# Keras module (high-level API)
+print("\n === Keras module")
+sequential_model = tf.keras.models.Sequential()
+sequential_model.add(tf.keras.layers.Dense(16, input_shape = (100, )))
+print(sequential_model.weights)
 
 print("\n---------------------------------------------------------------")
