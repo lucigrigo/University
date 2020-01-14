@@ -7,12 +7,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # Imports from TENSORFLOW aPI
 print("---------------------------------------------------------------")
 print("                --- Using TENSORFLOW framework ---\n")
-import tensorflow as tf
-# from tensorflow import Module
-# from tensorflow import math
-# from tensorflow import signal
-# from tensorflow_core import Tensor
 import collections
+import tensorflow as tf
 
 # Math module
 print("\n === Math module")
