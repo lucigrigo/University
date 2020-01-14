@@ -116,11 +116,11 @@ namespace Fractali
                 float L = (float)Math.Sqrt(Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2)), l = L / 3;
                 PointF M = new PointF(A.X + l, A.Y), N = new PointF(B.X - l, B.Y);
                 double H = l * Math.Sqrt(3 / 4f);
-                PointF P = new PointF((B.X + A.X) / 2f, M.Y - (float)H);
                 Pen s = new Pen(Color.Gainsboro, 2);
                 Graphics g = panel1.CreateGraphics();
                 g.DrawLine(s, M, N);
                 Pen p = new Pen(Color.White, 2);
+                PointF P = new PointF((B.X + A.X) / 2f, M.Y - (float)H);
                 g.DrawLine(p, M, P);
                 g.DrawLine(p, P, N);
                 Koch1(A, M, nr + 1);
