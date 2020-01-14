@@ -142,7 +142,6 @@ namespace Fractali
         private void Fulg()
         {
             // TODO implement koch fractal
-
         }
     }
 }
