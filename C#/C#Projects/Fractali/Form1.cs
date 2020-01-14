@@ -124,7 +124,8 @@ namespace Fractali
                 g.DrawLine(p, M, P);
                 g.DrawLine(p, P, N);
                 Koch1(A, M, nr + 1);
-                // TODO add angle to make sure new points are are located properly
+               // TODO add angle to make sure new points are located properly
+               // + add angles to all recursive calls to make sure strucure is ready to compute Snowflake Fractal
                // Koch1(M, P, nr + 1);
                // Koch1(P, N, nr + 1);
                 Koch1(N, B, nr + 1);
