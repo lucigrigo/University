@@ -67,4 +67,13 @@ sequential_model = tf.keras.models.Sequential()
 sequential_model.add(tf.keras.layers.Dense(16, input_shape = (100, )))
 print(sequential_model.weights)
 
+print("\nexample of a tensor:")
+x1 = tf.constant([[-2.25 + 4.75j, -5 + 1j], [-3.25 + 5.75j, 3.23 - 2j]])
+print(x1)
+print("its absolute value is:")
+x1_abs = tf.abs(x1)
+print(x1_abs)
+print("its shape is:")
+print(x1.shape)
+
 print("\n---------------------------------------------------------------")
