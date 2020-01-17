@@ -25,3 +25,8 @@ Contains:
 ## Topics covered:
 - Dynamic programming
 - Machine learning
+- Object-Oriented programming
+
+## Frameworks used:
+- Sci:Kit Learn
+- Tensorflow
