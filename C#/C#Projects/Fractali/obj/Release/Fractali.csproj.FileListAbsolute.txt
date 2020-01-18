@@ -1,0 +1,9 @@
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/bin/Release/Fractali.exe.config
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/bin/Release/Fractali.exe
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/bin/Release/Fractali.pdb
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/obj/Release/Fractali.Form1.resources
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/obj/Release/Fractali.Properties.Resources.resources
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/obj/Release/Fractali.csproj.GenerateResource.cache
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/obj/Release/Fractali.csproj.CoreCompileInputs.cache
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/obj/Release/Fractali.exe
+/Users/grigorelucian/Documents/Repos/GIT/C#/C#Projects/Fractali/obj/Release/Fractali.pdb
