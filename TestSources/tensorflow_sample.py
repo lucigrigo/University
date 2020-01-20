@@ -76,7 +76,7 @@ print(x1_abs)
 print("its shape is:")
 print(x1.shape)
 
-# Constructing custom Model() subclass
+# Constructing custom Model() subclass from keras Model()
 class MyModel(tf.keras.Model):
 
   def __init__(self):
