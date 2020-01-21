@@ -18,8 +18,8 @@ Contains:
 
 ## Languages used:
 - Java
-- C/C++
 - Python
+- C/C++
 - Matlab
 
 ## Topics covered:
