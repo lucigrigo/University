@@ -27,6 +27,6 @@ Contains:
 - Machine learning
 - Object-Oriented programming
 
-## Frameworks used:
+## Frameworks (mostly Python) used:
 - Sci:Kit Learn
 - Tensorflow
