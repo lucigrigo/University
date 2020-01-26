@@ -4,9 +4,10 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-# Imports from TENSORFLOW aPI
+# Imports from TENSORFLOW API
 print("---------------------------------------------------------------")
 print("                --- Using TENSORFLOW framework ---\n")
+print("---------------------------------------------------------------")
 import collections
 import tensorflow as tf
 
