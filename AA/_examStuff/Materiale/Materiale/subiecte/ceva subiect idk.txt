@@ -1,0 +1,30 @@
+Po
+sa dem dc sortare e  in omega n log
+
+sa zici algoritm de aprox pt acoperire graf sau cv de genul
+
+choice pt Doua grafuri G1 G2, ai un subgraf G2’ cu proprietatea ca G1 izomorf cu G2 adica exista o functie bijectiva a.i. pt orice pereche (x,y) din G1 exista o pereche (f(x),f(y)) in G2’ 
+
+inductie pe arborele genealogic a lu’ ma’sa
+
+grile:
+daca ai A in NSPACE f(n) ce poti sa spui:
+variante cred: ceva Time, altceva, si raspusnul care cred eu ca era corect SPACE(f(n)**2)
+
+gap pt nedeterminist in complexitatea spatiala este:
+logaritimica/logaritmica la patrat/ exponentiala
+
+grila3: dc e mai bun nagamachi iburaki decat vî?kin sau cum ii cheama:
+a. are factor de aprox mai bun primul
+b. parcurge o singura data grafu
+c. e np hard
+
+grila4: daca Q e din NP si toate NP se pot reduce polinomial la Q:
+a. Q este in NP
+b. Q e NPC
+C. Q NP hard
+
+grila 5: multimea programelor este multimea:
+a. nr naturale
+b. nr reale
+c. fct aritmetice
