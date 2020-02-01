@@ -90,4 +90,5 @@ class MyModel(tf.keras.Model):
     return self.dense2(x)
 
 model = MyModel()
+
 print("\n---------------------------------------------------------------")
