@@ -15,4 +15,8 @@ public class ChildClass1 extends ParentClass {
         super.nrPackageProtected = 100;
         super.packageProtectedMethod();
     }
+
+    public void doStuff() {
+        System.out.println("heello");
+    }
 }

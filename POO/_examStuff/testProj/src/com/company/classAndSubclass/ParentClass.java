@@ -24,4 +24,12 @@ public class ParentClass {
     void packageProtectedMethod() {
         // package-protected / package-private
     }
+
+    public final void doIt() {
+        doStuff();
+    }
+
+    public void doStuff() {
+        System.out.println("hello");
+    }
 }
