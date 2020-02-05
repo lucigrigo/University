@@ -6,13 +6,14 @@ void crypto(const unsigned char *in, unsigned char *out, size_t len, const unsig
 
 int main(void)
 {
-	unsigned char in[128];
+	unsigned char in[128] = "no country for old men";
 	unsigned char out[128];
-	unsigned char k[16];
+	unsigned char k[16] = "sibling1";
 
-	direct("ana", 100);
-	obvious(0, 0);
+	direct("bad.", 800);
+	printf("%d\n", obvious(179, 1));
 	crypto(in, out, 128, k, 16);
+	printf("%s", out);
 
 	return 0;
 }
