@@ -19,6 +19,62 @@ main:
     mov ebp, esp
 
     ;TODO a, b, c: Implement the array sum starting with double word sum incrementally solving subsequent task b and c.
+    ; a)
+    mov eax, dword[word_num1]
+    shl eax, 16
+    shr eax, 16
+    mov ebx, dword[word_num2]
+    shl ebx, 16
+    shr ebx, 16
+    clc
+    add eax, ebx
+    jnc move_lower_a
+    add dword[result_word], 1
+move_lower_a:
+    mov dword[result_word + 4], eax
+    mov eax, dword[word_num1]
+    mov ebx, dword[word_num2]
+    shr ebx, 16
+    shr eax, 16
+    add eax, ebx
+    add dword[result_word], eax
+    
+    ; b)
+    mov eax, dword[big_num1 + 8]
+    mov ebx, dword[big_num2 + 8]
+    clc
+    add eax, ebx
+    jnc move_first_b
+    add dword[result_4word + 8], 1
+move_first_b:
+    mov dword[result_4word + 12], eax
+    mov eax, dword[big_num1 + 4]
+    mov ebx, dword[big_num2 + 4]
+    clc 
+    add eax, ebx
+    jnc move_second_b
+    add dword[result_4word + 4], 1
+move_second_b:
+    mov dword[result_4word + 8], eax
+    mov eax, dword[big_num1]
+    mov ebx, dword[big_num2]
+    clc 
+    add eax, ebx
+    jnc move_third_b
+    add dword[result_4word], 1
+move_third_b:
+    mov dword[result_4word + 4], eax
+    
+    ; c) - idem
+    
+    ;PRINT_UDEC 4, result_4word
+    ;NEWLINE
+    ;PRINT_UDEC 4, [result_4word + 4]
+    ;NEWLINE
+    ;PRINT_UDEC 4, [result_4word + 8]
+    ;NEWLINE
+    ;PRINT_UDEC 4, [result_4word + 12]
+    ;NEWLINE
 
     leave
     ret
