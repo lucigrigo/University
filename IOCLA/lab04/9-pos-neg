@@ -1,0 +1,47 @@
+%include "io.inc"
+
+%define ARRAY_SIZE    10
+
+section .data
+    byte_array db 8, 9, -12, -3, -6, -2, 120, -19, 78, -102
+    print_formatPOS db "Pozitive: ", 0
+    print_formatNEG db "Negative: ", 0
+
+section .text
+global CMAIN
+CMAIN:
+    ;write your code here
+    xor eax, eax
+    xor ebx, ebx
+    mov ecx, ARRAY_SIZE
+    
+start:
+    cmp ecx, 0
+    je end
+    mov dh, byte [byte_array + ecx - 1]
+    cmp dh, 0
+    jl negativ
+    
+            
+pozitiv: 
+    inc eax
+    dec ecx
+    jmp start
+
+    
+negativ:
+    inc ebx
+    dec ecx
+    jmp start
+
+end:
+
+    PRINT_STRING print_formatPOS
+    PRINT_UDEC 4, eax
+    NEWLINE
+    
+    PRINT_STRING print_formatNEG
+    PRINT_UDEC 4, EBX
+    NEWLINE
+    
+    ret

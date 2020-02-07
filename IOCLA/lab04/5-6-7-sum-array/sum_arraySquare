@@ -1,0 +1,50 @@
+%include "io.inc"
+
+%define ARRAY_SIZE    10
+
+section .data
+
+    dword_array dd 1392, 12544, 7992, 6992, 7202, 27187, 28789, 17897, 12988, 17992
+    print_format db "Array square sum is ", 0
+
+section .text
+global CMAIN
+CMAIN:
+    mov ebp, esp; for correct debugging
+    push ebp
+    mov ebp, esp
+    
+    xor eax, eax            ; Use eax to store the sum.
+    xor edx, edx            ; Store current value in dl; zero entire edx.
+    xor ebx, ebx
+    mov ecx, ARRAY_SIZE
+
+add_dword_array_element:
+
+    cmp ecx, 0
+    je end
+    push ebx
+
+    mov eax, dword [dword_array + 4 * (ecx - 1)]
+    PRINT_UDEC 4, eax
+    NEWLINE
+
+    mov ebx, dword [dword_array + 4 * (ecx - 1)]
+    PRINT_UDEC 4, ebx
+    NEWLINE
+    mul ebx
+    
+    pop ebx
+    
+    add ebx, eax
+    dec ecx
+    jmp add_dword_array_element
+ 
+end:   
+    mov eax, ebx
+    PRINT_STRING print_format
+    PRINT_UDEC 4, eax
+    NEWLINE
+    
+    leave
+    ret

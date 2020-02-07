@@ -1,0 +1,93 @@
+Script started on Mi 09 oct 2019 13:00:53 +0300
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./scriph.sh
+bash: ./scriph.sh: No such file or directory
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh 
+Fail
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh [1Ph.sh
+bash: ./scriph.sh: No such file or directory
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ^C
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ make
+gcc server.c -o server -Wall -Wextra
+./server &
+gcc client.c -o client -Wall -Wextra
+../client
+Hello from client
+Hello message sent
+Error buffer: 
+Hello message sent
+Hello from server
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ../[K[K/script.sh 
+Fail!
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh [8Pmake
+gcc server.c -o server -Wall -Wextra
+./server &
+gcc client.c -o client -Wall -Wextra
+^[[A./client
+Hello from client
+Hello message sent
+Error buffer: 
+Hello message sent
+Hello from server
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ make./script.sh 
+Fail
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ make
+gcc server.c -o server -Wall -Wextra
+./server &
+gcc client.c -o client -Wall -Wextra
+./client
+Hello from client
+Hello message sent
+Error buffer: 
+Hello message sent
+Hello from server
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh 
+Fail
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ make
+gcc server.c -o server -Wall -Wextra
+./server &
+gcc client.c -o client -Wall -Wextra
+./client
+Hello from client
+Hello message sent
+Error buffer: 
+Hello message sent
+Hello from server
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh 
+Fail
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ make
+gcc server.c -o server -Wall -Wextra
+./server &
+gcc client.c -o client -Wall -Wextra
+./client
+Hello from client
+Hello message sent
+
+Hello message sent
+Hello from server
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh 
+Fail
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ make
+gcc server.c -o server -Wall -Wextra
+./server &
+gcc client.c -o client -Wall -Wextra
+./client
+Hello from client
+Hello message sent
+
+Hello message sent
+Hello from server
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh 
+Fail!
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ make
+gcc server.c -o server -Wall -Wextra
+./server &
+gcc client.c -o client -Wall -Wextra
+../client
+Hello from client
+Hello message sent
+
+Hello message sent
+Hello from server
+]0;student@IOCLA-VM: ~/Desktop/LABS/lab02/4-goto-foo[01;32mstudent@IOCLA-VM[00m:[01;34m~/Desktop/LABS/lab02/4-goto-foo[00m$ ./script.sh 
+Fail
+]0;student@IO

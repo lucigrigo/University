@@ -1,0 +1,45 @@
+%include "io.inc"
+
+%define ARRAY_SIZE    10
+
+section .data
+    byte_array db 1,2,3,4,5,6,7,8,8,9
+    print_formatPOS db "Pare: ", 0
+    print_formatNEG db "Impare: ", 0
+
+section .text
+global CMAIN
+CMAIN:
+    ;write your code here
+    xor eax, eax
+    xor ebx, ebx
+    mov ecx, ARRAY_SIZE
+    
+start:
+    cmp ecx, 0
+    je end
+    mov dh, byte [byte_array + ecx - 1]
+    test dh, 1
+    jnz impar  
+              
+par: 
+    inc eax
+    dec ecx
+    jmp start
+
+    
+impar:
+    inc ebx
+    dec ecx
+    jmp start
+
+end:
+    PRINT_STRING print_formatPOS
+    PRINT_UDEC 4, eax
+    NEWLINE
+    
+    PRINT_STRING print_formatNEG
+    PRINT_UDEC 4, EBX
+    NEWLINE
+    
+    ret

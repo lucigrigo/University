@@ -1,0 +1,18 @@
+1. Loop unrolling
+	1. In normal_loop aduna cate un element, in al doilea aduna mai multe si itereaza mai repede, cred.
+	2. Nu stiu care ar trebui sa fie raspunsul, timpul de executie variaza si in functie de ce procese
+	se executa in acel moment pe  masina virtuala, si daca prinzi executia programului tau intr-un clock
+	in care se executa si altele, dureaza mai mult.
+
+2. "Flag"-uri de optimizare
+	1. Mi se pare doar ca timpu de executie nu scade sub o valoare sub care scadea inainte cand compilam tot.
+	2. Puncte moca pentru ca nu e comentat nimic.
+	3.
+	4. Nu stiu daca asta trebuia sa se intample, dar timpul de executie a scazut dramatic la 0-1s.
+	5. Timpul de executie este mult mai scurt. Nu stiu de ce, poate pentru ca nu se mai executa si celelalte
+	programe optimizate/neoptimizate, si operatiile se executa mult mai repede deoarece N = 10.
+
+3. Optimizare cod C
+	Domne, deci la 3, nu stiu cum sa optimizez mai bine de atat. Scade timpul de executie cu vreo 40-50%, 
+	deci la scala mare e forta. Daca folosesc functiile in loc sa fac operatiile direct, timpul de executie
+	tot scade, dar cu 20-30%.
