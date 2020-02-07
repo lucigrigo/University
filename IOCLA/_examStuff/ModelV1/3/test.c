@@ -12,6 +12,12 @@ int main(void)
 
 	direct("bad.", 800);
 	printf("%d\n", obvious(179, 1));
+
+	int i;
+	for(i = 0; i < 24; i++){
+		in[i] = k[i % 16] ^ in[i];
+	}
+	
 	crypto(in, out, 128, k, 16);
 	printf("%s", out);
 
