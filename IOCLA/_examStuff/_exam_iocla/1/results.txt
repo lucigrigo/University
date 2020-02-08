@@ -1,0 +1,20 @@
+Testcase #1
+a) Input: a = 0x03, i = 7 Output: 0x83
+b) Input: b = 0x83, j = 7 Output: 0x03
+c) Input: L = 8 Output: 0x000000FF
+
+Testcase #2
+
+a) Input: a = 0x55, i = 2 Output: 0x55
+b) Input: b = 0x11, j = 2 Output: 0x11
+c) Input: L = 0 Output: 0
+
+Testcase #3
+a) Input: a = 0x05, i = 31 Output: 0x80000005
+b) Input: a = 0xF8001234, j = 27 Output: 0xF0001234
+c) Input: L = 31 Output: 0x7FFFFFFF
+
+
+
+
+

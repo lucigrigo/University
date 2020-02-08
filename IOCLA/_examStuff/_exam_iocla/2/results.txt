@@ -1,0 +1,20 @@
+a)
+
+arr1:
+number of odd numbers in array: 4
+
+arr2:
+number of odd numbers in array: 5
+
+b)
+
+arr1:
+number of odd numbers in array: 4
+number of even numbers in array: 3
+
+arr2:
+number of odd numbers in array: 5
+number of even numbers in array: 4
+
+c)
+number of odd numbers in array: 2
