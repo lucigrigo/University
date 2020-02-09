@@ -79,7 +79,6 @@ print(x1.shape)
 
 # Constructing custom Model() subclass from keras Model()
 class MyModel(tf.keras.Model):
-
   def __init__(self):
     super(MyModel, self).__init__()
     self.dense1 = tf.keras.layers.Dense(4, activation=tf.nn.relu)
