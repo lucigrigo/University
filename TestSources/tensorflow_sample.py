@@ -49,6 +49,7 @@ set2 = collections.OrderedDict([
       ((1, 1, 2), 7),
       ((1, 1, 3), 8),
 ])
+
 print("set1: " + str(set1))
 print("set2: " + str(set2))
 set1 = tf.SparseTensor(list(set1.keys()), list(set1.values()), dense_shape=[2, 2, 2])
