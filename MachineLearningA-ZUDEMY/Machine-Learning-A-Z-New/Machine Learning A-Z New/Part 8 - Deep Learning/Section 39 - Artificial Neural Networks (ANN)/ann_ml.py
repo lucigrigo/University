@@ -2,6 +2,11 @@
 
 # Libraries/Modules Used: Theano, Tensorflow, Keras
 
+# Solving system issue
+import os
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 # Part 1 - Data Preprocessing
 
 # Importing  libraries
@@ -62,10 +67,19 @@ classifier.fit(X_train, y_train, batch_size = 10, epochs = 100)
 # Part 3 - Making the predictions and evaluating the model 
 
 # Predicting the test set results
-# TODO add one more record with a particular bank customer
 y_pred = classifier.predict(X_test)
 y_pred = (y_pred > 0.5)
+
+# Predicting specific customer possiblity to leave
+customer = np.array([[0.0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])
+customer_prediction = classifier.predict(customer)
+customer_prediction = (customer_prediction > 0.5)
+print("\nWill the customer leave the bank? ")
+print(customer_prediction)
 
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+# Part 4 - Evaluating the ANN
+
