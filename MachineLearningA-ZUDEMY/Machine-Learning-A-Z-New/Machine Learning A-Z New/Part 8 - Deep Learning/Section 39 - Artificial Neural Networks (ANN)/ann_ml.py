@@ -81,5 +81,10 @@ print(customer_prediction)
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
 
-# Part 4 - Evaluating the ANN
+# Part 4 - Evaluating, Improving and Tuning the ANN
 
+# Evaluating the ANN
+
+# Improving the ANN
+
+# Tunning the ANN
