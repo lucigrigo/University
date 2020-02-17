@@ -19,7 +19,7 @@ Contains:
 ## Languages used:
 - Java
 - Python
-- C/C++
+- C / C++
 - Matlab
 
 ## Topics covered:
