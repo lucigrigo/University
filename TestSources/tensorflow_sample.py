@@ -90,6 +90,4 @@ class MyModel(tf.keras.Model):
     x = self.dense1(inputs)
     return self.dense2(x)
 
-model = MyModel()
-
 print("\n---------------------------------------------------------------")
