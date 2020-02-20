@@ -127,8 +127,16 @@
 (define (list->num L) (foldl (lambda (dig num) (+ dig (* 10 num))) 0 L))
 ; Hint: funcția (take L n) întoarce prefixul de lungime n al listei L.
 
+(define (num->list a)
+  (if (zero? a)
+      `()
+   (append (num->list (quotient a 10))
+           (list (modulo a 10)))))
+
+
 (define (longest-palindrome n)
-  ())
+  `())
+      
 
 (check-exp-part 'a 1/6 (longest-palindrome 121) 121)
 (check-in-part  'b 1/6 (longest-palindrome 51) '(1 5))
