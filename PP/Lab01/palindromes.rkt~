@@ -12,9 +12,9 @@
 (define (check-set given expected) (check-set-part  "" 1 given expected)) (define (check-set-part part per given expected) (check-test part per (λ (x y) (apply equal? (map list->seteqv `(,given ,expected)))) given expected "nu este echivalent cu cel așteptat"))
 (define (check-set-unique given expected) (check-set-unique-part  "" 1 given expected)) (define (check-set-unique-part part per given expected) (check-test part per (λ (x y) (and (apply = (map length `(,given ,expected))) (apply equal? (map list->seteqv `(,given ,expected))))) given expected "nu este echivalent cu cel așteptat"))
 (define (check-test part percent tester given expected err-m) (if (not (tester given expected)) (and (when (member given default-results) (set! defaults (cons (if (< percent 1) (cons n-ex part) n-ex) defaults)))
-                                                                                                     (when (or (not (member given default-results)) (<= (length defaults) show-defaults))
-                                                                                                       (printf "[~a][--]~a rezultatul ~v ~a: ~v~n" n-ex (if (< percent 1) (format " la ~a ~v" (car name-ex) part) "") given err-m expected)))
-                                                                  (let ((pts (* p-ex percent))) (printf "~a ~a ~a~a~a: +~v ~a~n" (if prepend (format "+~v:" pts) (format "[~v][OK]" n-ex)) (car name-ex) (if prepend n-ex "") (if (< percent 1) (format "~v " part) "") (caddr name-ex) pts (if (= pts 1) 'punct 'puncte)) (set! total (+ total pts)))))
+  (when (or (not (member given default-results)) (<= (length defaults) show-defaults))
+    (printf "[~a][--]~a rezultatul ~v ~a: ~v~n" n-ex (if (< percent 1) (format " la ~a ~v" (car name-ex) part) "") given err-m expected)))
+ (let ((pts (* p-ex percent))) (printf "~a ~a ~a~a~a: +~v ~a~n" (if prepend (format "+~v:" pts) (format "[~v][OK]" n-ex)) (car name-ex) (if prepend n-ex "") (if (< percent 1) (format "~v " part) "") (caddr name-ex) pts (if (= pts 1) 'punct 'puncte)) (set! total (+ total pts)))))
 (define (sumar) (when (and (not (null? defaults)) (< show-defaults (length defaults))) (p `(... rezultatul implicit dat la ,(cadr name-ex) ,(reverse defaults)))) (printf "total: ~v puncte~n" total))
 
 
@@ -38,9 +38,7 @@
 ;; Implementați funcția corespunzătoare în Racket:
 
 (define (num->base n b)
-  (cond
-    ((equal? n 0) `())
-    (else (append (num->base(quotient n b) b) (list (modulo n b))))))
+  'your-code-here)
 
 (check-exp-part 'a .5 (num->base 489 10) '(4 8 9))
 (check-exp-part 'b .5 (num->base 489 2) '(1 1 1 1 0 1 0 0 1))
@@ -53,8 +51,7 @@
 ;; Implementați funcția corespunzătoare în Racket:
 
 (define (rev L)
-  (if (null? L) `()
-      (append (rev (cdr L)) (list (car L) ))))
+  'your-code-here)
 
 (check-exp (rev '(5 1 4 8 7)) '(7 8 4 1 5))
 
@@ -63,8 +60,7 @@
 ;; Implementați testul că o listă L este palindrom:
 
 (define (palindrome? L)
-  (if (equal? L (rev L)) #t
-      #f))
+  'your-code-here)
 
 (check-exp-part 'a .25 (palindrome? '(1 4 4 1)) #t)
 (check-exp-part 'b .25 (palindrome? '(1 4 2 4 1)) #t)
@@ -76,11 +72,7 @@
 ;; Testați că n este palindrom în toate bazele din lista Bases:
 
 (define (all-palindromes? n Bases)
-  (if (null? Bases)
-      #t
-      (and (palindrome? (num->base n (car Bases)))
-           (all-palindromes? n (cdr Bases)))))
-  
+  'your-code-here)
 
 (check-exp-part 'a .5 (all-palindromes? 585 '(2 10)) #t)
 (check-exp-part 'b .5 (all-palindromes? 594 '(2 10)) #f)
@@ -91,11 +83,7 @@
 ;; palindroame în toate bazele din lista Bases:
 
 (define (palindromes-to-n n Bases)
-  (if (< n 0)
-      `()
-  (if (all-palindromes? n Bases)
-      (append (palindromes-to-n (- n 1) Bases) (list n))
-      (palindromes-to-n (- n 1) Bases))))
+  'your-code-here)
 
 (check-exp (palindromes-to-n 100 '(2 10)) '(0 1 3 5 7 9 33 99))
 
@@ -104,19 +92,8 @@
 ;; Să se găsească primul număr mai mare decât start care este palindrom în
 ;; minim b baze dintre bazele 2, 3, 4, 5, 6, 7, 8, 9, 10.
 
-(define palindrome-list (list 2 3 4 5 6 7 8 9 10))
-
-(define (all-palindromes-count n Bases)
-  (if (null? Bases)
-      0
-      (if (palindrome? (num->base n (car Bases)))
-             (+ 1 (all-palindromes-count n (cdr Bases)))
-           (all-palindromes-count n (cdr Bases)))))
-
 (define (first-b-pal start b)
-  (if (>= (all-palindromes-count start palindrome-list) b)
-      start
-      (first-b-pal (+ start 1) b)))
+  'your-code-here)
 
 (check-exp-part 'a .5 (first-b-pal 10 4) 121)
 (check-exp-part 'b .5 (first-b-pal 150 4) 373)
@@ -128,7 +105,7 @@
 ; Hint: funcția (take L n) întoarce prefixul de lungime n al listei L.
 
 (define (longest-palindrome n)
-  ())
+   'your-code-here)
 
 (check-exp-part 'a 1/6 (longest-palindrome 121) 121)
 (check-in-part  'b 1/6 (longest-palindrome 51) '(1 5))
