@@ -3,29 +3,16 @@ ArrayList<PVector> spots;
 PImage img;
 
 void setup() {
-  size(900, 400);
-  img = loadImage("2017.png");
+  size(680, 906);
+  //background(0);
+  img = loadImage("kitten.png");
   img.loadPixels();
+  
   circles = new ArrayList<Circle>();
-  spots = new ArrayList<PVector>();
-
-  for (int x = 0; x < img.width; x++) {
-    for (int y = 0; y < img.height; y++) {
-      int index = x + y * img.width;
-      color c = img.pixels[index];
-      float b = brightness(c);
-      if (b > 1) {
-        spots.add(new PVector(x, y));
-      }
-    }
-  }
 }
 
 void draw() {
-  // background(img);
-  //background(0);
-
-  int total = 10;
+  int total = 100;
   int count = 0;
   int attempts = 10;
 
@@ -64,24 +51,23 @@ void draw() {
 }
 
 Circle newCircle() {
-
-  int r = int(random(0, spots.size()));
-  PVector spot = spots.get(r);
   
-  float x = spot.x;
-  float y = spot.y;
+  float x = random(width);
+  float y = random(height);
 
   boolean valid = true;
-  for (Circle c : circles) {
+  for (Circle c : circles ) {
     float d = dist(x, y, c.x, c.y);
-    if (d - 2< c.r) {
+    if (d < c.r) {
       valid = false;
       break;
     }
   }
 
   if (valid) {
-    return new Circle(x, y);
+    int index = int(x) + int(y) * img.width;
+    color col = img.pixels[index];
+    return new Circle(x, y, col);
   }
 
   return null;

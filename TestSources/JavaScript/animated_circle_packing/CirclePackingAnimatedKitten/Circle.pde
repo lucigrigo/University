@@ -2,13 +2,15 @@ class Circle {
   float x;
   float y;
   float r;
+  color c;
 
   boolean growing = true;
 
-  Circle(float x_, float y_) {
+  Circle(float x_, float y_, color c_) {
     this.x = x_;
     this.y = y_;
     this.r = 1;
+    this.c = c_;
   }
 
   boolean edges() {
@@ -18,14 +20,13 @@ class Circle {
 
   void grow() {
     if (growing) {
-      r = r + 0.5;
+      r = r + 0.4;
     }
   }
 
   void show() {
-    stroke(255);
-    strokeWeight(2);
-    noFill();
+    fill(this.c);
+    noStroke();
     ellipse(x, y, r*2, r*2);
   }
 }
