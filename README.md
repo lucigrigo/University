@@ -23,9 +23,9 @@ Contains:
 - Matlab
 
 ## Topics covered:
-- Dynamic programming
-- Machine learning
-- Object-Oriented programming
+- Dynamic Programming
+- Machine Learning
+- Object-Oriented Programming
 
 ## Frameworks used - Python:
 - Sci:Kit Learn
