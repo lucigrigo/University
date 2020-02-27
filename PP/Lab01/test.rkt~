@@ -1,0 +1,8 @@
+#lang racket
+
+(define (function L)
+  (if (null? L)
+      `()
+      (cons (* 2 (car L)) (function (cdr L)))))
+
+(function `(1 2 3))
