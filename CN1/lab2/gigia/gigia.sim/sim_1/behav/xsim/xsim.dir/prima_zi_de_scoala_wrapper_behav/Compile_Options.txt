@@ -1,0 +1,1 @@
+-wto "0eb35121006f4776b1e303a63c11f461" --incr --debug "typical" --relax --mt "8" -L "util_vector_logic_v2_0_1" -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" -L "xpm" --snapshot "prima_zi_de_scoala_wrapper_behav" "xil_defaultlib.prima_zi_de_scoala_wrapper" "xil_defaultlib.glbl" -log "elaborate.log" 

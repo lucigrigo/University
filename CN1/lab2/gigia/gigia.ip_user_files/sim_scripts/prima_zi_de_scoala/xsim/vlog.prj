@@ -1,0 +1,8 @@
+verilog xil_defaultlib  \
+"../../../bd/prima_zi_de_scoala/ip/prima_zi_de_scoala_util_vector_logic_0_0/sim/prima_zi_de_scoala_util_vector_logic_0_0.v" \
+"../../../bd/prima_zi_de_scoala/ip/prima_zi_de_scoala_util_vector_logic_1_0/sim/prima_zi_de_scoala_util_vector_logic_1_0.v" \
+"../../../bd/prima_zi_de_scoala/sim/prima_zi_de_scoala.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort
