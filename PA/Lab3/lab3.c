@@ -81,7 +81,7 @@ void problema_spectacolelor(float start[], float final[], int nr_filme)
             }
         }
     }
-    
+
     // punere in redare filme
     int final_spectacol = 0, nr = 0;
     for (k = 0; k < nr_filme; k++)
@@ -96,8 +96,70 @@ void problema_spectacolelor(float start[], float final[], int nr_filme)
     printf("S-au redat in total %d filme\n", nr);
 }
 
-void problema_cuburi()
+void problema_cuburi(int cul[], int len[], int nr)
 {
+    int k;
+    // sortare crescator dupa lungimi
+    for (k = 0; k < (nr - 1); k++)
+    {
+        int j = k + 1;
+        for (; j < nr; j++)
+        {
+            if (len[j] > len[k])
+            {
+                int temp = len[j];
+                len[j] = len[k];
+                len[k] = temp;
+                temp = cul[j];
+                cul[j] = cul[k];
+                cul[k] = temp;
+            }
+        }
+    }
+
+    // construire turn
+    int inaltime = 0, ultima_culoare = -1, ultima_lungime = 10000000;
+
+    for (k = 0; k < nr; k++)
+    {
+        if (ultima_culoare != cul[k] && ultima_lungime >= len[k])
+        {
+            ultima_culoare = cul[k];
+            ultima_lungime = len[k];
+            inaltime += len[k];
+            printf("Se asaza cubul cu latura %d si culoare %d\n", len[k], cul[k]);
+        }
+    }
+
+    printf("Inaltimea turnului construit este %d\n", inaltime);
+}
+
+void problema_segmente(int start[], int final[], int culori[], int nr)
+{
+    int k;
+    // ordonare crescator dupa finalul segmentului
+    for (k = 0; k < (nr - 1); k++)
+    {
+        int j = k + 1;
+        for (; j < nr; j++)
+        {
+            if (final[j] < final[k])
+            {
+                int temp = final[j];
+                final[j] = final[k];
+                final[k] = temp;
+                temp = start[j];
+                start[j] = start[k];
+                start[k] = temp;
+            }
+        }
+    }
+
+    int c[nr], seg_valide[nr];
+    while (1)
+    {
+        break;
+    }
 }
 
 int main()
@@ -118,7 +180,18 @@ int main()
     problema_spectacolelor(start, final, nr_filme);
 
     // PROBLEMA CUBURI
+    int culori[] = {0, 1, 2, 0, 1, 2, 0, 1};
+    int lungimi[] = {3, 2, 3, 1, 6, 4, 3, 1};
+    int nr_cuburi = 8;
+    printf("\n--- PROBLEMA CUBURILOR ---\n");
+    problema_cuburi(culori, lungimi, nr_cuburi);
 
-    problema_cuburi();
+    // PROBLEMA SEGMENTELOR
+    int begin[] = {};
+    int end[] = {};
+    int culori_segmente[] = {};
+    int nr_segmente = 0;
+    printf("\n--- PROBLEMA SEGMENTELOR ---\n");
+    problema_segmente(begin, end, culori_segmente, nr_segmente);
     return 0;
 }
