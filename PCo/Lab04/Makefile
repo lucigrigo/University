@@ -4,6 +4,7 @@ LIBRARY=nope
 INCPATHS=.
 LIBPATHS=.
 LDFLAGS=
+#ld -m elf_i386
 CFLAGS=-c -Wall
 CC=gcc
 
@@ -20,6 +21,7 @@ BINARY=$(PROJECT)
 all: $(SOURCES) $(BINARY)
 
 $(BINARY): $(OBJECTS)
+	#ld -m elf_i386 -s -o parser parser.o
 	$(CC) $(LIBFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
 
 .c.o:
