@@ -17,9 +17,9 @@ Contains:
 - [A program used to format text documents](https://github.com/lucigrigo/GIT/tree/master/PC/Tema2.FormatareText).
 
 ## Languages used:
+- C/C++
 - Java
 - Python
-- C/C++
 - Matlab
 - JavaScript
 
