@@ -1,9 +1,32 @@
 #include <stdlib.h>
 #include <stdio.h>
+#define max(a, b) (((a) > (b)) ? (a) : (b))
+
+int func(int capacitate_curenta, int index, int m[], int v[], int obj[])
+{
+    if (index < 1)
+    {
+        return 0;
+    }
+    if (capacitate_curenta < 0)
+    {
+        return 0;
+    }
+    if (func(capacitate_curenta, index - 1, m, v, obj) <
+        func(capacitate_curenta - m[index], index - 1, m, v, obj) + v[index])
+    {
+        obj[index] = m[index];
+    }
+
+    return max(func(capacitate_curenta, index - 1, m, v, obj),
+               func(capacitate_curenta - m[index], index - 1, m, v, obj) + v[index]);
+}
 
 void problema_rucsacului_discret(int m[], int v[], int n, int max)
 {
-    
+
+    int *obj = (int *)malloc(n * sizeof(int));
+    printf("valoare maxima este: %d\n", func(max, n - 1, m, v, obj));
 }
 
 void problema_subsir(int v[], int n)
