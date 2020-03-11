@@ -1,0 +1,90 @@
+module AND(input a, b, output c);
+	assign c = a & b; // pentru alea mai simple (ex.: MUX)
+endmodule
+
+// "assign-ul" este echivalent cu:
+always @(*)
+	begin
+		c = a & b;
+	end
+
+module mux2_1(input d0, d1, s, output y); // s = selectie
+	assign y = s ? d1 : d0;
+endmodule
+
+// "assign-ul" este echivalent cu:
+always @(*)
+	begin
+		if (s) then
+			y = d1;
+		else
+			y = d0;
+
+// nu exista atribuire procedurala neconditionata => folosim if-uri
+
+module mux4_1(input d3, d2, d2, d0, input [1 0]s, // s e pe 2 biti
+					output y);
+	assign y = s(1) ? (s(0) ? d3 : d2) : (s(0) ? d1 : d0); // se merge cu MSB
+endmodule
+
+// "assign-ul" este echivalent cu:
+always @(*)
+	begin
+		if s(1) then
+			begin
+				if s(0) // se poate si fara "then"
+					y = d3;
+				else
+					y = d2;
+			end
+		else begin if s(0)
+					y = d1;
+				else
+					y = d0;
+			end
+	end
+// altfel (prima varianta)
+begin
+	if (s(1) & s(0)) then
+		y = d3;
+	...
+end
+
+// altfel 2 (a doua varianta)
+begin
+	case (s)
+	00: y = d0;
+	01: y = d1;
+	10: y = d2;
+	11: y = d3;
+	endcase
+end
+
+
+
+s(i) = a(i) + b(i) + c_(i-1) // "+" e de fapt sau exclusiv (xor), adica "+" intr-un "cerculet"
+c_i = (a(i) & b(i)) + (a(i) | b(i)) & c_(i-1)
+		|			|
+		V			V
+	    g_i		    p_i
+
+// g_i este generarea, iar p_i este propagarea
+
+// ! la test vom avea de implementat pe mai multi biti sumatorul
+
+module sumator_complet(input a, b, c_in, output s, c_out);
+	wire p, g; // p, g trebuie declarate cu "wire" (exista si declarari cu "reg" ?)
+
+	assign g = a & b;
+	assign p = a | b;
+					// => se poate crea si pune in locul acestor 2 "assign-uri" un nou modul numit anticipare,
+					//	apelat astfel: anticipare anticip(a, b, p, g); OBS! e foarte importanta ordinea parametrilor
+
+	assign s = g ^ c_in;
+	assign c_out = g | (p & c_in);
+							// => se poate crea si pune in locul acestor 2 "assign-uri" un nou modul numit sumator,
+							//	 apelat astfel: sumator sum(p, g, c_in, s, c_out);
+							//    in locul lui s si c_out se pot pune alte variabile, spre exemplu "sum" si "carry_out",
+							//    care trebuie intai declarate cu "wire" (sau putem avea, daca ne trebuie, un "wire t;",
+							//    urmat de "assign-ul" necesar, de exemplu: "assign t = p | g")
+endmodule
