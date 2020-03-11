@@ -3,55 +3,7 @@
 
 void problema_rucsacului_discret(int m[], int v[], int n, int max)
 {
-    int i;
-
-    for (i = 0; i < (n - 1); i++)
-    {
-        int j = i + 1;
-        for (; j < n; j++)
-        {
-            if (m[j] > m[i])
-            {
-                int temp = v[i];
-                v[i] = v[j];
-                v[j] = temp;
-                temp = m[i];
-                m[i] = m[j];
-                m[j] = temp;
-            }
-        }
-    }
-
-    int nr_obj = 1;
-    int obj[n];
-    obj[0] = m[0];
-    int index = 1;
-    max -= m[0];
-    i = 1;
-
-    while (i < n)
-    {
-        if (obj[i - 1] <= obj[i - 1] + v[i] && max - m[i] >= 0)
-        {
-            obj[index++] = m[i];
-            max -= m[i];
-            nr_obj++;
-            if (max == 0)
-            {
-                break;
-            }
-        }
-        i++;
-    }
-
-    printf("nr obiecte = %d\n", nr_obj);
-    printf("obiectele din rucsac au masele:\n");
-    i = 0;
-    while (i < nr_obj)
-    {
-        printf("\t%d\n", obj[i]);
-        i++;
-    }
+    
 }
 
 void problema_subsir(int v[], int n)
@@ -90,7 +42,24 @@ void problema_subsir(int v[], int n)
     printf("si vectorul cu lungimi este:\n\t");
     for (i = 0; i < n; i++)
     {
+        printf("%d ", v[i]);
+    }
+    printf("\n\t");
+    for (i = 0; i < n; i++)
+    {
         printf("%d ", D[i]);
+    }
+    printf("\n");
+    int curent_max = 1000000;
+    printf("subsirul solutie este:\n\t");
+    for (i = n - 1; i >= 0; i--)
+    {
+        if (D[i] == max && curent_max > v[i])
+        {
+            printf("%d ", v[i]);
+            max--;
+            curent_max = v[i];
+        }
     }
     printf("\n");
 }
