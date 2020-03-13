@@ -41,8 +41,7 @@
 ;; Atenție: Aveți voie să aplicați get-length o singură dată.
 ;;          Nu puteți folosi `exp`/`expt`
 (define (compute-square-area get-length)
-  (let ((latura (get-length)))
-    (* latura latura)))
+  'your-code-here)
 
 (let ([num-of-calls ((lambda () (compute-square-area magic-number) count-magic))])
   (check-exp-part 'a (/ 1. 4) num-of-calls 1)
@@ -67,9 +66,7 @@
 ;; (distanța dintre punctul de început și punctul de sfârșit)
 ;; Atenție: Fiecare funcție primită drept argument trebuie aplicată o singură dată.
 (define (compute-length get-line-segment get-start-point get-end-point)
-  (let* ((segment (get-line-segment)) (inceput (get-start-point segment)) (final (get-end-point segment)))
-    (sqrt (+ (expt (- (car final) (car inceput)) 2)
-          (expt (- (cdr final) (cdr inceput)) 2)))))
+  'your-code-here)
 
 
 (let ([num-of-calls ((lambda () (compute-length magic-segment get-start-point get-end-point) count-magic))])
@@ -89,9 +86,7 @@
 ;; Identificați închiderea funcțională și arătați-o
 ;; asistentului pentru a vă puncta acest exercițiu.
 (define (distance p1 p2)
-  (let ((fct (λ (seg) (compute-length (λ () seg) get-start-point get-end-point))))
-    (fct (cons p1 p2))))
-    
+  'your-code-here)
 
 (check-exp-part 'a 1 (distance '(9 . 12)  '(12 . 16)) 5)
 
@@ -102,10 +97,7 @@
 ;;          Nu apelați recursiv `compute-f-with-step`.
 ;;          Nu aveți voie să folosiți funcționale.
 (define (compute-f-with-step f a b step)
-  (let iter ((b b) (rez `()))
-    (if (> a b)
-        rez
-        (iter (- b step) (cons (f b) rez)))))
+  'your-code-here)
 
 (check-exp-part 'a (/ 1. 2)  (compute-f-with-step (lambda (x) (* x x)) 0 4 1) '(0 1 4 9 16))
 (check-exp-part 'b (/ 1. 2)  (compute-f-with-step (lambda (x) (+ (* 2 x) 1)) 0 4 1) '(1 3 5 7 9))
@@ -120,8 +112,8 @@
 ;; Hint: `string-append` concatenează două string-uri
 ;; Hint: Puteți folosi funcțiile `number->string` și `string->number`
 (define (num-concat x y)
-  (let* ((+ (λ (x y) (string->number (string-append (number->string x) (number->string y))))))
-    (+ x y)));; Nu stergeți această linie.
+  'your-code-here
+    (+ x y));; Nu stergeți această linie.
 
 (check-exp-part 'a (/ 1. 2) (num-concat 1 2) 12)
 (check-exp-part 'b (/ 1. 2) (num-concat 33 674) 33674)
@@ -132,18 +124,8 @@
 ;; Atenție: Nu aveți voie să definiți funcții ajutătoare în exteriorul funcției compute-perimeter.
 ;;          Nu aveți voie să folosiți funcționale.
 ;; Hint: Folosiți-vă de funcția distance
-
 (define (compute-perimeter points)
-  (let comp ((points (append points (list (car points)))) (p 0))
-    (if (= (length points) 1)
-        p
-        (comp (cdr points) (+ p (distance (car points) (cadr points)))))))
-
-;(define (compute-perimeter points)
-;  (let comp2 ((points points) (p (distance (take-right points 1) (car points)))) ;; Aici take-right nu stiu de ce nu imi intoarce doar ultimul punct ca pereche, sau il returneaza ciudat.
-;    (if (= (length points) 1)
-;        p
-;        (comp2 (cdr points) (+ p (distance (car points) (cadr points)))))))
+  'your-code-here)
 
 (check-exp-part 'a (/ 1. 4) (compute-perimeter (list '(1 . 0) '(0 . 0) '(0 . 1) '(1 . 1))) 4)
 (check-exp-part 'b (/ 1. 4) (compute-perimeter (list '(2 . 0) '(0 . 0) '(0 . 2) '(2 . 2))) 8)
@@ -159,31 +141,8 @@
 ;; Atenție: Nu aveți voie să folosiți fold/apply.
 ;;          Folosiți let-values/let*-values.
 ;; Hint:: Uitați-vă peste splitf-at.
-
-(define (get-sum-helper elems sum)
-  (if (null? elems)
-      sum
-      (get-sum-helper (cdr elems) (+ sum (car elems)))))
-
-(define (get-sum elems)
-  (get-sum-helper elems 0))
-
 (define (3-sequence-max numbers separator)
-  (let finder ((numbers numbers) (max-until-now 0))
-    (if (null? numbers)
-        max-until-now
-        (let-values ([(current-list rest-of-the-list)
-                      (splitf-at numbers (λ (elem) (not (equal? elem separator))))])
-              (if (> (get-sum current-list) max-until-now)
-                  (if (null? rest-of-the-list)
-                      (get-sum current-list)
-                      (finder (cdr rest-of-the-list) (get-sum current-list)))
-                  (if (null? rest-of-the-list)
-                      max-until-now
-                      (finder (cdr rest-of-the-list) max-until-now)))))))
-                  
-
-; (splitf-at '(1 0 2 0 3) (λ (elem) (not (equal? elem 0))))
+  'your-code-here)
 
 (check-exp-part 'a (/ 1. 2) (3-sequence-max '(1 0 2 0 3) 0) 3)
 (check-exp-part 'b (/ 1. 2) (3-sequence-max '(2 3 4 0 4 105 6 0 54 5) 0) 115)
