@@ -1,0 +1,74 @@
+Laboratorul 2 Online
+Trademark: Andreia Oca, Vlad Isuf -> Sa stiti cui sa multumiti pentru laboratorul sub forma asta :))
+
+mail: vlad.isuf17@gmail.com
+Model
+
+Subitect: [ED] - Laborator II, <nume>, <grupa>
+
+Hint: Puteti sa raspundeti la intrebari intr-un document word sau direct pe mail.
+	Cum va este mai simplu. Doar ca vreau sa aveti:
+		<intrebare 1>
+		<raspuns 1> 
+		. . . 
+
+      Intrebarile nu au un raspuns standard. Conteaza sa imi aratati ca ati inteles
+	ce se intampla acolo.
+
+      Unde va cer un grafic: il puteti desena pe foaie si trimiteti poza.
+      Iar pentru circuite va incurajez sa folositi direct falstad sau: 
+	https://app.diagrams.net/ -> Este foarte util pentru diagrame. Va incurajez 
+	sa il folositi pentru diversele proiecte pe care le veti avea de facut :)
+
+      Neclaritatile legate de intrebari le puteti adresa si pe grupul de wapp, pe
+	mail, sau direct cand ne vedem/auzim online.
+
+      Quote motivational: Important e sa ramaneti voi cu ceva din asta, facultatea 
+		trebuie sa fie pentru voi, nu pentru profesori/laboranti.
+
+       Imi cer scuze de delay, dar trebuie sa mai si muncesc.
+	(
+		va povestesc la meeting-urile online despre NXP 
+		si ofertele de internship la care puteti merge si din anul II.
+		putem face un meeting cu mai multi interesati sa lucreze in vara :D
+		va indrum si sa va faceti un CV daca doriti. 
+	).
+
+  	Have fun cu laboratorul II. O sa revin pe seara si cu laboratorul III.
+
+1. Ce este un condensator si cum functioneaza? 
+Urmariti videoclipurile urmatoare:
+ * https://www.youtube.com/watch?v=rbCXKhhzBN0
+ * https://www.youtube.com/watch?v=xjW-isgOijs (Fun one)
+
+2. Cum se incarca si se descarca un condensator? Graficul tensiunii in functie de timp.
+3. De ce este important sa stim timpul de incarcare/descarcare al unui condensator? 
+Cititi urmatoarele articole:
+ * https://www.electronics-tutorials.ws/rc/rc_1.html
+ * https://www.electronics-tutorials.ws/rc/rc_2.html
+
+4. La ce este util un circuit RC in practica?
+Hint: google it
+
+5. Cum functioneaza filtere RC de gradul 1?
+Urmariti videoclipul:
+ * https://www.youtube.com/watch?v=OBM5T5_kgdI
+
+6. Simulare circuite RC. La capitolul acesta vom folosi falstad. 
+Urmariti tutorial de falstad: https://www.youtube.com/watch?v=aFJ6yZQ7myQ
+
+Tutorialul are si un circuit RC si multe altele. Ce vreau eu 
+de la voi este (sa va jucati) sa faceti un circuit care sa contina
+si un circuit RC. Si pe care sa incercati sa il explicati.
+Aici aveti libertate sa faceti cum doriti voi. E ca si cum ati avea
+la dispozitie o multitudine de componente la dispozitie pe bancul de 
+lucru.
+
+Va incurajez pe toti sa vedeti tutorialul de falstad (si pe cei care au facut 
+deja laboratorul II). Vom folosi si la laboratorul 3 falstad. :)
+
+7. Bonus: Transformata Fourier. Intrebarile vor fi live. :D
+Urmariti videoclipul:
+ * https://www.youtube.com/watch?v=spUNpyF58BY&t=14s
+Si cititi urmatorul articol.
+ * http://bilimneguzellan.net/en/purrier-series-meow-and-making-images-speak/
