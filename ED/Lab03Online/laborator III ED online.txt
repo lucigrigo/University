@@ -1,0 +1,57 @@
+Laboratorul 3 Online
+Trademark: Andreia Oca, Vlad Isuf -> Sa stiti cui sa multumiti pentru laboratorul sub forma asta :))
+
+mail: vlad.isuf17@gmail.com
+Model
+
+Subitect: [ED] - Laborator III, <nume>, <grupa>
+
+Hint: Puteti sa raspundeti la intrebari intr-un document word sau direct pe mail.
+	Cum va este mai simplu. Doar ca vreau sa aveti:
+		<intrebare 1>
+		<raspuns 1> 
+		. . . 
+
+      Intrebarile nu au un raspuns standard. Conteaza sa imi aratati ca ati inteles
+	ce se intampla acolo.
+
+      Unde va cer un grafic: il puteti desena pe foaie si trimiteti poza.
+      Iar pentru circuite va incurajez sa folositi direct falstad sau: 
+	https://app.diagrams.net/ -> Este foarte util pentru diagrame. Va incurajez 
+	sa il folositi pentru diversele proiecte pe care le veti avea de facut :)
+
+      Neclaritatile legate de intrebari le puteti adresa si pe grupul de wapp, pe
+	mail, sau direct cand ne vedem/auzim online.
+
+      Quote motivational: Cu internetul in ziua de azi e ar fi aiurea sa te plictisesti.
+
+      Have fun cu laboratorul III. 
+
+0. De ce sa invat electronica de baza? As inlocui electronic hobbyist cu inginer :D
+Urmariti: https://www.youtube.com/watch?v=zyuRcsM0gjI
+
+1. De ce este asa important tranzistorul? Lifechanging video with dramatic music in the beginning :)
+Urmariti: https://www.youtube.com/watch?v=OwS9aTE2Go4
+
+2. Cum functioneaza un tranzistor la nivel de semiconductori?
+3. Care este diferenta dintre BJT si MOSFET?
+Urmariti: https://www.youtube.com/watch?v=qUeK7pHe0rI
+
+4. Cum functioneaza un tranzistor ca un comutator?
+5. De ce se arde transistorul atunci cand il conectez direct la o sursa de tensiune?
+6. Care este diferenta dintre PNP si NPN la nivel de comportament, in practica?
+Urmariti: https://www.youtube.com/watch?v=WRm2oUw4owE
+
+7. Cum construiesc porti logice folosind tranzistori? 
+7.1 Simulati diferite circuite folosind https://www.falstad.com/circuit/ 
+	Aveti o multitudine de exemple de porti logice 
+	construite cu tranzistori din diferite familii.
+Urmariti: https://www.youtube.com/watch?v=sTu3LwpF6XI
+Hint: Acest exercitiu o sa fie poarta catre urmatoarele activitati.
+
+Recomand sa cititi urmatorul articol: https://www.electronics-tutorials.ws/transistor/tran_8.html
+Este ca un cheat sheet legat de tranzistori.
+
+Bonus + Ultra fun part! Cum pot sa desenez folosind un osciloscop?
+Urmariti primul episod din tutorialul urmator: 
+https://www.youtube.com/watch?v=T7J-WrS9ou0&list=PLFgoUhNvMLro45P9uuR18wofljEaVCfvV
