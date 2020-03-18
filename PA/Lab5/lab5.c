@@ -69,13 +69,24 @@ void k_garduri(int n, int k)
     }
 
     // printare rezultat
-    printf("Solutii obtinute:\n");
+    printf("solutii obtinute:\n");
     for (i = 1; i <= n; i++)
     {
         printf("\nD[%d] = %d\n", i, D[i]); // printare optim
         // printare_solutie_garduri(k, i);    // printare solutie optima
     }
     printf("-----\n");
+}
+
+void print_sume(int v[], int index, int sum, int rest){
+    if ((sum + v[index]) % 3 == rest) {
+		printf("%d+%d=%d ", sum, v[index], sum + v[index]);
+	}
+	if (index == 0) {
+		return;
+	}
+	print_sume(v, index-1, sum, rest);
+	print_sume(v, index-1, sum + v[index], rest);
 }
 
 void sume(int v[], int n)
@@ -88,7 +99,7 @@ void sume(int v[], int n)
     D[0][1] = 0;
     D[0][2] = 0;
 
-    /* OBSERVATIE
+    /* OBsERVATIE
         Pentru a putea include si cazurile de baza in matricea
     cu numarul de sume, am inceput algoritmul de la indexul 1. Vectorul de
     numere este indexat de la 0. 
@@ -117,9 +128,23 @@ void sume(int v[], int n)
             D[i][1] = D[i - 1][2] + D[i - 1][1];
             D[i][2] = 1 + D[i - 1][2] + D[i - 1][0];
         }
+        printf("La pasul %d valoarea din vector este %d si are restul impartirii la 3 egal cu %d. Cele 3 recurente rezultate sunt:\n", i-1, v[i-1], v[i-1]%3);
+        printf("\tD[%d][0] = %d\n", i-1, D[i][0]);
+        printf("\t\t");
+        print_sume(v, i-1, 0, 0);
+        printf("\n");
+        printf("\tD[%d][1] = %d\n", i-1, D[i][1]);
+        printf("\t\t");
+        print_sume(v, i-1, 0, 1);
+        printf("\n");
+        printf("\tD[%d][2] = %d\n", i-1, D[i][2]);
+        printf("\t\t");
+        print_sume(v, i-1, 0, 2);
+        printf("\n");
+        printf("\n");
     }
 
-    printf("\nNr. sume care dau restul 0 la impartirea cu 3 este egal cu %d.\n", D[n][0]);
+    printf("\nNumarul de sume care dau restul 0 la impartirea cu 3 este egal cu %d.\n", D[n][0]);
     printf("-----\n");
 }
 
@@ -132,7 +157,7 @@ int main()
     k_garduri(n, k); // apelarea functiei de rezolvare
 
     // 2. sume de rest 0 la impartirea cu 3
-    printf("\n--- SUME MODULO 3 ---\n");
+    printf("\n--- sUME MODULO 3 ---\n\n");
     int v[] = {3, 1, 2, 4}; // sirul de numere dat
     int len = 4;            // lungimea sirului dat
     sume(v, len);           // apelarea functiei de rezolvare
