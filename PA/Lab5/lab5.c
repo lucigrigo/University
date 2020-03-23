@@ -120,24 +120,24 @@ void sume(int v[], int n)
         De aceea apare peste tot v[i - 1];
     */
     int i;
-    for (i = 1; i <= n; i++) 
+    for (i = 1; i <= n; i++)
     {
-        if (v[i - 1] % 3 == 0) // cazul in care v[i] % 3 da rest 0 
-        { 
+        if (v[i - 1] % 3 == 0) // cazul in care v[i] % 3 da rest 0
+        {
             D[i][0] = 1 + 2 * D[i - 1][0]; // D[i][0] = 1 + 2 * D[i-1][0]
-            D[i][1] = 2 * D[i - 1][1]; // D[i][1] = 2 * D[i-1][1]
-            D[i][2] = 2 * D[i - 1][2]; // D[i][2] = 2 * D[i-1][2]
+            D[i][1] = 2 * D[i - 1][1];     // D[i][1] = 2 * D[i-1][1]
+            D[i][2] = 2 * D[i - 1][2];     // D[i][2] = 2 * D[i-1][2]
         }
         else if (v[i - 1] % 3 == 1) // cazul in care v[i] % 3 da rest 1
-        { 
-            D[i][0] = D[i - 1][0] + D[i - 1][1]; // D[i][0] = D[i-1][0] + D[i-1][1]
+        {
+            D[i][0] = D[i - 1][0] + D[i - 1][1];     // D[i][0] = D[i-1][0] + D[i-1][1]
             D[i][1] = 1 + D[i - 1][0] + D[i - 1][1]; // D[i][1] = 1 + D[i-1][0] + D[i-1][1]
-            D[i][2] = D[i - 1][2] + D[i - 1][1]; // D[i][2] = D[i-1][2] + D[i-1][1]
+            D[i][2] = D[i - 1][2] + D[i - 1][1];     // D[i][2] = D[i-1][2] + D[i-1][1]
         }
         else // cazul in care v[i] % 3 da rest 2
-        { 
-            D[i][0] = D[i - 1][0] + D[i - 1][1]; // D[i][0] = D[i-1][0] + D[i-1][1]
-            D[i][1] = D[i - 1][2] + D[i - 1][1]; // D[i][1] = D[i-1][2] + D[i-1][1]
+        {
+            D[i][0] = D[i - 1][0] + D[i - 1][1];     // D[i][0] = D[i-1][0] + D[i-1][1]
+            D[i][1] = D[i - 1][2] + D[i - 1][1];     // D[i][1] = D[i-1][2] + D[i-1][1]
             D[i][2] = 1 + D[i - 1][2] + D[i - 1][0]; // D[i][2] = 1 + D[i-1][2] + D[i-1][0]
         }
         /*
@@ -150,7 +150,7 @@ void sume(int v[], int n)
         printf("\t\t");
         if (v[i - 1] % 3 == 0)
         {
-             //empty_sol[len++] = v[i - 1];
+            //empty_sol[len++] = v[i - 1];
         }
         print_sume(v, i - 1, 0, 0, empty_sol, len, n);
         printf("\n");
