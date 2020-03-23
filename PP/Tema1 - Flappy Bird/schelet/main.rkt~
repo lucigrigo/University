@@ -48,10 +48,6 @@
 (provide get-variables-scroll-speed)
 
 ;---------------------------------------checker_exports------------------------------------------------
-; Checker-ul contine un numar de teste, fiecare cu numele sau. In acest fisier veti gasi comentarii
-; care incep cu TODO %nume_test, unde trebuie sa modificati sau sa implementati o functie, pentru
-; a trece testul %nume_test.
-;
 ;Initial state
 ; Primul pas pe care trebuie sa il facem este sa cream starea initiala a jocului.
 ; Aceasta va fi salvata in (get-initial-state), si trebuie sa incapsuleze toate informatiile
@@ -80,7 +76,18 @@
 ;    y = bird-inițial-y
 ; și x = bird-x.
 ; (get-initial-state) va fi o funcție care va returna starea inițială a jocului.
+(struct bird-state
+  (x y width height))
 
+(define get-bird-initial-state
+  (bird-state bird-x bird-initial-y bird-width bird-height))
+
+(struct game-state
+  (gravity momentum scroll-speed score bird-state))
+
+(define (get-initial-state)
+  (game-state initial-gravity initial-momentum initial-scroll-speed 0 get-bird-initial-state))
+  
 ;TODO 8
 ; În starea jocului, trebuie să păstrăm informații despre pipes. Pe parcursul jocului,
 ; pipe-urile se vor schimba, unele vor fi șterse și vor fi adăugate altele.
@@ -101,25 +108,23 @@
 ; acestuia, adăugați scorul inițial, adică 0, în starea inițială a jocului.
 ; Atenție get-initial-state trebuie sa fie o funcție
 ; și trebuie apelată în restul codului.
-(define (get-initial-state)
-  `codul-tau-aici)
 
 ;TODO 2
 ; După aceasta, implementați un getter care extrage din structura voastră
 ; pasărea, și un al doilea getter care extrage din structura pasăre
 ; y-ul curent pe care se află această.
 (define (get-bird state)
-  state)
+  game-state bird-state)
+
 (define (get-bird-y bird)
-  bird)
+  bird-state-y)
 
 ;TODO 3
 ; Trebuie să implementăm logică gravitației. next-state-bird va primi drept
 ; parametri o structură de tip pasăre, și gravitația(un număr real). Aceasta va adaugă
-; pozitiei pe y a păsării viteza acesteia pe y, si va adaugă vitezei pe y a păsării,
-; gravitația.
+; vitezei pe y a păsării, gravitația.
 (define (next-state-bird bird gravity)
-  `codul-tau-aici)
+  (struct-copy bird-state bird [y (+ (get-bird-y bird) gravity)]))
 
 ;TODO 4
 ; După aceasta, implementati un getter care extrage din structura voastră
@@ -132,8 +137,8 @@
 ; Definiți funcția next-state-bird-onspace care va primi drept parametri
 ; o structură de tip pasăre, momentum(un număr real), și va schimbă viteza
 ; pe y a păsării cu acea valoare.
-(define (next-state-bird-onspace bird momentum)
-  `codul-tau-aici)
+(define (next-state-bird-onspace bird-state momentum)
+  (- bird-state-y momentum))
 
 ; Change
 ; Change va fi responsabil de input-ul de la tastatură al jocului.
@@ -176,7 +181,7 @@
 
 
 ;TODO 13
-; Vrem să avem un sursa continuă de pipe-uri.
+; Vrem să avem un stream continuu de pipe-uri.
 ; Implementati funcția add-more-pipes, care va primi drept parametru mulțimea pipe-urilor
 ; din stare și, dacă avem mai puțin de no-pipes pipe-uri, mai adăugăm una la mulțime,
 ; având x-ul egal cu pipe-width + pipe-gap + x-ul celui mai îndepărtat pipe, în raport
@@ -283,8 +288,8 @@
 ; ground -> ground-y si ground-height, acesta va acoperi intreaga latime a ecranului
 ; scor -> text-x si text-y
 ; pipes -> pipe-width si pipe-height
-(define bird-image (rectangle bird-width bird-height  "solid" "yellow"))
-(define ground-image (rectangle scene-width ground-height "solid" "brown"))
+(define bird (rectangle bird-width bird-height  "solid" "yellow"))
+(define ground (rectangle scene-width ground-height "solid" "brown"))
 (define initial-scene (empty-scene scene-width scene-height))
 
 (define text-family (list "Gill Sans" 'swiss 'normal 'bold #f))
@@ -299,7 +304,7 @@
 	'your-code-here)
 
 ; Bonus
-; Completați abilities.rkt mai întâi, aceste funcții căt, apoi legați
+; Completați abilities.txt mai întâi, aceste funcții căt, apoi legați
 ; această funcționalitate la jocul inițial.
 
 
@@ -336,7 +341,7 @@
 
 ; Șterge din reprezentarea abilităţilor vizibile pe cele care nu mai sunt vizibile.
 ; echivalent cu clean-pipes.
-(define (clean-abilities abilities)
+(define (clean-abilities pipes)
 	'your-code-here)
 
 
