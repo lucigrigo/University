@@ -15,6 +15,8 @@ from mininet.util import dumpNodeConnections
 
 import info
 
+import os.path
+from os import path
 
 POINTS_PER_TEST = 5
 
@@ -84,8 +86,9 @@ class NetworkManager(object):
         # we want complete control over these actions
         self.router.cmd('echo "0" > /proc/sys/net/ipv4/ip_forward')
         self.router.cmd('echo "1" > /proc/sys/net/ipv4/icmp_echo_ignore_all')
-        for i in range(len(self.hosts)):
-            disable_arp(self.router, "r-{}".format(i))
+        if not path.exists("arp_table.txt"):
+            for i in range(len(self.hosts)):
+                disable_arp(self.router, "r-{}".format(i))
 
     def add_default_routes(self):
         for i, host in enumerate(self.hosts):
@@ -161,15 +164,23 @@ def main(run_tests=False):
 
     max_points = POINTS_PER_TEST * len(tests.TESTS)
     total = 0
-
     print("{:=^80}\n".format(" Running tests "))
     if run_tests:
         for testname in tests.TESTS:
-            results = nm.run_test(testname)
-            passed = validate_test_results(results)
+            skipped = False
+
+            if path.exists("arp_table.txt"):
+                if testname == "router_arp_reply" or testname == "router_arp_request":
+                    skipped = True
+                    passed = False
+            else:
+                results = nm.run_test(testname)
+                passed = validate_test_results(results)
             crt_points = POINTS_PER_TEST if passed else 0
             total += crt_points
             str_status = "PASSED" if passed else "FAILED"
+            if skipped:
+                str_status = "SKIPPED"
             str_points = "[{}/{}]".format(crt_points, POINTS_PER_TEST)
             print("{: >20} {:.>40} {: >8} {: >8}".format(testname, "", str_status,
                                                         str_points))

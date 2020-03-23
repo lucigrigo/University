@@ -78,16 +78,17 @@ void k_garduri(int n, int k)
     printf("-----\n");
 }
 
-void print_sume(int v[], int index, int sum, int rest, int sol[], int index_sol)
+void print_sume(int v[], int index, int sum, int rest, int sol[], int index_sol, int n)
 {
     if (((sum + v[index]) % 3) == rest)
     {
         sol[index_sol++] = v[index];
-        printf("%d+%d=%d ", sum, v[index], sum + v[index]);
+        // printf("suma de pana acum : %d + elementul de la pasul curent : %d = %d ", sum, v[index], sum + v[index]);
+        printf("%d + %d = %d", sum, v[index], sum + v[index]);
         int j;
         for (j = 0; j < index_sol; j++)
         {
-            //printf("%d ", sol[j]);
+            // printf(" %d", sol[j]);
         }
         printf("\n\t\t");
     }
@@ -95,8 +96,8 @@ void print_sume(int v[], int index, int sum, int rest, int sol[], int index_sol)
     {
         return;
     }
-    print_sume(v, index - 1, sum, rest, sol, index_sol);
-    print_sume(v, index - 1, sum + v[index], rest, sol, index_sol);
+    print_sume(v, index - 1, sum, rest, sol, index_sol, n);
+    print_sume(v, index - 1, sum + v[index], rest, sol, index_sol, n);
 }
 
 void sume(int v[], int n)
@@ -104,12 +105,13 @@ void sume(int v[], int n)
     // initializare matricea care va contine nr de sume pentru fiecare
     // pas al algoritmului
     int D[n + 1][3];
-    // cazurile de baza
+    // cazurile de baza aflate la indexul 0 din matrice
     D[0][0] = 0;
     D[0][1] = 0;
     D[0][2] = 0;
 
-    /* OBsERVATIE
+    /* 
+        OBSERVATIE
         Pentru a putea include si cazurile de baza in matricea
     cu numarul de sume, am inceput algoritmul de la indexul 1. Vectorul de
     numere este indexat de la 0. 
@@ -118,36 +120,39 @@ void sume(int v[], int n)
         De aceea apare peste tot v[i - 1];
     */
     int i;
-    for (i = 1; i <= n; i++)
+    for (i = 1; i <= n; i++) 
     {
-        if (v[i - 1] % 3 == 0)
-        { // cazul in care v[i] % 3 da rest 0
-            D[i][0] = 1 + 2 * D[i - 1][0];
-            D[i][1] = 2 * D[i - 1][1];
-            D[i][2] = 2 * D[i - 1][2];
+        if (v[i - 1] % 3 == 0) // cazul in care v[i] % 3 da rest 0 
+        { 
+            D[i][0] = 1 + 2 * D[i - 1][0]; // D[i][0] = 1 + 2 * D[i-1][0]
+            D[i][1] = 2 * D[i - 1][1]; // D[i][1] = 2 * D[i-1][1]
+            D[i][2] = 2 * D[i - 1][2]; // D[i][2] = 2 * D[i-1][2]
         }
-        else if (v[i - 1] % 3 == 1)
-        { // cazul in care v[i] % 3 da rest 1
-            D[i][0] = D[i - 1][0] + D[i - 1][1];
-            D[i][1] = 1 + D[i - 1][0] + D[i - 1][1];
-            D[i][2] = D[i - 1][2] + D[i - 1][1];
+        else if (v[i - 1] % 3 == 1) // cazul in care v[i] % 3 da rest 1
+        { 
+            D[i][0] = D[i - 1][0] + D[i - 1][1]; // D[i][0] = D[i-1][0] + D[i-1][1]
+            D[i][1] = 1 + D[i - 1][0] + D[i - 1][1]; // D[i][1] = 1 + D[i-1][0] + D[i-1][1]
+            D[i][2] = D[i - 1][2] + D[i - 1][1]; // D[i][2] = D[i-1][2] + D[i-1][1]
         }
-        else
-        { // cazul in care v[i] % 3 da rest 2
-            D[i][0] = D[i - 1][0] + D[i - 1][1];
-            D[i][1] = D[i - 1][2] + D[i - 1][1];
-            D[i][2] = 1 + D[i - 1][2] + D[i - 1][0];
+        else // cazul in care v[i] % 3 da rest 2
+        { 
+            D[i][0] = D[i - 1][0] + D[i - 1][1]; // D[i][0] = D[i-1][0] + D[i-1][1]
+            D[i][1] = D[i - 1][2] + D[i - 1][1]; // D[i][1] = D[i-1][2] + D[i-1][1]
+            D[i][2] = 1 + D[i - 1][2] + D[i - 1][0]; // D[i][2] = 1 + D[i-1][2] + D[i-1][0]
         }
+        /*
+            OBSERVATIE AFISARE
+        */
         printf("La pasul %d valoarea din vector este %d si are restul impartirii la 3 egal cu %d.\nCele 3 recurente rezultate sunt:\n", i - 1, v[i - 1], v[i - 1] % 3);
-        int empty_sol[i];
+        int empty_sol[n];
         int len = 0;
         printf("\tD[%d][0] = %d\n", i - 1, D[i][0]);
         printf("\t\t");
-        // if (v[i - 1] % 3 == 0)
-        // {
-        //     empty_sol[len++] = v[i - 1];
-        // }
-        print_sume(v, i - 1, 0, 0, empty_sol, len);
+        if (v[i - 1] % 3 == 0)
+        {
+             //empty_sol[len++] = v[i - 1];
+        }
+        print_sume(v, i - 1, 0, 0, empty_sol, len, n);
         printf("\n");
         printf("\tD[%d][1] = %d\n", i - 1, D[i][1]);
         printf("\t\t");
@@ -156,7 +161,7 @@ void sume(int v[], int n)
         // {
         //     empty_sol[len++] = v[i - 1];
         // }
-        print_sume(v, i - 1, 0, 1, empty_sol, len);
+        print_sume(v, i - 1, 0, 1, empty_sol, len, n);
         printf("\n");
         printf("\tD[%d][2] = %d\n", i - 1, D[i][2]);
         printf("\t\t");
@@ -165,7 +170,7 @@ void sume(int v[], int n)
         // {
         //     empty_sol[len++] = v[i - 1];
         // }
-        print_sume(v, i - 1, 0, 2, empty_sol, len);
+        print_sume(v, i - 1, 0, 2, empty_sol, len, n);
         printf("\n");
         printf("\n");
     }
