@@ -1,0 +1,57 @@
+Laboratorul 4 Online
+Trademark: Andreia Oca, Vlad Isuf -> Sa stiti cui sa multumiti pentru laboratorul sub forma asta :))
+
+mail: vlad.isuf17@gmail.com
+Model
+
+Subitect: [ED] - Laborator IV, <nume>, <grupa>
+
+Hint: Puteti sa raspundeti la intrebari intr-un document word sau direct pe mail.
+	Cum va este mai simplu. Doar ca vreau sa aveti:
+		<intrebare 1>
+		<raspuns 1> 
+		. . . 
+
+      Intrebarile nu au un raspuns standard. Conteaza sa imi aratati ca ati inteles
+	ce se intampla acolo.
+
+      Pentru diverse grafice puteti sa trimiteti o poza cu graficul respectiv.
+      Pentru circuite va incurajez sa folositi direct falstad.
+      Pentru diverse diagrame va incurajez sa folositi: https://app.diagrams.net/
+
+      Neclaritatile legate de intrebari le puteti adresa si pe grupul de wapp, pe
+	mail, sau direct cand ne vedem/auzim online.
+
+      Quote motivational: 
+
+      Have fun cu laboratorul IV. 
+
+Unele "exercitii" au o parte obligatorie si o parte bonus notata cu <ex>.B.
+Partea bonus vine mai mult ca o completare pentru cei ce vor sa aprofundeze, nu au niste cerinte stabilite.
+
+
+1. Ce este un Schmitt Trigger si la ce foloseste? Ce este histerezisul? 
+Urmariti videoclipurile urmatoare:
+	* https://www.youtube.com/watch?v=Nrp8OgQLAlw (6 min)
+	* https://www.youtube.com/watch?v=cFe010lux38 (4 min)
+
+In falstad gasiti simulari pentru ambele tipuri de schmitt trigger (tranzistori/op-amp)
+Le gasiti la Circuits -> Transistors -> Schmitt Trigger sau Circuits -> Op-Amps -> Schmitt Triger.
+Cel mai mult ma intereseaza sa intelegeti rolul acestui circuit as a black box.
+
+1.B Pentru mai multe detalii si demonstratii practice urmariti:
+	* https://www.youtube.com/watch?v=woTiKij76cA
+	* https://www.youtube.com/watch?v=Ht48vv0rQYk
+
+2. Realizati circuite in falstad pentru urmatoarele expresii: 
+	a) Output = (AB) + !(A+B)
+	b) Output = (ABC) + A(!B + !C)
+	c) Output = (!A + !(B + C)) + ABC
+Trebuie sa folositi direct porti logice de data aceasta.
+Le gasiti in falstad la Draw -> Logic Gates, Input and Output
+Puteti modifica numarul de intrari al portilor editand componenta (dublu click/click dreapta -> edit)
+
+2.B Aveti aici: https://www.electronics-tutorials.ws/logic/logic_1.html o serie de articole legate de porti logice.
+
+	
+BONUS! Cum sa citesti un datasheet? Este un videoclip de o ora si daca nu aveti ce face va incurajez sa il urmariti.
