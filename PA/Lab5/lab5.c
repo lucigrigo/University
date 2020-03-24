@@ -271,6 +271,8 @@ void sume(int v[], int n)
       3. pe acelasi rand cu afisarea fiecarei sume mentionate mai sus am printat solutia construita 
       intre acolade
       4. pentru (2) si (3) am folosit functia print_sume, implementata mai sus
+      5. la fiecare printare a vectorului-solutie, elementele sunt in ordinea inversa fata de vectorul
+      initial, datorita recurentei folosite
     */
     printf("La pasul %d valoarea din vector este %d si are restul impartirii "
            "la 3 egal cu %d.\nCele 3 recurente rezultate sunt:\n",
