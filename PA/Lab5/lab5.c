@@ -3,8 +3,10 @@
 #include <string.h>
 
 // functie care interschimba 2 valori
-int schimba(char *x, char *y) {
-  if (strcmp(x, y) == 0) {
+int schimba(char *x, char *y)
+{
+  if (strcmp(x, y) == 0)
+  {
     return 1;
   }
   char temp;
@@ -14,36 +16,87 @@ int schimba(char *x, char *y) {
   return 0;
 }
 
+int alreadyHere(char *current_str, char **printed_str, int len)
+{
+  int i;
+  for (i = 0; i < len; i++)
+  {
+    // printf("%s\n", printed_str[i]);
+    if (strcmp(current_str, printed_str[i]) == 0)
+    {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 // functie care foloseste backtracking pentru afisarea unei permutari
-void permutare(char *a, int l, int n) {
-  if (l == n) {
+void permutare(char *a, int l, int n, char **already_printed, int len)
+{
+  if (l == n)
+  {
     printf("\t%s\n", a);
     return;
   }
   int i;
-  for (i = 0; i < n; i++) {
-    if (schimba((a + l), (a + i)) == 1) {
+  for (i = 0; i < n; i++)
+  {
+    if (alreadyHere(a, already_printed, len))
+    {
       continue;
     }
-    permutare(a, l + 1, n);
+    schimba((a + l), (a + i));
+    permutare(a, l + 1, n, already_printed, len);
+    strcpy(already_printed[len++], a);
     schimba((a + l), (a + i));
   }
 }
 
 // functie care printeaza toate solutiile de aranjare a scandurilor
 // pentru lungimea de la un moment dat
-void printare_solutie_garduri(int k, int L) {
+void printare_solutie_garduri(int k, int L)
+{
   int j;
   char *a = (char *)malloc(L * sizeof(char));
-  for (j = 0; j < L; j++) {
-    // a[j] = '|';
+  for (j = 0; j < L; j++)
+  {
     strcpy((a + j), "|");
   }
-  // printf("\t%s\n", a);
-  permutare(a, 0, L - 1);
+  char **str = (char **)malloc(50 * sizeof(char *));
+  for (j = 0; j < 10; j++)
+  {
+    str[j] = (char *)malloc(L * sizeof(char));
+  }
+  permutare(a, 0, L - 1, str, 0);
+
+  int nr_egaluri = 0;
+  while ((L - 2) >= 3)
+  {
+    char **str_egal = (char **)malloc(50 * sizeof(char *));
+    for (j = 0; j < 10; j++)
+    {
+      str[j] = (char *)malloc(L * sizeof(char));
+    }
+
+    nr_egaluri++;
+    L -= (2 * nr_egaluri);
+
+    char *single_str_egal = (char *)malloc(50 * sizeof(char));
+    for (j = 0; j < nr_egaluri; j++)
+    {
+      strcpy((single_str_egal + j), "=");
+    }
+
+    for (; j < L; j++)
+    {
+      strcpy((single_str_egal + j), "|");
+    }
+    permutare(single_str_egal, 0, L - 1, str_egal, 0);
+  }
 }
 
-void k_garduri(int n, int k) {
+void k_garduri(int n, int k)
+{
   // initializare vector care memoreaza nr de solutii
   int D[n];
 
@@ -53,41 +106,50 @@ void k_garduri(int n, int k) {
 
   // desfasurarea recurentei pt nr de solutii
   int i = 3;
-  for (; i <= n; i++) {
+  for (; i <= n; i++)
+  {
     // nr de solutii pentru gardul de lungime i
     D[i] = D[i - 1] + D[i - k];
   }
 
   // printare rezultat
   printf("solutii obtinute:\n");
-  for (i = 1; i <= n; i++) {
+  for (i = 1; i <= n; i++)
+  {
     printf("\nD[%d] = %d\n", i, D[i]); // printare optim
-    // printare_solutie_garduri(k, i);    // printare solutie optima
+    printare_solutie_garduri(k, i);    // printare solutie optima
   }
   printf("-----\n");
 }
 
 void print_sume(int v[], int index, int sum, int rest, int sol[], int index_sol,
-                int n) {
-  if (((sum + v[index]) % 3) == rest) {
-    sol[index_sol++] = v[index];
-    // printf("suma de pana acum : %d + elementul de la pasul curent : %d = %d
-    // ", sum, v[index], sum + v[index]);
-    printf("%d + %d = %d", sum, v[index], sum + v[index]);
-    int j;
-    for (j = 0; j < index_sol; j++) {
-      // printf(" %d", sol[j]);
-    }
-    printf("\n\t\t");
-  }
-  if (index == 0) {
+                int n)
+{
+  if (index == -1)
+  {
     return;
   }
+  if (((sum + v[index]) % 3) == rest)
+  {
+    sol[index_sol++] = v[index];
+    printf("%d + %d = %d { ", sum, v[index], sum + v[index]);
+    int j;
+    for (j = 0; j < index_sol; j++)
+    {
+      printf("%d ", sol[j]);
+    }
+    printf("}\n\t\t");
+  }
   print_sume(v, index - 1, sum, rest, sol, index_sol, n);
+  if (((sum + v[index]) % 3) != rest)
+  {
+    sol[index_sol++] = v[index];
+  }
   print_sume(v, index - 1, sum + v[index], rest, sol, index_sol, n);
 }
 
-void sume(int v[], int n) {
+void sume(int v[], int n)
+{
   // initializare matricea care va contine nr de sume pentru fiecare
   // pas al algoritmului
   int D[n + 1][3];
@@ -106,19 +168,22 @@ void sume(int v[], int n) {
       De aceea apare peste tot v[i - 1];
   */
   int i;
-  for (i = 1; i <= n; i++) {
+  for (i = 1; i <= n; i++)
+  {
     if (v[i - 1] % 3 == 0) // cazul in care v[i] % 3 da rest 0
     {
       D[i][0] = 1 + 2 * D[i - 1][0]; // D[i][0] = 1 + 2 * D[i-1][0]
       D[i][1] = 2 * D[i - 1][1];     // D[i][1] = 2 * D[i-1][1]
       D[i][2] = 2 * D[i - 1][2];     // D[i][2] = 2 * D[i-1][2]
-    } else if (v[i - 1] % 3 == 1)    // cazul in care v[i] % 3 da rest 1
+    }
+    else if (v[i - 1] % 3 == 1) // cazul in care v[i] % 3 da rest 1
     {
       D[i][0] = D[i - 1][0] + D[i - 1][1]; // D[i][0] = D[i-1][0] + D[i-1][1]
       D[i][1] =
-          1 + D[i - 1][0] + D[i - 1][1]; // D[i][1] = 1 + D[i-1][0] + D[i-1][1]
+          1 + D[i - 1][0] + D[i - 1][1];   // D[i][1] = 1 + D[i-1][0] + D[i-1][1]
       D[i][2] = D[i - 1][2] + D[i - 1][1]; // D[i][2] = D[i-1][2] + D[i-1][1]
-    } else                                 // cazul in care v[i] % 3 da rest 2
+    }
+    else // cazul in care v[i] % 3 da rest 2
     {
       D[i][0] = D[i - 1][0] + D[i - 1][1]; // D[i][0] = D[i-1][0] + D[i-1][1]
       D[i][1] = D[i - 1][2] + D[i - 1][1]; // D[i][1] = D[i-1][2] + D[i-1][1]
@@ -133,41 +198,25 @@ void sume(int v[], int n) {
            i - 1, v[i - 1], v[i - 1] % 3);
     int empty_sol[n];
     int len = 0;
-    printf("\tD[%d][0] = %d\n", i - 1, D[i][0]);
-    printf("\t\t");
-    if (v[i - 1] % 3 == 0) {
-      // empty_sol[len++] = v[i - 1];
-    }
+    printf("\n\tD[%d][0] = %d\n\t\t", i, D[i][0]);
     print_sume(v, i - 1, 0, 0, empty_sol, len, n);
-    printf("\n");
-    printf("\tD[%d][1] = %d\n", i - 1, D[i][1]);
-    printf("\t\t");
+    printf("\n\tD[%d][1] = %d\n\t\t", i, D[i][1]);
     len = 0;
-    // if (v[i - 1] % 3 == 1)
-    // {
-    //     empty_sol[len++] = v[i - 1];
-    // }
     print_sume(v, i - 1, 0, 1, empty_sol, len, n);
-    printf("\n");
-    printf("\tD[%d][2] = %d\n", i - 1, D[i][2]);
-    printf("\t\t");
+    printf("\n\tD[%d][2] = %d\n\t\t", i, D[i][2]);
     len = 0;
-    // if (v[i - 1] % 3 == 2)
-    // {
-    //     empty_sol[len++] = v[i - 1];
-    // }
     print_sume(v, i - 1, 0, 2, empty_sol, len, n);
-    printf("\n");
-    printf("\n");
+    printf("\n\n");
   }
-
+  // afisare rezultat final, care ne interesa
   printf("\nNumarul de sume care dau restul 0 la impartirea cu 3 este egal cu "
          "%d.\n",
          D[n][0]);
   printf("-----\n");
 }
 
-int main() {
+int main()
+{
   // 1. k-garduri
   printf("\n--- K-GARDURI ---\n");
   int n = 6;       // lungime maxima a gardului
