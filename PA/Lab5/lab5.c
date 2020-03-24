@@ -33,7 +33,7 @@ int alreadyHere(char *current_str, char **printed_str, int len)
 // functie care foloseste backtracking pentru afisarea unei permutari
 void permutare(char *a, int l, int n, char **already_printed, int len)
 {
-  if (l == n)
+  if (l >= n)
   {
     printf("\t%s\n", a);
     return;
@@ -69,29 +69,46 @@ void printare_solutie_garduri(int k, int L)
   }
   permutare(a, 0, L - 1, str, 0);
 
+  for (j = 0; j < 10; j++)
+  {
+    free(str[j]);
+  }
+  free(str);
+
+  int init_len = L;
   int nr_egaluri = 0;
-  while ((L - 2) >= 3)
+  while ((L - 2) >= 0)
   {
     char **str_egal = (char **)malloc(50 * sizeof(char *));
-    for (j = 0; j < 10; j++)
+    for (j = 0; j < 50; j++)
     {
-      str[j] = (char *)malloc(L * sizeof(char));
+      str_egal[j] = (char *)malloc(10 * sizeof(char));
     }
 
     nr_egaluri++;
-    L -= (2 * nr_egaluri);
+    L -= 2;
 
     char *single_str_egal = (char *)malloc(50 * sizeof(char));
+    int index = 0;
     for (j = 0; j < nr_egaluri; j++)
     {
       strcpy((single_str_egal + j), "=");
+      index++;
     }
 
-    for (; j < L; j++)
+    for (j = 0; j < L; j++, index++)
     {
-      strcpy((single_str_egal + j), "|");
+      strcpy((single_str_egal + index), "|");
     }
-    permutare(single_str_egal, 0, L - 1, str_egal, 0);
+
+    // printf("\n--- %s -> %d\n\n", single_str_egal, L);
+    permutare(single_str_egal, 0, init_len - nr_egaluri, str_egal, 0);
+
+    for (j = 0; j < 50; j++)
+    {
+      free(str_egal[j]);
+    }
+    free(str_egal);
   }
 }
 
