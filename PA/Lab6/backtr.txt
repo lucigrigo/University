@@ -1,0 +1,18 @@
+backtracking iterativ:
+
+backtracking(v, n){
+    for k = 0 .. n - 1
+    v[k] = init_val
+
+    i = 0
+    while(i >= 0) {
+        while(not valid and v[i] <= max)
+            v[i] = v[i] + valid
+            valid = validare(v[i])
+        if v[i] <= max
+            if i == n - 1 // solutie
+                afisare_solutie
+            else
+                i = i - 1
+        }
+}
