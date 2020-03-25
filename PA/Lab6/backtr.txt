@@ -7,12 +7,15 @@ backtracking(v, n){
     i = 0
     while(i >= 0) {
         while(not valid and v[i] <= max)
-            v[i] = v[i] + valid
+            v[i] = v[i] + val
             valid = validare(v[i])
         if v[i] <= max
             if i == n - 1 // solutie
                 afisare_solutie
             else
-                i = i - 1
+                i = i + 1
+        else
+            v[i] = init_val
+            i -= 1
         }
 }
