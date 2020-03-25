@@ -151,7 +151,7 @@ int main() {
   printf("\n--- 1. PERMUTARI ---\n");
   permutari(n);
   // 2. problema submultimilor
-  printf("---\n\n--- 2. SUBMULTIMI ---\n");
+  printf("---\n\n--- 2. SUBMULTIMI ---");
   submultimi(n);
   // 3. problema damelor
   printf("---\n\n--- 3. PROBLEMA DAMELOR ---\n");
