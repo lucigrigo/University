@@ -74,7 +74,7 @@ int main(int argc,char**argv)
 
 	while(bytes_read != 0){
 		write(fd, buf, bytes_read);
-		bytes_read = recvfrom(socketfd, buf, BUFLEN, 0, (struct sockaddr *)&from_station, leng);
+		bytes_read = recvfrom(socketfd, buf, BUFLEN, 0, (struct sockaddr *)&from_station, &leng);
 	}
 
 	/*Inchidere socket*/
