@@ -5,7 +5,7 @@ backtracking(v, n){
     v[k] = init_val
 
     i = 0
-    while(i >= 0) {
+    while(i >= 0)
         while(not valid and v[i] <= max)
             v[i] = v[i] + val
             valid = validare(v[i])
@@ -17,5 +17,5 @@ backtracking(v, n){
         else
             v[i] = init_val
             i -= 1
-        }
+
 }
