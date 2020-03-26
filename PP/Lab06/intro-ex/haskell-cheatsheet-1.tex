@@ -1,0 +1,433 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MatPlotLib and Random Cheat Sheet
+%
+% Edited by Michelle Cristina de Sousa Baltazar
+%
+% http://matplotlib.org/api/pyplot_summary.html
+% http://matplotlib.org/users/pyplot_tutorial.html
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper]{article}
+\usepackage[landscape]{geometry}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+
+\usepackage{textcomp} 
+\usepackage{couriers}
+\usepackage{listings}
+\lstset{
+	numbers			= left,
+	numberstyle		= \tiny,
+    numbersep       = 5pt,
+	captionpos		= b,
+	breaklines		= true,
+	basicstyle		= \ttfamily\footnotesize, 
+	tabsize			= 4,
+	escapeinside	= {~}{~},
+}
+\lstdefinelanguage{Racket}{
+  morekeywords=[1]{define, define-syntax, define-macro, lambda, define-stream, stream-lambda},
+  morekeywords=[2]{begin, call-with-current-continuation, call/cc,
+    call-with-input-file, call-with-output-file, case, cond,
+    do, else, for-each, if,
+    let*, let, let-syntax, letrec, letrec-syntax,
+    let-values, let*-values,
+    and, or, not, delay, force,
+    quasiquote, quote, unquote, unquote-splicing,
+    map, fold, syntax, syntax-rules, eval, environment },
+  morekeywords=[3]{import, export},
+  alsodigit=!\$\%&*+-./:<=>?@^_~,
+  sensitive=true,
+  morecomment=[l]{;},
+  morecomment=[s]{\#|}{|\#},
+  morestring=[b]",
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color[rgb]{0,.3,.7},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  stringstyle={\color[rgb]{0.75,0.49,0.07}},
+  upquote=true,
+  breaklines=true,
+  breakatwhitespace=true,
+  literate=*{`}{{`}}{1}
+}
+
+\title{Haskell - Intro}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+
+\advance\topmargin-1.0in
+\advance\textheight3in
+\advance\textwidth3in
+\advance\oddsidemargin-1.5in
+\advance\evensidemargin-1.5in
+\parindent0pt
+\parskip1pt
+\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
+%\colorbox[HTML]{e4e4e4}{\makebox[\textwidth-2\fboxsep][l]{texto}
+\begin{document}
+
+\begin{center}{\huge{\textbf{Haskell CheatSheet}}}\\
+{\large Laborator 6}
+\end{center}
+
+\begin{multicols*}{3}
+
+\tikzstyle{mybox} = [draw=black, fill=white, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=10pt]
+\tikzstyle{fancytitle} =[fill=black, text=white, font=\bfseries]
+
+% Mihnea
+\tikzstyle{mybox_code} = [mybox, draw = orange, fill=sandybrown]
+\tikzstyle{fancytitle_code} = [fancytitle, fill = orange]
+
+\definecolor{almond}{rgb}{0.94, 0.87, 0.8}
+\definecolor{apricot}{rgb}{0.98, 0.81, 0.69}
+\definecolor{atomictangerine}{rgb}{1.0, 0.6, 0.4}
+\definecolor{sandybrown}{rgb}{0.96, 0.64, 0.38}
+\definecolor{buff}{rgb}{0.94, 0.86, 0.51}
+
+\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
+\definecolor{papayawhip}{rgb}{1.0, 0.94, 0.84}
+\tikzstyle{mybox_persianred} = [mybox, draw = persianred, fill=papayawhip]
+\tikzstyle{fancytitle_persianred} = [fancytitle, fill = persianred]
+
+\definecolor{whitesmoke}{rgb}{0.96, 0.96, 0.96}
+\definecolor{wenge}{rgb}{0.39, 0.33, 0.32}
+\tikzstyle{mybox_blue} = [mybox, draw = wenge, fill=whitesmoke]
+\tikzstyle{fancytitle_blue} = [fancytitle, fill = wenge]
+
+\definecolor{cerise}{rgb}{0.87, 0.19, 0.39}
+\definecolor{mistyrose}{rgb}{1.0, 0.89, 0.88}
+\tikzstyle{mybox_cerise} = [mybox, draw = cerise, fill=mistyrose]
+\tikzstyle{fancytitle_cerise} = [fancytitle, fill = cerise]
+
+\definecolor{pinegreen}{rgb}{0.0, 0.47, 0.44}
+\definecolor{bubbles}{rgb}{0.91, 1.0, 1.0}
+\tikzstyle{mybox_pinegreen} = [mybox, draw = pinegreen, fill=bubbles]
+\tikzstyle{fancytitle_pinegreen} = [fancytitle, fill = pinegreen]
+
+\definecolor{cream}{rgb}{1.0, 0.99, 0.82}
+\definecolor{mikadoyellow}{rgb}{1.0, 0.77, 0.05}
+\tikzstyle{mybox_mikadoyellow} = [mybox, draw = mikadoyellow, fill=cream]
+\tikzstyle{fancytitle_mikadoyellow} = [fancytitle, fill = mikadoyellow]
+
+\definecolor{cornsilk}{rgb}{1.0, 0.97, 0.86}
+\tikzstyle{mybox_orange} = [mybox, draw = orange, fill=cornsilk]
+\tikzstyle{fancytitle_orange} = [fancytitle, fill = orange]
+
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+\definecolor{seagreen}{rgb}{0.18, 0.55, 0.34}
+\tikzstyle{mybox_seagreen} = [mybox, draw = seagreen, fill=aliceblue]
+\tikzstyle{fancytitle_seagreen} = [fancytitle, fill = seagreen]
+
+\definecolor{jazzberryjam}{rgb}{0.65, 0.04, 0.37}
+\definecolor{almond}{rgb}{0.94, 0.87, 0.8}
+\tikzstyle{mybox_jazzberryjam} = [mybox, draw = jazzberryjam, fill=almond]
+\tikzstyle{fancytitle_jazzberryjam} = [fancytitle, fill = jazzberryjam]
+
+\definecolor{amaranth}{rgb}{0.9, 0.17, 0.31}
+\definecolor{bisque}{rgb}{1.0, 0.89, 0.77}
+\tikzstyle{mybox_amaranth} = [mybox, draw = amaranth, fill=bisque]
+\tikzstyle{fancytitle_amaranth} = [fancytitle, fill = amaranth]
+
+\definecolor{carminered}{rgb}{1.0, 0.0, 0.22}
+\definecolor{blanchedalmond}{rgb}{1.0, 0.92, 0.8}
+\tikzstyle{mybox_carminered} = [mybox, draw = amaranth, fill=blanchedalmond]
+\tikzstyle{fancytitle_carminered} = [fancytitle, fill = carminered]
+
+\definecolor{midnightgreen}{rgb}{0.0, 0.29, 0.33}
+\definecolor{lavendermist}{rgb}{0.9, 0.9, 0.98}
+\tikzstyle{mybox_midnightgreen} = [mybox, draw = midnightgreen, fill=lavendermist]
+\tikzstyle{fancytitle_midnightgreen} = [fancytitle, fill = midnightgreen]
+
+\definecolor{indigo}{rgb}{0.29, 0.0, 0.51}
+\definecolor{isabelline}{rgb}{0.96, 0.94, 0.93}
+\tikzstyle{mybox_indigo} = [mybox, draw = indigo, fill=isabelline]
+\tikzstyle{fancytitle_indigo} = [fancytitle, fill = indigo]
+
+\definecolor{russet}{rgb}{0.5, 0.27, 0.11}
+\definecolor{ivory}{rgb}{1.0, 1.0, 0.94}
+\tikzstyle{mybox_russet} = [mybox, draw = russet, fill=ivory]
+\tikzstyle{fancytitle_russet} = [fancytitle, fill = russet]
+
+\definecolor{neongreen}{rgb}{0.12, 0.58, 0.02}
+\definecolor{splashedwhite}{rgb}{0.9, 0.99, 0.9}
+\tikzstyle{mybox_neongreen} = [mybox, draw = neongreen, fill=splashedwhite]
+\tikzstyle{fancytitle_neongreen} = [fancytitle, fill = neongreen]
+
+%---------------------------------------------------------------------------------
+
+\begin{tikzpicture}
+\node [mybox_persianred] (box){%
+    \begin{minipage}{0.3\textwidth}
+
+\begin{lstlisting}[language=Haskell, numbers=none]
+5       :: Int
+'H'     :: Char
+"Hello" :: String
+True    :: Bool
+False   :: Bool
+\end{lstlisting}
+	\end{minipage}
+};
+
+\node[fancytitle_persianred, right=10pt] at (box.north west) {Tipuri de bază};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node [mybox_seagreen] (box){%
+    \begin{minipage}{0.3\textwidth}
+    	{\centering\bf\small\color{seagreen} :t \\}
+
+\begin{lstlisting}[language=Haskell, numbers=none]
+> :t 42            
+42 :: Num a => a
+\end{lstlisting}
+
+\textbf{a} reprezintă o variabilă de tip, 
+restrictionată la toate tipurile numerice.
+
+\begin{lstlisting}[language=Haskell, numbers=none]
+> :t 42.0
+42 :: Fractional a => a
+\end{lstlisting}
+
+In acest exemplu, \textbf{a} este
+restrictionată la toate tipurile numerice fracționare
+(e.g. \textbf{Float}, \textbf{Double}).
+
+	\end{minipage}
+};
+
+\node[fancytitle_seagreen, right=10pt] at (box.north west) {Determinarea tipului unei expresii};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node [mybox_jazzberryjam] (box){%
+    \begin{minipage}{0.3\textwidth}
+    	{\centering\bf\small\color{jazzberryjam} [] (:) \\}
+
+\begin{lstlisting}[language=Haskell, numbers=none]
+[]              -- lista vida
+(:)             -- operatorul de adaugare 
+                -- la inceputul listei
+
+1 : 3 : 5 : []  -- lista care contine 1, 3, 5
+[1, 3, 5]       -- sintaxa echivalenta
+\end{lstlisting}
+
+	\end{minipage}
+};
+
+\node[fancytitle_jazzberryjam, right=10pt] at (box.north west) {Constructori liste};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node [mybox_mikadoyellow] (box){%
+    \begin{minipage}{0.3\textwidth}
+{\centering\bf\small\color{mikadoyellow} not  \&\&   $||$  \\}
+		\begin{lstlisting}[language=Haskell, numbers=none]
+not True                      False
+not False                     True
+True || False                 True
+True && False                 False
+        \end{lstlisting}
+    \end{minipage}
+};
+
+\node[fancytitle_mikadoyellow, right=10pt] at (box.north west) {Operatori logici};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node [mybox_orange] (box){%
+    \begin{minipage}{0.3\textwidth}
+    	{\centering\bf\small\color{orange} (++) head tail last init take drop\\}
+		\begin{lstlisting}[language=Haskell, numbers=none]
+[1, 2] ++ [3, 4]                     [1, 2, 3, 4]
+
+head [1, 2, 3, 4]                    1
+tail [1, 2, 3, 4]                    [2, 3, 4]
+
+last [1, 2, 3, 4]                    4
+init [1, 2, 3, 4]                    [1, 2, 3]
+
+take 2 [1, 2, 3, 4]                  [1, 2]
+take 2 "HelloWorld"                  "He"
+
+drop 2 [1, 2, 3, 4]                  [3, 4]
+
+null []                              True
+null [1, 2, 3]                       False
+\end{lstlisting}
+    \end{minipage}
+};
+
+\node[fancytitle_orange, right=10pt] at (box.north west) {Operatori pe liste};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node [mybox_blue] (box){%
+    \begin{minipage}{0.3\textwidth}
+	{\centering\bf\small\color{wenge} length elem reverse\\}
+		\begin{lstlisting}[language=Haskell, numbers=none]
+length [1, 2, 3, 4]                  4
+
+elem 3 [1, 2, 3, 4]                  True
+elem 5 [1, 2, 3, 4]                  False
+
+reverse [1, 2, 3, 4]                 [4, 3, 2, 1]
+        \end{lstlisting}
+    \end{minipage}
+};
+
+\node[fancytitle_blue, right=10pt] at (box.north west) {Alte operații};
+\end{tikzpicture}
+
+%---------------------------------------------------------------------------------
+
+\begin{tikzpicture}
+\node [mybox_amaranth] (box){%
+    \begin{minipage}{0.3\textwidth}
+% {\centering\bf\small\color{midnightgreen}    Tupluri}
+
+Spre deosebire de liste, tuplurile au un număr fix de elemente, iar acestea
+pot avea tipuri diferite.
+\begin{lstlisting}[language=Haskell, numbers=none]
+import Data.Tuple
+
+("Hello", True) :: (String, Bool)
+(1, 2, 3)       :: (Integer, Integer, Integer)
+
+fst ("Hello", True)     "Hello"
+snd ("Hello", True)     True
+swap ("Hello", True)    (True, "Hello") 
+\end{lstlisting}
+
+    \end{minipage}
+};
+
+\node[fancytitle_amaranth, right=10pt] at (box.north west) {Tupluri};
+\end{tikzpicture}
+
+
+\begin{tikzpicture}
+\node [mybox_midnightgreen] (box){%
+    \begin{minipage}{0.3\textwidth}
+{\centering \bf\small\color{midnightgreen} \textbackslash arg1 arg2 $\rightarrow$ corp\\}
+
+\begin{lstlisting}[language=Haskell, numbers=none]
+\x -> x                       functia identitate
+(\x y -> x + y) 1 2           3
+let f = \x y -> x + y         legare la un nume
+(f 1 2)                       3
+\end{lstlisting}
+\end{minipage}
+};
+
+\node[fancytitle_midnightgreen, right=10pt] at (box.north west) {Funcții anonime (lambda)};
+\end{tikzpicture}
+
+%---------------------------------------------------------------------------------
+
+\begin{tikzpicture}
+\node [mybox_indigo] (box){%
+    \begin{minipage}{0.3\textwidth}
+
+\begin{lstlisting}[language=Haskell, numbers=none]
+-- if .. then .. else
+factorial x = 
+    if x < 1 then 1 else x * factorial (x - 1)
+
+-- guards
+factorial x
+    | x < 1 = 1
+    | otherwise = x * factorial (x - 1)
+
+-- case .. of
+factorial x = case x < 1 of
+    True -> 1
+    _    -> x * factorial (x - 1)
+
+-- pattern matching
+factorial 0 = 1
+factorial x = x * factorial (x - 1)
+
+\end{lstlisting}
+\end{minipage}
+};
+
+\node[fancytitle_indigo, right=10pt] at (box.north west) {Definire functii};
+\end{tikzpicture}
+
+% %---------------------------------------------------------------------------------
+
+\begin{tikzpicture}
+\node [mybox_cerise] (box){
+    \begin{minipage}{0.3\textwidth}
+    
+In Haskell funcțiile sunt, by default, in forma curry.
+    
+\begin{lstlisting}[language=Haskell, numbers=none]
+
+:t (+) 
+(+) :: Num a => a -> a -> a
+
+:t (+ 1)
+(+ 1) :: Num a => a -> a
+
+\end{lstlisting}
+\end{minipage}
+};
+
+\node[fancytitle_cerise, right=10pt] at (box.north west) {Curry};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node [mybox_neongreen] (box){
+    \begin{minipage}{0.3\textwidth}
+    {\centering\bf\small\color{neongreen} map filter foldl foldr zip zipWith\\}
+\begin{lstlisting}[language=Haskell, numbers=none]
+
+map     :: (a -> b) -> [a] -> [b]
+filter  :: (a -> Bool) -> [a] -> [a]
+foldl   :: (a -> b -> a) -> a -> [b] -> a
+zip     :: [a] -> [b] -> [(a, b)]
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+
+map (+ 2) [1, 2, 3]          [3, 4, 5]
+
+filter odd [1, 2, 3, 4]      [1, 3]
+
+foldl (+) 0 [1, 2, 3, 4]     10
+foldl (-) 0 [1, 2]           -3   (0 - 1) - 2
+foldr (-) 0 [1, 2]           -1   1 - (2 - 0)
+
+zip [1, 2] [3, 4]            [(1, 3), (2, 4)]
+zipWith (+) [1, 2] [3, 4]    [4, 6]
+
+\end{lstlisting}
+\end{minipage}
+};
+
+\node[fancytitle_neongreen, right=10pt] at (box.north west) {Funcționale uzuale};
+\end{tikzpicture}
+%---------------------------------------------------------------------------------
+
+\end{multicols*}
+\end{document}
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
