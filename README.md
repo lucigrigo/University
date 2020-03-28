@@ -27,6 +27,7 @@ Contains:
 - Dynamic Programming
 - Machine Learning
 - Object-Oriented Programming
+- Algorithms
 
 ## Frameworks used - Python:
 - Sci:Kit Learn
