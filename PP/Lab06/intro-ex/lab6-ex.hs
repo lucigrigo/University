@@ -16,7 +16,7 @@ Expresia `undefined` are orice tip, dar nu poate fi evaluată.
 Implementați funcția `unzip2`
 -}
 unzip2  :: [(a, b)] -> ([a], [b])
-unzip2 x = undefined
+unzip2 x = ([fst a | a <- x], [snd b | b <- x])
 
 -- Verificare: check1
 check1 :: TestPP ()
@@ -28,8 +28,10 @@ check1 = do
 2. (1p)
 Implementați, folosind obligatoriu list-comprehensions, lista tuturor numerelor prime până la n.
 -}
+check_prime n = null [x | x <- [2..(n `div` 2)], (n `mod` x) == 0]
+
 primes :: Int -> [Int]
-primes n = undefined
+primes n = [x | x <- [2..n], check_prime x]
 
 -- Verificare: check2
 check2 :: TestPP ()
@@ -44,16 +46,16 @@ intersecție, diferență, produs cartezian. Utilizați ulterior funcțiile defi
 pentru a reprezenta reuniunea mulțimilor.
 -}
 setIntersection :: Eq a => [a] -> [a] -> [a]
-setIntersection a b = undefined
+setIntersection a b = [x | x <- a, elem x b]
 
 setDiff :: Eq a => [a] -> [a] -> [a]
-setDiff a b = undefined
+setDiff a b = [x | x <- a, not (elem x b)]
 
 cartProduct :: [a] -> [b] -> [(a, b)]
-cartProduct a b = undefined
+cartProduct a b = [(x, y) | x <- a, y <- b]
 
 setUnion :: Eq a => [a] -> [a] -> [a]
-setUnion a b = undefined
+setUnion a b = a ++ (setDiff b a)
 
 -- Verificare: check4
 check3 :: TestPP ()
@@ -75,8 +77,14 @@ Implementați o funcție ce grupează elementele egale ale unei liste în liste 
 Funcția ar trebui să aibă același comportament cu Data.List.group:
 http://zvon.org/other/haskell/Outputlist/group_f.html
 -}
+countFirstElem count element list
+  | null list = count
+  | element /= (head list) = count
+  | otherwise = countFirstElem (count + 1) (head list) (tail list)
+
 group2 :: Eq a => [a] -> [[a]]
-group2 = undefined
+group2 [] = []
+group2 a = [(replicate (countFirstElem 1 (head a) (tail a))) (head a)] ++ (group2 (drop (countFirstElem 1 (head a) (tail a)) a))
 
 -- Verificare: check4
 check4 :: TestPP ()
@@ -97,7 +105,7 @@ Hint: S-ar putea să aveți nevoie de funcții auxiliare. Puteți folosi "group2
 a grupa elementele egale în liste separate şi "sort" pentru a sorta o listă. 
 -}
 nrOcc :: Ord a => [a] -> [(a, Int)]
-nrOcc = undefined
+nrOcc a = [(head x, length x) | x <- (group2 (sort a))]
 
 -- Verificare: check5
 check5 :: TestPP ()
@@ -114,7 +122,7 @@ Hint: Ar putea fi utile funcţiile "concat" sau "++" pentru concatenarea cuvinte
 "unwords" pentru conversia unei propoziții la o listă de cuvinte si invers.
 -}
 dup :: String -> String
-dup = undefined
+dup w = unwords([(a ++ " " ++ a) | a <- (words w)]) 
 
 -- Verificare: check6
 check6 :: TestPP ()
