@@ -1,0 +1,154 @@
+Proiectarea Algoritmilor
+Laborator 7
+Grigore Lucian-Florin
+324CD
+
+graful utilizat:
+A: B, C, H
+B: D, E, H, I
+C: D
+D: E, J
+E: F, G
+F: G
+G: -
+H: I
+I: A
+J: -
+
+1. Parcurgere in latime
+la fiecare pas: Q, d(u), p(u), c(u)
+
+output:
+------------------------------
+
+--- Parcurgere pe latime ---
+Q:    	A p(A)=A d(A)=0 c(A)=gri
+
+Q:    	B p(B)=A d(B)=1 c(B)=gri
+   	C p(C)=A d(C)=1 c(C)=gri
+   	H p(H)=A d(H)=1 c(H)=gri
+
+Q:    	C p(C)=A d(C)=1 c(C)=gri
+   	H p(H)=A d(H)=1 c(H)=gri
+   	D p(D)=B d(D)=2 c(D)=gri
+   	E p(E)=B d(E)=2 c(E)=gri
+   	I p(I)=B d(I)=2 c(I)=gri
+
+Q:    	H p(H)=A d(H)=1 c(H)=gri
+   	D p(D)=B d(D)=2 c(D)=gri
+   	E p(E)=B d(E)=2 c(E)=gri
+   	I p(I)=B d(I)=2 c(I)=gri
+
+Q:    	D p(D)=B d(D)=2 c(D)=gri
+   	E p(E)=B d(E)=2 c(E)=gri
+   	I p(I)=B d(I)=2 c(I)=gri
+
+Q:    	E p(E)=B d(E)=2 c(E)=gri
+   	I p(I)=B d(I)=2 c(I)=gri
+   	J p(J)=D d(J)=3 c(J)=gri
+
+Q:    	I p(I)=B d(I)=2 c(I)=gri
+   	J p(J)=D d(J)=3 c(J)=gri
+   	F p(F)=E d(F)=3 c(F)=gri
+   	G p(G)=E d(G)=3 c(G)=gri
+
+Q:    	J p(J)=D d(J)=3 c(J)=gri
+   	F p(F)=E d(F)=3 c(F)=gri
+   	G p(G)=E d(G)=3 c(G)=gri
+
+Q:    	F p(F)=E d(F)=3 c(F)=gri
+   	G p(G)=E d(G)=3 c(G)=gri
+
+Q:    	G p(G)=E d(G)=3 c(G)=gri
+
+
+Rezultate finale BFS:
+	Nod A: p(A)=- d(A)=0 c(A)=negru
+	Nod B: p(B)=A d(B)=1 c(B)=negru
+	Nod C: p(C)=A d(C)=1 c(C)=negru
+	Nod D: p(D)=B d(D)=2 c(D)=negru
+	Nod E: p(E)=B d(E)=2 c(E)=negru
+	Nod F: p(F)=E d(F)=3 c(F)=negru
+	Nod G: p(G)=E d(G)=3 c(G)=negru
+	Nod H: p(H)=A d(H)=1 c(H)=negru
+	Nod I: p(I)=B d(I)=2 c(I)=negru
+	Nod J: p(J)=D d(J)=3 c(J)=negru
+
+------------------------------
+
+2. Parcurgere in adancime
+la fiecare pas: c(u), d(u), p(u)
+
+output:
+Nod A d(A)=1
+		Nod B d(B)=2
+			Nod D d(D)=3
+				Nod E d(E)=4
+					Nod F d(F)=5
+						Nod G d(G)=6
+				Nod J d(J)=4
+			Nod H d(H)=3
+				Nod I d(I)=4
+		Nod C d(C)=2
+		---
+
+	Nod B d(B)=1
+		Nod D d(D)=2
+			Nod E d(E)=3
+				Nod F d(F)=4
+					Nod G d(G)=5
+			Nod J d(J)=3
+		Nod H d(H)=2
+			Nod I d(I)=3
+		---
+
+	Nod C d(C)=1
+		Nod D d(D)=2
+			Nod E d(E)=3
+				Nod F d(F)=4
+					Nod G d(G)=5
+			Nod J d(J)=3
+		---
+
+	Nod D d(D)=1
+		Nod E d(E)=2
+			Nod F d(F)=3
+				Nod G d(G)=4
+		Nod J d(J)=2
+		---
+
+	Nod E d(E)=1
+		Nod F d(F)=2
+			Nod G d(G)=3
+		---
+
+	Nod F d(F)=1
+		Nod G d(G)=2
+		---
+
+	Nod G d(G)=1
+		---
+
+	Nod H d(H)=1
+		Nod I d(I)=2
+			Nod A d(A)=3
+				Nod B d(B)=4
+					Nod D d(D)=5
+						Nod E d(E)=6
+							Nod F d(F)=7
+						Nod J d(J)=6
+				Nod C d(C)=4
+		---
+
+	Nod I d(I)=1
+		Nod A d(A)=2
+			Nod B d(B)=3
+				Nod D d(D)=4
+					Nod E d(E)=5
+						Nod F d(F)=6
+							Nod G d(G)=7
+					Nod J d(J)=5
+			Nod C d(C)=3
+		---
+
+	Nod J d(J)=1
