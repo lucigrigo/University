@@ -1,0 +1,8 @@
+Proiectarea Algoritmilor
+Laborator 7
+Grigore Lucian-Florin
+324CD
+
+1. Parcurgere in latime
+
+2. Parcurgere in adancime
