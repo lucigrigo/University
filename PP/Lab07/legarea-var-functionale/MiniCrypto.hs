@@ -40,7 +40,7 @@ test1 :: TestPP ()
 test1 = testOne 1 $ testVal (take 42 $ myCycle xs) (take 42 $ cycle xs) "myCycle" 1
   where xs = [1,2,3,4]
 myCycle :: [a] -> [a]
-myCycle = undefined
+myCycle lst = lst ++ myCycle lst
 {-
   2. (2p)
   Construiţi o progresie aritmetică şi o progresie geometrică pornind de la 
@@ -57,9 +57,9 @@ test2 = tests 2 2
   ]
   where { initial = 5 ; r = 6 ; q = 2 }
 arithmetic :: Num a => a -> a -> [a]
-arithmetic = undefined
+arithmetic start ratio = start : arithmetic (start + ratio) ratio
 geometric :: Num a => a -> a -> [a]
-geometric = undefined
+geometric start ratio = start : geometric (start * ratio) ratio
 {-
   3. (2p)
   Construiți o funcție care întoarce un șir infinit de numere pseudo-aleatoare,
@@ -79,7 +79,12 @@ geometric = undefined
 test3 :: TestPP ()
 test3 = testOne 3 $ testVal (take 10 $ randoms 42) [38,166,220,81,67,142,213,118,105,10] "randoms" 2
 randoms :: Int -> [Word8]
-randoms = undefined
+randoms seed = map (fromIntegral.fst) lst
+  where 
+    gen = mkStdGen seed
+    lst = iterate crnext s
+    crnext (elem, generator) = next generator
+    s = next gen
 {-
     4. (1p)
     Implementați o funcție care convertește un element de tipul Word8 (0 - 255) într-un caracter
@@ -98,7 +103,7 @@ randoms = undefined
 test4 :: TestPP ()
 test4 = testOne 4 $ testVal (map wordToAlpha [0..255]) (take 256 $ cycle ['a'..'z']) "wordToAlpha" 1
 wordToAlpha :: Word8 -> Char
-wordToAlpha = undefined
+wordToAlpha w = chr $ 97 + (mod (fromIntegral w) 26)
 {-
     5. (1p)
     Implementați o funcție care generează o secvență infinită de caractere alfabetice
@@ -110,7 +115,7 @@ wordToAlpha = undefined
 test5 :: TestPP ()
 test5 = testOne 5 $ testVal (take 10 $ randomAlphaKey 42) "mkmdpmfobk" "randomAlphaKey" 1
 randomAlphaKey :: Int -> String
-randomAlphaKey = undefined
+randomAlphaKey sd = map wordToAlpha $ randoms sd
 {-
   6. (3p)
   Implementați funcția tableToFunc, care primește o listă de asocieri
@@ -138,10 +143,13 @@ rot13Table = [('a','n'),('b','o'),('c','p'),('d','q'),('e','r'),
               ('u','h'),('v','i'),('w','j'),('x','k'),('y','l'),
               ('z','m')]   
 tableToFunc :: [(Char, Char)] -> Char -> Char
-tableToFunc = undefined
+tableToFunc lst = f
+  where
+    f x = snd $ head $ search_subst x
+    search_subst c = filter (\x -> (fst x) == c) lst
         
 substCrypt :: [(Char, Char)] -> String -> String
-substCrypt = undefined
+substCrypt = map.tableToFunc
 {-
     7. (Bonus - 1p)
     
@@ -187,6 +195,9 @@ test7 = tests 7 1
   ]
 genRotTable :: Int -> [(Char, Char)]
 genRotTable = undefined
+-- genRotTable offset = zip ['a'..'z'] lst 
+--   where
+--     lst = map (\x chr (97 + ((offset + (ord x) - 97) `mod` 26))) ['a'..'z']
                 
 {-  8. (Bonus - 1p)
     Ne propunem să implementăm o funcție de criptare numită encryptVigenere.
