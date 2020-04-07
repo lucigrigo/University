@@ -1,0 +1,115 @@
+                        Proiectarea Algoritmilor
+                        Laborator 7
+                        Grigore Lucian-Florin
+                        324CD
+
+graful utilizat (lista de adiacenta):
+A: B, C, H
+B: D, E, H, I
+C: D
+D: E, J
+E: F, G
+F: G
+G: -
+H: I
+I: A
+J: -
+
+1. Parcurgere in latime
+la fiecare pas: Q (nodurile din coada), d(u), p(u), c(u)
+
+pasii algoritmului:
+sursa curenta: A
+-----------------
+1:
+Q:    	Nod (A) p(A)=A d(A)=0 c(A)=gri
+-----------------
+2:
+Q:    	Nod (B) p(B)=A d(B)=1 c(B)=gri
+   	Nod (C) p(C)=A d(C)=1 c(C)=gri
+   	Nod (H) p(H)=A d(H)=1 c(H)=gri
+  	c(A)=negru
+-----------------
+3:
+Q:    	Nod (C) p(C)=A d(C)=1 c(C)=gri
+   	Nod (H) p(H)=A d(H)=1 c(H)=gri
+   	Nod (D) p(D)=B d(D)=2 c(D)=gri
+   	Nod (E) p(E)=B d(E)=2 c(E)=gri
+   	Nod (I) p(I)=B d(I)=2 c(I)=gri
+  	c(B)=negru
+-----------------
+4:
+Q:    	Nod (H) p(H)=A d(H)=1 c(H)=gri
+   	Nod (D) p(D)=B d(D)=2 c(D)=gri
+   	Nod (E) p(E)=B d(E)=2 c(E)=gri
+   	Nod (I) p(I)=B d(I)=2 c(I)=gri
+  	c(C)=negru
+-----------------
+5:
+Q:    	Nod (D) p(D)=B d(D)=2 c(D)=gri
+   	Nod (E) p(E)=B d(E)=2 c(E)=gri
+   	Nod (I) p(I)=B d(I)=2 c(I)=gri
+  	c(H)=negru
+-----------------
+6:
+Q:    	Nod (E) p(E)=B d(E)=2 c(E)=gri
+   	Nod (I) p(I)=B d(I)=2 c(I)=gri
+   	Nod (J) p(J)=D d(J)=3 c(J)=gri
+  	c(D)=negru
+-----------------
+7:
+Q:    	Nod (I) p(I)=B d(I)=2 c(I)=gri
+   	Nod (J) p(J)=D d(J)=3 c(J)=gri
+   	Nod (F) p(F)=E d(F)=3 c(F)=gri
+   	Nod (G) p(G)=E d(G)=3 c(G)=gri
+  	c(E)=negru
+-----------------
+8:
+Q:    	Nod (J) p(J)=D d(J)=3 c(J)=gri
+   	Nod (F) p(F)=E d(F)=3 c(F)=gri
+   	Nod (G) p(G)=E d(G)=3 c(G)=gri
+  	c(I)=negru
+-----------------
+9:
+Q:    	Nod (F) p(F)=E d(F)=3 c(F)=gri
+   	Nod (G) p(G)=E d(G)=3 c(G)=gri
+  	c(J)=negru
+-----------------
+10:
+Q:    	Nod (G) p(G)=E d(G)=3 c(G)=gri
+  	c(F)=negru
+-----------------
+11:
+Q:	c(G)=negru
+  	empty
+-----------------
+2. Parcurgere in adancime
+
+afisare:
+    la fiecare inceput de explorare a unei zone dintr-un nod
+                <numele_nodului> c(u) d(u) p(u)
+
+    la fiecare finalizare de explorare a unei zone dintr-un nod
+                <numele_nodului> f(u)
+
+pasii algoritmului pentru graful dat:
+1: A c(A)=gri d(A)=1 p(A)=-
+2: B c(B)=gri d(B)=2 p(B)=A
+3: D c(D)=gri d(D)=3 p(D)=B
+4: E c(E)=gri d(E)=4 p(E)=D
+5: F c(F)=gri d(F)=5 p(F)=E
+6: G c(G)=gri d(G)=6 p(G)=F
+7: G c(G)=negru f(G)=7
+8: F c(F)=negru f(F)=8
+9: E c(E)=negru f(E)=9
+10: J c(J)=gri d(J)=10 p(J)=D
+11: J c(J)=negru f(J)=11
+12: D c(D)=negru f(D)=12
+13: H c(H)=gri d(H)=13 p(H)=B
+14: I c(I)=gri d(I)=14 p(I)=H
+15: I c(I)=negru f(I)=15
+16: H c(H)=negru f(H)=16
+17: B c(B)=negru f(B)=17
+18: C c(C)=gri d(C)=18 p(C)=A
+19: C c(C)=negru f(C)=19
+20: A c(A)=negru f(A)=20
