@@ -83,6 +83,7 @@ void CTC() {
 }
 
 int main() {
+    // graful pentru prima problema - sortare topologica
   G1[0][1] = 1;
   G1[0][3] = 1;
   G1[0][6] = 1;
@@ -92,6 +93,7 @@ int main() {
   G1[6][2] = 1;
   // sortare topologica
   sortare_topologica();
+  // graful pentru a doua problema - componente tare conexe
   // componente tare conexe
   CTC();
   return 0;
