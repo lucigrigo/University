@@ -1,0 +1,132 @@
+                            Proiectarea Algoritmilor
+                                  Laborator 8
+                          Grigore Lucian-Florin 324CDb
+
+1. SORTARE TOPOLOGICA
+
+--- parcurgere directa din punct de vedere alfabetic ---
+1 - nod A d(A)=1 c(A)=gri
+2 - nod B d(B)=2 c(B)=gri
+3 - nod G d(G)=3 c(G)=gri
+4 - nod C d(C)=4 c(C)=gri
+5 - nod C f(C)=5 c(C)=negru
+6 - nod G f(G)=6 c(G)=negru
+7 - nod B f(B)=7 c(B)=negru
+8 - nod D d(D)=8 c(D)=gri
+9 - nod E d(E)=9 c(E)=gri
+10 - nod E f(E)=10 c(E)=negru
+11 - nod D f(D)=11 c(D)=negru
+12 - nod A f(A)=12 c(A)=negru
+13 - nod F d(F)=13 c(F)=gri
+14 - nod F f(F)=14 c(F)=negru
+
+rezultate parcurgere:
+    F - d(F)=13 f(F)=14
+    A - d(A)=1 f(A)=12
+    D - d(D)=8 f(D)=11
+    E - d(E)=9 f(E)=10
+    B - d(B)=2 f(B)=7
+    G - d(G)=3 f(G)=6
+    C - d(C)=4 f(C)=5
+
+sortare topologica: F,A,D,E,B,G,C
+
+--- parcurgere inversa din punct de vedere alfabetic ---
+1 - nod G d(G)=1 c(G)=gri
+2 - nod C d(C)=2 c(C)=gri
+3 - nod C f(C)=3 c(C)=negru
+4 - nod G f(G)=4 c(G)=negru
+5 - nod F d(F)=5 c(F)=gri
+6 - nod E d(E)=6 c(E)=gri
+7 - nod E f(E)=7 c(E)=negru
+8 - nod F f(F)=8 c(F)=negru
+9 - nod D d(D)=9 c(D)=gri
+10 - nod D f(D)=10 c(D)=negru
+11 - nod B d(B)=11 c(B)=gri
+12 - nod B f(B)=12 c(B)=negru
+13 - nod A d(A)=13 c(A)=gri
+14 - nod A f(A)=14 c(A)=negru
+
+rezultate parcurgere:
+    A - d(A)=13 f(A)=14
+    B - d(B)=11 f(B)=12
+    D - d(D)=9 f(D)=10
+    F - d(F)=5 f(F)=8
+    E - d(E)=6 f(E)=7
+    G - d(G)=1 f(G)=4
+    C - d(C)=2 f(C)=3
+
+sortare topologica: A,B,D,F,E,G,C
+
+2. COMPONENTE TARE CONEXE
+
+--- parcurgerea DFS pe graful direct ---
+1 - A d(A)=1 c(A)=gri
+2 - B d(B)=2 c(B)=gri
+3 - C d(C)=3 c(C)=gri
+4 - E d(E)=4 c(E)=gri
+5 - D d(D)=5 c(D)=gri
+6 - F d(F)=6 c(F)=gri
+7 - F f(F)=7 c(F)=negru
+8 - D f(D)=8 c(D)=negru
+9 - E f(E)=9 c(E)=negru
+10 - C f(C)=10 c(C)=negru
+11 - G d(G)=11 c(G)=gri
+12 - H d(H)=12 c(H)=gri
+13 - H f(H)=13 c(H)=negru
+14 - G f(G)=14 c(G)=negru
+15 - B f(B)=15 c(B)=negru
+16 - A f(A)=16 c(A)=negru
+17 - I d(I)=17 c(I)=gri
+18 - J d(J)=18 c(J)=gri
+19 - K d(K)=19 c(K)=gri
+20 - M d(M)=20 c(M)=gri
+21 - N d(N)=21 c(N)=gri
+22 - O d(O)=22 c(O)=gri
+23 - P d(P)=23 c(P)=gri
+24 - P f(P)=24 c(P)=negru
+25 - O f(O)=25 c(O)=negru
+26 - N f(N)=26 c(N)=negru
+27 - M f(M)=27 c(M)=negru
+28 - K f(K)=28 c(K)=negru
+29 - J f(J)=29 c(J)=negru
+30 - L d(L)=30 c(L)=gri
+31 - L f(L)=31 c(L)=negru
+32 - I f(I)=32 c(I)=negru
+
+sortare descrescator dupa timpul de finalizare:
+    I,L,J,K,M,N,O,P,A,B,G,H,C,E,D,F
+
+--- parcurgerea DFS pe graful transpus ---
+1 - I d(I)=17 c(I)=gri
+2 - K d(K)=19 c(K)=gri
+3 - J d(J)=18 c(J)=gri
+4 - J f(J)=29 c(J)=negru
+5 - L d(L)=30 c(L)=gri
+6 - L f(L)=31 c(L)=negru
+7 - K f(K)=28 c(K)=negru
+8 - I f(I)=32 c(I)=negru => CTC #1: I K L J
+9 - M d(M)=20 c(M)=gri
+10 - O d(O)=22 c(O)=gri
+11 - N d(N)=21 c(N)=gri
+12 - N f(N)=26 c(N)=negru
+13 - O f(O)=25 c(O)=negru
+14 - M f(M)=27 c(M)=negru => CTC #2: M O N
+15 - P d(P)=23 c(P)=gri
+16 - P f(P)=24 c(P)=negru => CTC #3: P
+17 - A d(A)=1 c(A)=gri
+18 - A f(A)=16 c(A)=negru => CTC #4: A
+19 - B d(B)=2 c(B)=gri
+20 - B f(B)=15 c(B)=negru => CTC #5: B
+21 - G d(G)=11 c(G)=gri
+22 - G f(G)=14 c(G)=negru => CTC #6: G
+23 - H d(H)=12 c(H)=gri
+24 - H f(H)=13 c(H)=negru => CTC #7: H
+25 - C d(C)=3 c(C)=gri
+26 - D d(D)=5 c(D)=gri
+27 - E d(E)=4 c(E)=gri
+28 - E f(E)=9 c(E)=negru
+29 - D f(D)=8 c(D)=negru
+30 - C f(C)=10 c(C)=negru => CTC #8: C D E
+31 - F d(F)=6 c(F)=gri
+32 - F f(F)=7 c(F)=negru => CTC #9: F

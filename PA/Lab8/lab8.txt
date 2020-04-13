@@ -1,7 +1,0 @@
-                            Proiectarea Algoritmilor
-                                Laborator 8
-                          Grigore Lucian-Florin 324CDb
-
-1. SORTARE TOPOLOGICA
-
-2. COMPONENTE TARE CONEXE
