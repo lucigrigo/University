@@ -25,6 +25,11 @@ def signal_handler(signal, frame):
     sys.exit(0)
 
 
+def static_arp():
+    srcp = os.path.join("src", info.ARP_TABLE)
+    return path.exists(info.ARP_TABLE) or path.exists(srcp)
+
+
 class SingleSwitchTopo(Topo):
     "Single switch connected to n hosts."
     def build(self, n=2):
@@ -86,7 +91,7 @@ class NetworkManager(object):
         # we want complete control over these actions
         self.router.cmd('echo "0" > /proc/sys/net/ipv4/ip_forward')
         self.router.cmd('echo "1" > /proc/sys/net/ipv4/icmp_echo_ignore_all')
-        if not path.exists("arp_table.txt"):
+        if not static_arp():
             for i in range(len(self.hosts)):
                 disable_arp(self.router, "r-{}".format(i))
 
@@ -152,6 +157,13 @@ def validate_test_results(results):
     return passed
 
 
+def should_skip(testname):
+    if static_arp():
+        return testname in {"router_arp_reply", "router_arp_request"}
+
+    return False
+
+
 def main(run_tests=False):
     topo = SingleSwitchTopo(n=info.N_HOSTS)
     net = Mininet(topo)
@@ -169,10 +181,9 @@ def main(run_tests=False):
         for testname in tests.TESTS:
             skipped = False
 
-            if path.exists("arp_table.txt"):
-                if testname == "router_arp_reply" or testname == "router_arp_request":
-                    skipped = True
-                    passed = False
+            if should_skip(testname):
+                skipped = True
+                passed = False
             else:
                 results = nm.run_test(testname)
                 passed = validate_test_results(results)

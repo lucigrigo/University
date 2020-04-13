@@ -376,17 +376,17 @@ def host_unreachable_p(testname, packets):
         error("No packet received")
         return False
 
-    if not res or len(packets) > 1:
+    if not res or len(packets) > 2:
         error("Excess packets:")
         dump_packets(packets)
 
         return False
 
-    assert ICMP in packets[0], "no ICMP packet from router"
-    i = packets[0][ICMP]
-    if not (i.type == 3 and i.code == 1):
+    assert ICMP in packets[1], "no ICMP packet from router"
+    i = packets[1][ICMP]
+    if not (i.type == 3 and i.code == 0):
         error("Wrong ICMP type and/or code")
-        error("Expected type=3, code=1")
+        error("Expected type=3, code=0")
         error("Got type={}, code={}".format(i.type, i.code))
         return False
 
@@ -469,7 +469,7 @@ TESTS = {
         "wrong_checksum": Test(0, 1, wrong_checksum_a, check_nothing),
         "router_icmp": Test(0, 0, router_icmp_a, router_icmp_p),
         "icmp_timeout": Test(0, 0, icmp_timeout_a, icmp_timeout_p),
-        "host_unreachable": Test(0, 0, icmp_timeout_a, icmp_timeout_p),
+        "host_unreachable": Test(0, 0, host_unreachable_a, host_unreachable_p),
         "forward02": Test(0, 2, forward_a, forward_p),
         "forward03": Test(0, 3, forward_a, forward_p),
         "forward10": Test(1, 0, forward_a, forward_p),
