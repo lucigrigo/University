@@ -27,6 +27,8 @@ charToWord = fromIntegral . fromEnum
 wordToChar :: Word8 -> Char
 wordToChar = toEnum . fromIntegral
         
+f [a:b] = 0
+
 {-
   1. (1p)  
   Construiți funcția myCycle, care ia ca argument o listă și întoarce lista
