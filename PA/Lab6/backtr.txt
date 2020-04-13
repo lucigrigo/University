@@ -2,7 +2,7 @@ backtracking iterativ:
 
 backtracking(v, n){
     for k = 0 .. n - 1
-    v[k] = init_val
+        v[k] = init_val
 
     i = 0
     while(i >= 0)
@@ -17,5 +17,4 @@ backtracking(v, n){
         else
             v[i] = init_val
             i -= 1
-
 }
