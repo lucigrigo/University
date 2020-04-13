@@ -1,0 +1,15 @@
+diff --git a/teme/racket/flappy-bird/starter-kit/main.rkt b/teme/racket/flappy-bird/starter-kit/main.rkt
+index 0ea85fb..dc9b780 100644
+--- a/teme/racket/flappy-bird/starter-kit/main.rkt
++++ b/teme/racket/flappy-bird/starter-kit/main.rkt
+@@ -289,7 +289,9 @@
+ 
+ (define text-family (list "Gill Sans" 'swiss 'normal 'bold #f))
+ (define (score-to-image x)
+-	(apply text/font (~v (round x)) 24 "indigo" text-family))
++(if SHOW_SCORE
++	(apply text/font (~v (round x)) 24 "indigo" text-family)
++	empty-image))
+ 
+ (define (draw-frame state)
+   initial-scene)

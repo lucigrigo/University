@@ -48,6 +48,10 @@
 (provide get-variables-scroll-speed)
 
 ;---------------------------------------checker_exports------------------------------------------------
+; Checker-ul contine un numar de teste, fiecare cu numele sau. In acest fisier veti gasi comentarii
+; care incep cu TODO %nume_test, unde trebuie sa modificati sau sa implementati o functie, pentru
+; a trece testul %nume_test.
+;
 ;Initial state
 ; Primul pas pe care trebuie sa il facem este sa cream starea initiala a jocului.
 ; Aceasta va fi salvata in (get-initial-state), si trebuie sa incapsuleze toate informatiile
@@ -76,6 +80,17 @@
 ;    y = bird-inițial-y
 ; și x = bird-x.
 ; (get-initial-state) va fi o funcție care va returna starea inițială a jocului.
+(struct bird-state
+  (x y width height v-y))
+
+(define get-bird-initial-state
+  (bird-state bird-x bird-initial-y bird-width bird-height 0))
+
+(struct game-state
+  (gravity momentum scroll-speed score bird-state pipes))
+
+(define (get-initial-state)
+  (game-state initial-gravity initial-momentum initial-scroll-speed 0 get-bird-initial-state (list pos-init-pipe)))
 
 ;TODO 8
 ; În starea jocului, trebuie să păstrăm informații despre pipes. Pe parcursul jocului,
@@ -91,36 +106,44 @@
 ; pentru a-l forța să nu fie inițial pe ecran.
 ; Atenție! Recomandăm să păstrați în stare colțul din stânga sus al chenarului lipsa
 ; dintre cele 2 pipe-uri!
+(struct pipe
+  (gap-x gap-y))
+
+(define pos-init-pipe
+  (pipe scene-width (+ added-number (random random-threshold))))
 
 ;TODO 16
 ; Vrem o modalitate de a păstra scorul jocului. După ce definiți structura
 ; acestuia, adăugați scorul inițial, adică 0, în starea inițială a jocului.
 ; Atenție get-initial-state trebuie sa fie o funcție
 ; și trebuie apelată în restul codului.
-(define (get-initial-state)
-  `codul-tau-aici)
+
 
 ;TODO 2
 ; După aceasta, implementați un getter care extrage din structura voastră
 ; pasărea, și un al doilea getter care extrage din structura pasăre
 ; y-ul curent pe care se află această.
 (define (get-bird state)
-  state)
+  game-state-bird-state state)
+
 (define (get-bird-y bird)
-  bird)
+  bird-state-y bird)
 
 ;TODO 3
 ; Trebuie să implementăm logică gravitației. next-state-bird va primi drept
 ; parametri o structură de tip pasăre, și gravitația(un număr real). Aceasta va adaugă
-; vitezei pe y a păsării, gravitația.
+; pozitiei pe y a păsării viteza acesteia pe y, si va adaugă vitezei pe y a păsării,
+; gravitația.
 (define (next-state-bird bird gravity)
-  `codul-tau-aici)
+  (struct-copy bird-state bird
+               [v-y (+ (get-bird-v-y bird) gravity)]
+               [y (+ (get-bird-y bird) (get-bird-v-y bird))]))
 
 ;TODO 4
 ; După aceasta, implementati un getter care extrage din structura voastră
 ; viteza pe y a păsării.
 (define (get-bird-v-y bird)
-  bird)
+  bird-state-v-y bird)
 
 ;TODO 6
 ; Dorim să existe un mod prin care să imprimăm păsării un impuls.
@@ -128,7 +151,7 @@
 ; o structură de tip pasăre, momentum(un număr real), și va schimbă viteza
 ; pe y a păsării cu acea valoare.
 (define (next-state-bird-onspace bird momentum)
-  `codul-tau-aici)
+  (struct-copy bird-state bird [v-y momentum]))
 
 ; Change
 ; Change va fi responsabil de input-ul de la tastatură al jocului.
@@ -137,19 +160,22 @@
 ; care am apăsat-o. Aceasta va imprimă păsării momentum-ul, apelând
 ; funcția next-state-bird-onspace. Pentru orice altă tasta, starea rămâne aceeași.
 (define (change current-state pressed-key)
-  current-state)
+  (next-state-bird-onspace current-state initial-momentum))
 
 ;TODO 9
 ; După ce ați definit structurile pentru mulțimea de pipes și pentru un singur pipe,
 ; implementați getterul get-pipes, care va extrage din starea jocului mulțimea de pipes,
 ; sub formă de lista.
 (define (get-pipes state)
-  `(gol))
+  game-state-pipes state)
 
 ;TODO 10
 ; Implementați get-pipe-x ce va extrage dintr-o singură structura de tip pipe, x-ul acesteia.
-(define(get-pipe-x pipe)
-  pipe)
+(define (get-pipe-x pipe)
+  pipe-gap-x pipe)
+
+(define (get-pipe-y pipe)
+  pipe-gap-y pipe)
 
 ;TODO 11
 ; Trebuie să implementăm logica prin care se mișcă pipes.
@@ -157,7 +183,10 @@
 ; și scroll-speed(un număr real). Aceasta va adaugă x-ului fiecărui pipe
 ; scroll-speed-ul dat.
 (define (move-pipes pipes scroll-speed)
-  pipes)
+  (map (λ (p)
+           (struct-copy pipe p
+                        [gap-x (- (get-pipe-x p) scroll-speed)]))
+         pipes))
 
 ;TODO 12
 ; Vom implementa logica prin care pipe-urile vor fi șterse din stare. În momentul
@@ -167,18 +196,27 @@
 ;
 ; Hint: cunoaștem lățimea unui pipe, pipe-width
 (define (clean-pipes pipes)
-  pipes)
+  (foldl (λ (p acc)
+            (if (< (+ (pipe-gap-x p) pipe-width) 0)
+                acc
+                (append acc (list p))))
+         `()
+          pipes))
 
 
 ;TODO 13
-; Vrem să avem un stream continuu de pipe-uri.
+; Vrem să avem un sursa continuă de pipe-uri.
 ; Implementati funcția add-more-pipes, care va primi drept parametru mulțimea pipe-urilor
 ; din stare și, dacă avem mai puțin de no-pipes pipe-uri, mai adăugăm una la mulțime,
 ; având x-ul egal cu pipe-width + pipe-gap + x-ul celui mai îndepărtat pipe, în raport
 ; cu pasărea.
 (define (add-more-pipes pipes)
-  pipes)
-
+  (if (< (length pipes) no-pipes)
+      (append pipes (list (pipe
+                           (+ pipe-width pipe-gap (get-pipe-x (take-right pipes 1)))
+                           (+ added-number (random random-threshold)))))
+      pipes))
+                     
 ;TODO 14
 ; Vrem ca toate funcțiile implementate anterior legate de pipes să fie apelate
 ; de către next-state-pipes.
@@ -186,12 +224,14 @@
 ; și va apela cele trei funcții implementate anterior, în această ordine:
 ; move-pipes, urmat de clean-pipes, urmat de add-more pipes.
 (define (next-state-pipes pipes scroll-speed)
-  pipes)
+  (add-more-pipes
+   (clean-pipes
+    (move-pipes pipes scroll-speed))))
 
 ;TODO 17
 ; Creați un getter ce va extrage scorul din starea jocului.
 (define (get-score state)
-  state)
+  game-state-score state)
 
 ;TODO 19
 ; Vrem să creăm logica coliziunii cu pământul.
@@ -203,7 +243,9 @@
 ; Coliziunea ar presupune ca un colț inferior al păsării să aibă y-ul
 ; mai mare sau egal cu cel al pământului.
 (define (check-ground-collision bird)
- `codul-tau-aici)
+  (if (>= (+ (bird-state-y bird) bird-height) ground-y)
+      #t
+      #f))
 
 ; invalid-state?
 ; invalid-state? îi va spune lui big-bang dacă starea curentă mai este valida,
@@ -218,7 +260,7 @@
 ; Odată creată logică coliziunilor dintre pasăre și pipes, vrem să integrăm
 ; funcția nou implementată în invalid-state?.
 (define (invalid-state? state)
-  #f)
+  (check-ground-collision (game-state-bird-state state)))
 
 ;TODO 21
 ; Odată ce am creat pasărea, pipe-urile, scor-ul și coliziunea cu pământul,
@@ -235,7 +277,20 @@
 ; colțul din stânga sus și cel din dreapta jos ale celor două dreptunghiuri
 ; pe care vrem să verificăm coliziunea.
 (define (check-pipe-collisions bird pipes)
-  `codul-tau-aici)
+  (foldl (λ (p cond)
+           (if (and (check-collision-rectangles (make-posn bird-x (get-bird-y bird))
+                                                (make-posn (+ bird-x bird-width) (+ (get-bird-y bird) bird-height))
+                                                (make-posn (get-pipe-x p) 0)
+                                                (make-posn (+ (get-pipe-x p) pipe-width) (get-pipe-y p)))
+                    (check-collision-rectangles (make-posn bird-x (get-bird-y bird))
+                                                (make-posn (+ bird-x bird-width) (+ (get-bird-y bird) bird-height))
+                                                (make-posn (get-pipe-x p) (+ (get-pipe-y p) pipe-self-gap))
+                                                (make-posn (+ (get-pipe-x p) pipe-width) scene-height)))
+               #t
+               (or #f cond)))
+         #f
+         pipes))
+                                              
 
 (define (check-collision-rectangles A1 A2 B1 B2)
   (match-let ([(posn AX1 AY1) A1]
@@ -278,8 +333,8 @@
 ; ground -> ground-y si ground-height, acesta va acoperi intreaga latime a ecranului
 ; scor -> text-x si text-y
 ; pipes -> pipe-width si pipe-height
-(define bird (rectangle bird-width bird-height  "solid" "yellow"))
-(define ground (rectangle scene-width ground-height "solid" "brown"))
+(define bird-image (rectangle bird-width bird-height  "solid" "yellow"))
+(define ground-image (rectangle scene-width ground-height "solid" "brown"))
 (define initial-scene (empty-scene scene-width scene-height))
 
 (define text-family (list "Gill Sans" 'swiss 'normal 'bold #f))
@@ -294,7 +349,7 @@
 	'your-code-here)
 
 ; Bonus
-; Completați abilities.txt mai întâi, aceste funcții căt, apoi legați
+; Completați abilities.rkt mai întâi, aceste funcții căt, apoi legați
 ; această funcționalitate la jocul inițial.
 
 
@@ -331,7 +386,7 @@
 
 ; Șterge din reprezentarea abilităţilor vizibile pe cele care nu mai sunt vizibile.
 ; echivalent cu clean-pipes.
-(define (clean-abilities pipes)
+(define (clean-abilities abilities)
 	'your-code-here)
 
 

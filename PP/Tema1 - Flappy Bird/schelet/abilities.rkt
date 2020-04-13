@@ -3,10 +3,16 @@
 (provide fill-abilities)
 (provide compose-abilities)
 (provide hourglass)
+(provide position-abilities)
 (provide get-ability-image)
 (provide get-ability-time)
 (provide get-ability-pos)
 (provide get-ability-next)
+(provide check-ability-active)
+(provide ability-state)
+(provide ability-state-time)
+(provide ability-state-pos)
+(provide ability-state-image)
 
 (require "random.rkt")
 (require lang/posn)
@@ -27,10 +33,23 @@
 
 
 ; Fiecare funcție returneaza o componenta a unei abilități.
-(define (get-ability-image ability) 'your-code-here)
-(define (get-ability-time  ability) 'your-code-here)
-(define (get-ability-pos   ability) 'your-code-here)
-(define (get-ability-next  ability) 'your-code-here)
+(struct ability-state
+  (image time pos next active) #:transparent)
+
+(define (get-ability-image ability)
+  (ability-state-image ability))
+
+(define (get-ability-time  ability)
+  (ability-state-time ability))
+
+(define (get-ability-pos ability)
+  (ability-state-pos ability))
+  
+(define (get-ability-next  ability)
+  (ability-state-next ability))
+
+(define (check-ability-active ability)
+  (ability-state-active ability))
 
 ; Returneaza o poziție aleatorie în POSITION_RANGE.
 (define (random-position range)
@@ -44,13 +63,21 @@
 ; una aletorie.
 ; Folosiți random-position
 (define (position-abilities abilities)
-	'your-code-here)
+  (map (λ (ability)
+         (if (null? (get-ability-pos ability))
+             (struct-copy ability-state ability
+                          [pos (random-position POSITION_RANGE)])
+              ability))
+       abilities))
 
 ; Fiecare abilitate are o funcție next care modifica stare jocului
 ; Compuneti toate funcțiile next în una singură
 ; Hint: compose
 (define (compose-abilities L)
-	'your-code-here)
+  (foldl (λ (ability f)
+           (compose (get-ability-next ability) f))
+         identity
+         L))
 
 ; Primiște o listă de abilități inițiale, un număr n
 ; și o listă cu toate abilități posibile.
@@ -58,4 +85,7 @@
 ; Atentie n poate fi chiar si 0 cand vrem sa jucam fara nicio abilitate.
 ; Folosiți choice-abilities.
 (define (fill-abilities initial n abilities)
-	'your-code-here)
+  (if (< (length abilities) n)
+      (append abilities
+              (position-abilities (choice-abilities (- n (length abilities)) abilities)))
+      abilities))

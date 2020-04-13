@@ -76,18 +76,7 @@
 ;    y = bird-inițial-y
 ; și x = bird-x.
 ; (get-initial-state) va fi o funcție care va returna starea inițială a jocului.
-(struct bird-state
-  (x y width height))
 
-(define get-bird-initial-state
-  (bird-state bird-x bird-initial-y bird-width bird-height))
-
-(struct game-state
-  (gravity momentum scroll-speed score bird-state))
-
-(define (get-initial-state)
-  (game-state initial-gravity initial-momentum initial-scroll-speed 0 get-bird-initial-state))
-  
 ;TODO 8
 ; În starea jocului, trebuie să păstrăm informații despre pipes. Pe parcursul jocului,
 ; pipe-urile se vor schimba, unele vor fi șterse și vor fi adăugate altele.
@@ -108,23 +97,24 @@
 ; acestuia, adăugați scorul inițial, adică 0, în starea inițială a jocului.
 ; Atenție get-initial-state trebuie sa fie o funcție
 ; și trebuie apelată în restul codului.
+(define (get-initial-state)
+  `codul-tau-aici)
 
 ;TODO 2
 ; După aceasta, implementați un getter care extrage din structura voastră
 ; pasărea, și un al doilea getter care extrage din structura pasăre
 ; y-ul curent pe care se află această.
 (define (get-bird state)
-  game-state bird-state)
-
+  state)
 (define (get-bird-y bird)
-  bird-state-y)
+  bird)
 
 ;TODO 3
 ; Trebuie să implementăm logică gravitației. next-state-bird va primi drept
 ; parametri o structură de tip pasăre, și gravitația(un număr real). Aceasta va adaugă
 ; vitezei pe y a păsării, gravitația.
 (define (next-state-bird bird gravity)
-  (struct-copy bird-state bird [y (+ (get-bird-y bird) gravity)]))
+  `codul-tau-aici)
 
 ;TODO 4
 ; După aceasta, implementati un getter care extrage din structura voastră
@@ -137,8 +127,8 @@
 ; Definiți funcția next-state-bird-onspace care va primi drept parametri
 ; o structură de tip pasăre, momentum(un număr real), și va schimbă viteza
 ; pe y a păsării cu acea valoare.
-(define (next-state-bird-onspace bird-state momentum)
-  (- bird-state-y momentum))
+(define (next-state-bird-onspace bird momentum)
+  `codul-tau-aici)
 
 ; Change
 ; Change va fi responsabil de input-ul de la tastatură al jocului.
