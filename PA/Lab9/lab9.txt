@@ -4,7 +4,7 @@
 
 Puncte de articulatie, Punti
 
-graf:
+graf: cel din curs
 
 scoatem 3,7 ; 0,8
 adaugam 2,4; 2,7
