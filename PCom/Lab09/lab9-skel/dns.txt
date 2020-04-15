@@ -1,0 +1,537 @@
+osboxes@osboxes:~/Downloads/lab9-skel$ dig A single-v4.protocoale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> A single-v4.protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 58980
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;single-v4.protocoale.xyz.	IN	A
+
+;; ANSWER SECTION:
+single-v4.protocoale.xyz. 300	IN	A	127.0.0.1
+
+;; Query time: 133 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:31:51 EEST 2020
+;; MSG SIZE  rcvd: 69
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig A single.protocoale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> A single.protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 11323
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;single.protocoale.xyz.		IN	A
+
+;; ANSWER SECTION:
+single.protocoale.xyz.	300	IN	A	127.0.0.1
+
+;; Query time: 91 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:32:36 EEST 2020
+;; MSG SIZE  rcvd: 66
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig A multi-v4.protocoale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> A multi-v4.protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 25542
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;multi-v4.protocoale.xyz.	IN	A
+
+;; ANSWER SECTION:
+multi-v4.protocoale.xyz. 300	IN	A	127.1.1.1
+multi-v4.protocoale.xyz. 300	IN	A	127.3.3.3
+multi-v4.protocoale.xyz. 300	IN	A	127.4.4.4
+multi-v4.protocoale.xyz. 300	IN	A	127.2.2.2
+
+;; Query time: 58 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:33:15 EEST 2020
+;; MSG SIZE  rcvd: 116
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> A multi.protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 5808
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;multi.protocoale.xyz.		IN	A
+
+;; ANSWER SECTION:
+multi.protocoale.xyz.	300	IN	A	127.4.4.4
+multi.protocoale.xyz.	300	IN	A	127.3.3.3
+multi.protocoale.xyz.	300	IN	A	127.2.2.2
+multi.protocoale.xyz.	300	IN	A	127.1.1.1
+
+;; Query time: 98 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:33:40 EEST 2020
+;; MSG SIZE  rcvd: 113
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig A protocoale.protocoale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> A protocoale.protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50322
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;protocoale.protocoale.xyz.	IN	A
+
+;; ANSWER SECTION:
+protocoale.protocoale.xyz. 300	IN	A	127.42.42.42
+
+;; Query time: 111 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:34:12 EEST 2020
+;; MSG SIZE  rcvd: 70
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig AAAA multi-v6.protocoale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> AAAA multi-v6.protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 54963
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;multi-v6.protocoale.xyz.	IN	AAAA
+
+;; ANSWER SECTION:
+multi-v6.protocoale.xyz. 300	IN	AAAA	::1
+multi-v6.protocoale.xyz. 300	IN	AAAA	::2
+multi-v6.protocoale.xyz. 300	IN	AAAA	::3
+multi-v6.protocoale.xyz. 300	IN	AAAA	::4
+
+;; Query time: 98 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:34:42 EEST 2020
+;; MSG SIZE  rcvd: 164
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig AAAA multi.protocoale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> AAAA multi.protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 14899
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;multi.protocoale.xyz.		IN	AAAA
+
+;; ANSWER SECTION:
+multi.protocoale.xyz.	300	IN	AAAA	::4
+multi.protocoale.xyz.	300	IN	AAAA	::2
+multi.protocoale.xyz.	300	IN	AAAA	::1
+multi.protocoale.xyz.	300	IN	AAAA	::3
+
+;; Query time: 67 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:35:15 EEST 2020
+;; MSG SIZE  rcvd: 161
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig MX protocoale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> MX protocoale.xyz
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 57842
+;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;protocoale.xyz.			IN	MX
+
+;; ANSWER SECTION:
+protocoale.xyz.		300	IN	MX	10 alt1.gmail-smtp-in.l.google.com.
+protocoale.xyz.		300	IN	MX	30 alt3.gmail-smtp-in.l.google.com.
+protocoale.xyz.		300	IN	MX	20 alt2.gmail-smtp-in.l.google.com.
+
+;; Query time: 85 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:38:25 EEST 2020
+;; MSG SIZE  rcvd: 132
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig protocoale.xyz +noall +authority
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> protocoale.xyz +noall +authority
+;; global options: +cmd
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig @222.104.139.4 google.com
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @222.104.139.4 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 3339
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 4, ADDITIONAL: 9
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1280
+; COOKIE: 840d68938964efb1d2a35b885e970256b5aa04a0e43de63e (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		128	IN	A	172.217.25.238
+
+;; AUTHORITY SECTION:
+google.com.		131456	IN	NS	ns1.google.com.
+google.com.		131456	IN	NS	ns4.google.com.
+google.com.		131456	IN	NS	ns2.google.com.
+google.com.		131456	IN	NS	ns3.google.com.
+
+;; ADDITIONAL SECTION:
+ns1.google.com.		317910	IN	A	216.239.32.10
+ns2.google.com.		304792	IN	A	216.239.34.10
+ns3.google.com.		308686	IN	A	216.239.36.10
+ns4.google.com.		332876	IN	A	216.239.38.10
+ns1.google.com.		324317	IN	AAAA	2001:4860:4802:32::a
+ns2.google.com.		305518	IN	AAAA	2001:4860:4802:34::a
+ns3.google.com.		131456	IN	AAAA	2001:4860:4802:36::a
+ns4.google.com.		317809	IN	AAAA	2001:4860:4802:38::a
+
+;; Query time: 311 msec
+;; SERVER: 222.104.139.4#53(222.104.139.4)
+;; WHEN: Wed Apr 15 15:47:10 EEST 2020
+;; MSG SIZE  rcvd: 331
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig @77.106.161.166 google.com
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @77.106.161.166 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 4648
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 4, ADDITIONAL: 9
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1280
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		298	IN	A	216.58.207.238
+
+;; AUTHORITY SECTION:
+google.com.		133923	IN	NS	ns4.google.com.
+google.com.		133923	IN	NS	ns1.google.com.
+google.com.		133923	IN	NS	ns3.google.com.
+google.com.		133923	IN	NS	ns2.google.com.
+
+;; ADDITIONAL SECTION:
+ns1.google.com.		306723	IN	A	216.239.32.10
+ns1.google.com.		306723	IN	AAAA	2001:4860:4802:32::a
+ns2.google.com.		306723	IN	A	216.239.34.10
+ns2.google.com.		306723	IN	AAAA	2001:4860:4802:34::a
+ns3.google.com.		306723	IN	A	216.239.36.10
+ns3.google.com.		306723	IN	AAAA	2001:4860:4802:36::a
+ns4.google.com.		306723	IN	A	216.239.38.10
+ns4.google.com.		306723	IN	AAAA	2001:4860:4802:38::a
+
+;; Query time: 299 msec
+;; SERVER: 77.106.161.166#53(77.106.161.166)
+;; WHEN: Wed Apr 15 15:47:47 EEST 2020
+;; MSG SIZE  rcvd: 303
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig @115.178.65.48 google.com
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @115.178.65.48 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 23396
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4000
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		300	IN	A	216.58.220.142
+
+;; Query time: 348 msec
+;; SERVER: 115.178.65.48#53(115.178.65.48)
+;; WHEN: Wed Apr 15 15:48:18 EEST 2020
+;; MSG SIZE  rcvd: 55
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig -f adrese.in
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 single-v4.protocoale.xyz
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 51550
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;single-v4.protocoale.xyz.	IN	A
+
+;; ANSWER SECTION:
+single-v4.protocoale.xyz. 299	IN	A	127.0.0.1
+
+;; Query time: 53 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 69
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 single-v6.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22002
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;single-v6.protocoale.xyz.	IN	A
+
+;; AUTHORITY SECTION:
+protocoale.xyz.		299	IN	SOA	ns1bcp.name.com. support.name.com. 1586390400 10800 3600 604800 3600
+
+;; Query time: 70 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 112
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 single.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 44435
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;single.protocoale.xyz.		IN	A
+
+;; ANSWER SECTION:
+single.protocoale.xyz.	299	IN	A	127.0.0.1
+
+;; Query time: 56 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 66
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 dorinel.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 35353
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;dorinel.protocoale.xyz.		IN	A
+
+;; ANSWER SECTION:
+dorinel.protocoale.xyz.	299	IN	A	127.42.0.0
+
+;; Query time: 93 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 67
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 multi-4.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 5342
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;multi-4.protocoale.xyz.		IN	A
+
+;; AUTHORITY SECTION:
+protocoale.xyz.		299	IN	SOA	ns1bcp.name.com. support.name.com. 1586390400 10800 3600 604800 3600
+
+;; Query time: 57 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 110
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 multi-v6.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 46355
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;multi-v6.protocoale.xyz.	IN	A
+
+;; AUTHORITY SECTION:
+protocoale.xyz.		299	IN	SOA	ns1bcp.name.com. support.name.com. 1586390400 10800 3600 604800 3600
+
+;; Query time: 55 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 111
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 multi.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 30648
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;multi.protocoale.xyz.		IN	A
+
+;; ANSWER SECTION:
+multi.protocoale.xyz.	299	IN	A	127.1.1.1
+multi.protocoale.xyz.	299	IN	A	127.4.4.4
+multi.protocoale.xyz.	299	IN	A	127.2.2.2
+multi.protocoale.xyz.	299	IN	A	127.3.3.3
+
+;; Query time: 54 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 113
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 pc.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 23677
+;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pc.protocoale.xyz.		IN	A
+
+;; ANSWER SECTION:
+pc.protocoale.xyz.	299	IN	CNAME	pcom.protocoale.xyz.
+pcom.protocoale.xyz.	299	IN	CNAME	protocoale.protocoale.xyz.
+protocoale.protocoale.xyz. 299	IN	A	127.42.42.42
+
+;; Query time: 54 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 106
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 pcom.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42371
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pcom.protocoale.xyz.		IN	A
+
+;; ANSWER SECTION:
+pcom.protocoale.xyz.	299	IN	CNAME	protocoale.protocoale.xyz.
+protocoale.protocoale.xyz. 299	IN	A	127.42.42.42
+
+;; Query time: 52 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 89
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 protocoale.protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22369
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;protocoale.protocoale.xyz.	IN	A
+
+;; ANSWER SECTION:
+protocoale.protocoale.xyz. 299	IN	A	127.42.42.42
+
+;; Query time: 52 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 70
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> @8.8.8.8 protocoale.xyz
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 26441
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;protocoale.xyz.			IN	A
+
+;; AUTHORITY SECTION:
+protocoale.xyz.		299	IN	SOA	ns1bcp.name.com. support.name.com. 1586390400 10800 3600 604800 3600
+
+;; Query time: 57 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Wed Apr 15 15:51:54 EEST 2020
+;; MSG SIZE  rcvd: 102
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig +trace protocale.xyz
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> +trace protocale.xyz
+;; global options: +cmd
+;; Received 28 bytes from 127.0.0.53#53(127.0.0.53) in 1 ms
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig protocoale.xyz +trace
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> protocoale.xyz +trace
+;; global options: +cmd
+;; Received 28 bytes from 127.0.0.53#53(127.0.0.53) in 1 ms
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig test.dorinel.protocoale.xyz +trace
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> test.dorinel.protocoale.xyz +trace
+;; global options: +cmd
+;; Received 28 bytes from 127.0.0.53#53(127.0.0.53) in 1 ms
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig dorinel.protocoale.xyz +trace
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> dorinel.protocoale.xyz +trace
+;; global options: +cmd
+;; Received 28 bytes from 127.0.0.53#53(127.0.0.53) in 0 ms
+
+osboxes@osboxes:~/Downloads/lab9-skel$ dig -x 8.8.8.8
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> -x 8.8.8.8
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 13588
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;8.8.8.8.in-addr.arpa.		IN	PTR
+
+;; ANSWER SECTION:
+8.8.8.8.in-addr.arpa.	14542	IN	PTR	dns.google.
+
+;; Query time: 29 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Apr 15 15:54:05 EEST 2020
+;; MSG SIZE  rcvd: 73
+
