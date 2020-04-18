@@ -22,6 +22,7 @@ Contains:
 - Python
 - Matlab
 - JavaScript
+- Assembly
 
 ## Topics covered:
 - Dynamic Programming
