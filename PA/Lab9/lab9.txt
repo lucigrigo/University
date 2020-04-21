@@ -5,9 +5,8 @@
 Puncte de articulatie, Punti
 
 graf: cel din curs
-
-scoatem 3,7 ; 0,8
-adaugam 2,4; 2,7
+    scoatem (3,7); (0,8)
+    adaugam (2,4); (2,7)
 
 1. calcul de mana pentru algoritmul de descoperire al pct de articulatie
 
