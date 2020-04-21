@@ -1,0 +1,67 @@
+                            Proiectarea Algoritmilor
+                                  Laborator 9
+                          Grigore Lucian-Florin 324CDb
+
+Puncte de articulatie, Punti
+
+graf: cel din curs
+    scoatem (3,7); (0,8)
+    adaugam (2,4); (2,7)
+
+1. --- Puncte de articulatie ---
+
+0: nod 0 low=0 d=0
+1: nod 1 low=1 d=1
+2: nod 2 low=2 d=2
+3: nod 3 low=3 d=3
+4: nod 4 low=4 d=4
+reactualizare low[4]=2
+5: nod 5 low=5 d=5
+6: nod 6 low=6 d=6
+low[6]=6 >= low[5]=5
+5 este pct de articulatie
+low[5]=5 >= low[3]=2
+3 este pct de articulatie
+low[3]=2 >= low[2]=2
+2 este pct de articulatie
+reactualizare low[2]=2
+7: nod 7 low=7 d=7
+8: nod 8 low=8 d=8
+reactualizare low[8]=1
+low[2]=1 >= low[1]=1
+1 este pct de articulatie
+reactualizare low[1]=1
+9: nod 9 low=9 d=9
+subarb[0]=2 > 1
+este pct de articulatie
+
+puncte de articulatie: 0, 1, 2, 3, 5
+    5 puncte de articulatie
+
+2. --- Punti ---
+
+0: nod 0 low=0 d=0
+1: nod 1 low=1 d=1
+2: nod 2 low=2 d=2
+3: nod 3 low=3 d=3
+4: nod 4 low=4 d=4
+reactualizare low[4]=2
+5: nod 5 low=5 d=5
+6: nod 6 low=6 d=6
+low[6]=6 > d[5]=5
+avem punte intre 5 si 6
+low[5]=5 > d[3]=3
+avem punte intre 3 si 5
+reactualizare low[2]=2
+7: nod 7 low=7 d=7
+8: nod 8 low=8 d=8
+reactualizare low[8]=1
+reactualizare low[1]=1
+low[1]=1 > d[0]=0
+avem punte intre 0 si 1
+9: nod 9 low=9 d=9
+low[9]=9 > d[0]=0
+avem punte intre 0 si 9
+
+puntile sunt: 6 - 5, 5 - 3, 1 - 0, 9 - 0
+    nr total punti=4
