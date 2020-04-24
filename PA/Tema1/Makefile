@@ -1,24 +1,22 @@
 # Proiectarea Algoritmilor - Tema1
 # Grigore Lucian-Florin 324CD
 
-all: build
-
 build:
-	gcc teme.c -o teme 
-	gcc magic.c -o magic 
-	gcc ratisoare.c -o ratisoare 
-	gcc joc.c -o joc
+	gcc -Wall teme.c -o teme
+	gcc -Wall magic.c -o magic -lm
+	gcc -Wall ratisoare.c -o ratisoare
+	gcc -Wall joc.c -o joc
 
-run-p1: teme
+run-p1: 
 	./teme
 
-run-p2: magic
+run-p2:
 	./magic
 
-run-p3: ratisoare
+run-p3: 
 	./ratisoare
 
-run-p4: joc
+run-p4: 
 	./joc
 
 clean:
