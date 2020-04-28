@@ -1,7 +1,7 @@
 /*
-  Proiectarea Algoritmilor - Tema 1
-  Problema 2 - Numarul magic
-  Grigore Lucian-Florin 324CD
+Proiectarea Algoritmilor - Tema 1
+Problema 2 - Numarul magic
+Grigore Lucian-Florin 324CD
 */
 #include <math.h>
 #include <stdio.h>
@@ -9,7 +9,6 @@
 
 #define INPUT_FILENAME "magic.in"
 #define OUTPUT_FILENAME "magic.out"
-
 #define MAX_NUM 100000
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) > (b) ? (a) : (b))
@@ -132,7 +131,7 @@ struct rezultat *gaseste_min(int d1, int d2, int d3, int i_stg, int i_drp,
 struct rezultat *calc_min(struct numar **vect, int lim_stg, int lim_drp) {
   if (lim_drp - lim_stg <= 2) {
     // daca avem 3 sau mai putine puncte in apelul curent
-    // calculez minimul dintre acestea
+    // calculez minimul dintre numerele de la pasul curent
     struct rezultat *rez = (struct rezultat *)malloc(sizeof(struct rezultat));
     rez->n_pct = 0;
     rez->Y = (struct numar **)malloc(MAX_NUM * sizeof(struct numar *));
@@ -160,15 +159,12 @@ struct rezultat *calc_min(struct numar **vect, int lim_stg, int lim_drp) {
         rez->Y[0] = vect[lim_drp];
       }
     }
-
-    // intoarcem rezultatul pentru cazul de baza
     return rez;
   }
-
   // impartirea zonei in jumatate
   int m = (lim_drp + lim_stg) / 2;
 
-  // calcularea recursiva in zonele obtinute
+  // calcularea in zonele obtinute
   struct rezultat *min_stg = calc_min(vect, lim_stg, m);
   struct rezultat *min_drp = calc_min(vect, m + 1, lim_drp);
 
@@ -177,8 +173,9 @@ struct rezultat *calc_min(struct numar **vect, int lim_stg, int lim_drp) {
   struct numar **new_Y =
       interclasare(min_stg->Y, min_drp->Y, min_stg->n_pct, min_drp->n_pct);
   int new_n_pct = min_stg->n_pct + min_drp->n_pct;
+  int k;
 
-  // daca minimul de pe stanga este mai mic decat celelalt
+  // daca minimul de pe stanga este mai mare decat celelalt
   if (min_stg->nr_magic < min_drp->nr_magic) {
     min = min_stg;
     free(min_drp);
@@ -187,7 +184,7 @@ struct rezultat *calc_min(struct numar **vect, int lim_stg, int lim_drp) {
     min = min_drp;
     free(min_stg);
   } else if (min_stg->nr_magic == min_drp->nr_magic) {
-    // daca minimurile sunt egale, cautam solutia mai mica dpdv lexicografic
+    // daca minimurile sunt egale, caut solutie mai mica dpdv lexicografic
     if (min_stg->stg < min_drp->stg) {
       min = min_stg;
       free(min_drp);
@@ -220,7 +217,7 @@ struct rezultat *calc_min(struct numar **vect, int lim_stg, int lim_drp) {
         if (pow(new_Y[i]->index_initial - new_Y[j]->index_initial, 2) +
                 pow(new_Y[i]->suma - new_Y[j]->suma, 2) <
             min->nr_magic) {
-          // daca gasim o distanta mai mica decat numarul magic precedent
+          // daca gasim o distanta mai mica numarul magic precedent
           min->nr_magic =
               (pow(new_Y[i]->index_initial - new_Y[j]->index_initial, 2) +
                pow(new_Y[i]->suma - new_Y[j]->suma, 2));
@@ -240,6 +237,11 @@ int main() {
 
   // valori de intrare
   int nr_biletele;
+
+  // valori de iesire
+  short nr_magic;
+  short stanga;
+  short dreapta;
 
   // citire date de intrare
   FILE *file_in = fopen(INPUT_FILENAME, "r");

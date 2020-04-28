@@ -1,7 +1,7 @@
 /*
-  Proiectarea Algoritmilor - Tema 1
-  Problema 1 - Temele buclucase
-  Grigore Lucian-Florin 324CD
+Proiectarea Algoritmilor - Tema 1
+Problema 1 - Temele buclucase
+Grigore Lucian-Florin 324CD
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +9,7 @@
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define INPUT_FILENAME "teme.in"
 #define OUTPUT_FILENAME "teme.out"
+// #define INPUT_FILENAME "./public_tests/teme/input/test11.in"
 
 // structura care memoreaza informatiile despre o tema
 struct tema {
@@ -16,6 +17,7 @@ struct tema {
   short timp_rezolvare;
   short deadline;
   short index;
+  int rezolvata;
 };
 
 // structura care memoreaza informatiile legate de o solutie
@@ -24,6 +26,8 @@ struct solutie {
   int no_teme;
   int index_i;
   int index_j;
+  int prev_i;
+  int prev_j;
   int rezolvata;
   struct solutie *prev;
 };
@@ -35,14 +39,16 @@ struct tema *tema_noua(short p, short tr, short d, short i) {
   t->punctaj = p;
   t->index = i;
   t->timp_rezolvare = tr;
+  t->rezolvata = 0;
   return t;
 }
 
-// functie care creeaza un nou element care memoreaza o solutie
 struct solutie *new_sol(int add, const int max_size) {
   struct solutie *s = (struct solutie *)malloc(sizeof(struct solutie));
   s->punctaj = 0;
   s->no_teme = 0;
+  // s->prev_i = -1;
+  // s->prev_j = -1;
   s->index_i = -1;
   s->index_j = -1;
   s->rezolvata = 0;
@@ -60,11 +66,9 @@ struct solutie *alegere(struct solutie *s1, struct solutie *s2,
                         struct tema *tema_curenta, int ii, int j) {
   // initializare solutie
   struct solutie *sol = new_sol(0, 0);
-  // linia curenta
-  sol->index_i = ii;
-  // coloana curenta
-  sol->index_j = j;
-
+  sol->index_i = ii; // linia curenta
+  sol->index_j = j;  // coloana curenta
+  int i;
   // daca nu exista o tema ce poate fi rezolvata, alegem maximul dintre solutii
   if (tema_curenta == NULL) {
     if (s1->punctaj > s2->punctaj) {
@@ -79,13 +83,11 @@ struct solutie *alegere(struct solutie *s1, struct solutie *s2,
   } else {
     // daca putem face o tema, alegem maximul dintre D[i-1][j] si D[i-1][j-t_f]
     if (s2->punctaj + tema_curenta->punctaj > s1->punctaj) {
-      // daca este mai profitabil sa facem tema curenta in loc de oricare alta
       sol->punctaj = s2->punctaj + tema_curenta->punctaj;
       sol->no_teme = s2->no_teme + 1;
       sol->prev = s2;
       sol->rezolvata = 1;
     } else {
-      // este mai profitabil sa nu facem tema curenta
       sol->punctaj = s1->punctaj;
       sol->no_teme = s1->no_teme;
       sol->prev = s1;
@@ -134,22 +136,18 @@ int main() {
     D[0][i] = new_sol(1, nr_teme_total);
   }
 
-  // construirea solutiei optime la fiecare pas
+  // construirea solutia optima la fiecare pas
   for (i = 1; i <= (nr_teme_total); ++i) {
     int j;
-    // indexul temei curente
-    int index_tema = i - 1;
-    // tema curenta
-    struct tema *tema_curenta = teme[index_tema];
-    // deadline temei curente
-    int ddl = tema_curenta->deadline;
+    int index_tema = i - 1;                       // indexul temei curente
+    struct tema *tema_curenta = teme[index_tema]; // tema curenta
+    int ddl = tema_curenta->deadline;             // deadline temei curente
     // timpul de finalizare al temei curente
     int t_f = tema_curenta->timp_rezolvare;
 
     // parcurgere pe parcursul saptamanilor
     for (j = 0; j <= final_deadline; j++) {
-      if (j < t_f) {
-        // daca nu putem face tema curenta (dpdv al timpului)
+      if (j < t_f) { // daca nu putem face tema curenta (dpdv al timpului)
         // copiem solutia de mai sus (aceeasi saptamana, tema precedenta)
         D[i][j] = new_sol(0, 0);
         D[i][j]->no_teme = D[i - 1][j]->no_teme;
@@ -158,12 +156,10 @@ int main() {
         D[i][j]->index_i = i;
         D[i][j]->index_j = j;
       } else {
-        if (j <= ddl) {
-          // daca inca putem face tema curenta
+        if (j <= ddl) { // daca inca putem face tema curenta
           // alegem maximul dintre D[i-1][j] si D[i-1][j-t_r]
           D[i][j] = alegere(D[i - 1][j], D[i - 1][j - t_f], tema_curenta, i, j);
-        } else {
-          // daca am trecut de deadline-ul temei curente
+        } else { // daca am trecut de deadline-ul temei curente
           // alegem maximul dintre D[i-1][j] si D[i][j-1]
           D[i][j] = alegere(D[i - 1][j], D[i][j - 1], NULL, i, j);
         }
@@ -211,6 +207,5 @@ int main() {
     }
   }
   free(D);
-
   return 0;
 }
