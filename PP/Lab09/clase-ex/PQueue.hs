@@ -61,13 +61,15 @@ class (Ord a) => PQueue pq a where
     -- Creează o coadă de priorități dintr-o lista de tupluri
     -- Elementele vor fi adăugate în ordine inversă (de la finalul spre începutul listei)
     fromList :: [(Prio, a)] -> pq a
-    fromList = undefined
+    fromList = foldr insert empty
 
     toList :: pq a -> [(Prio, a)]
-    toList = undefined
+    toList pq
+      | isEmpty pq = []
+      | otherwise = (fromJust $ top pq) : (toList $ pop pq)
 
     size :: pq a -> Int
-    size = undefined -- Pentru Ex 6
+    size = length . toList -- Pentru Ex 6
 
 test1OK = False
 
@@ -83,18 +85,23 @@ check1 = test 1 $ testManually "Priority Queue Class" 1.5 test1OK -- 1.5p
     listă de elemente. Includeți ListPQ în clasa PQueue.
 -}
 
-newtype ListPQ a = LPQ a deriving Show
+newtype ListPQ a = LPQ [(Prio, a)] deriving Show
 
 instance (Ord a) => PQueue ListPQ a where
-    empty = undefined
+    empty = LPQ []
 
-    insert = undefined
+    insert element (LPQ pq)
+      | null pq = LPQ [element]
+      | fst element >= fst (head pq) = LPQ (element : pq)
+      | otherwise = LPQ ((head pq) : toList (insert element (LPQ (tail pq))))
 
-    top = undefined
+    top (LPQ pq)
+      | null pq = Nothing
+      | otherwise = Just (head pq)
 
-    pop = undefined
+    pop (LPQ pq) = LPQ (tail pq)
 
-    isEmpty = undefined
+    isEmpty (LPQ pq) = null pq
 
 -- Test 2
 
@@ -151,10 +158,18 @@ data LeftistPQ a = Empty { rank :: Rank } |
 -}
 
 merge :: LeftistPQ a -> LeftistPQ a -> LeftistPQ a
-merge = undefined
+merge (Empty _) tree = tree
+merge tree (Empty _) = tree
+merge tree1@(Node r1 (p1, val1) left1 right1) tree2@(Node _ (p2, _) _ _)
+  | p1 <= p2                      = merge tree2 tree1
+  | rank left1 >= rank mergedTree = (Node (1 + rank mergedTree) (p1, val1) left1 mergedTree)
+  | otherwise                     = (Node (1 + rank left1) (p1, val1) mergedTree left1)
+    where
+      mergedTree = merge right1 tree2
 
 inorder :: LeftistPQ a -> [(Prio, a)]
-inorder = undefined
+inorder (Empty _) = []
+inorder (Node r value left right) = inorder left ++ [value] ++ inorder right
 
 -- Test 3
 
@@ -210,15 +225,18 @@ check3 = tests 3 2.5
 
 instance (Ord a) => PQueue LeftistPQ a where
 
-    empty = undefined
+    empty = Empty 0
 
-    isEmpty = undefined
+    isEmpty (Empty _) = True
+    isEmpty _ = False
     
-    insert = undefined
+    insert element = merge (Node 1 element empty empty)
 
-    top = undefined
+    top pq
+      | isEmpty pq = Nothing
+      | otherwise = Just (nodeVal pq)
 
-    pop = undefined
+    pop pq = merge (left pq) (right pq)
 
 -- Test 4
 
@@ -240,7 +258,7 @@ check4 = tests 4 1.5 -- 1.5p
 -}
 
 convert :: (PQueue pq1 a, PQueue pq2 a) => pq1 a -> pq2 a
-convert = undefined
+convert = fromList . toList
 
 -- Test 5
 
@@ -309,10 +327,10 @@ class MyFoldable f where
     foldr' :: (a -> b -> b) -> b -> f a -> b
 
 instance MyFoldable ListPQ where
-    foldr' = undefined
+    foldr' func acc (LPQ pq) = foldr (\e -> func $ snd e) acc pq
 
 instance MyFoldable LeftistPQ where
-    foldr' = undefined
+    foldr' f acc = foldr (\e -> f $ snd e) acc . inorder
 
 -- Test 7
 
@@ -356,10 +374,10 @@ class MyFunctor f where
     fmap' :: (Ord a, Ord b) => ((Prio, a)  -> (Prio, b)) -> f a -> f b
 
 instance MyFunctor ListPQ where
-    fmap' = undefined
+    fmap' func (LPQ pq) = fromList (map func pq)
 
 instance MyFunctor LeftistPQ where
-    fmap' = undefined
+    fmap' func = fromList . map func . inorder
 
 -- Test 8
 
