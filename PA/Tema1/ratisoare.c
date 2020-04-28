@@ -1,7 +1,7 @@
 /*
-  Proiectarea Algoritmilor - Tema 1
-  Problema 3 - Ratustele
-  Grigore Lucian-Florin 324CD
+Proiectarea Algoritmilor - Tema 1
+Problema 3 - Ratustele
+Grigore Lucian-Florin 324CD
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,7 +9,6 @@
 
 #define INPUT_FILENAME "ratisoare.in"
 #define OUTPUT_FILENAME "ratisoare.out"
-
 // valoarea default (de initializare) pentru timpul de iesire
 #define DEFAULT_TIME 2147483647
 
@@ -92,7 +91,6 @@ struct rata **calcul_linie(struct rata **rate, int start_index,
   // construirea vectorilor de pointeri cu cele doua tipuri de orientari
   for (i = start_index; i <= index_max; ++i) {
     if (rate[i]->timp_iesire == DEFAULT_TIME) {
-      // daca rata nu a fost scoasa la pasul precedent
       if (strcmp(rate[i]->orientare, "D") == 0) {
         // daca rata este ->
         orientate_dreapta[max_dreapta] = rate[i];
@@ -106,7 +104,7 @@ struct rata **calcul_linie(struct rata **rate, int start_index,
   }
 
   // atribuirea primelor max_stanga rate care nu au timpul de iesire calculat
-  // timpul de iesire al primelor max_stanga rate orientate la stanga
+  // timpul de iesire al primul max_stanga rate orientate la stanga
   int st = 0, dr = 0;
   for (i = start_index; i <= index_max && st < max_stanga; ++i) {
     struct rata *r = rate[i];
