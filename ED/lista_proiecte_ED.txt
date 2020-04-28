@@ -1,0 +1,121 @@
+Proiectul acesta vine ca o completare a materiei ED de anul acesta.
+Este o modalitate mult mai interesanta pentru a invata despre electronica digitala si cum functioneaza diferite componente.
+Daca doriti sa adaugati lucruri in plus la proiectele pe care le alegeti sunteti liberi sa faceti acest lucru, chiar va incurajez sa veniti si voi cu idei.
+Daca aveti nevoie de suport in timpul realizarii proiectului nu ezitati sa cereti ajutor, mai bine sa rezolvam problemele din timp. La final sa ziceti ca nu v-a mers.
+
+Puncte proiect : 10p
+1. Documentatie (2p):
+	* sa realizati schema electrica (separat de ce faceti in tinkercad, in orice program vreti voi) Ex: https://cdn.sparkfun.com/assets/1/e/8/c/c/51cdc629ce395f6b4f000000.png
+	* sa explicati ceea ce ati facut acolo.
+	* concluzii, probleme intampinate si lucruri invatate.
+
+2. Implementare (4p):
+	* functionalitate (2p)
+	* mod de lucru ("coding style") (2p)
+
+3. Prezentare proiect (4p):
+	* demo + intrebari din partea mea
+
+Deadline submisie proiecte: 10 mai.
+Prezentare proiecte 11 - 15 mai.
+ 
+Link-uri utile pentru toata lumea:
+
+SR Latch: https://www.youtube.com/watch?v=KM0DdEaY5sY&list=PLowKtXNTBypGqImE405J2565dvjafglHU&index=6
+D Latch: https://www.youtube.com/watch?v=peCh_859q7Q&list=PLowKtXNTBypGqImE405J2565dvjafglHU&index=7
+JK Flip-Flop: https://www.youtube.com/watch?v=F1OC5e7Tn_o&list=PLowKtXNTBypGqImE405J2565dvjafglHU&index=24
+D Flip-Flop: https://www.youtube.com/watch?v=YW-_GkUguMM&list=PLowKtXNTBypGqImE405J2565dvjafglHU&index=8
+
+Dar gasiti link-uri utile pentru voi si la celelalte proiecte. 
+
+Proiecte recomandate:
+
+555 Timer Projects
+
+1. 555 Timer from scratch + Piano Circuit
+ * Trebuie sa realizati circuitul intern al unui 555 timer si apoi sa realizati circuitul pentru "pian".
+ * How a 555 Timer IC works: https://www.youtube.com/watch?v=i0SNb__dkYI
+ * Exemplu circuit pian dar cu 555 integrat: https://www.tinkercad.com/things/i0Fygjxe6Pi 
+
+
+2. Computer Clock Auto Pulse and Manual Pulse Clock Using 555 + Decade Counter IC (LED Light Game)
+ * Pentru acest proiect puteti sa vedeti seria acesta de tutoriale:
+	https://www.youtube.com/watch?v=kRlSFm519Bo
+	https://youtu.be/81BgFhm2vz8
+	https://www.youtube.com/watch?v=WCwJNnx36Rk
+	https://www.youtube.com/watch?v=SmQ5K7UQPMM
+ * Trebuie sa folositi direct circuitul 555, fara sa construiti logica interna.
+ * 555 Timer Roulete: https://circuitdigest.com/electronic-circuits/555-timer-roulette-circuit
+ * Decade counter (How it works?): https://www.electronicshub.org/decade-counterbcd-counter/
+
+
+3. Computer Clock Auto Pulse and Manual Pulse Using 555 + JK Flip Flop IC (4 Bit Binary Counter)
+ * Pentru acest proiect puteti sa vedeti seria acesta de tutoriale:
+	https://www.youtube.com/watch?v=kRlSFm519Bo
+	https://youtu.be/81BgFhm2vz8
+	https://www.youtube.com/watch?v=WCwJNnx36Rk
+	https://www.youtube.com/watch?v=SmQ5K7UQPMM
+ * Binary Counter Tutorial: https://www.youtube.com/watch?v=exGEmA67dNc&list=PLowKtXNTBypGqImE405J2565dvjafglHU&index=27
+
+
+4. Computer Clock Auto Pulse and Manual Pulse Using 555 + PWM Motor
+  * Pentru acest proiect puteti sa vedeti seria acesta de tutoriale:
+	https://www.youtube.com/watch?v=kRlSFm519Bo
+	https://youtu.be/81BgFhm2vz8
+	https://www.youtube.com/watch?v=WCwJNnx36Rk
+	https://www.youtube.com/watch?v=SmQ5K7UQPMM
+  * What is PWM? : https://www.youtube.com/watch?v=B_Ysdv1xRbA
+  * Circuit 555 + Motor: http://www.555-timer-circuits.com/motor-pwm.html
+  
+
+Shift Register Projects
+ 
+5. 8 bit Shift Register (serial In, parallel out) From scratch using D flip flops + LED Light Game (No Arduino)
+ * Hint: https://www.electronics-tutorials.ws/sequential/seq_5.html
+ * Hint: https://youtu.be/K88pgWhEb1M?t=300
+
+
+6. 4 bit Shift register with store block from scratch using D flip flops + LED Light Game (No Arduino)
+ * Hint: https://www.onsemi.com/pub/Collateral/MC74HC595-D.PDF
+ * Hint: https://youtu.be/K88pgWhEb1M?t=300
+
+
+7. 8x8 LED Matrix controlled with Shift register + Arduino
+ * Hint: https://www.researchgate.net/figure/8x8-LED-Matrix-Circuit-Diagram_fig4_311741052
+ * How to multiplex? https://www.youtube.com/watch?v=uQMUPhyoXoE
+ * Hint: https://www.youtube.com/watch?v=bqfPZXEuyuc
+ * Hint: https://www.electronics-tutorials.ws/sequential/seq_5.html
+
+8. 40 LED Light Show controlled with Shift register + Arduino 
+ * Hint: https://www.youtube.com/watch?v=bqfPZXEuyuc
+ * Hint: https://www.electronics-tutorials.ws/sequential/seq_5.html
+
+Logic Gates Projects	
+
+
+9. 5 Bit adder from scratch + Demo
+ * Hint: https://www.youtube.com/watch?v=wvJc9CZcvBc&t=0s
+ * Hint: https://www.electronics-tutorials.ws/combination/comb_7.html
+
+10. 7 segment decoder from scratch + 7 segment display
+ * Documentation: https://www.electricaltechnology.org/2018/05/bcd-to-7-segment-display-decoder.html
+
+
+11. 5 bit comparator from scratch + Demo
+ * Hint: https://www.technobyte.org/2-bit-4-bit-comparator/
+ * Hint: https://www.electronics-tutorials.ws/combination/comb_8.html
+
+
+12. 8-1 multiplexer from scratch + Demo
+ * Hint: https://www.electronics-tutorials.ws/combination/comb_2.html
+
+
+13. 8 Bit Counter from scratch + 7 segment decoder IC + 7 segment display
+ * Hint: https://www.electronics-tutorials.ws/sequential/seq_6.html
+
+	
+Golden hint: https://www.google.com/
+
+
+
+
