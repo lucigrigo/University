@@ -4,7 +4,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main() {
+int G[12][12]; // graful folosit
+int n = 12; // numarul de noduri din graf
 
+void prim() {
+
+}
+
+void kruskal() {
+
+}
+
+int main() {
+	
+	prim();
+	kruskal();
 	return 0;
 }
