@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -37,7 +38,7 @@ int main(int argc, char *argv[])
 	DIE(ret < 0, "connect");
 
 	fd_set fds;
-	fd_set temp_fds;	
+	fd_set temp_fds;
 	FD_SET(sockfd, &fds);
 	FD_SET(0, &fds);
 	int fdmax = sockfd;
