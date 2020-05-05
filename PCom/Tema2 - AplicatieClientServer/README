@@ -1,0 +1,134 @@
+--------------------------------------------------------------------------------
+                            
+                             Protocoale de Comunicatii
+                                    Tema 2
+                              Aplicatie Client-Server
+                            Grigore Lucian-Florin 324CD
+
+--------------------------------------------------------------------------------
+                        Comunicarea dintre server si client
+
+Comunicarea dintre server si client este realizata cu ajutorul unui mini-protocol
+creat peste cel TCP, acesta fiind utilizat pentru mai multe tipuri de comunicare
+dintre cele doua instante:
+
+- de la client la server: poate comunica ID-ul atunci cand se conecteaza, poate 
+da comanda de subscribe la un anumit topic, sau pe cea de unsubscribe
+
+- de la server la client: poate trimite mai multe mesaje de eroare (detaliate
+mai jos) sau poate informa clientul despre un update al unui topic la care acesta
+este abonat.
+
+--------------------------------------------------------------------------------
+                    Structura mesajelor dintre server si client
+
+Toate mesajele dintre client si server sunt de tipul <struct tcp_message>, care
+are doua parti:
+  - un header
+  - un payload (denumit "data")
+
+Partea de header este aceeasi mereu, aceasta fiind indispensabila si citita mereu
+prima. Contine doua campuri: tipul mesajului si lungimea payload-ului. In functie
+de tipul mesajului, payload-ul poate lua mai multe forme. Acestea sunt:
+
+  - daca se comunica o publicare la un topic, data contine un <struct
+tcp_topic_update>. Aceasta are urmatoarele campuri: un port si o adresa (ale
+publisher-ului), si cate un char[] pentru numele topicului, tipul postarii si
+mesajul in sine
+
+  - daca se comunica o eroare, in data exista doar un mesaj de tip string care
+contine mesajul de eroare corespunzator
+
+  - daca se comunica o cerere de subscribe la un topic, in data se va pune o
+structura de tipul <struct tcp_subscribe>, care contine numele topicului si
+valoarea setarii store&forward
+
+  - daca se comunica o cerere de unsubscribe la un topic, in data se va pune o
+structura de tipul <struct tcp_unsubscribe>, care contine doar numele topicului
+
+  - daca se comunica ID-ul clientului, in data va exista doar ID-ul de input
+
+--------------------------------------------------------------------------------
+                              Functionarea clientului
+
+Primul pas in functionarea clientului este conectarea la socket-ul specificat in
+linia de comanda si trimiterea unui mesaj tip care sa comunica sever-ului ID-ul
+clientului. Acesta poate oricand sa scrie la STDIN, dar poate da de fapt doar
+doua feluri de comenzi: comanda "exit" care inchide instanta de client sau cea 
+de subscribe/unsubscribe. Formatul celei din urma este verificat la nivelul
+clientului, astfel incat cererea de subscribe/unsubscribe este mereu trimisa
+corect catre server. Un mesaj minimalist de informare despre comanda introdusa,
+atunci cand aceasta este corecta, este afisata, dupa trimiterea cererii catre server.
+
+--------------------------------------------------------------------------------
+                              Functionarea serverului
+
+Pentru server, primii pasi facuti sunt pornirea socket-ilor TCP si UDP pe portul
+comunicat. Dupa aceea, se intra intr-o bucla infinita, in care se asteapta input
+pe oricare din acestia.
+
+Daca se primeste un input de la tastatura, acesta este valid doar daca este
+comanda de "exit", caz in care se inchid conexiunile cu toti clientii TCP din
+acel moment, precum si ceilalti socket descriptori si programul se termina.
+
+Daca se primeste un input pe socketul TCP, se considera conectarea unui utilizator
+nou. Se asteapta un mesaj tip in care sa fie comunicat ID-ul de conectare. Se 
+verifica ca ID-ul acestuia sa nu fie folosit, iar in cazul in care este valid
+se introduce clientul in lista de clienti si socket descriptorul acestuia este
+adaugat intr-un set care memoreaza doar clientii TCP.
+
+Daca se primeste un input pe socketul UDP, acesta trece prin procesul de parsare
+intai. Dupa parsarea numelui topic-ului la care s-a postat, acesta este cautat
+in lista de topicuri memorate. Daca acesta nu este gasit, datagrama primita este
+ignorata. Daca topicul a fost gasit, se construieste mesajul care urmeaza a fi
+trimit catre abonatii sai. Apoi sunt parcursi abonatii. Daca sunt conectati, primesc
+mesajul in acel moment. Daca sunt deconectati si nu au optiunea de store&forward
+activata pentru abonarea aceasta activata, nu vor primi nimic nici la reconectare,
+in cazul in care se reconecteaza. Daca insa au optiunea aceasta activata, mesajul
+construit le va fi atribuit, urmand a fi trimis la reconectare. Daca niciun client
+nu trebuie sa primeasca mesajul la reconectare, memoria este eliberata.
+
+Daca se primeste un mesaj pe un socket descriptor al unui client TCP, se citeste
+initial doar headerul mesajului. Astfel, serverul isi da seama cu ce tip de mesaj
+are de a face, precum si lungimea partii de date. In functie de tipul de mesaj,
+parseaza mesajul primit. Daca se doreste abonarea clientului la un topic, se verifica
+existenta acelui topic. Daca este gasit, abonatul este linkuit catre topic. Daca nu
+este gasit, topicul este in acel moment creat si introdus in lista de topicuri ale
+serverului. Apoi se face asocierea dintre cei doi. Daca se doreste dezabonarea de
+la un topic, pur si simplu se cauta printre topic-urile la care este linkuit utili-
+zatorul cel introdus.
+
+--------------------------------------------------------------------------------
+                            Erori si cazuri exceptionale
+
+Cazurile acoperite in implementare sunt urmatoarele:
+
+  - conectarea unui utilizator cu un ID identic cu al altui utilizator care este
+conectat in acel moment va duce la deconectarea primului instant, dar nu inainte
+de a primi un mesaj de eroare corespunzator
+
+  - input gresit din partea utilizatorului va duce la anularea comenzii si la
+afisarea unui mesaj de informare legat de formatarea corecta a acestuia
+
+  - tiparirea a orice in server in afara de "exit" duce la un mesaj de atentionare
+
+  - abonarea unui utilizator la un topic la care este deja abonat: serverul va 
+trimite un mesaj de eroare, mentionand deja abonarea acestuia. Daca se suprascrie
+optiunea de store&forward, aceasta din urma nu este luata in considerare.
+
+  - dezabonarea unui utilizator de la un topic la care nu este abonat va duce de
+asemenea la trimiterea din partea serverului la un mesaj de eroare
+
+--------------------------------------------------------------------------------
+                                  Observatii
+
+- in fisierul "helpers.h" pot fi gasite structurile utilizate in ambele surse. De
+asemenea, aici se gasesc si toate macrourile utilizate.
+
+- in header-ul "helpers.h" exista un macro denumit RESTRICTED_CONTENT, care implicit
+este setat pe 1. Astfel, se evita ca la consola sa mai fie afisate orice mesaje in
+afara celor specificate in cerinta, sau a celor de eroare. Daca se doreste o lista
+mai detaliata a evenimentelor care au loc in cele doua instante, acesta trebuie
+setat pe 0.
+
+--------------------------------------------------------------------------------
