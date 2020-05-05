@@ -1,0 +1,138 @@
+						 Proiectarea Algoritmilor
+							  Laborator 11
+						Grigore Lucian-Florin 324CDb
+
+				Arbori minimi de acoperire (Prim, Kruskal)
+
+graful: cel din curs
+modificari:
+	A - G = 10
+	B - G = 11
+	C - E = 12
+	J - K = 14
+
+
+1. === Algoritmul lui Prim ===
+
+nod sursa: I
+la fiecare pas: nodurile din coada, d, p
+
+initializari: d[i] = +INF, p[i] = null, i in (A, L)
+
+1: d[I] = 0, actualizam in coada pe A(3), J(5), L(8)
+
+2: Q <A(3), B(+INF), C(+INF), D(+INF), E(+INF), F(+INF), G(+INF), H(+INF), J(5), 
+K(+INF), L(8)>
+	extragem nodul A(3) (adaugam muchia A-I in AMA)
+		A - G cost 10 -> d[G] = 10, p[G] = A
+		A - H cost 6 -> d[H] = 6, p[H] = A
+		A - B cost 9 -> d[B] = 9, p[B] = A
+
+2: Q <B(9), C(+INF), D(+INF), E(+INF), F(+INF), G(10), H(6), J(5), K(+INF), 
+L(8)>
+	extragem nodul J(5) (adaugam muchia I-J in AMA)
+		J - K cost 14 -> d[K] = 14, p[K] = J
+
+2: Q <B(9), C(+INF), D(+INF), E(+INF), F(+INF), G(10), H(6), K(14), L(8)>
+	extragem nodul H(6) (adaugam muchia A-H in AMA)
+		H - G cost 4 -> d[G] = 4, p[G] = H
+
+3: Q <B(9), C(+INF), D(+INF), E(+INF), F(+INF), G(4), K(14), L(8)>
+	extragem nodul G(4) (adaugam muchia H-G in AMA)
+		G - B cost 11 -> nu se schimba costul pana la B
+
+4: Q <B(9), C(+INF), D(+INF), E(+INF), F(+INF), K(14), L(8)>
+	extragem nodul L(8) (adaugam muchia I-L in AMA)
+		L - K cost 7 -> d[K] = 7, p=[K] = L
+
+5: Q <B(9), C(+INF), D(+INF), E(+INF), F(+INF), K(7)>
+	extragem nodul K(7) (adaugam muchia L-K in AMA)
+		K -> nu se actualizeaza nicio distanta
+
+6: Q <B(9), C(+INF), D(+INF), E(+INF), F(+INF)>
+	extragem nodul B(9) (adaugam muchia A-B in AMA)
+		B - C cost 5 -> d[C] = 5, p[C] = B
+
+7: Q <C(5), D(+INF), E(+INF), F(+INF)>
+	extragem nodul C(5) (adaugam muchia B-C in AMA)
+		C - D cost = 8 -> d[D] = 8, p[D] = C
+		C - E cost = 12 -> d[E] = 12, p[E] = C
+
+8: Q <D(8), E(12), F(+INF)>
+	extragem nodul D(8) (adaugam muchia C-D in AMA)
+		D - F cost 9 -> d[F] = 9, p[F] = D
+
+9: Q <E(12), F(9)>
+	extragem nodul F(9) (adaugam muchia D-F in AMA)
+		F - E cost 2 -> d[E] = 2, p[E] = F
+
+10: Q <E(2)>
+	extragem nodul E(2) (adaugam muchia E-F in AMA)
+		E -> nu se actualizeaza nicio distanta
+
+11: Q <> -> algoritmul se termina
+
+Rezultate finale:
+NOD   COST   PARINTE
+ A 		3		I
+ B 		9 		A
+ C 		5 		B
+ D 		8 		C
+ E 		2 		F
+ F 		9 		D
+ G 		4 		H
+ H 		6 		A
+ I 		0 	   NULL
+ J 		5 		I
+ K 		7 		L
+ L 		8 		I
+
+Muchiile din AMA sunt:
+	A-I
+	I-J
+	A-H
+	H-G
+	I-L
+	L-K
+	A-B
+	B-C
+	C-D
+	D-F
+	F-E
+
+
+2. === Algoritmul lui Kruskal ===
+
+- ordonarea muchiilor crescator dupa cost
+- parcurgerea lor in aceasta ordine
+- pentru fiecare (u, v), daca arb(u) != arb(v),
+	muchia se adauga in arborele de acoperire
+
+0: (E)-(F) arb(E)=4 arb(F)=5 cost=2 -> se adauga in arbore
+1: (A)-(I) arb(A)=0 arb(I)=8 cost=3 -> se adauga in arbore
+2: (G)-(H) arb(G)=6 arb(H)=7 cost=4 -> se adauga in arbore
+3: (B)-(C) arb(B)=1 arb(C)=2 cost=5 -> se adauga in arbore
+4: (I)-(J) arb(I)=0 arb(J)=9 cost=5 -> se adauga in arbore
+5: (A)-(H) arb(A)=0 arb(H)=6 cost=6 -> se adauga in arbore
+6: (K)-(L) arb(K)=10 arb(L)=11 cost=7 -> se adauga in arbore
+7: (C)-(D) arb(C)=1 arb(D)=3 cost=8 -> se adauga in arbore
+8: (I)-(L) arb(I)=0 arb(L)=10 cost=8 -> se adauga in arbore
+9: (A)-(B) arb(A)=0 arb(B)=1 cost=9 -> se adauga in arbore
+10: (D)-(F) arb(D)=0 arb(F)=4 cost=9 -> se adauga in arbore
+11: (A)-(G) arb(A)=0 arb(G)=0 cost=10 -> nu se adauga in arbore
+12: (B)-(G) arb(B)=0 arb(G)=0 cost=11 -> nu se adauga in arbore
+13: (C)-(E) arb(C)=0 arb(E)=0 cost=12 -> nu se adauga in arbore
+14: (J)-(K) arb(J)=0 arb(K)=0 cost=14 -> nu se adauga in arbore
+
+Muchiile din AMA sunt:
+	E-F
+	A-I
+	G-H
+	B-C
+	I-J
+	A-H
+	K-L
+	C-D
+	I-L
+	A-B
+	D-F
