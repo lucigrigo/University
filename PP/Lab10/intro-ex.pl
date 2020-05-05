@@ -9,7 +9,8 @@ exercitiul(1, [1, punct]).
 %% myConcat(?List1, ?List2, ?List)
 %% 'List' este lista formată prin concatenarea listelor 'List1' și 'List2'.
 
-myConcat(_,_,_):- fail.
+myConcat([], L, L).
+myConcat([Head | Lst1], L, [Head | Lst2]) :- myConcat(Lst1, L, Lst2).
 
 check1:- writeln('Exercițiul 1'), 
     tests([
@@ -23,7 +24,7 @@ check1:- writeln('Exercițiul 1'),
         nsl('myConcat([_,_,_], L, [_,_,_,_])', 'L', 1),
         exp('myConcat([X51],[X52],[X53,X54])', [cond('X51 == X53'), v('X51'), cond('X52 == X54'), v('X54')])]).
 
-
+ 
 
 %% -----------------------------------------------------------------------------
 exercitiul(2, [0.5, puncte]).
@@ -32,7 +33,9 @@ exercitiul(2, [0.5, puncte]).
 %% 'RevList' este o listă ce conține elementele listei 'List' în ordine inversă.
 %% Regulile pot conține și predicatul myConcat/3.
 
-myReverse(_,_):- fail.
+myReverse([], []).
+myReverse([Head | Lst], L) :- myReverse(Lst, RevTail),
+                              myConcat(RevTail, [Head], L).
 
 check2:- writeln('Exercițiul 2'),
     tests([
@@ -56,7 +59,8 @@ exercitiul(3, [0.5, puncte]).
 %% (Indicație: 'Acc' se va comporta precum un acumulator)
 %% Regulile nu trebuie să conține alte predicate (în afară de "cut" și ",").
 
-myReverseAcc(_,_,_):- fail.
+myReverseAcc([], L, L).
+myReverseAcc([Head | Lst], Acc, L) :- myReverseAcc(Lst, [Head | Acc], L).
 
 check3:- writeln('Exercițiul 3'),
     tests([
@@ -78,7 +82,10 @@ exercitiul(4, [1, punct]).
 %% depășește lungimea listei, 'Range' va conține toate elementele de la 'Start'
 %% la finalul listei.
 
-extract(_,_,_,_):- fail.
+extract([], _, _,[]).
+extract([Head | _], 0, 0, [Head]).
+extract([Head | Lst], 0, End, [Head | L]) :- Endd is End - 1, extract(Lst, 0, Endd, L).
+extract([_ | Tail], Start, End, R) :- Startt is Start - 1, Endd is End - 1, extract(Tail, Startt, Endd, R).
 
 check4:- writeln('Exercițiul 4'),
     tests([
@@ -97,7 +104,8 @@ exercitiul(5, [0.5, puncte]).
 %% 'Fact' este factorialul lui 'N'.
 %% N va fi mereu legat la un număr natural.
 
-factorial(_,_):- fail.
+factorial(A, 1) :- A =< 1, !.
+factorial(A, R) :- AA is A - 1, factorial(AA, Res), R is Res * A.
 
 check5:- writeln('Exercițiul 5'),
 	tests([
@@ -116,7 +124,8 @@ exercitiul(6, [0.5, puncte]).
 %% 'Fact' este factorialul lui 'N'.
 %% Cel puțin unul dintre cele două argumente trebuie să fie legat la un număr.
 
-factorial2(_,_):- fail.
+factorial2(0, 1).
+factorial2(A, R) :- factorial2(AA, Res), A is AA + 1,  R is Res * A.
 
 check6:- writeln('Exercițiul 6'),
 	tests([
@@ -134,7 +143,7 @@ exercitiul(7,[1, punct]).
 %% palindrom(+List)
 %% 'List' este un palindrom.
 
-palindrom(_):- fail.
+palindrom(L):- myReverse(L, L).
 
 check7 :- writeln('Exercițiul 7'),
 	tests([
@@ -153,7 +162,9 @@ exercitiul(8, [1, punct]).
 %% 'SubList' este o sublistă a lui 'List' ('SubList' poate fi obținută prin
 %% eliminarea a zero sau mai multe elemente din 'List'
 
-sublista(_,_):- fail.
+sublista([], []):- true, !.
+sublista([Head | Lst1], [Head | Lst2]) :- sublista(Lst1, Lst2).
+sublista([_ | Lst1], Lst2) :- sublista(Lst1, Lst2).
 
 check8 :- writeln('Exercițiul 8'),
 	tests([
@@ -186,7 +197,7 @@ exercitiul(9, [0.5, puncte]).
 %% isLeaf/1
 %% isLeaf(?Nod)
 
-isLeaf(_):- fail.
+isLeaf(N):- nod(N), \+ arc(N, _).
 
 check9:- writeln('Exercițiul 9'),
 	tests([
@@ -209,7 +220,7 @@ check9:- writeln('Exercițiul 9'),
 exercitiul(10, [0.5, puncte]).
 %% isRoot/1
 
-isRoot(_):- fail.
+isRoot(N):- nod(N), \+ arc(_, N).
 
 check10:- writeln('Exercițiul 10'),
 	tests([
@@ -231,7 +242,8 @@ exercitiul(11, [1, punct]).
 %% descendantOf(?X,?Y)
 %% Nodul X este un urmaș a lui Y.
 
-descendantOf(_,_):- fail.
+descendantOf(X, Y):- arc(Y, X).
+descendantOf(X, Y) :- arc(Z, X), descendantOf(Z, Y).
 
 check11:- writeln('Exercițiul 11'),
 	tests([
@@ -258,7 +270,12 @@ exercitiul(12, [2, puncte]).
 %% descendants(?Nod, ?N)
 %% Nodul Nod are N urmași.
 
-descendants(_,_):- fail.
+descendants(N, 0) :- isLeaf(N).
+descendants(N, R) :- arc(N, N1), arc(N, N2), N1 \= N2,
+                    descendants(N1, R1), descendants(N2, R2), 
+                    R is R1 + R2 + 2.
+descendants(N, R) :- arc(N, N1), \+ (arc(N, N2), N1 \= N2),
+                    descendants(N1, R1), R is R1 + 1.
 
 check12:- writeln('Exercițiul 12'),
 	tests([
