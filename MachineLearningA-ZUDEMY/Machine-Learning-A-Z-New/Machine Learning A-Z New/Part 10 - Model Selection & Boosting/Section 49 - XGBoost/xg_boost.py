@@ -1,11 +1,6 @@
 # XGBoost
 
-# Installing XGBoost
-# Enter the following command in a terminal (or anaconda prompt for Windows users): conda install -c conda-forge xgboost
-
 # Importing the libraries
-import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
