@@ -25,12 +25,15 @@ void setup() {
 }
 
 void loop() {
-  int delayPeriod = 1000;
+  int delayPeriod = 200;
 
   if(low_lim == 5) {
+  	delay(delayPeriod);
     low_lim = 0;
     high_lim = 8;
   }
+  digitalWrite(SR1_clr, HIGH);
+  digitalWrite(SR2_clr, HIGH);
 
   digitalWrite(SR1_out, LOW);
   digitalWrite(SR2_out, LOW);
@@ -44,7 +47,7 @@ void loop() {
       digitalWrite(SR2_clk, LOW);
       digitalWrite(SR2_in, LOW);
       digitalWrite(SR2_clk, HIGH);
-    } else if (i > low_lim < high_lim) {
+    } else if (i >= low_lim && i < high_lim) {
       digitalWrite(SR1_clk, LOW);
       digitalWrite(SR1_in, HIGH);
       digitalWrite(SR1_clk, HIGH);
@@ -75,8 +78,6 @@ void loop() {
   high_lim = high_lim - 1;
   low_lim = low_lim + 1;
 }
-
-  // smiley face
   
   // digitalWrite(SR1_clr, HIGH);
   // digitalWrite(SR2_clr, HIGH);
