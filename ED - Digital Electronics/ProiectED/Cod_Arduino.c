@@ -1,4 +1,4 @@
-const int SR1_in = 1;
+// const int SR1_in = 1;
 const int SR2_in = 4;
 const int SR1_clk = 3;
 const int SR2_clk = 6;
@@ -28,9 +28,77 @@ void loop() {
   int delayPeriod = 200;
 
   if(low_lim == 5) {
-  	delay(delayPeriod);
+    delay(delayPeriod);
     low_lim = 0;
     high_lim = 8;
+    
+    digitalWrite(SR1_clr, HIGH);
+    digitalWrite(SR2_clr, HIGH);
+    
+    digitalWrite(SR1_out, LOW);
+    digitalWrite(SR2_out, LOW);
+    
+    for(int i = 0; i < 8; ++i) {
+      if(i % 2 == 0) {
+        digitalWrite(SR1_clk, LOW);
+        digitalWrite(SR1_in, LOW);
+        digitalWrite(SR1_clk, HIGH);
+
+        digitalWrite(SR2_clk, LOW);
+        digitalWrite(SR2_in, LOW);
+        digitalWrite(SR2_clk, HIGH);
+      } else {
+        digitalWrite(SR1_clk, LOW);
+        digitalWrite(SR1_in, HIGH);
+        digitalWrite(SR1_clk, HIGH);
+
+        digitalWrite(SR2_clk, LOW);
+        digitalWrite(SR2_in, HIGH);
+        digitalWrite(SR2_clk, HIGH);
+      }
+    }
+    
+    digitalWrite(SR1_out, HIGH);
+    digitalWrite(SR2_out, HIGH);
+
+    delay(3 * delayPeriod);
+    
+    digitalWrite(SR1_clr, LOW);
+    digitalWrite(SR2_clr, LOW);
+    
+    digitalWrite(SR1_clr, HIGH);
+    digitalWrite(SR2_clr, HIGH);
+    
+    digitalWrite(SR1_out, LOW);
+    digitalWrite(SR2_out, LOW);
+    
+    for(int i = 0; i < 8; ++i) {
+      if(i % 2 == 1) {
+        digitalWrite(SR1_clk, LOW);
+        digitalWrite(SR1_in, LOW);
+        digitalWrite(SR1_clk, HIGH);
+
+        digitalWrite(SR2_clk, LOW);
+        digitalWrite(SR2_in, LOW);
+        digitalWrite(SR2_clk, HIGH);
+      } else {
+        digitalWrite(SR1_clk, LOW);
+        digitalWrite(SR1_in, HIGH);
+        digitalWrite(SR1_clk, HIGH);
+
+        digitalWrite(SR2_clk, LOW);
+        digitalWrite(SR2_in, HIGH);
+        digitalWrite(SR2_clk, HIGH);
+      }
+    }
+    
+    digitalWrite(SR1_out, HIGH);
+    digitalWrite(SR2_out, HIGH);
+
+    delay(3 * delayPeriod);
+    
+    digitalWrite(SR1_clr, LOW);
+    digitalWrite(SR2_clr, LOW);
   }
   digitalWrite(SR1_clr, HIGH);
   digitalWrite(SR2_clr, HIGH);
