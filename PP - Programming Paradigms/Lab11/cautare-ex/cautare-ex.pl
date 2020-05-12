@@ -36,7 +36,9 @@ solve_latin(S):-template(S), correct(S).
 %% safe/2
 %% safe(+X/Y/S, +Others)
 
-safe(_, _):-fail.
+safe(_, []):-true, !.
+safe(X/Y/T, [A/B/K | Rest]) :- ((X \== A, Y \== B, T == K); T \== K),
+                                safe(X/Y/T, Rest).
 
 
 check1 :- tests([
@@ -192,7 +194,11 @@ setMinus(From, ToRemove, Result) :-
 % boat(-NM, -NC)
 % Posibilele combinații de număr de misionari și canibali care pot
 % călători cu barca.
-boat(_, _) :- fail.
+boat(1, 0).
+boat(1, 1).
+boat(2, 0).
+boat(0, 1).
+boat(0, 2).
 
 % TODO
 % safe/2
@@ -202,7 +208,7 @@ boat(_, _) :- fail.
 % Atenție la de câte ori este adevărat safeMisionari pentru diverse
 % valori ale argumentelor - poate influența numărul soluțiilor pentru
 % problemă.
-safeMisionari(_, _) :- fail.
+safeMisionari(NMis, NCan) :- NMis >= NCan; NMis == 0.
 
 
 % TODO
@@ -211,21 +217,21 @@ safeMisionari(_, _) :- fail.
 % Întoarce în ultimele 5 argumente malul unde este barca și numerele de
 % misionari / canibali de pe malul estic, respectiv vestic, în starea
 % dată.
-parseState( _, _, _, _, _, _) :- fail.
+parseState(state(M, NME, NCE, NMV, NCV), M, NME, NCE, NMV, NCV).
 
 
 % TODO
 % initial_state(misionari, -State)
 % Determină starea inițială pentru problema misionarilor, în formatul
 % ales.
-initial_state(misionari, _) :- fail.
+initial_state(misionari, state(est, 3, 3, 0, 0)).
 
 
 % TODO
 % final_state(misionari, +State)
 % Verifică dacă starea dată este stare finală pentru problema
 % misionarilor.
-final_state(misionari, _) :- fail.
+final_state(misionari, state(vest, 0, 0, 3, 3)).
 
 
 % TODO
@@ -234,7 +240,25 @@ final_state(misionari, _) :- fail.
 % Toate soluțiile predicatului next_state pentru o stare S1 dată trebuie
 % să fie toate posibilele stări următoare S2 în care se poate ajunge din
 % S1.
-next_state(misionari, _, _) :- fail.
+next_state(misionari, Start, Final) :- parseState(Start, Mal1, NME1, NCE1, NMV1, NCV1),
+                                        Mal1 == est,
+                                        boat(NM, NC),
+                                        NM =< NME1, NC =< NCE1, 
+                                        NME2 is NME1 - NM, NCE2 is NCE1 - NC,
+                                        NMV2 is NMV1 + NM, NCV2 is NCV1 + NC,
+                                        safeMisionari(NME2, NCE2),
+                                        safeMisionari(NMV2, NCV2),
+                                        Final = state(vest, NME2, NCE2, NMV2, NCV2).
+
+next_state(misionari, Start, Final) :- parseState(Start, Mal1, NME1, NCE1, NMV1, NCV1),
+                                        Mal1 == vest,
+                                        boat(NM, NC),
+                                        NM =< NMV1, NC =< NCV1,
+                                        NMV2 is NMV1 - NM, NCV2 is NCV1 - NC,
+                                        NME2 is NME1 + NM, NCE2 is NCE1 + NC,
+                                        safeMisionari(NME2, NCE2),
+                                        safeMisionari(NMV2, NCV2),
+                                        Final = state(est, NME2, NCE2, NMV2, NCV2).
 
 
 % dacă solve(misionari, Sol) eșuează, folosiți
@@ -286,7 +310,16 @@ arc(n, [o, p]). arc(o, [q, r, s]). arc(p, [t, u, v]).
 % preorder(+N, -Parc)
 % Întoarce în Parc o listă de noduri rezultate din parcurgerea în
 % preordine începând din noudl N.
-preorder(_, _) :- fail.
+preorder(N, [N | PChld]) :- arc(N, Chld), chldDfs(Chld, [], PChld).
+preorder(N, [N]) :- \+ arc(N, _).
+
+chldDfs([], Vis, P) :- reverse(Vis, P).
+chldDfs([C | Chld], Vis, P) :- \+ arc(C, _),
+                               chldDfs(Chld, [C | Vis], P).
+chldDfs([C | Chld], Vis, P) :- arc(C, CChld),
+                               chldDfs(CChld, [C | Vis], PChld),
+                               reverse(PChld, VisChld),
+                               chldDfs(Chld, VisChld, P).
 
 check3 :- tests([
           exp('preorder(a, P)', ['P', [a, b, c, e, f, g, d]]),
@@ -306,8 +339,15 @@ nodes(NN) :- findall(N, nod(N), NN).
 % trees(-Trees)
 % Întoarce în trees o listă în care fiecare element este parcurgerea
 % unui arbore.
-trees(_) :- fail.
+trees(Trees) :- nodes(NN), sort(NN, Nodes), traverse(Nodes, [], Trees).
 
+traverse(NN, NN, Trees) :- Trees = [].
+traverse(NN, Vis, Trees) :- nod(X), \+ member(X, Vis),
+                                preorder(X, Tree),
+                                append(Vis, Tree, NewVis),
+                                sort(NewVis, SNewVis),
+                                traverse(NN, SNewVis, NewTrees),
+                                Trees = [Tree | NewTrees].
 
 check4 :- tests([
               exp('trees(TT)', ['TT',
