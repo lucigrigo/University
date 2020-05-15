@@ -1,0 +1,60 @@
+                    Protocoale de Comunicatie
+                              Tema 3
+                 Client Web. Comunicare cu REST API.
+                    Grigore Lucian-Florin 324CD
+
+Structura temei:
+    In fisierul sursa "client.c" se executa majoritatea operatiilor programului:
+    - deschiderea conexiunii cu serverul inainte de a trimite o noua comanda ceruta
+de utilizator
+    - interactiunea cu utilizatorul prin afisarea mesajelor de orice tip si parsarea
+oricarui input dat de acesta, pentru oricare comanda
+    - trimiterea oricarei cereri (de tip GET/POST/DELETE) la server si procesarea 
+raspunsului
+    
+    Sursa "helpers.c" contine:
+    - comunicarea efectiva a oricarui mesaj catre sau dinspre server prin socket-ul 
+de comunicare
+    - crearea mesajelor de tip GET/DELETE sau POST dupa anumiti parametrii si
+respectant formatul si standardele HTTP
+
+    Header-ul "helpers.h" contine:
+    - macro-uri si constante utilizate, cum ar fi: adrese URL, coduri pentru diferitele
+tipuri de comenzi introduse de utilizator, lungimi de buffer, etc.
+
+    Sursele "buffers.c" si "buffers.h" contin metode utilizate in comunicarea cu serverul.
+    
+Structura codului sursa "client.c":
+    In functia main, intr-o bucla infinita, se executa pasii urmatori:
+    - comunicarea cu utilizatorul
+    - parsarea comenzii, precum si a altor parametri, daca este necesar
+    - deschiderea conexiunii catre server pe un nou socket
+    - trimiterea cererii corespunzatoare catre server
+    - asteptarea si parsarea raspunsului
+    - memorarea unor date de logare, cum ar fi in cazul token-urilor
+    
+    Pentru fiecare tip de cerere ce poate fi realizata, exista o functie separata ce se ocupa
+de transmiterea ei. Orice tip de date care trebuie introdus de utilizator pentru anumite cereri,
+cum ar fi id-ul unei carti, titlul, numarul de pagini, etc., este cerut la input in functia main.
+Astfel, functiile "server_*" vor comunica cu utilizatorul doar prin afisarea unor mesaje de succes
+sau eroare.
+
+Comunicarea cu serverul:
+
+Interactiunea cu utilizatorul:
+    Comenzile, precum si pasii prin care care trece programul, sunt:
+    
+    "register"
+    - cere utilizatorului numele de utilizator si parola
+    - trimite cererea de inregistrare catre server
+    - daca contul a fost creat, afiseaza un mesaj de succes
+    - daca contul nu a fost creat, afiseaza un mesaj de eroare
+    
+    "login"
+    - cere utilizatorului numele de utilizator si parola
+    - trimite cererea de conectare catre server
+    - afiseaza un mesaj 
+
+Observatii:
+    Sursele "buffers.c" si "buffers.h", precum si comunicarea raw cu serverul fac parte din
+scheletul laboratorului 10.
