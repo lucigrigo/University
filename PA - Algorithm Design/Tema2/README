@@ -1,0 +1,54 @@
+                            Proiectarea Algoritmilor
+                                    Tema 2
+                            Grigore Lucian-Florin 324CD
+
+1. Holograme
+
+Descrierea rezolvarii:
+
+Pornind de la graful primit la intrare, trebuie prima data sa il vizionam
+ca un graf neorientat. Astfel, graful are cel putin o componenta conexa.
+
+Il separam in componentele sale conexe si apoi restauram orientarea
+muchiilor. 
+
+Pentru fiecare componenta conexa, exista doua posibilitati:
+ori contine unul sau mai multe cicluri, ori este un DAG (directed acyclic
+graph).
+
+Daca o componenta contine un ciclu intre anumite noduri (cu k noduri) din ea,
+atunci trebuie incluse toate muchiile din ciclu -> nicio muchie nu este
+eliminata din graful initial.
+
+Daca o componenta este DAG (cu k noduri), atunci ultimul nod in ordinea
+topologica a componentei nu are nevoie sa mearga nicaieri. Astfel, se scade 1
+din numarul de muchii din graful initial.
+
+Raspunsul final este Numarul de muchii initial - Numarul de DAG.
+
+Complexitate: O(n + m)
+
+2. Scurt
+
+Pentru a rezolva aceasta problema, am considerat folosirea algoritmului lui
+Kruskal la baza.
+
+Astfel, consider muchiile in ordine crescatoare dupa cost. Pentru fiecare muchie, 
+daca uneste doua noduri care fac parte din arbori diferiti, atunci muchia este
+adaugata la subgraful comun construit deja. Aici realizez o reuniune a celor doua
+paduri de muchii (structuri de tip forrest) pentru cele doua noduri. Astfel, ele 
+vor face parte la final din aceeasi padure. 
+
+Daca in schimb muchia uneste doua noduri care fac parte din aceeasi componenta,
+trebuie sa verificam daca exista in drumul dintre cele doua noduri prin padurea
+deja creata vreo muchie de cost egal cu muchia considerata. Daca muchie considerata
+este de cost mai mare, atunci ea nu este bagata in seama. Daca se gaseste o muchie
+in padure de cost egal, atunci toate muchiile de acel cost din drumul dintre cele
+doua noduri sunt marcate si intra in grupul muchiilor care apar in anumiti, dar nu
+in toti arborii minimi de acoperire.
+
+Algoritmul se termina cand din padure fac parte toate nodurile din graf.
+
+Complexitate: O(n logn)
+
+3. Umbre
