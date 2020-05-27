@@ -20,4 +20,5 @@ function sol = met_bisect(a, b, tolerance, func)
         end
         sol = ((a + b) / 2);
     end
+    
 endfunction
