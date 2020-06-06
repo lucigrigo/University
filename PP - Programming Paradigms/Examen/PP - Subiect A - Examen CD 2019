@@ -1,0 +1,82 @@
+PP - Subiect A - Examen CD 2019
+
+1.
+(lambda x.(lambda y.(x y) lambda z.(y z)) x)
+legata legata legata legata legata libera legata libera
+
+2.
+(pow 2 5)						[]
+(* 2 (pow 2 4))					[*2]
+(* 2 (pow 4 2))					[*2]
+(* 2 (pow 16 1))				[*2]
+(* 2 (* 16 (pow 16 0)))			[*16, *2]
+(* 2 (* 16 1))					[*16, *2]
+(* 2 16)						[*2]
+32								[]
+
+3.
+a)
+(define (f p L)
+	(filter (lambda (x)
+		(and (p x) (not (p (/ x 2))))
+		) L)
+	)
+
+b)
+((f even?) numbers)
+
+4.
+(define f1
+	(let iter ((a `(1)) (b `(1 1)))
+		(stream-cons a (stream-cons b (iter (cons 1 a) (cons 1 b))))
+	))
+
+(define f1
+	(let iter ((a `(1)) (b `(1 1)))
+		(cons a (delay (cons b (delay (iter (cons 1 a) (cons 1 b))))))
+	))
+
+5.
+f x y = iterate $ x . y
+TODO
+
+6.
+data Student = Student String [(String, Int, Int)] deriving (Eq, Show)
+
+instance Ord Student where
+	Student _ g1 <= Student _ g2 = compute g1 < compute g2
+	where
+		compute g = sum [cr | (_, nota, credite) <- g, nota >= 5]
+
+7.
+"Orice mata blanda ori doarme, ori il zgarie pe vreun om rau"
+oricare X (matza(X) si blanda(X) => (doarme(X) sau exista Y(om(Y) si rau(Y) si zgarie(X, Y))))
+
+8.
+one_bubble([], []).
+one_bubble([X], [X]).
+one_bubble([X,Y|Rest], [X|Res]) :- X =< Y, !, one_bubble([Y|Rest], Res).
+one_bubble([X,Y|Rest], [Y|Res]) :- one_bubble([X|Rest], Res).
+
+9. 
+-------
+
+10.
+
+data Value = C Char | I Int | P (Int, Char) deriving Show
+data MList = ML [Value]
+
+filter' :: Char -> MList -> MList
+filter' type (ML L) = ML $ filter (f c) L where
+	f 'i' (I _) = True
+	f 'c' (C _) = True
+	f 'p' (P _) = True
+	otherwise = False
+
+conv :: MList -> Maybe [Char]
+conv (M ((C c):rest)) =
+	case (conv (M rest)) of
+	Just r -> Just (c:r)
+	Nothing -> Nothing
+conv (M []) = []
+conv _ = Nothing

@@ -1,0 +1,61 @@
+PP - Subiect B - Examen CA-CC 2019
+
+1.
+E =  (y (lambda x.lambda x.x (lambda y.y y))) -> (y (lambda x.lambda x.x y)) -> (y lambda x.x)
+
+2.
+(a) equal este apelat de 2 ori, pentru fiecare element mai mare ca 5 (7 9)
+(b) 
+(define computation (lambda () (delay (equal? 55))))
+(define (f x) (and (> x 5) (force computation)))
+	equal este apelat o singura data la evaluarea functiei f
+
+3.
+(define (f LL)
+	(filter (lambda (L)
+			(>= (foldl + 0 L) (foldl * 1 L))
+		)
+	LL))
+
+4.
+tipul functiei f = map (++)
+map :: (a -> b) -> [a] -> [b]
+(++) :: [c] -> ([c] -> [c])
+a = [c]
+b = [c] -> [c]
+f :: [[c]] -> [[c] -> [c]]
+
+5.
+(a) 10 aplicatii pentru ca vor fi evaluate toate elementele
+(b) niciuna pentru ca nu sunt evaluate explicit elementele
+
+6.
+instance N Bool where
+	(+) = (||)
+	(*) = (&&)
+
+7.
+"Nu mor caii cand vor cainii."
+exista t.cainii_vor(t) si not t.caii_mor(t)
+
+8.
+este predicatul select(A, X, Y) care face match pe cele doua liste X si Y ai sa fie identice, mai putin primul element din X care sa fie A
+
+9.
+veri(A, V) :- findall(X, (c(P, A), c(PP, P), c(PP, B), P \= B, c(B, X)), V1), sort(V1, V).
+
+10.
+data HashSet a = HS [(Int, [a])] deriving (Eq, Show)
+
+map' :: (Hashable a, Hashable b) -> (a -> b) -> HashSet a -> HashSet b
+map' f (HS L) = HS $ map (\(k, s) -> (k, map f s)) L
+
+--ins :: Hashable a => a -> HashSet a -> HashSet a
+--// tipul corect, dar mai greu de testat
+ins :: Int -> HashSet Int -> HashSet Int
+ins a (HS lst) = HS $ case back of
+[] -> (k, [a]) : front
+( , as) : back -> (k, a : as) : front ++ back
+where
+k = hash a
+(front, back) = break ((== k) . fst) lst
