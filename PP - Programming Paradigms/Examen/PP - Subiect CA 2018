@@ -1,0 +1,112 @@
+PP - Subiect CA 2018
+
+1.
+(define (f x y)
+	(lambda (z)
+		(if (< x 10) (+ x y) z)))
+
+((f (+ 0 1) (+ 2 3)) (+ 4 5))
+((f 1 5) (+ 4 5))
+((lambda (z) (if (< 1 10) (+ 1 5) z)) (+ 4 5))
+((lambda (z) (if (< 1 10) (+ 1 5) z)) 9)
+(if (< 1 10) (+ 1 5) 9)
+(if true (+ 1 5) 9)
+(+ 1 5)
+6
+
+2.
+f x y z = if x < 10 then x + y else z
+
+f (0 + 1) (2 + 3) (4 + 5)
+if (0 + 1) < 10 then (0 + 1) + (2 + 3) else (4 + 5)
+if 1 < 10 then 1 + (2 + 3) else (4 + 5)
+if True then 1 + (2 + 3) else (4 + 5)
+1 + (2 + 3)
+1 + 5
+6
+
+3.
+a)
+(define (f x)
+	(if (<= x 0) 
+		0
+		(- (f (- x 1)) 1))) 
+	-> foloseste recursivitate pe stiva pentru ca functia asteapta intoarcerea
+din apelul recursiv ca sa continue sa realizeze operatia de scadere
+
+b)
+(define (f x)
+	(if (<= x 0) 0
+	(f (- (f (- x 1)) 1))))
+	-> foloseste tot recursivitate pe stiva datorita calculelor din interiorul
+apelului recursiv
+
+4.
+(define (x x)
+	(let ([x x])
+		(x x)))
+	
+(x 0) -> va afisa eroare deoarece aparitia lui x de la linia 3 face referire
+		 la 0, care nu poate fi aplicat ca functie
+		 
+5.
+f u = map . u
+(.) :: (b -> c) -> (a -> b) -> a -> c
+f :: d -> e
+u :: d = a -> b
+map :: (g -> h) -> [g] -> [h]
+b = g -> h
+c = [g] -> [h]
+e = a -> c
+f :: (a -> g -> h) -> a -> [g] -> [h]
+
+6.
+instance (Eq a, Ord a) -> Ord [a] where
+	l1 <= l2 = sum l1 <= sum l2
+	
+7.
+p1, ..., p10 propozitii simple
+alfa = p1 sau ... sau p10
+beta = (p1 sau ... sau p5) si (p6 sau ... sau p10)
+alfa este fals doar daca toate cele 10 propoziti sunt false
+nr total de interpretari pentru 10 propozitii = 2 ^ 10
+=> alfa este satisfacut in 2 ^ 10 - 1 cazuri
+similar pentru fiecare paranteza din beta
+=> beta este satisfacut in (2 ^ 5 - 1) ^ 2 cazuri
+
+8.
+	{∀x.P(x) ∨ ∀x.Q(x)} |= ∀x.(P(x) ∨ Q(x))
+redenumim variabilele astfel
+	{∀x.P(x) ∨ ∀y.Q(y)} |= ∀z.(P(z) ∨ Q(z))
+utilizam reducerea la absurd
+adaugam la multimea de premise si concluzia
+	exista z.(not P(z) si not Q(z))
+in urma transformarii in forma normala conjunctiva, sunt redenumite variabilele
+din z in c_z, se obtin clauzele
+	{P(x), P(y)}, {not P(c_z)}, {not Q(c_z)}
+aplicam rezolutia cu clauzele suplimentare
+	x <- c_z si y <- c_z
+obtinem clauza vida
+
+9.
+a(1). a(2).
+b(1). b(2).
+
+c(X, Y) :- !, a(X), b(Y).
+c(3, 4).
+c(4, 3).
+
+findall(_, c(X, Y), L), length(L, 4).
+	-> astfel se genereaza toate cele 4 combinatii ale scopurilor a si b
+	si nu se mai iau in calcul cele doua de dupa c(X, Y).
+	
+10.
+data MyTree a = Node a [MyTree a]
+
+height :: MyTree a -> Int
+height (Node _ []) = 0
+height (Node _ children) = 1 + maximum $ map height children
+
+findLeaves :: MyTree a -> Int
+findLeaves (Node _ []) = 1
+findLeaves (Node _ children) = sum $ map findLeaves children
