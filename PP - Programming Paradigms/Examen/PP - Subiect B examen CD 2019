@@ -1,0 +1,91 @@
+PP - Subiect B examen CD 2019
+
+1.
+(λx.(λy.(x y) λz.(y z)) x) -> (lambda_x.(x lambda_z.(y z)) t) -> 
+(t lambda_z.(y z))
+
+2.
+(mul 3 3)								[]
+(+ 3 (mul 3 2))							[+3]
+(+ 3 (+ (mul 3 1) (mul 3 1)))			[+[..], +3]
+(+ 3 (+ (+ 3 (mul 3 0)) (mul 3 1)))		[+3, +[..], +3]
+(+ 3 (+ (+ 3 0) (mul 3 1)))				[+3, +[..], +3]
+(+ 3 (+ 3 (mul 3 1)))					[+3, +3]
+(+ 3 (+ 3 (+ 3 (mul 3 0))))				[+3, +3, +3]
+(+ 3 (+ 3 (+ 3 0)))						[+3, +3, +3]
+(+ 3 (+ 3 3))							[+3, +3]
+(+ 3 6)									[+3]
+9										[]
+
+3.
+a)
+(define (zipWith f L1)
+	(lambda (L2)
+		(map f L1 L2))
+	)
+
+b)
+(map (zipWith + `(1 2 3)) L1)
+
+4.
+(define (f x)
+	(let iter ((i 0))
+		(cons i (lambda () (iter (+ i x))))
+	))
+(let ((nrs (f 5)))
+	(list (car nrs) (car ((cdr nrs))) (car ((cdr ((cdr nrs)))))))
+
+5.
+f x = filter $ x . x . x
+x :: a, filter $ x . x . x :: b, f :: a -> b
+filter :: (c -> Bool) -> [c] -> [c]
+	=> x . x . x :: c -> Bool, b :: [c] -> [c]
+(.) :: (e -> g) -> (d -> e) -> (d -> g)
+	=> x :: e -> g, x . x :: d -> e, x . x . x :: d -> g
+	=> c = d, g = Bool
+	=> c = d = e = g = Bool
+f :: (Bool -> Bool) -> [Bool] -> [Bool]
+
+6.
+data Student = Student String [(String, Int)] deriving Show
+
+instance Eq Student where
+	Student _ g1 == Student _ g2 = checkGrade g1 == checkGrade g2 where
+	getGrade grade
+		| grade < 5 = 1
+		| grade < 10 = 2
+		| otherwise = 3
+	checkGrade g = [getGrade grade | ("PP", grade) <- g]
+
+7.
+{a ∨ b, a ⇒ c, b ⇒ d} |= c ∨ d
+premise: 1.{a, b}; 2.{not a, c}; 3.{not b, d}
+concluzie: 4.{not c}; 5.{not d}
+demonstratie: 6.{not a}(2, 3) 7.{not b}(3, 5) 8.{b}(1, 6) 9.{}(7, 8)
+
+8.
+other(a, b). other(b, a).
+switchUntilZero([], []).
+switchUntilZero([0|Rest], [0|Rest]) :- !.
+switchUntilZero([X|Rest], [Y|Res]) :- other(X, Y), !, switchUntilZero(Rest, Res).
+switchUntilZero([X|Rest], [X|Res]) :- switchUntilZero(Rest, Res).
+
+9. --------
+
+10.
+data Queue a = Q [a] [a] deriving Show
+
+isEmpty :: (Queue a) -> Bool
+isEmpty (Queue [] []) = True
+isEmpty _ = False
+
+top :: (Queue a) -> a
+top (Queue q_in []) = last q_in
+top (Queue _ [elem:_]) = elem
+
+del :: (Queue a) -> (Queue a)
+del (Queue q_in []) = Queue [] $ tail $ reverse q_in
+del (Queue q_in [_:q_out]) Queue q_in q_out
+
+ins :: a -> (Queue a) -> (Queue a)
+ins elem (Queue q_in q_out) = Queue (elem:q_in) q_out
