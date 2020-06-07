@@ -1,0 +1,56 @@
+PP - Subiect B CC 2018
+
+1.
+lambda x.lambda y.((lambda x.lambda y.y (x y)) (y x)) ->
+lambda x.lambda y.(lambda y.y (y x)) ->
+lambda x.lambda y.(y x)
+
+2.
+- la a doua linie, a nu este vizibil la apelul functiei lambda
+- prima linie da 6, a doua da eroare
+
+3.
+(define (unzip L) (cons (map car L) (map cdr L)))
+
+4.
+f x y z = x . y z
+(.) :: (b -> c) -> (a -> b) -> a -> c
+z :: t
+x :: b -> c
+y :: t -> a -> b
+y z :: a -> b
+f x y z :: a -> c
+f :: (b -> c) -> (t -> a -> b) -> t -> a -> c
+
+5.
+instance (Enum a, Show b, Num a) -> Show (a -> b) where
+	show f = map show $ map f [1..10]
+	
+6.
+[divs | n <- [1..], divs <- [x | x <- [1..n], isInt n / x]]
+
+7.
+premise: taran(george), oricare x.taran(x) => areSapa(x)
+concluzia: destept(george) sau areSapa(george)
+	-> negam concluzia
+clauze: 
+a) {taran(george)}
+b) {not taran(x) sau areSapa(x)}
+c) {not destept(george)}
+d) {not areSapa(george)}
+b) + d) => e) {not taran(george)} 
+e) + a) => {}
+
+8.
+intersect(A, B, R) :- findall(X, (member(X, A), member(X, B)), R).
+
+9. ------------
+
+10.
+data MyList a = ML [a]
+
+get :: MyList a -> a
+get (ML lst) = last lst
+
+prev :: MyList a -> MyList a
+prev (ML l) = ML ((last l) : (init l))
