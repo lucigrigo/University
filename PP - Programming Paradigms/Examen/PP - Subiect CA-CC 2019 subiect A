@@ -1,0 +1,80 @@
+PP - Subiect CA-CC 2019 subiect A
+
+1.
+(lambda x.(x (lambda y.z x)) lambda x.x) ->
+(lambda x.(x z) lamba x.x) ->
+(lambda x.x z) ->
+z
+
+2.
+a)
+o singura data
+b)
+dupa inmultire, la evaluarea lui f
+c)
+(define computation (lambda () (+ 5 5)))
+(* 5 5)
+(define (f x)
+	(cons x (computation)))
+(map f `(1 2 3 4))
+
+adunarea se executa de 4 ori, la fiecare pas din f
+prima evaluare tot dupa inmultire se executa
+
+3.
+(define (f L1 L2)
+	(map (lambda (elem)
+				(cons elem (length (filter (equal? elem) L2)))
+			)
+	L1))
+
+4.
+f x y = x y (y x)
+x :: a -> b -> c, y :: a si y :: (a -> b -> c) -> b =>
+a = (a -> b -> c) -> b => EROARE deoarece a nu poate fi unificat
+cu o expresie de tip care il contine strict pe a
+
+5.
+a)
+(car (append `(1 2) `(3 4)))
+doi pasi de concatenare
+b)
+head $ [1, 2] ++ [3, 4]
+un singur pas de concatenare
+
+6.
+class MyClass c where
+	f :: c a -> a
+
+class MyClass [] where f = head
+
+7.
+"Nu tot ce zboara se mananca."
+exista X.zboara(X) si not se_mananca(X)
+
+8.
+p(R, S) :- member(X, R),
+		   findall(Y, (member(Y, R), Y \= X), T), !, q(X, T, S).
+q(X, A, [X|A]).
+q(X, [A|B], [A|C]) :- q(X, B, C).
+
+9.
+frati(X, F) :- findall(Y, (c(A, X), c(A, Y), X \= Y), F1), sort(F1, F).
+
+10.
+data MultiMap k e = MM [(k, [e])] deriving Show
+
+lookup :: k -> MultiMap k e -> [e]
+lookup k (MM x) = head [elems | (k, elems) <- x]
+
+insert :: k -> e -> MultiMap k e -> MultiMap k e
+insert k x (MM list@(keys, _))
+	| member k keys = (MM newList)
+		where 
+			newL = [L | L@(key, _) <- list, key /= k]
+			newVal = x : $ head [prev | (k, prev) <- list]
+			newList = newL ++ [(k, newVal)]
+	| otherwise = (MM ((k, [x]):list))
+
+map :: (a -> b) -> MultiMap k a -> MultiMap k b
+map p (MM l) = MM $ map (\(k, oldVal) -> (k, map p oldVal)) l
