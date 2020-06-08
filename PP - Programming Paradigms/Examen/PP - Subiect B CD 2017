@@ -1,0 +1,46 @@
+PP - Subiect B CD 2017
+
+1.
+((lambda x.lambda y.lambda z.x (lambda y.z gamma)) a) ->
+((lambda x.lambda t.lambda u.x (lambda y.z gamma)) a) ->
+((lambda x.lambda t.lambda u.x z) a) ->
+(lambda t.lambda u.z a) ->
+lambda u.z
+
+2.
+intoarce 1
+il imparte pe n succesiv la m, m - 1, m - 2 ... pentru oricare m > 0
+
+3.
+(F 1) se evalueaza de 2 ori
+(let ((proc (lambda (x) (* (force x) (force x))))) (proc (delay (F 1))))
+-> se evalueaza o singura data
+
+4.
+f = zipWith3 (\x y z -> max x $ max y z)
+
+5.
+class Addable t where add :: (Num a) => t a -> t a -> t a
+instance Addable [a] where
+	add [] [] = []
+	add [x:l1] [y:l2] = (x + y) : (add l1 l2)
+	=== SAU ===
+	add = zipWith (+)
+data MyPair a = MP (a, a) deriving (Show, Addable)
+instance Addable (a, a) where 
+	add (MP (x, y)) (MP (t, u)) = MP (x + t, y + u)
+
+6.
+"Talhar pe talhar nu fura"
+premise: talhar(Ben), talhar(Don)
+concluzia: not fura(Ben, Don)
+demonstratie:
+oricare x.oricare y.talhar(x) si talhar(y) implica not fura(x, y)
+{Ben <- x} si {Don <- y} => talhar(Ben) si talhar(Don) implica not fura(Ben, Don)
++ talhar (Ben) + talhar(Don) si concluzia negata => clauza vida {}
+
+7.
+p([], [], []).
+p([X | Rest1], [Y | Rest2], [(X, Y) | Rez]) :- p(Rest1, Rest2, Rez).
+
+8. -------
