@@ -1,0 +1,55 @@
+PP - Subiect A CD 2017
+
+1.
+((lambda x.lambda y.lambda z.y gamma) lambda x.(x z)) ->
+(lambda y.lambda z.y lambda x(x z)) ->
+lambda z.lambda x.(x t)
+
+2.
+(let f ((n 0) (m 5)) 
+	(if (< n m) 
+		(+ n (f (+ n 1) m)) 
+		0)
+	)
+	-> 0 + 1 + 2 + 3 + 4 + 0 = 10 suma numerelor de la 0 la m - 1 inclusiv
+	
+3.
+(let ((proc (λ (x) (+ (force x) (force x))))) 
+		(proc (delay (E 1))))
+	-> o singura data
+	
+(let ((proc (lambda (x) (+ x x))))
+		(proc (lambda () (E 1))))
+	-> de doua ori
+
+4.
+f L1 L2 L3 = zipWith + L3 $ zipWith + L1 L2
+
+5.
+class Summable t where 
+	sum :: (Num a) => t a -> a
+	
+instance Summable [] where 
+	sum L = foldl (+) 0 L
+data NestedList a = NL [NestedList a] | Single a deriving (Eq, Show)
+instance Summable NestedList where
+	| sum (A a) = a
+	| sum (NL lst) = foldl (+) 0 $ map sum lst
+
+6.
+"Vulpea care doarme nu prinde gaini"
+premise: vulpe(Vicky), gaina(Gini), doarme(Vicky)
+		 oricare x.vulpe(x) si doarme(x) => not exista y.gaina(y) si prinde(x, y)
+concluzia: not prinde(Vicky, Gini)
+
+not vulpe(x) sau not gaina(y) sau not doarme(x) sau not prinde(x, y)
+{x <- Vicky} + vulpe(Vicky) => not gaina(y) sau not doarme(Vicky) sau not prinde(Vicky, y)
++ doarme(Vicky) => not gaina(y) sau not prinde(Vicky, y)
+{Gini <- y} + gaina(Gini) => not prinde(Vicky, Gini)
++ (concluzia negata) prinde(Vicky, Gini) => clauza vida {}
+
+7.
+p([], [], []).
+p([X | Rest1], [Y | Rest2], [(X, Y) | Rez]) :- p(Rest1, Rest2, Rez).
+	
+8. ------------
