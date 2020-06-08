@@ -1,0 +1,94 @@
+PP - Subiect CA 2017
+
+1.
+(lambda x.(lambda x.x x) a) -> lambda x.x a -> a
+
+2.
+(define (f X Y)
+	(if (null? X) 
+	Y
+	(f (cdr X) (cons (car X) Y))))
+	
+a)
+(define (reverse L)
+	(f L `()))
+
+b)
+(define (append L1 L2)
+	(f (reverse L1) L2))
+	
+3.
+data Tree a = Node {key :: a, children :: [Tree a]} deriving (Eq, Show)
+
+filterTree :: (a -> Bool) -> Tree a -> Tree a
+filterTree f (Node k children) = Node k $ map (filterTree f) $ map (f . key) children
+
+4.
+(define (add x)
+	(lambda (y)
+		(+ x y)))
+		
+(define x 10)
+
+(let ([x 20])
+	(map (add x) `(1 2 3)))
+	
+-> va rezulta `(21 22 23) deoarece in corpul ultimului let, x este legat la valoarea 20
+	(legare dinamica)
+	
+5.
+(define x 0)
+
+(define closure (lambda () x))
+(define promise (delay x))
+
+(closure)
+(force promise)
+
+(define x 1)
+
+(closure)
+(force promise)
+
+-> valorile sunt 0, 0, 1, 0 pentru ca la redefinirea lui x, expresia lui closure este
+reevaluata cu noul x, adica 1. promise nu se schimba pentru ca ia acelasi x ca inainte
+
+6.
+prefixes :: [a] -> [[a]]
+prefixes L = out where
+	out = [] : zipWith f out L
+	f prefix x = prefix ++ [x]
+	
+7.
+f g (x, y, z) = map g [x, y, z]
+map :: (a -> b) -> [a] -> [b]
+[x, y, z] :: [a] => x = y = z = a
+g :: (a -> b)
+=> f :: (a -> b) -> (a, a, a) -> [b]
+
+8.
+data Maybe a = Just a | Nothing
+
+instance Num a => Num (Maybe a) where
+	Just x + Just y = Just $ x + y
+	_ + _ = Nothing
+	
+9.
+∀x.(P(x) ⇒ Q(x)) -> pentru oricare x pentru care este adevarata P(x) implica Q(x)
+∀x.P(x) ⇒ ∀x.Q(x) -> pentru toate obiectele x, daca satisfac P, atunci trebuie sa
+					 se intample acelasi lucru si cu Q
+					 
+10.
+{∃x.(P(x) ∧ Q(x))} |= ∃x.P(x)
+∃x.(P(x) ∧ Q(x)) ∧ ¬∃x.P(x)
+∃x.(P(x) ∧ Q(x)) ∧ ∀x.¬P(x)
+∃x.∀y.(P(x) ∧ Q(x) ∧ ¬P(y))
+P(cx) ∧ Q(cx) ∧ ¬P(y)
+{P(cx)}, {Q(cx)}, {¬P(y)}
+=> clauza vida {} folosind substitutia {y <- cx}
+
+11.
+count (_, [], 0).
+count (X, [Y | Rest], N) :- count (X, Rest, N1), (X == Y, N is N1 + 1, !; N is N1).
+
+12. -------------
