@@ -1,4 +1,4 @@
-PP - Subiect B 2018 CC
+PP - Subiect A 2018 CC
 
 1.
 lambda x.lambda y.((lambda x.lambda y.x (y x)) (x y)) ->
