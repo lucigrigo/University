@@ -1,0 +1,59 @@
+PP - Subiect B 2018 CC
+
+1.
+lambda x.lambda y.((lambda x.lambda y.x (y x)) (x y)) ->
+lambda x.lambda y.((lambda x.lambda z.x (y x)) (x y)) ->
+lambda x.lambda y.(lambda z.(y x) (x y)) ->
+lambda x.lambda y.(y x)
+
+2.
+prima va rezulta 8, a doua 9
+deoarece legarea lui c din let-ul din interior se face pentru prima
+la valoarea din let-ul exterior, adica 2, iar pentru al doilea c se
+leaga la valoarea din aceeasi definitie pentru let* a lui b, adica 3
+
+3.
+(define (zip L1 L2)
+	(map cons L1 L2))
+
+4.
+f x y z = x y . z
+(.) :: (b -> c) -> (a -> b) -> a -> c
+z :: a -> b
+x y :: b -> c
+y :: t
+x :: t -> b -> c
+f x y z :: a -> c
+f :: (t -> b -> c) -> t -> (a -> b) -> a -> c
+
+5.
+instance Show (a -> b) where
+	show f = map show $ map f [1..10]
+	
+6.
+[ take 5 mults | n <- [1..], mults <- [x | x <- $ map (* n) [1..]]]
+
+7.
+premise: om(Ion), oricare X.om(X) => areBicicleta(X)
+concluzia: areBicicleta(Ion) sau bogat(X)
+clauzele:
+a) {om(Ion)}
+b) {not om(X) sau areBicicleta(X)}
+c) {not areBicicleta(Ion)} -> din concluzia negata
+d) {not bogat(Ion)} -> din concluzia negata
+b) + c) {Ion <- X} => e) {not om(X)}
+e) + a) {Ion <- X} => clauza vida {}
+
+8.
+diff(A, B, R) :- findall(X, (member(X, A), \+ member(X, B)), R).
+
+9. -------------
+
+10.
+data MyList a = ML [a] deriving Show
+
+get :: MyList a -> a
+get (ML lst) = head lst
+
+prev :: MyList a -> MyList a
+prev (Ml old) = ML ((tail old) : (head old))
