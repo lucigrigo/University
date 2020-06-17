@@ -1,17 +1,23 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
 #define ll long long
 
 int main() {
-    ll n;
-    cin >> n;
-    for(int k = 1; k <= n; ++k) {
-        ll a1 = k * k, a2 = a1 * (a1 - 1) / 2;
-        if(k > 2)
-            a2 -= 4 * (k - 1) * (k - 2);
-        cout << a2 << endl;
+    ll n, x;
+    ll c[(int)2e5] = {};
+    cin >> n >> x;
+    for(int i = 0; i < n; ++i)
+        cin >> c[i];
+    ll ans = 0;
+    sort(c, c + n);
+    for(int i = 0, j = n - 1; i < j;) {
+        while(i < j && c[i] + c[j] > x)
+            --j;
+        if(i >= j)
+            break;
+        ++ans;
+        ++i, --j;
     }
+    cout << n-ans;
     return 0;
 }
