@@ -31,5 +31,5 @@ Contains:
 - Algorithms
 
 ## Frameworks used - Python:
-- Sci:Kit Learn
+- Sci:kit Learn
 - Keras (TensorFlow backend)
