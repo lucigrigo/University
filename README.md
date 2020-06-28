@@ -1,5 +1,5 @@
 # Personal repository
-Made for easy back-up and for presentation purposes (constantly updated).
+Made for easy back-up and presentation purposes (constantly updated).
 
 Contains:
 -
