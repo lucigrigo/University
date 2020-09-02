@@ -17,8 +17,8 @@ Contains:
 - [A program used to format text documents](https://github.com/lucigrigo/GIT/tree/master/PC/Tema2.FormatareText).
 
 ## Languages used:
-- C/C++
 - Java
+- C/C++
 - Python
 - Matlab
 - JavaScript
@@ -32,4 +32,4 @@ Contains:
 
 ## Frameworks used - Python:
 - Sci:Kit Learn
-- Keras (TensorFlow backend)
+- Keras using TensorFlow backend
