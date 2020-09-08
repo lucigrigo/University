@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="053eb083-db54-4d4e-a1ad-ad05b555f3b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../TestSources/C++/cses.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../TestSources/C++/cses.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="053eb083-db54-4d4e-a1ad-ad05b555f3b4" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +33,7 @@
       <option name="presentableId" value="Default" />
       <updated>1592314330424</updated>
       <workItem from="1592314332762" duration="15000" />
+      <workItem from="1599473885427" duration="39000" />
     </task>
     <servers />
   </component>
