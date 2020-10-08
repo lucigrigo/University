@@ -1,4 +1,4 @@
-# Personal repository
+# Personal repository containing university work
 Made for easy back-up and presentation purposes (constantly updated).
 
 Contains:
