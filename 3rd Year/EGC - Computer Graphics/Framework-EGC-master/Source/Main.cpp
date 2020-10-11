@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	WindowObject* window = Engine::Init(wp);
 
 	// Create a new 3D world and start running it
-	World *world = new Laborator9();
+	World *world = new Laborator1();
 	world->Init();
 	world->Run();
 
