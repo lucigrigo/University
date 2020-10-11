@@ -5,7 +5,9 @@
 
 #include <Core/Engine.h>
 
-using namespace std;
+using namespace std; 
+int MYMESH_INDEX = 0;
+const string names[] = { "box.obj", "sphere.obj", "teapot.obj" };
 
 // Order of function calling can be seen in "Source/Core/World.cpp::LoopUpdate()"
 // https://github.com/UPB-Graphics/Framework-EGC/blob/master/Source/Core/World.cpp
@@ -25,6 +27,15 @@ void Laborator1::Init()
 		Mesh* mesh = new Mesh("box");
 		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "box.obj");
 		meshes[mesh->GetMeshID()] = mesh;
+
+		Mesh* second_mesh = new Mesh("sample_mesh");
+		second_mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "teapot.obj");
+		meshes[second_mesh->GetMeshID()] = second_mesh;
+
+		// objects to loop through
+		Mesh* mymesh = new Mesh("mymesh");
+		mymesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "teapot.obj");
+		meshes[mymesh->GetMeshID()] = mymesh;
 	}
 }
 
@@ -52,6 +63,11 @@ void Laborator1::Update(float deltaTimeSeconds)
 	// render the object again but with different properties
 	RenderMesh(meshes["box"], glm::vec3(-1, 0.5f, 0));
 
+	// render 3rd object
+	RenderMesh(meshes["sample_mesh"], glm::vec3(-1, -2, -1));
+
+	// render 4th object (the one that is looped through)
+	RenderMesh(meshes["mymesh"], glm::vec3(1, 4, 1));
 }
 
 void Laborator1::FrameEnd()
@@ -69,9 +85,34 @@ void Laborator1::OnInputUpdate(float deltaTime, int mods)
 
 void Laborator1::OnKeyPress(int key, int mods)
 {
-	// add key press event
 	if (key == GLFW_KEY_F) {
-		// do something
+		glClearColor(0, 0, 1, 0);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		Mesh* new_mesh = new Mesh("mymesh");
+		new_mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", names[MYMESH_INDEX]);
+		meshes["mymesh"]->ClearData();
+		free(meshes["mymesh"]);
+		meshes["mymesh"] = new_mesh;
+		MYMESH_INDEX = (MYMESH_INDEX + 1) % 3;
+	}
+	if (key == GLFW_KEY_W) {
+
+	}
+	if (key == GLFW_KEY_A) {
+
+	}
+	if (key == GLFW_KEY_S) {
+
+	}
+	if (key == GLFW_KEY_D) {
+
+	}
+	if (key == GLFW_KEY_Q) {
+
+	}
+	if (key == GLFW_KEY_E) {
+
 	}
 };
 
