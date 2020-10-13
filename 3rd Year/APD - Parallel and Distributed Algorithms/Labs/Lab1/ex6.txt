@@ -1,0 +1,23 @@
+REZOLVARE EXERCITIU 6
+
+osboxes@osboxes:~/Downloads/lab1-skel$ gcc add_serial.c -o add_serial -lpthread
+osboxes@osboxes:~/Downloads/lab1-skel$ time ./add_serial 1000
+Programul ruleaza cu 1 thread(uri)
+
+real	0m5.718s
+user	0m5.541s
+sys	0m0.068s
+osboxes@osboxes:~/Downloads/lab1-skel$ gcc add_serial.c -o add_serial -lpthread
+osboxes@osboxes:~/Downloads/lab1-skel$ time ./add_serial 1000
+Programul ruleaza cu 2 thread(uri)
+
+real	0m5.265s
+user	0m5.402s
+sys	0m0.110s
+osboxes@osboxes:~/Downloads/lab1-skel$ gcc add_serial.c -o add_serial -lpthread
+osboxes@osboxes:~/Downloads/lab1-skel$ time ./add_serial 1000
+Programul ruleaza cu 4 thread(uri)
+
+real	0m5.094s
+user	0m5.534s
+sys	0m0.067s
