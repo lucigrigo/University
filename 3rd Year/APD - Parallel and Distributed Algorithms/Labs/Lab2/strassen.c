@@ -89,31 +89,31 @@ void init()
 	for (i = 0; i < N; i++) {
 		for (j = 0; j < N; j++) {
 			c[i][j] = 0;
-			
+
 			M1[i][j] = 0;
 			AUXM11[i][j] = 0;
 			AUXM12[i][j] = 0;
-			
+
 			M2[i][j] = 0;
 			AUXM21[i][j] = 0;
-			
+
 			M3[i][j] = 0;
 			AUXM31[i][j] = 0;
-			
+
 			M4[i][j] = 0;
 			AUXM41[i][j] = 0;
-			
+
 			M5[i][j] = 0;
 			AUXM51[i][j] = 0;
-			
+
 			M6[i][j] = 0;
 			AUXM61[i][j] = 0;
 			AUXM62[i][j] = 0;
-			
+
 			M7[i][j] = 0;
 			AUXM71[i][j] = 0;
 			AUXM72[i][j] = 0;
-			
+
 			if (i <= j) {
 				a[i][j] = 1;
 				b[i][j] = 1;
@@ -136,7 +136,7 @@ void print(int **mat)
 	}
 }
 
-void mul_matrix(int **C,  int startCi, int startCj, int **A, int startAi, int startAj, int **B, int startBi, int startBj) 
+void mul_matrix(int **C,  int startCi, int startCj, int **A, int startAi, int startAj, int **B, int startBi, int startBj)
 {
 	// NU paralelizati aceasta functie
 	int i, j, k;
@@ -146,7 +146,7 @@ void mul_matrix(int **C,  int startCi, int startCj, int **A, int startAi, int st
 				C[startCi + i][startCj + j] += A[startAi + i][startAj + k] * B[startBi + k][startBj + j];
 }
 
-void add_matrix(int **C, int startCi, int startCj, int **A, int startAi, int startAj, int **B, int startBi, int startBj) 
+void add_matrix(int **C, int startCi, int startCj, int **A, int startAi, int startAj, int **B, int startBi, int startBj)
 {
 	// NU paralelizati aceasta functie
 	int i, j;
@@ -155,7 +155,7 @@ void add_matrix(int **C, int startCi, int startCj, int **A, int startAi, int sta
 			C[startCi + i][startCj + j] = A[startAi + i][startAj + j] + B[startBi + i][startBj + j];
 }
 
-void sub_matrix(int **C, int startCi, int startCj,  int **A, int startAi, int startAj, int **B, int startBi, int startBj) 
+void sub_matrix(int **C, int startCi, int startCj,  int **A, int startAi, int startAj, int **B, int startBi, int startBj)
 {
 	// NU paralelizati aceasta functie
 	int i, j;

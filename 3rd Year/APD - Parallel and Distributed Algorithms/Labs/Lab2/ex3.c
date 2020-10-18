@@ -9,33 +9,20 @@ int **a;
 int **b;
 int **c;
 
-// declarare mutex
-pthread_mutex_t mutex;
-
 void *thread_function(void *arg)
 {
 	int thread_id = *(int *)arg;
 	int start = thread_id * (double)N / P;
 	int end = min((thread_id + 1) * (double)N / P, N);
 
-	// blocare mutex
-	int status = pthread_mutex_lock(&mutex);
-	if(status != 0)
-		exit(-1);
-
 	// paralelizare inmultire
-	for (int i = 0; i < N; i++) {
+	for (int i = start; i < end; i++) {
 		for (int j = 0; j < N; j++) {
-			for (int k = start; k < end; k++) {
+			for (int k = 0; k < N; k++) {
 				c[i][j] += a[i][k] * b[k][j];
 			}
 		}
 	}
-
-	// blocare mutex
-	status = pthread_mutex_unlock(&mutex);
-	if(status != 0)
-		exit(-1);
 
 	pthread_exit(NULL);
 }
@@ -111,11 +98,6 @@ int main(int argc, char *argv[])
 	pthread_t tid[P];
 	int thread_id[P];
 
-	// initializare mutex
-	int status = pthread_mutex_init(&mutex, NULL);
-	if(status != 0)
-		exit(-1);
-
 	for (i = 0; i < P; i++) {
 		thread_id[i] = i;
 		pthread_create(&tid[i], NULL, thread_function, &thread_id[i]);
@@ -126,11 +108,6 @@ int main(int argc, char *argv[])
 	}
 
 	print(c);
-
-	// dezalocare mutex
-	status = pthread_mutex_destroy(&mutex);
-	if(status != 0)
-		exit(-1);
 
 	return 0;
 }
