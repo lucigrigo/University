@@ -18,24 +18,27 @@ void *thread_function(void *arg)
 	int start = thread_id * (double)N / P;
 	int end = min((thread_id + 1) * (double)N / P, N);
 
-	// blocare mutex
-	int status = pthread_mutex_lock(&mutex);
-	if(status != 0)
-		exit(-1);
-
 	// paralelizare inmultire
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
+			int s = 0;
+			
 			for (int k = start; k < end; k++) {
-				c[i][j] += a[i][k] * b[k][j];
+				s += a[i][k] * b[k][j];
 			}
+			// blocare mutex
+			int status = pthread_mutex_lock(&mutex);
+			if(status != 0)
+				exit(-1);
+
+			c[i][j] += s;
+
+			// deblocare mutex
+			status = pthread_mutex_unlock(&mutex);
+			if(status != 0)
+				exit(-1);
 		}
 	}
-
-	// blocare mutex
-	status = pthread_mutex_unlock(&mutex);
-	if(status != 0)
-		exit(-1);
 
 	pthread_exit(NULL);
 }
