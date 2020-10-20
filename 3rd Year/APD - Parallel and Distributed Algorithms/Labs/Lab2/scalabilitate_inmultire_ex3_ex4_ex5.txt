@@ -1,0 +1,473 @@
+------------------------------------ FARA PARALELIZARE
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m7.132s
+user	0m7.021s
+sys	0m0.027s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.828s
+user	0m6.788s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.490s
+user	0m6.458s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.590s
+user	0m6.556s
+sys	0m0.018s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m8.591s
+user	0m8.549s
+sys	0m0.023s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.595s
+user	0m6.563s
+sys	0m0.018s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.525s
+user	0m6.491s
+sys	0m0.020s
+
+------------------------------------ CU PARALELIZARE EX 3
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.819s
+user	0m6.429s
+sys	0m0.018s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.508s
+user	0m6.479s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.359s
+user	0m6.328s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.458s
+user	0m6.427s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.429s
+user	0m6.397s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.370s
+user	0m6.338s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.360s
+user	0m6.328s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.426s
+user	0m6.389s
+sys	0m0.019s
+
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m3.298s
+user	0m6.121s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.908s
+user	0m5.770s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.944s
+user	0m5.837s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.902s
+user	0m5.759s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.894s
+user	0m5.744s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.359s
+user	0m5.356s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.357s
+user	0m5.347s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.377s
+user	0m5.395s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.362s
+user	0m5.365s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.354s
+user	0m5.330s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.028s
+user	0m7.918s
+sys	0m0.022s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.097s
+user	0m8.531s
+sys	0m0.023s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.029s
+user	0m7.839s
+sys	0m0.022s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.010s
+user	0m7.769s
+sys	0m0.021s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.023s
+user	0m7.775s
+sys	0m0.021s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m1.041s
+user	0m11.217s
+sys	0m0.029s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m1.049s
+user	0m11.321s
+sys	0m0.030s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m1.048s
+user	0m11.263s
+sys	0m0.029s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m1.039s
+user	0m11.281s
+sys	0m0.029s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m1.041s
+user	0m11.230s
+sys	0m0.030s
+
+------------------------------------ CU PARALELIZARE EX 4
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.897s
+user	0m6.277s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m6.193s
+user	0m6.163s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.913s
+user	0m5.771s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.921s
+user	0m5.792s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.874s
+user	0m5.676s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.834s
+user	0m5.616s
+sys	0m0.014s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.882s
+user	0m5.704s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.400s
+user	0m5.502s
+sys	0m0.016s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.380s
+user	0m5.425s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.409s
+user	0m5.522s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.534s
+user	0m5.952s
+sys	0m0.019s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.708s
+user	0m6.610s
+sys	0m0.019s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.387s
+user	0m5.430s
+sys	0m0.017s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.071s
+user	0m7.938s
+sys	0m0.021s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.023s
+user	0m7.848s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.026s
+user	0m7.929s
+sys	0m0.021s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.009s
+user	0m7.868s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.013s
+user	0m7.751s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m1.038s
+user	0m8.035s
+sys	0m0.021s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.002s
+user	0m5.803s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.011s
+user	0m5.877s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.023s
+user	0m5.926s
+sys	0m0.021s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.014s
+user	0m5.819s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.004s
+user	0m5.812s
+sys	0m0.019s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m1.061s
+user	0m11.496s
+sys	0m0.028s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m1.062s
+user	0m11.491s
+sys	0m0.028s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m1.054s
+user	0m11.362s
+sys	0m0.028s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m1.046s
+user	0m11.391s
+sys	0m0.026s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m1.047s
+user	0m11.344s
+sys	0m0.028s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m1.045s
+user	0m11.338s
+sys	0m0.028s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m1.043s
+user	0m11.301s
+sys	0m0.029s
+
+------------------------------------ CU PARALELIZARE EX 5
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m7.376s
+user	0m7.266s
+sys	0m0.020s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 1
+
+real	0m4.720s
+user	0m4.698s
+sys	0m0.015s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.496s
+user	0m4.837s
+sys	0m0.029s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.397s
+user	0m4.690s
+sys	0m0.022s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.621s
+user	0m5.066s
+sys	0m0.039s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.570s
+user	0m4.954s
+sys	0m0.035s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 2
+
+real	0m2.438s
+user	0m4.719s
+sys	0m0.032s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.545s
+user	0m5.627s
+sys	0m0.300s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.510s
+user	0m5.502s
+sys	0m0.289s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.500s
+user	0m5.464s
+sys	0m0.291s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.583s
+user	0m5.773s
+sys	0m0.311s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 4
+
+real	0m1.572s
+user	0m5.775s
+sys	0m0.294s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.734s
+user	0m8.268s
+sys	0m1.363s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.617s
+user	0m7.774s
+sys	0m1.234s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 6
+
+real	0m1.724s
+user	0m8.115s
+sys	0m1.452s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m2.217s
+user	0m11.731s
+sys	0m3.798s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m2.214s
+user	0m11.659s
+sys	0m3.948s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m2.219s
+user	0m11.617s
+sys	0m3.984s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m2.298s
+user	0m12.314s
+sys	0m3.854s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 8
+
+real	0m2.313s
+user	0m12.563s
+sys	0m3.832s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m2.985s
+user	0m17.904s
+sys	0m13.197s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m3.270s
+user	0m18.945s
+sys	0m15.193s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 12
+
+real	0m3.231s
+user	0m19.012s
+sys	0m14.797s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m4.072s
+user	0m18.615s
+sys	0m27.725s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m4.184s
+user	0m19.089s
+sys	0m28.616s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m4.520s
+user	0m18.548s
+sys	0m26.766s
+(base) Grigores-MBP:Lab2 grigorelucian$ time ./multiply 1000 16
+
+real	0m3.916s
+user	0m18.599s
+sys	0m23.950s
