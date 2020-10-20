@@ -1,0 +1,2 @@
+xst -intstyle ise -ifn "C:/Users/student/Downloads/lab01_skel/test_sram.xst" -ofn "C:/Users/student/Downloads/lab01_skel/test_sram.syr" 
+xst -intstyle ise -ifn "C:/Users/student/Downloads/lab01_skel/test_sram.xst" -ofn "C:/Users/student/Downloads/lab01_skel/test_sram.syr" 

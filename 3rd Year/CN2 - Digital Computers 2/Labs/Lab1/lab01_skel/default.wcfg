@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/jaw/xilinx-workspace/lab01_skel/task04_test_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="task04_test" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/task04_test/data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/task04_test/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/task04_test/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/task04_test/address" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">address[3:0]</obj_property>
+      <obj_property name="ObjectShortName">address[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/task04_test/uut/sram_buffer" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sram_buffer[7:0]</obj_property>
+      <obj_property name="ObjectShortName">sram_buffer[7:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/task04_test/uut/rom_buffer" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rom_buffer[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_buffer[7:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/task04_test/uut/out_buffer" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">out_buffer[7:0]</obj_property>
+      <obj_property name="ObjectShortName">out_buffer[7:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/task04_test/uut/we" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+</wave_config>
