@@ -1,13 +1,18 @@
+// Grigore Lucian-Florin - 336CAb
+// APD - Laborator 3 - Task 5 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <math.h>
+#include "pthread_barrier_mac.h"
 
 int N;
 int P;
 int *v;
 int *vQSort;
 int *vNew;
+pthread_barrier_t barrier; // bariera folosita in paralelizare
 
 void merge(int *source, int start, int mid, int end, int *destination) {
 	int iA = start;
@@ -112,7 +117,25 @@ void *thread_function(void *arg)
 {
 	int thread_id = *(int *)arg;
 
-	// implementati aici merge sort paralel
+	int width, *aux;
+	for (width = 1; width < N; width = 2 * width) { // nu se poate paraleliza
+		for (int i = 2 * thread_id * width; i < N; i += 2 * width * P) { // se poate paraleliza
+			merge(v, i, i + width, i + 2 * width, vNew);
+		}
+
+        // asteptare bariera
+        pthread_barrier_wait(&barrier);
+		
+        // doar primul thread sa execute aceasta interschimbare
+        if(thread_id == 0) {
+            aux = v;
+            v = vNew;
+            vNew = aux;
+        }
+        
+        // asteptare bariera
+        pthread_barrier_wait(&barrier);
+	}
 
 	pthread_exit(NULL);
 }
@@ -125,6 +148,9 @@ int main(int argc, char *argv[])
 	int i;
 	int thread_id[P];
 	pthread_t tid[P];
+
+    // initializare bariera
+    pthread_barrier_init(&barrier, NULL, P);
 
 	// se sorteaza vectorul etalon
 	for (i = 0; i < N; i++)
@@ -142,23 +168,14 @@ int main(int argc, char *argv[])
 		pthread_join(tid[i], NULL);
 	}
 
-	// merge sort clasic - trebuie paralelizat
-	int width, *aux;
-	for (width = 1; width < N; width = 2 * width) {
-		for (i = 0; i < N; i = i + 2 * width) {
-			merge(v, i, i + width, i + 2 * width, vNew);
-		}
-
-		aux = v;
-		v = vNew;
-		vNew = aux;
-	}
-
 	print();
 
 	free(v);
 	free(vQSort);
 	free(vNew);
+
+    // dezalocare bariera
+    pthread_barrier_destroy(&barrier);
 
 	return 0;
 }
