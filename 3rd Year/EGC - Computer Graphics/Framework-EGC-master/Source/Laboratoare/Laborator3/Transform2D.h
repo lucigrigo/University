@@ -27,10 +27,9 @@ namespace Transform2D
 	}
 
 	// Rotate matrix
-	inline glm::mat3 Rotate(float radians)
+	inline glm::mat3 Rotate(float degrees)
 	{
 		// TODO implement rotate matrix
-		float degrees = radians * 180 / AI_MATH_PI;
 		return glm::transpose(
 					glm::mat3(cos(degrees), -sin(degrees), 0,
 						      sin(degrees), cos(degrees), 0,
