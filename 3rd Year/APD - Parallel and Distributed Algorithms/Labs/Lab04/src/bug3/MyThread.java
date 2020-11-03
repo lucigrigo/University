@@ -6,8 +6,8 @@ package bug3;
  *         different threads?
  */
 public class MyThread implements Runnable {
-	static String a = "LOCK";
-	static String b = "LOCK";
+	static String a = "LOCK_A"; // fixed
+	static String b = "LOCK_B"; // fixed
 	int id;
 	static int value = 0;
 

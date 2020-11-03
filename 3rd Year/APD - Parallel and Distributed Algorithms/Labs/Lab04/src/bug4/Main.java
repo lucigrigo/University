@@ -5,7 +5,7 @@ package bug4;
  *         Why doesn't this program end? (Hint: volatile)
  */
 public class Main extends Thread {
-	boolean keepRunning = true;
+	volatile boolean keepRunning = true; // fixed
 
 	public void run() {
 		long count = 0;

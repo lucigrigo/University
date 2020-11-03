@@ -15,7 +15,7 @@ public class Main {
 			for (int i = 0; i < 2; i++)
 				threads[i] = new Thread(new MyThread());
 			for (int i = 0; i < 2; i++)
-				threads[i].run();
+				threads[i].start(); // fixed
 			for (int i = 0; i < 2; i++) {
 				try {
 					threads[i].join();

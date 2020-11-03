@@ -11,10 +11,10 @@ public class MyThreadB implements Runnable {
 		synchronized (Main.lockB) {
 			for (int i = 0; i < Main.N; i++)
 				Main.valueB++;
-			synchronized (Main.lockA) {
-				for (int i = 0; i < Main.N; i++)
-					Main.valueA++;
-			}
-		}
+        } // fixed
+        synchronized (Main.lockA) {
+            for (int i = 0; i < Main.N; i++)
+                Main.valueA++;
+        }
 	}
 }
