@@ -1,0 +1,37 @@
+Hinturi generice:
+Incercati sa folisiti semnale cat mai generice. Preferati sa folositi grupuri in loc de tipuri de instructiuni.
+Checkerul este destul de hard-codat in aceasta faza. Cuvantul asistentului ramane final la corectare.
+
+1. rom.v
+Generati codul acesta folosind toolul avr
+ldi 	r29, 10
+sts 	10, r29
+ldi 	r29, 0
+ldi 	r28, 138
+ld  	r27, y
+lds 	r28, 10
+mov 	r27, r28
+
+2. simulati unitTestCpu.v
+Unele zone sunt rosii, pentru a investiga ce mai trebuie implementat:
+De la instante si procese, expandati pana ajungeti la cpu.v. Adaugati semnalele la fereastra (rclick -> add to wave window). Re-lansati (Re-launch).
+
+3. Pentru LDI. Modificati decode.v.
+Pentru a scrie in registru, trebuie sa controlam 2 semnale: writeback value (control.v) si signal[CONTROL_REG_RD_WRITE] (signal_generation_unit.v)
+
+4. Pentru STS. Modificati decode.v
+Pentru a scrie pe bus, trebuie sa controlam 2 semnale: signals[`CONTROL_REG_RR_READ] si signals[`CONTROL_MEM_WRITE]
+Inspectati bus_interface_unit.v.
+Valoarea scrisa pe bus, este transmisa prin data_to_store din control.v. La acest laborator va fi preluata din variabila de buffer pipeline ual_rr.
+
+5. Pentru LD. Modificati decode.v
+ATENTIE! O adresare _indirecta_ are nevoie atat de RR cat si RD sa fie cititi in faza de decode. Modificati semnalele corespunzatoare din signal_generation_unit.v.
+Adresa _indirecta_ este transmisa la bus_interface_unit prin indirect_address (o cuplare de alu_rr si alu_rd)
+
+6. Pentru LDS. Modificati decode.v
+Pentru a citi de pe bus, trebuie sa controlam 2 semnale: signals[`CONTROL_REG_RD_WRITE] si signals[`CONTROL_MEM_READ]
+Inspectati bus_interface_unit.v.
+Valoarea scrisa pe bus, este transmisa prin writeback_value din control.v.
+
+7. Pentru MOV. Modificati decode.v
+Modificati scheletul astfel incat mov sa fie executata corect.

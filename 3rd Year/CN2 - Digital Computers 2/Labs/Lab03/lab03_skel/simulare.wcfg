@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/student/Desktop/lab03_skel/unitTestCpu_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="unitTestCpu" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="54" />
+   <wvobject fp_name="/unitTestCpu/result" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">result</obj_property>
+      <obj_property name="ObjectShortName">result</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/pc" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">pc[9:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[9:0]</obj_property>
+      <obj_property name="label">pc[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_pipeline_stage" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_pipeline_stage[2:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_pipeline_stage[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_alu_rr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_alu_rr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_alu_rr[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_alu_rd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_alu_rd[7:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_alu_rd[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_alu_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_alu_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_alu_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_rd_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_rd_addr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_rd_addr[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_rr_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_rr_addr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_rr_addr[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_program_counter" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_program_counter[9:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_program_counter[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_flags_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_flags_out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_flags_out[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_bus_address" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_bus_address[6:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_bus_address[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_bus_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_bus_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_bus_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_register_Y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_register_Y[6:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_register_Y[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_opcode_imd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_opcode_imd[11:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_opcode_imd[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_opcode_type" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_opcode_type[7:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_opcode_type[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_opcode_group" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_opcode_group[12:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_opcode_group[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_writeback_value" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_writeback_value[7:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_writeback_value[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/debug_signals" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_signals[5:0]</obj_property>
+      <obj_property name="ObjectShortName">debug_signals[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/pipeline_stage" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pipeline_stage[2:0]</obj_property>
+      <obj_property name="ObjectShortName">pipeline_stage[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/program_counter" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">program_counter[9:0]</obj_property>
+      <obj_property name="ObjectShortName">program_counter[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rr_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rr_addr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rr_addr[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rd_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rd_addr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_addr[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rr_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rr_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rr_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rd_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rd_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rr_cs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rr_cs</obj_property>
+      <obj_property name="ObjectShortName">rr_cs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rd_cs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rd_cs</obj_property>
+      <obj_property name="ObjectShortName">rd_cs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rr_we" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rr_we</obj_property>
+      <obj_property name="ObjectShortName">rr_we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rd_we" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rd_we</obj_property>
+      <obj_property name="ObjectShortName">rd_we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rr_oe" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rr_oe</obj_property>
+      <obj_property name="ObjectShortName">rr_oe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/rd_oe" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rd_oe</obj_property>
+      <obj_property name="ObjectShortName">rd_oe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_enable</obj_property>
+      <obj_property name="ObjectShortName">alu_enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_opsel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_opsel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_opsel[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_rr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_rr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_rr[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_rd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_rd[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_rd[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_flags_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_flags_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_flags_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_flags_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_flags_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_flags_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/bus_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bus_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">bus_addr[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/bus_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bus_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">bus_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/mem_cs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_cs</obj_property>
+      <obj_property name="ObjectShortName">mem_cs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/mem_we" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_we</obj_property>
+      <obj_property name="ObjectShortName">mem_we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/mem_oe" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_oe</obj_property>
+      <obj_property name="ObjectShortName">mem_oe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/INSTR_WIDTH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">INSTR_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">INSTR_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/DATA_WIDTH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DATA_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DATA_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/I_ADDR_WIDTH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">I_ADDR_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I_ADDR_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/ADDR_WIDTH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ADDR_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/D_ADDR_WIDTH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">D_ADDR_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">D_ADDR_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/R_ADDR_WIDTH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">R_ADDR_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">R_ADDR_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/RST_ACTIVE_LEVEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ACTIVE_LEVEL[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RST_ACTIVE_LEVEL[31:0]</obj_property>
+   </wvobject>
+</wave_config>
