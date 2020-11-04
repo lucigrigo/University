@@ -21,13 +21,27 @@ typedef struct
     double b;
 } TComplex;
 
+typedef struct
+{
+    int is_julia;
+    double x_min;
+    double x_max;
+    double y_min;
+    double y_max;
+    int iterations;
+    double resolution;
+    TComplex c_julia;
+} TInputArgs;
+
 // structura pentru comunicarea argumentelor unui singur thread
 typedef struct
 {
     // TODO
+    TInputArgs fractal_args;
+    int thread_id;
 } TThreadArgs;
 
-// functie care se ocupa de citirea si 
+// functie care se ocupa de citirea si
 void get_args(int argc, char *argv[])
 {
     if (argc != 6)
@@ -46,9 +60,74 @@ void get_args(int argc, char *argv[])
     no_threads = atoi(argv[5]);
 }
 
+void read_input_file(char *filename, TInputArgs *args)
+{
+    FILE *ffile = fopen(filename, "r");
+    if (ffile == NULL)
+    {
+        cout << "Eroare la deschiderea fisierului de intrare!" << endl;
+        ;
+        exit(1);
+    }
+
+    fscanf(ffile, "%d", &args->is_julia);
+    fscanf(ffile, "%lf %lf %lf %lf",
+           &args->x_min, &args->x_max, &args->y_min, &args->y_max);
+    fscanf(ffile, "%lf", &args->resolution);
+    fscanf(ffile, "%d", &args->iterations);
+
+    if (args->is_julia)
+    {
+        fscanf(ffile, "%lf %lf", &args->c_julia.a, &args->c_julia.b);
+    }
+
+    fclose(ffile);
+}
+
+void write_output_file(char *filename, int **result, int x_start, int x_end,
+                        int y_start, int y_end, int width, int height)
+{
+    FILE *ffile = fopen(filename, "w");
+    if (ffile == NULL)
+    {
+        cout << "Eroare la deschiderea fisierului de iesire!" << endl;
+        exit(1);
+    }
+
+    fprintf(ffile, "P2\n%d %d\n255\n", width, height);
+    for(int i = x_start; i < x_end; ++i) {
+        for(int j = y_start; j < y_end; ++j) {
+            fprintf(ffile, "%d ", result[i][j]);
+        }
+        fprintf(ffile, "\n");
+    }
+
+    fclose(ffile);
+}
+
+int **alloc_mem(int width, int height) {
+    int **x;
+    x = (int **) malloc(height * sizeof(int *));
+    if(x == NULL) return NULL;
+    for(int i = 0; i < height; ++i) {
+        x[i] = (int *) malloc(width * sizeof(int));
+        if(x[i] == NULL) return NULL;
+    }
+    return x;
+}
+
+void free_mem(int **x, int height) {
+    for(int i = 0; i < height; ++i)
+        free(x[i]);
+    free(x);
+}
+
 void *f_thread_julia(void *args)
 {
     TThreadArgs *curr_args = (TThreadArgs *)args;
+    int x_start;
+    int x_end;
+
     // TODO create fractal
 
     // bariera intre creare si exportare
@@ -107,15 +186,17 @@ int main(int argc, char *argv[])
     }
 
     // asteptarea thread-urilor sa se finalizeze
-    for (int i = 0; i < no_threads; i++) {
-        void* s;
-		status = pthread_join(threads[i], &s);
+    for (int i = 0; i < no_threads; i++)
+    {
+        void *s;
+        status = pthread_join(threads[i], &s);
 
-		if (status) {
-			printf("Eroare la asteptarea thread-ului %d\n", i);
-			exit(-1);
-		}
-	}
+        if (status)
+        {
+            printf("Eroare la asteptarea thread-ului %d\n", i);
+            exit(-1);
+        }
+    }
 
     return 0;
 }
