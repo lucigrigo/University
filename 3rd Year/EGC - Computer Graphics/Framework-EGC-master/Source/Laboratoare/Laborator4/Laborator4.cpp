@@ -84,6 +84,52 @@ void Laborator4::FrameEnd()
 void Laborator4::OnInputUpdate(float deltaTime, int mods)
 {
 	// TODO
+	if (window->KeyHold(GLFW_KEY_W)) {
+		translateZ -= deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_S)) {
+		translateZ += deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_A)) {
+		translateX -= deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_D)) {
+		translateX += deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_R)) {
+		translateY += deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_F)) {
+		translateY -= deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_1)) {
+		scaleX -= deltaTime * 10;
+		scaleY -= deltaTime * 10;
+		scaleZ -= deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_2)) {
+		scaleX += deltaTime * 10;
+		scaleY += deltaTime * 10;
+		scaleZ += deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_3)) {
+		angularStepOX += deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_4)) {
+		angularStepOX -= deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_5)) {
+		angularStepOY += deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_6)) {
+		angularStepOY -= deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_7)) {
+		angularStepOZ += deltaTime * 10;
+	}
+	if (window->KeyHold(GLFW_KEY_8)) {
+		angularStepOZ -= deltaTime * 10;
+	}
 }
 
 void Laborator4::OnKeyPress(int key, int mods)
