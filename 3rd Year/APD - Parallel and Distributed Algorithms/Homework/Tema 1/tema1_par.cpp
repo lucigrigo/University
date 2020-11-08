@@ -13,6 +13,12 @@ char *fjulia_out;
 char *fmandelbrot_in;
 char *fmandelbrot_out;
 int no_threads;
+int no_threads_julia;
+int no_threads_mandelbrot;
+int **julia;
+int **mandelbrot;
+pthread_barrier_t julia_barrier;
+pthread_barrier_t mandelbrot_barrier;
 
 // structura pentru reprezentarea unui numar complex
 typedef struct
@@ -21,6 +27,7 @@ typedef struct
     double b;
 } TComplex;
 
+// structura pentru reprezentarea argumentelor de intrare
 typedef struct
 {
     int is_julia;
@@ -36,12 +43,13 @@ typedef struct
 // structura pentru comunicarea argumentelor unui singur thread
 typedef struct
 {
-    // TODO
     TInputArgs fractal_args;
     int thread_id;
+    int width;
+    int height;
 } TThreadArgs;
 
-// functie care se ocupa de citirea si
+// functie care se ocupa de citirea argumentelor programului
 void get_args(int argc, char *argv[])
 {
     if (argc != 6)
@@ -60,6 +68,7 @@ void get_args(int argc, char *argv[])
     no_threads = atoi(argv[5]);
 }
 
+// functie care se ocupa de citirea datelor de intrare dintr-un fisier
 void read_input_file(char *filename, TInputArgs *args)
 {
     FILE *ffile = fopen(filename, "r");
@@ -84,63 +93,113 @@ void read_input_file(char *filename, TInputArgs *args)
     fclose(ffile);
 }
 
-void write_output_file(char *filename, int **result, int x_start, int x_end,
-                        int y_start, int y_end, int width, int height)
+// functie care scrie rezultatul intr-un fisier de iesire
+void write_output_file(char *out_filename, int **result, int width, int height)
 {
-    FILE *ffile = fopen(filename, "w");
-    if (ffile == NULL)
+    int i, j;
+
+    FILE *file = fopen(out_filename, "w");
+    if (file == NULL)
     {
-        cout << "Eroare la deschiderea fisierului de iesire!" << endl;
-        exit(1);
+        printf("Eroare la deschiderea fisierului de iesire!\n");
+        return;
     }
 
-    fprintf(ffile, "P2\n%d %d\n255\n", width, height);
-    for(int i = x_start; i < x_end; ++i) {
-        for(int j = y_start; j < y_end; ++j) {
-            fprintf(ffile, "%d ", result[i][j]);
+    fprintf(file, "P2\n%d %d\n255\n", width, height);
+    for (i = 0; i < height; i++)
+    {
+        for (j = 0; j < width; j++)
+        {
+            fprintf(file, "%d ", result[i][j]);
         }
-        fprintf(ffile, "\n");
+        fprintf(file, "\n");
     }
 
-    fclose(ffile);
+    fclose(file);
 }
 
-int **alloc_mem(int width, int height) {
+// functie care aloca memorie pentru un fractal
+int **alloc_mem(int width, int height)
+{
     int **x;
-    x = (int **) malloc(height * sizeof(int *));
-    if(x == NULL) return NULL;
-    for(int i = 0; i < height; ++i) {
-        x[i] = (int *) malloc(width * sizeof(int));
-        if(x[i] == NULL) return NULL;
+    x = (int **)malloc(height * sizeof(int *));
+    if (x == NULL)
+        return NULL;
+    for (int i = 0; i < height; ++i)
+    {
+        x[i] = (int *)malloc(width * sizeof(int));
+        if (x[i] == NULL)
+            return NULL;
     }
     return x;
 }
 
-void free_mem(int **x, int height) {
-    for(int i = 0; i < height; ++i)
+// functie care elibereaza memoria pentru un fractal
+void free_mem(int **x, int height)
+{
+    for (int i = 0; i < height; ++i)
         free(x[i]);
     free(x);
 }
 
+// functie care este executata de un thread pentru Julia
 void *f_thread_julia(void *args)
 {
-    TThreadArgs *curr_args = (TThreadArgs *)args;
-    int x_start;
-    int x_end;
+    TThreadArgs *julia_args = (TThreadArgs *)args;
+    int width = julia_args->width;
+    int height = julia_args->height / 2;
+    int w_start = julia_args->thread_id * (double) width / no_threads_julia;
+    int w_end = min((julia_args->thread_id + 1) * (double) width / no_threads_julia, (double) width);
+    int h_start = julia_args->thread_id * (double) height / no_threads_julia;
+    int h_end = min((julia_args->thread_id + 1) * (double) height / no_threads_julia, (double) height);
 
-    // TODO create fractal
+    // create fractal
+    for (int w = w_start; w < w_end; ++w)
+    {
+        for (int h = 0; h < julia_args->height; ++h)
+        {
+            int step = 0;
+            TComplex z = {.a = w * julia_args->fractal_args.resolution +
+                               julia_args->fractal_args.x_min,
+                          .b = h * julia_args->fractal_args.resolution +
+                               julia_args->fractal_args.y_min};
+            
+            while(sqrt(pow(z.a, 2.0) + pow(z.b, 2.0)) < 2.0 &&
+            step < julia_args->fractal_args.iterations) {
+                TComplex z_aux = {.a = z.a, .b = z.b};
 
-    // bariera intre creare si exportare
-    // TODO export fractal to file
+                z.a = pow(z_aux.a, 2) - pow(z_aux.b, 2) +
+                julia_args->fractal_args.c_julia.a;
+                z.b = 2 * z_aux.a * z_aux.b +
+                julia_args->fractal_args.c_julia.b;
+
+                ++step;
+            }
+
+            julia[h][w] = step % 256;
+        }
+    }
+
+    // bariera intre generare si transformare
+    pthread_barrier_wait(&julia_barrier);
+
+    // transforma rezultatul din coordonate matematice in coordonate ecran
+	for (int i = h_start; i < h_end; i++) {
+		int *aux = julia[i];
+		julia[i] = julia[julia_args->height - i - 1];
+		julia[julia_args->height - i - 1] = aux;
+	}
+
     pthread_exit(NULL);
 }
 
+// functie care este executata de un thread pentru Mandelbrot
 void *f_thread_mandelbrot(void *args)
 {
     TThreadArgs *curr_args = (TThreadArgs *)args;
     // TODO create fractal
 
-    // bariera intre creare si exportare
+    // bariera intre creare si transformare
     // TODO export fractal to file
     pthread_exit(NULL);
 }
@@ -148,8 +207,37 @@ void *f_thread_mandelbrot(void *args)
 int main(int argc, char *argv[])
 {
     int status;
-    // citesc argumentele programului
+    // citire argumente program
     get_args(argc, argv);
+
+    // citire fisier intrare Julia
+    TInputArgs julia_args;
+    read_input_file(fjulia_in, &julia_args);
+
+    // citire fisier intrare Mandelbrot
+    TInputArgs mandelbrot_args;
+    read_input_file(fmandelbrot_in, &mandelbrot_args);
+
+    // calcul inaltimi si latimi
+    int julia_width = (julia_args.x_max - julia_args.x_min) / julia_args.resolution;
+    int julia_height = (julia_args.y_max - julia_args.y_min) / julia_args.resolution;
+    int mandelbrot_width = (mandelbrot_args.x_max - mandelbrot_args.x_min) / mandelbrot_args.resolution;
+    int mandelbrot_height = (mandelbrot_args.y_max - mandelbrot_args.y_min) / mandelbrot_args.resolution;
+
+    // alocarea memorie pentru rezultate
+    julia = alloc_mem(julia_width, julia_height);
+    mandelbrot = alloc_mem(mandelbrot_width, mandelbrot_height);
+    if (julia == NULL || mandelbrot == NULL)
+    {
+        printf("eroare la alocarea memoriei\n");
+        exit(-1);
+    }
+
+    // initializare bariere pentru cei doi fractali
+    no_threads_julia = (no_threads % 2 == 1) ? no_threads / 2 + 1 : no_threads / 2;
+    no_threads_mandelbrot = no_threads / 2;
+    pthread_barrier_init(&julia_barrier, NULL, no_threads_julia);
+    pthread_barrier_init(&mandelbrot_barrier, NULL, no_threads_mandelbrot);
 
     // creare thread-uri
     pthread_t threads[no_threads];
@@ -158,9 +246,13 @@ int main(int argc, char *argv[])
     for (int i = 0; i < no_threads; ++i)
     {
         if (i % 2)
-        { // initializare thread folosit pt Julia
-            // TODO assign arguments to pass
+        {
+            // initializare thread folosit pentru Julia
             TThreadArgs curr_arg;
+            memcpy(&curr_arg, &julia_args, sizeof(TInputArgs));
+            curr_arg.thread_id = i / 2;
+            curr_arg.width = julia_width;
+            curr_arg.height = julia_height;
 
             status = pthread_create(&threads[i], NULL, f_thread_julia, &curr_arg);
 
@@ -171,9 +263,13 @@ int main(int argc, char *argv[])
             }
         }
         else
-        { // initializare thread folosit pt Mandelbrot
-            // TODO assign arguments to pass
+        {
+            // initializare thread folosit pentru Mandelbrot
             TThreadArgs curr_arg;
+            memcpy(&curr_arg, &mandelbrot_args, sizeof(TInputArgs));
+            curr_arg.thread_id = i / 2;
+            curr_arg.width = julia_width;
+            curr_arg.height = julia_height;
 
             status = pthread_create(&threads[i], NULL, f_thread_julia, &curr_arg);
 
@@ -197,6 +293,14 @@ int main(int argc, char *argv[])
             exit(-1);
         }
     }
+
+    // scriere rezultate in fisierul de iesire
+    write_output_file(fjulia_out, julia, julia_width, julia_height);
+    write_output_file(fmandelbrot_out, mandelbrot, mandelbrot_width, mandelbrot_height);
+
+    // eliberare memorie alocata
+    free_mem(julia, julia_height);
+    free_mem(mandelbrot, mandelbrot_height);
 
     return 0;
 }
