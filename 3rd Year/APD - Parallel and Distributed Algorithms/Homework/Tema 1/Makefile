@@ -7,3 +7,4 @@ build:
 
 clean:
 	rm -rf tema1
+	rm -rf tema1_par
