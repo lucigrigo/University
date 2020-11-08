@@ -32,4 +32,4 @@ Contains:
 
 ## Frameworks used - Python:
 - Sci:Kit Learn
-- Keras using TensorFlow backend
+- Keras using TensorFlow backend or PyTorch
