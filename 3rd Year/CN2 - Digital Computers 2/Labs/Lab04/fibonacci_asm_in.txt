@@ -1,0 +1,18 @@
+    ldi r19, 1
+    ldi r20, 5
+    ldi r21, 1
+    push r21
+    push r21
+loop:
+    pop r21
+    pop r22
+    add r22, r21
+    push r21
+    push r22
+    sub r20, r19
+    breq outside_loop
+    rjmp loop
+outside_loop:
+    pop r21
+    pop r22
+        

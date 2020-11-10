@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="HDLCompiler" num="485" delta="unknown" >"test_brbs.vh" Line 34: Illegal format specifier <arg fmt="%c" index="1">(</arg> for <arg fmt="%s" index="2">display</arg>
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="485" delta="unknown" >"test_brcs.vh" Line 34: Illegal format specifier <arg fmt="%c" index="1">(</arg> for <arg fmt="%s" index="2">display</arg>
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="485" delta="unknown" >"test_rjmp.vh" Line 31: Illegal format specifier <arg fmt="%c" index="1">(</arg> for <arg fmt="%s" index="2">display</arg>
+</msg>
+
+</messages>
+

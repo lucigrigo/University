@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/darius/Downloads/sol_lab04/unitTestCpu_isim_beh1.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="unitTestCpu" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="23" />
+   <wvobject fp_name="/unitTestCpu/result" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">result</obj_property>
+      <obj_property name="ObjectShortName">result</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/pc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pc[9:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/pipeline_stage" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pipeline_stage[2:0]</obj_property>
+      <obj_property name="ObjectShortName">pipeline_stage[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_opsel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_opsel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_opsel[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_rr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_rr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_rr[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/alu_rd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_rd[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_rd[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/alu_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/alu_flags_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_flags_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_flags_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/alu_flags_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_flags_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_flags_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/bus_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bus_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">bus_addr[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/bus_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bus_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">bus_data[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/mem_cs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_cs</obj_property>
+      <obj_property name="ObjectShortName">mem_cs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/mem_we" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_we</obj_property>
+      <obj_property name="ObjectShortName">mem_we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/mem_oe" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_oe</obj_property>
+      <obj_property name="ObjectShortName">mem_oe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/signals" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">signals[7:0]</obj_property>
+      <obj_property name="ObjectShortName">signals[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/opcode_type" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_type[7:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_type[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/opcode_group" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_group[14:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_group[14:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/opcode_rd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/opcode_rr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_rr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_rr[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/opcode_imd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_imd[11:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_imd[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/opcode_bit" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_bit[2:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_bit[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/control/indirect_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">indirect_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">indirect_addr[15:0]</obj_property>
+   </wvobject>
+</wave_config>
