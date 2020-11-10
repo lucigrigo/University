@@ -21,5 +21,4 @@ public class Consumer implements Runnable {
 		}
 		System.out.println("I finished Correctly");
 	}
-
 }

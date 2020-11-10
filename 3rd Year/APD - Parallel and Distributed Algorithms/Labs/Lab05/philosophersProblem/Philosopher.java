@@ -24,11 +24,23 @@ public class Philosopher implements Runnable {
 
 	@Override
 	public void run() {
-		synchronized (leftFork) {
-			sleep(); // delay added to make sure the dead-lock is visible
-			synchronized (rightFork) {
-				System.out.println("Philosopher " + id + " is eating");
-			}
-		}
+        /* inversam ordinea in care tacamurile sunt luate pentru filozofii
+        asezati pe indici pari -- metoda lui Dijkstra
+        */
+        if(id % 2 == 0) {
+            synchronized (rightFork) {
+                sleep(); // delay added to make sure the dead-lock is visible
+                synchronized (leftFork) {
+                    System.out.println("Philosopher " + id + " is eating");
+                }
+            }
+        } else {
+            synchronized (leftFork) {
+                sleep(); // delay added to make sure the dead-lock is visible
+                synchronized (rightFork) {
+                    System.out.println("Philosopher " + id + " is eating");
+                }
+            }
+        }
 	}
 }

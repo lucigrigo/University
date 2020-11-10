@@ -4,8 +4,11 @@ package oneProducerOneConsumer;
  *
  */
 public class Buffer {
-	int a;
-
+    int a;
+    /*
+    --------- Rezolvarea este in exemplul cu mai multi consumatori si producatori.
+    */
+    
 	void put(int value) {
 		a = value;
 	}
