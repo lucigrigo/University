@@ -1,5 +1,6 @@
 #pragma once
 #include <Component/SimpleScene.h>
+#include <Core/GPU/Mesh.h>
 
 class Tema1 : public SimpleScene
 {
@@ -24,9 +25,6 @@ private:
 	void OnWindowResize(int width, int height) override;
 
 protected:
-	glm::mat4 modelMatrix;
-	float translateX, translateY, translateZ;
-	float scaleX, scaleY, scaleZ;
-	float angularStepOX, angularStepOY, angularStepOZ;
-	GLenum polygonMode;
+	float bow_line_x0, bow_line_x1, bow_line_y0, bow_line_y1;
+	Mesh* simpleLine;
 };

@@ -83,7 +83,6 @@ void Laborator4::FrameEnd()
 
 void Laborator4::OnInputUpdate(float deltaTime, int mods)
 {
-	// TODO
 	if (window->KeyHold(GLFW_KEY_W)) {
 		translateZ -= deltaTime * 10;
 	}

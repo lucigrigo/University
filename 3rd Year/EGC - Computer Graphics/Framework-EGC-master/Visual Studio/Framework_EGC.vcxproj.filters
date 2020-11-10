@@ -61,11 +61,8 @@
     <Filter Include="Laboratoare\Laborator9\Shaders">
       <UniqueIdentifier>{a7995ec9-7a24-4990-8d42-92088d9a6dfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Laboratoare\Teme">
-      <UniqueIdentifier>{f9ae09c4-7dda-447b-a7b5-2246fc4cff23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Laboratoare\Teme\Tema1">
-      <UniqueIdentifier>{d29ee5fb-f1d2-447f-981a-b7856f4d9f56}</UniqueIdentifier>
+    <Filter Include="Laboratoare\Tema1">
+      <UniqueIdentifier>{10cd1214-5335-451c-ac0a-1a0eb4e756da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,8 +142,8 @@
     <ClCompile Include="..\Source\Laboratoare\Laborator9\Laborator9.cpp">
       <Filter>Laboratoare\Laborator9</Filter>
     </ClCompile>
-    <ClCompile Include="Tema1.cpp">
-      <Filter>Laboratoare\Teme\Tema1</Filter>
+    <ClCompile Include="..\Source\Laboratoare\Tema1\Tema1.cpp">
+      <Filter>Laboratoare\Tema1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,8 +246,8 @@
     <ClInclude Include="..\Source\Laboratoare\Laborator9\Laborator9.h">
       <Filter>Laboratoare\Laborator9</Filter>
     </ClInclude>
-    <ClInclude Include="Tema1.h">
-      <Filter>Laboratoare\Teme\Tema1</Filter>
+    <ClInclude Include="..\Source\Laboratoare\Tema1\Tema1.h">
+      <Filter>Laboratoare\Tema1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
