@@ -30,4 +30,9 @@ class Laborator5 : public SimpleScene
 		Laborator::Camera *camera;
 		glm::mat4 projectionMatrix;
 		bool renderCameraTarget;
+		float fov;
+		float left, right, bottom, top;
+		float const Z_NEAR = 15.f;
+		float const Z_FAR = 1.f;
+		bool usingProj;
 };
