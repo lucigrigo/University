@@ -10,13 +10,15 @@
 #include <Core/Engine.h>
 #include <iostream>
 #include <vector>
+#include <math.h>
 
+#define BALLOON_COLOR glm::vec3(0, 0.5f, 1)
 #define BLACK glm::vec3(0, 0, 0)
 #define BALLOONS_SPAWN_WIDTH 250
-#define NO_TRIANGLES 100
-#define MAX_NO_BALLOONS 10
-#define BALLOON_SPEED 0.5f
-#define BOW_MOVEMENT_SPEED 0.8f
+#define NO_TRIANGLES 50
+#define MAX_NO_BALLOONS 25
+#define BALLOON_SPEED 5.f
+#define BOW_MOVEMENT_SPEED 400.f
 
 class Tema1 : public SimpleScene
 {
@@ -45,11 +47,14 @@ private:
     Mesh *Tema1::CreateMesh(const char *, const std::vector<VertexFormat> &,
                             const std::vector<unsigned short> &);
 
+    glm::mat3 Tema1::Translate(float, float);
+    glm::mat3 Tema1::Scale(float, float);
+    glm::mat3 Tema1::Rotate(float);
+
 protected:
     glm::vec3 bow_line_pos0, bow_line_pos1;
     glm::mat3 bow_line_matrix;
     int no_visible_balloons;
-    std::vector<glm::mat3> balloons_matrix;
     unsigned short score;
     short no_lives;
 };

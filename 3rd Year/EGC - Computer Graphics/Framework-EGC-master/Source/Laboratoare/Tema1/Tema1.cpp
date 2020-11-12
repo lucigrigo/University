@@ -8,9 +8,46 @@
 
 using namespace std;
 
-Tema1::Tema1() {}
+std::vector<glm::mat3> balloons_matrix;
+
+Tema1::Tema1() 
+{
+    no_lives = 3;
+    score = 0;
+    no_visible_balloons = 0;
+}
 
 Tema1::~Tema1() {}
+
+// Translate matrix
+glm::mat3 Tema1::Translate(float translateX, float translateY)
+{
+    return glm::transpose(
+        glm::mat3(1, 0, translateX,
+            0, 1, translateY,
+            0, 0, 1)
+    );
+}
+
+// Scale matrix
+glm::mat3 Tema1::Scale(float scaleX, float scaleY)
+{
+    return glm::transpose(
+        glm::mat3(scaleX, 0, 0,
+            0, scaleY, 0,
+            0, 0, 1)
+    );
+}
+
+// Rotate matrix
+glm::mat3 Tema1::Rotate(float degrees)
+{
+    return glm::transpose(
+        glm::mat3(cos(degrees), -sin(degrees), 0,
+            sin(degrees), cos(degrees), 0,
+            0, 0, 1)
+    );
+}
 
 void Tema1::Init()
 {
@@ -24,17 +61,16 @@ void Tema1::Init()
     camera->Update();
     GetCameraInput()->SetActive(false);
 
-    score = 0;
-    no_lives = 3;
-
     // init bow
     {
-        bow_line_matrix = glm::mat3(1);
+        // TODO: add ellipse
         Mesh *bow = new Mesh("bow");
 
-        int m_y = resolution.y / 2;
-        bow_line_pos0 = glm::vec3(100, m_y + 75, 0);
-        bow_line_pos1 = glm::vec3(100, m_y - 75, 0);
+        float m_y = resolution.y / 2;
+        bow_line_pos0 = glm::vec3(0, 75, 0);
+        bow_line_pos1 = glm::vec3(0, -75, 0);
+        bow_line_matrix = glm::mat3(1);
+        bow_line_matrix *= Translate(100, m_y);
 
         vector<VertexFormat> vertices{VertexFormat(bow_line_pos0, BLACK),
                                       VertexFormat(bow_line_pos1, BLACK)};
@@ -49,18 +85,17 @@ void Tema1::Init()
     // init balloon
     {
         // TODO: add coada la balon
-        no_visible_balloons = 0;
         Mesh *balloon = new Mesh("balloon");
 
         vector<VertexFormat> vertices;
         vector<unsigned short> indices;
 
-        vertices.emplace_back(glm::vec3(0, 0, 0), BLACK);
+        vertices.emplace_back(glm::vec3(0, 0, 0), BALLOON_COLOR);
         for (unsigned short i = 0; i < NO_TRIANGLES; i++)
         {
             float arg = 2 * M_PI * i / NO_TRIANGLES;
 
-            vertices.emplace_back(glm::vec3(cos(arg), sin(arg), 0), BLACK);
+            vertices.emplace_back(glm::vec3(cos(arg), sin(arg), 0), BALLOON_COLOR);
             indices.push_back(i);
         }
         indices.push_back(NO_TRIANGLES);
@@ -90,16 +125,22 @@ void Tema1::FrameStart()
 
 void Tema1::CheckImpact()
 {
+    glm::ivec2 resolution = window->GetResolution();
     // TODO: check for collisions between balloons and arrow
     // TODO: scale balloons down to 0 if they are hit
     for (int i = 0; i < no_visible_balloons; ++i)
     {
         ;
     }
-    // checking if any balloons are not visible anymore
+    // checking if any balloons are not visible anymore as they leave the screen
     for (int i = 0; i < no_visible_balloons; ++i)
     {
-        // TODO
+        int curr_y = balloons_matrix[i][2][1];
+        if (curr_y - 150 >= resolution.y) {
+            balloons_matrix.erase(balloons_matrix.begin() + i);
+            --no_visible_balloons;
+            break;
+        }
     }
 }
 
@@ -109,20 +150,19 @@ void Tema1::SpawnBalloons()
     if (no_visible_balloons >= MAX_NO_BALLOONS)
         return;
 
-    while (no_visible_balloons < MAX_NO_BALLOONS)
-    {
-        // choosing random position to spawn at
-        glm::ivec2 resolution = window->GetResolution();
-        float min_x = resolution.x / 2.f;
-        float max_x = resolution.x;
-        float y = resolution.y;
-        float x = min_x + (rand() % (int)(max_x - min_x + 1));
+    // choosing random position to spawn at
+    glm::ivec2 resolution = window->GetResolution();
+    float min_x = resolution.x / 2.f;
+    float max_x = resolution.x - 50;
+    float y = 0.f;
+    float x = min_x + (rand() % (int)(max_x - min_x + 1));
 
-        // building initial position matrix
-        glm::mat3 new_pos = glm::mat3(1);
-        new_pos *= glm::translate(glm::mat4(1), glm::vec3(x, y, 0));
-        balloons_matrix[no_visible_balloons++] = new_pos;
-    }
+    // building initial position matrix
+    glm::mat3 new_pos = glm::mat3(1);
+    new_pos *= Translate(x, y);
+    new_pos *= Scale(30, 55);
+    balloons_matrix.push_back(new_pos);
+    ++no_visible_balloons;
 }
 
 // Function that continuosly translates visible balloons upwards on screen
@@ -130,8 +170,8 @@ void Tema1::TranslateBalloons(float deltaTimeSeconds)
 {
     for (int i = 0; i < no_visible_balloons; ++i)
     {
-        float factor = -deltaTimeSeconds * BALLOON_SPEED;
-        balloons_matrix[i] *= glm::translate(glm::mat4(1), glm::vec3(0, factor, 0));
+        float factor = deltaTimeSeconds * BALLOON_SPEED;
+        balloons_matrix[i] *= Translate(0, factor);
     }
 }
 
@@ -149,17 +189,18 @@ void Tema1::Update(float deltaTimeSeconds)
     glPointSize(5);
 
     // displaying current score and lives remaining
-    cout << "Score: " << score << " | Lives: " << no_lives << endl;
+    // cout << "Score: " << score << " | Lives: " << no_lives << endl;
 
     // drawing the bow
-    // TODO: apply rotation according to mouse position
     RenderMesh2D(meshes["bow"], shaders["VertexColor"], bow_line_matrix);
 
     // checking if any balloons are hit
     CheckImpact();
 
-    // spawning additional balloons, if needed
-    SpawnBalloons();
+    // spawning additional balloons, randomly, very few seconds
+    int gen = rand() % 100;
+    if(!gen)
+        SpawnBalloons();
 
     // moving the balloons upwards
     TranslateBalloons(deltaTimeSeconds);
@@ -177,18 +218,18 @@ void Tema1::FrameEnd() {}
 
 void Tema1::OnInputUpdate(float deltaTime, int mods)
 {
-    // moving the bow on the OY axis
-    if (window->KeyHold(GLFW_KEY_W))
+    // moving the bow on the OY axis up to the edge of the window
+    if (window->KeyHold(GLFW_KEY_W) && bow_line_matrix[2][1] <= window->GetResolution().y - 75)
     {
-        // moving up (negative on axis)
-        float factor = -deltaTime * BOW_MOVEMENT_SPEED;
-        bow_line_matrix *= glm::translate(glm::mat4(1), glm::vec3(0, factor, 0));
-    }
-    else if (window->KeyHold(GLFW_KEY_S))
-    {
-        // moving down (positive on axis)
+        // moving up (positive on axis)
         float factor = deltaTime * BOW_MOVEMENT_SPEED;
-        bow_line_matrix *= glm::translate(glm::mat4(1), glm::vec3(0, factor, 0));
+        bow_line_matrix *= Translate(0, factor);
+    }
+    else if (window->KeyHold(GLFW_KEY_S) && bow_line_matrix[2][1] >= 0 + 75)
+    {
+        // moving down (negative on axis)
+        float factor = -deltaTime * BOW_MOVEMENT_SPEED;
+        bow_line_matrix *= Translate(0, factor);
     }
 }
 
@@ -198,13 +239,38 @@ void Tema1::OnKeyRelease(int key, int mods) {}
 
 void Tema1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // TODO: rotate bow towards mouse position
-    // cout << "mouseX = " << mouseX << " mouseY = " << mouseY << endl;
+    // rotate bow towards mouse position
+    if (mouseX >= bow_line_matrix[2][0]) {
+        float mid_x = bow_line_matrix[2][0];
+        float mid_y = bow_line_matrix[2][1];
+        float y_proj = mouseY - bow_line_matrix[2][1];
+        float x_proj = mouseX - bow_line_matrix[2][0];
+        // TODO: fix fidget spinner
+        float degrees = -0.0001f * (float) atan(y_proj / x_proj) * 180 / M_PI;
+        bow_line_matrix *= Rotate(degrees);
+    }
 }
 
 void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // TODO: adapt arrow speed
+    // TODO: charge arrow speed
+    /*for (int i = 0; i < bow_line_matrix.length(); ++i) {
+        for (int j = 0; j < bow_line_matrix[0].length(); ++j)
+            cout << bow_line_matrix[i][j] << " ";
+        cout << endl;
+    }
+    float mid_x = bow_line_matrix[2][0];
+    float mid_y = bow_line_matrix[2][1];
+    float y_proj = abs(mouseY - bow_line_matrix[2][1]);
+    float x_proj = mouseX - bow_line_matrix[2][0];
+    float degrees = (float)atan(y_proj / x_proj) * 180 / M_PI;
+    cout << "mid_x=" << mid_x << endl;
+    cout << "mid_y=" << mid_y << endl;
+    cout << "mouseX=" << mouseX << endl;
+    cout << "mouseY=" << mouseY << endl;
+    cout << "x_proj=" << x_proj << endl;
+    cout << "y_proj=" << y_proj << endl;
+    cout << "degrees=" << degrees << endl;*/
 }
 
 void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
