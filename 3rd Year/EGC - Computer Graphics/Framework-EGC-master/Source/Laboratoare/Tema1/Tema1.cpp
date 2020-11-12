@@ -49,6 +49,7 @@ void Tema1::Init()
 
 	// init balloon
 	{
+		// TODO: add coada la balon
 		no_visible_balloons = 0;
 		Mesh* balloon = new Mesh("balloon");
 
@@ -70,6 +71,8 @@ void Tema1::Init()
 		balloon->SetDrawMode(GL_TRIANGLE_FAN);
 		AddMeshToList(balloon);
 	}
+
+	// TODO: init shuriken
 }
 
 void Tema1::FrameStart()
@@ -85,6 +88,11 @@ void Tema1::FrameStart()
 
 void Tema1::Update(float deltaTimeSeconds)
 {
+	// TODO: update score every few seconds
+	// TODO: display score and lives remaining
+	// TODO: check for collisions between balloons and arrow 
+	// TODO: scale balloons down to 0 if they are hit
+
 	// setting drawing area
 	glm::ivec2 resolution = window->GetResolution();
 	glViewport(0, 0, resolution.x, resolution.y);
