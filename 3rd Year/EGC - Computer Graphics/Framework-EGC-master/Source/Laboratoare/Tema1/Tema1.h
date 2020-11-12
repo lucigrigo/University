@@ -2,6 +2,11 @@
 #include <Component/SimpleScene.h>
 #include <Core/GPU/Mesh.h>
 
+#define BLACK glm::vec3(0, 0, 0)
+#define BALLOONS_SPAWN_WIDTH 250
+#define NO_TRIANGLES 100
+#define MAX_NO_BALLOONS 10
+
 class Tema1 : public SimpleScene
 {
 public:
@@ -15,6 +20,7 @@ private:
 	void Update(float deltaTimeSeconds) override;
 	void FrameEnd() override;
 
+	Mesh* Tema1::CreateMesh(const char* , const std::vector<VertexFormat>& , const std::vector<unsigned short>& );
 	void OnInputUpdate(float deltaTime, int mods) override;
 	void OnKeyPress(int key, int mods) override;
 	void OnKeyRelease(int key, int mods) override;
@@ -25,6 +31,7 @@ private:
 	void OnWindowResize(int width, int height) override;
 
 protected:
-	float bow_line_x0, bow_line_x1, bow_line_y0, bow_line_y1;
-	Mesh* simpleLine;
+	glm::vec3 bow_line_pos0, bow_line_pos1;
+	int no_visible_balloons;
+	std::vector < glm::mat3 > balloons_matrix;
 };

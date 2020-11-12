@@ -16,6 +16,7 @@ Tema1::~Tema1()
 
 void Tema1::Init()
 {
+	// setting camera position
 	glm::ivec2 resolution = window->GetResolution();
 	auto camera = GetSceneCamera();
 	camera->SetOrthographic(0, (float)resolution.x, 0, (float)resolution.y, 0.01f, 400);
@@ -24,45 +25,94 @@ void Tema1::Init()
 	camera->Update();
 	GetCameraInput()->SetActive(false);
 
-	// coordonatele initiale ale arcului
-	bow_line_x0 = bow_line_x1 = resolution.x / 5;
-	bow_line_y0 = resolution.y / 6;
-	bow_line_y1 = 5 * resolution.y / 6;
-
+	// init bow
 	{
-		vector<VertexFormat> vertices =
-		{
-			VertexFormat(glm::vec3(bow_line_y0, 0, bow_line_x0), glm::vec3(0, 1, 0)),
-			VertexFormat(glm::vec3(bow_line_y1, 1, bow_line_x1), glm::vec3(0, 1, 0)),
-		};
-		std::vector<unsigned short> indices = { 0, 1 };
+		Mesh* bow = new Mesh("bow");
 
-		simpleLine = new Mesh("line");
-		simpleLine->InitFromData(vertices, indices);
-		simpleLine->SetDrawMode(GL_LINES);
+		int m_y = resolution.y / 2;
+		bow_line_pos0 = glm::vec3(100, m_y + 75, 0);
+		bow_line_pos1 = glm::vec3(100, m_y - 75, 0);
+
+		vector<VertexFormat> vertices {
+			VertexFormat(bow_line_pos0, BLACK),
+			VertexFormat(bow_line_pos1, BLACK)
+		};
+
+		vector<unsigned short> indices = {
+			0, 1
+		};
+
+		bow->SetDrawMode(GL_LINES);
+		bow->InitFromData(vertices, indices);
+		AddMeshToList(bow);
+	}
+
+	// init balloon
+	{
+		no_visible_balloons = 0;
+		Mesh* balloon = new Mesh("balloon");
+
+		vector<VertexFormat> vertices;
+		vector<unsigned short> indices;
+
+		vertices.emplace_back(glm::vec3(0, 0, 0), BLACK);
+		for (unsigned short i = 0; i < NO_TRIANGLES; i++)
+		{
+			float arg = 2 * M_PI * i / NO_TRIANGLES;
+
+			vertices.emplace_back(glm::vec3(cos(arg), sin(arg), 0), BLACK);
+			indices.push_back(i);
+		}
+		indices.push_back(NO_TRIANGLES);
+		indices.push_back(1);
+
+		balloon->InitFromData(vertices, indices);
+		balloon->SetDrawMode(GL_TRIANGLE_FAN);
+		AddMeshToList(balloon);
 	}
 }
 
 void Tema1::FrameStart()
 {
-	// clears the color buffer (using the previously set color) and depth buffer
+	// setting drawing area
+	glm::ivec2 resolution = window->GetResolution();
+	glViewport(0, 0, resolution.x, resolution.y);
+
+	// we clear the color buffer
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glm::ivec2 resolution = window->GetResolution();
-	// sets the screen area where to draw
-	glViewport(0, 0, resolution.x, resolution.y);
 }
 
 void Tema1::Update(float deltaTimeSeconds)
 {
+	// setting drawing area
 	glm::ivec2 resolution = window->GetResolution();
 	glViewport(0, 0, resolution.x, resolution.y);
 
+	// we clear the color buffer
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	simpleLine->Render();
+	glLineWidth(5);
+	glPointSize(5);
+
+	// drawing the bow
+	glm::mat3 bow_line_matrix = glm::mat3(1);
+	// TODO: apply rotation according to mouse position
+	RenderMesh2D(meshes["bow"], shaders["VertexColor"], bow_line_matrix);
+
+	if (no_visible_balloons < MAX_NO_BALLOONS) {
+		// TODO: generate random positions for balloons to spawn
+	}
+
+	// drawing visible balloons
+	for (int i = 0; i < no_visible_balloons; ++i) {
+		// TODO: delete from list balloons that are not visible anymore
+		if (true) {
+			;
+		}
+		RenderMesh2D(meshes["balloon"], shaders["VertexColor"], balloons_matrix[i]);
+	}
 }
 
 void Tema1::FrameEnd()
@@ -87,17 +137,18 @@ void Tema1::OnKeyRelease(int key, int mods)
 
 void Tema1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-
+	// TODO: rotate bow towards mouse position
+	// cout << "mouseX = " << mouseX << " mouseY = " << mouseY << endl;
 }
 
 void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-
+	// TODO: adapt arrow speed
 }
 
 void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-
+	// TODO: release arrow
 }
 
 void Tema1::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
