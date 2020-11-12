@@ -1,9 +1,10 @@
+/*
+    Grigore Lucian-Florin
+    Grupa 336CA
+    Elemente de Grafica pe Calculator
+    Tema 1 - Bow and arrow
+*/
 #include "Tema1.h"
-
-#include <Core/Engine.h>
-
-#include <iostream>
-#include <vector>
 
 using namespace std;
 

@@ -1,6 +1,15 @@
+/*
+    Grigore Lucian-Florin
+    Grupa 336CA
+    Elemente de Grafica pe Calculator
+    Tema 1 - Bow and arrow
+*/
 #pragma once
 #include <Component/SimpleScene.h>
 #include <Core/GPU/Mesh.h>
+#include <Core/Engine.h>
+#include <iostream>
+#include <vector>
 
 #define BLACK glm::vec3(0, 0, 0)
 #define BALLOONS_SPAWN_WIDTH 250
