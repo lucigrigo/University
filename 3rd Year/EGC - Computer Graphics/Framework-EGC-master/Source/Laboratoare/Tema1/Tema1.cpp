@@ -15,8 +15,9 @@ Tema1::Tema1()
     score = 0;
     no_visible_balloons = 0;
     is_arrow_shot = false;
-    arrow_speed = 0.f;
+    arrow_speed = 5.f;
     arrow_matrix = glm::mat3(1);
+    shuriken_shot = false;
 }
 
 Tema1::~Tema1() {}
@@ -202,9 +203,32 @@ void Tema1::Init()
         AddMeshToList(arrow_tip);
     }
 
-    // TODO: init shuriken
+    // init shuriken
     {
-        ;
+        Mesh* shuriken = new Mesh("shuriken");
+
+        vector<VertexFormat> vertices{
+            VertexFormat(glm::vec3(0, 0, 0), BLACK),
+            VertexFormat(glm::vec3(1, 1, 0), BLACK),
+            VertexFormat(glm::vec3(2, 0, 0), BLACK),
+            VertexFormat(glm::vec3(0, 2, 0), BLACK),
+            VertexFormat(glm::vec3(2, 2, 0), BLACK),
+            VertexFormat(glm::vec3(0, 1, 0), BLACK),
+            VertexFormat(glm::vec3(1, 0, 0), BLACK),
+            VertexFormat(glm::vec3(1, 2, 0), BLACK),
+            VertexFormat(glm::vec3(2, 1, 0), BLACK)
+        };
+
+        vector<unsigned short> indices = {
+            1, 4, 8,
+            1, 3, 7,
+            1, 0, 5,
+            1, 2, 6
+        };
+
+        shuriken->InitFromData(vertices, indices);
+        shuriken->SetDrawMode(GL_TRIANGLES);
+        AddMeshToList(shuriken);
     }
 }
 
@@ -231,6 +255,9 @@ void Tema1::CheckBoundaries()
     }
 
     // TODO: check for collisions between shuriken and the bow
+
+    if (shuriken_shot && shuriken_matrix[2][0] <= bow_string_matrix[2][0])
+        shuriken_shot = false;
 
     // checking for arrows that leave the screen
     if (is_arrow_shot && arrow_matrix[2][0] >= resolution.x) {
@@ -277,10 +304,18 @@ void Tema1::SpawnBalloons()
 
 void Tema1::SpawnShurikens() 
 {
-    // TODO: spawning shurikens from right side of the screen
+    if (shuriken_shot)
+        return;
+    
+    // spawning shurikens from right side of the screen
     // coming towards the bow
     float curr_bow_x = bow_string_matrix[2][0];
     float curr_bow_y = bow_string_matrix[2][1];
+
+    shuriken_shot = true;
+    shuriken_matrix = glm::mat3(1);
+    shuriken_matrix *= Translate(window->GetResolution().x, curr_bow_y);
+    shuriken_matrix *= Scale(30, 30);
 }
 
 // Function that continuosly translates visible balloons upwards on screen
@@ -353,8 +388,14 @@ void Tema1::Update(float deltaTimeSeconds)
         RenderMesh2D(meshes["arrow_tip"], shaders["VertexColor"], arrow_matrix);
     }
 
-    // TODO: randomly spawn shurikens coming towards the player
+    // randomly spawn shurikens coming towards the player
     SpawnShurikens();
+
+    // translate shurikens, if there is any
+    if (shuriken_shot) {
+        shuriken_matrix *= Translate(-arrow_speed / 30.f, 0);
+        RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
+    }
 }
 
 void Tema1::FrameEnd() {}

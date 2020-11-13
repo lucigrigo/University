@@ -59,6 +59,7 @@ protected:
     std::vector<glm::mat3> balloons_matrix;
     std::vector<glm::mat3> balloons_string_matrix;
     glm::mat3 shuriken_matrix;
+    bool shuriken_shot;
     glm::mat3 arrow_matrix;
     unsigned short score;
     short no_lives;
