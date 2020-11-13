@@ -12,13 +12,13 @@
 #include <vector>
 #include <math.h>
 
-#define BALLOON_COLOR glm::vec3(0, 0.5f, 1)
+#define BALLOON_YELLOW_COLOR glm::vec3(1.f, 1.f, 0)
+#define BALLOON_RED_COLOR glm::vec3(1.f, 0, 0)
 #define BLACK glm::vec3(0, 0, 0)
-#define BALLOONS_SPAWN_WIDTH 250
-#define NO_TRIANGLES 50
+#define NO_TRIANGLES 100
 #define MAX_NO_BALLOONS 25
 #define BALLOON_SPEED 5.f
-#define BOW_MOVEMENT_SPEED 400.f
+#define BOW_MOVEMENT_SPEED 550.f
 
 class Tema1 : public SimpleScene
 {
@@ -41,9 +41,11 @@ private:
     void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
     void OnWindowResize(int width, int height) override;
 
-    void CheckImpact();
+    void CheckBoundaries();
     void SpawnBalloons();
+    void Tema1::SpawnShurikens();
     void TranslateBalloons(float);
+    void Tema1::ShootArrow(float);
     Mesh *Tema1::CreateMesh(const char *, const std::vector<VertexFormat> &,
                             const std::vector<unsigned short> &);
 
@@ -52,9 +54,14 @@ private:
     glm::mat3 Tema1::Rotate(float);
 
 protected:
-    glm::vec3 bow_line_pos0, bow_line_pos1;
-    glm::mat3 bow_line_matrix;
+    glm::mat3 bow_string_matrix, bow_handle_matrix;
     int no_visible_balloons;
+    std::vector<glm::mat3> balloons_matrix;
+    std::vector<glm::mat3> balloons_string_matrix;
+    glm::mat3 shuriken_matrix;
+    glm::mat3 arrow_matrix;
     unsigned short score;
     short no_lives;
+    bool is_arrow_shot;
+    float arrow_speed;
 };
