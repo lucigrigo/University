@@ -252,11 +252,12 @@ void Tema1::CheckBoundaries()
             arrow_matrix[2][1] <= balloons_matrix[i][2][1] + 23)
         {
             is_arrow_shot = false;
-            score = (balloon_type[i] == BALLOON_RED_NAME) ? score + 1 : score - 1;
-            balloons_matrix.erase(balloons_matrix.begin() + i);
-            balloons_string_matrix.erase(balloons_string_matrix.begin() + i);
-            balloon_type.erase(balloon_type.begin() + i);
-            --no_visible_balloons;
+            score = (balloon_type[i] == BALLOON_RED_NAME) ? score + 2 : score - 1;
+            is_hit[i] = true;
+            // balloons_matrix.erase(balloons_matrix.begin() + i);
+            // balloons_string_matrix.erase(balloons_string_matrix.begin() + i);
+            // balloon_type.erase(balloon_type.begin() + i);
+            // --no_visible_balloons;
             break;
         }
     }
@@ -324,6 +325,7 @@ void Tema1::SpawnBalloons()
     new_pos *= Scale(30, 55);
     balloons_matrix.push_back(new_pos);
     balloons_string_matrix.push_back(new_string_pos);
+    is_hit[no_visible_balloons] = false;
     ++no_visible_balloons;
 }
 
@@ -348,6 +350,8 @@ void Tema1::TranslateBalloons(float deltaTimeSeconds)
 {
     for (int i = 0; i < no_visible_balloons; ++i)
     {
+        if (is_hit[i])
+            continue;
         float factor = deltaTimeSeconds * BALLOON_SPEED;
         balloons_matrix[i] *= Translate(0, factor);
         balloons_string_matrix[i] *= Translate(0, 11 * factor);
@@ -383,6 +387,12 @@ void Tema1::Update(float deltaTimeSeconds)
     // updating time elapsed
     time_elapsed += deltaTimeSeconds;
 
+    if (no_lives == 0)
+    {
+        cout << "Game over! Final score: " << score << endl;
+        exit(0);
+    }
+
     // displaying current score and lives remaining
     cout << "Time elapsed: " << time_elapsed << " | Score: " << score << " | Lives: " << no_lives << endl;
 
@@ -394,7 +404,7 @@ void Tema1::Update(float deltaTimeSeconds)
     CheckBoundaries();
 
     // spawning additional balloons, randomly, very few seconds
-    int gen = rand() % 10;
+    int gen = rand() % 100;
     if (!gen)
         SpawnBalloons();
 
@@ -402,10 +412,29 @@ void Tema1::Update(float deltaTimeSeconds)
     TranslateBalloons(deltaTimeSeconds);
 
     // drawing visible balloons
-    for (int i = 0; i < no_visible_balloons; ++i)
+    bool done = false;
+    while (!done)
     {
-        RenderMesh2D(meshes[balloon_type[i]], shaders["VertexColor"], balloons_matrix[i]);
-        RenderMesh2D(meshes["balloon_string"], shaders["VertexColor"], balloons_string_matrix[i]);
+        for (int i = 0; i < no_visible_balloons; ++i)
+        {
+            // TODO: make sure scaling effect of the hit balloon is working properly
+            if (is_hit[i])
+            {
+                if (no_scales[i] > 30)
+                {
+                    balloons_matrix.erase(balloons_matrix.begin() + i);
+                    balloons_string_matrix.erase(balloons_string_matrix.begin() + i);
+                    balloon_type.erase(balloon_type.begin() + i);
+                    --no_visible_balloons;
+                    break;
+                }
+                balloons_matrix[i] *= Scale(.2f, .2f);
+                balloons_string_matrix[i] *= Translate(0, -BALLOON_SPEED * deltaTimeSeconds * 15.f);
+            }
+            RenderMesh2D(meshes[balloon_type[i]], shaders["VertexColor"], balloons_matrix[i]);
+            RenderMesh2D(meshes["balloon_string"], shaders["VertexColor"], balloons_string_matrix[i]);
+        }
+        done = true;
     }
 
     // translating arrow
@@ -418,7 +447,7 @@ void Tema1::Update(float deltaTimeSeconds)
 
     // randomly spawn shurikens coming towards the player
     // translate shurikens, if there is any
-    if (score >= 5)
+    if (score >= 10)
     {
         SpawnShurikens();
         if (shuriken_shot)

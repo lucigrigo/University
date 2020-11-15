@@ -18,7 +18,7 @@
 #define BALLOON_RED_COLOR glm::vec3(1.f, 0, 0)
 #define BLACK glm::vec3(0, 0, 0)
 #define NO_TRIANGLES 100
-#define MAX_NO_BALLOONS 25
+#define MAX_NO_BALLOONS 50
 #define BALLOON_SPEED 5.f
 #define BOW_MOVEMENT_SPEED 550.f
 
@@ -69,4 +69,6 @@ protected:
     float arrow_speed;
     float time_elapsed;
     float click_time, release_time;
+    bool is_hit[MAX_NO_BALLOONS];
+    int no_scales[MAX_NO_BALLOONS];
 };
