@@ -247,7 +247,18 @@ void Tema1::CheckBoundaries()
     // scale balloons down to 0 if they are hit
     for (int i = 0; i < no_visible_balloons; ++i)
     {
-        ;
+        if (arrow_matrix[2][0] + 65 == balloons_matrix[i][2][0] &&
+            arrow_matrix[2][1] >= balloons_matrix[i][2][1] - 23 &&
+            arrow_matrix[2][1] <= balloons_matrix[i][2][1] + 23)
+        {
+            is_arrow_shot = false;
+            score = (balloon_type[i] == BALLOON_RED_NAME) ? score + 1 : score - 1;
+            balloons_matrix.erase(balloons_matrix.begin() + i);
+            balloons_string_matrix.erase(balloons_string_matrix.begin() + i);
+            balloon_type.erase(balloon_type.begin() + i);
+            --no_visible_balloons;
+            break;
+        }
     }
 
     // checking for collisions between shuriken and the bow
@@ -259,9 +270,7 @@ void Tema1::CheckBoundaries()
 
     // checking for arrows that leave the screen
     if (is_arrow_shot && arrow_matrix[2][0] >= resolution.x)
-    {
         is_arrow_shot = false;
-    }
 
     // checking for balloons that are not visible anymore as they leave the screen
     for (int i = 0; i < no_visible_balloons; ++i)
@@ -290,6 +299,14 @@ void Tema1::SpawnBalloons()
     float max_x = (float)resolution.x - 50;
     float y = -55.f;
     float x = min_x + (rand() % (int)(max_x - min_x + 1));
+
+    // making sure no balloons are overlapping at spawn spot
+    for (int i = 0; i < no_visible_balloons; ++i)
+    {
+        if (balloons_matrix[i][2][1] <= 40 &&
+            abs(balloons_matrix[i][2][0] - x) < 40)
+            return;
+    }
 
     // generating yellow balloons at a random ratio of approx. 1/5
     int r = rand() % 5;
@@ -377,7 +394,7 @@ void Tema1::Update(float deltaTimeSeconds)
     CheckBoundaries();
 
     // spawning additional balloons, randomly, very few seconds
-    int gen = rand() % 100;
+    int gen = rand() % 10;
     if (!gen)
         SpawnBalloons();
 
@@ -406,7 +423,10 @@ void Tema1::Update(float deltaTimeSeconds)
         SpawnShurikens();
         if (shuriken_shot)
         {
-            shuriken_matrix *= Translate(-arrow_speed / 30.f, 0);
+            // TODO: make sure rotation of the shuriken is working properly
+            // shuriken_matrix *= Translate(-arrow_speed / 30.f, 0);
+            shuriken_matrix[2][0] -= arrow_speed / 40.f;
+            shuriken_matrix *= Rotate(10);
             RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
         }
     }
@@ -421,17 +441,25 @@ void Tema1::OnInputUpdate(float deltaTime, int mods)
         bow_string_matrix[2][1] <= window->GetResolution().y - 75)
     {
         // moving up (positive on axis)
+        // TODO: rerotate bow to initial orientation
+        // OR: just modify y coordinate
         float factor = deltaTime * BOW_MOVEMENT_SPEED;
-        bow_string_matrix *= Translate(0, factor);
-        bow_handle_matrix *= Translate(0, factor / 75);
+        // bow_string_matrix *= Translate(0, factor);
+        // bow_handle_matrix *= Translate(0, factor / 75);
+        bow_string_matrix[2][1] += factor;
+        bow_handle_matrix[2][1] += factor / 75;
     }
     else if (window->KeyHold(GLFW_KEY_S) &&
              bow_string_matrix[2][1] >= 0 + 75)
     {
         // moving down (negative on axis)
+        // TODO: rerotate bow to initial orientation
+        // OR: just modify y coordinate
         float factor = -deltaTime * BOW_MOVEMENT_SPEED;
-        bow_string_matrix *= Translate(0, factor);
-        bow_handle_matrix *= Translate(0, factor / 75);
+        // bow_string_matrix *= Translate(0, factor);
+        // bow_handle_matrix *= Translate(0, factor / 75);
+        bow_string_matrix[2][1] -= factor;
+        bow_handle_matrix[2][1] -= factor / 75;
     }
 }
 
@@ -442,39 +470,41 @@ void Tema1::OnKeyRelease(int key, int mods) {}
 void Tema1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // rotate bow towards mouse position
-    //if (mouseX >= bow_string_matrix[2][0]) {
-    //    float mid_x = bow_string_matrix[2][0];
-    //    float mid_y = bow_string_matrix[2][1];
-    //    float y_proj = mouseY - bow_string_matrix[2][1];
-    //    float x_proj = mouseX - bow_string_matrix[2][0];
-    //    // TODO: fix fidget spinner
-    //    float degrees = -0.0001f * (float) atan(y_proj / x_proj) * 180 / M_PI;
-    //    bow_string_matrix *= Rotate(degrees);
-    //}
+    if (mouseX >= bow_string_matrix[2][0])
+    {
+        float mid_x = bow_string_matrix[2][0];
+        float mid_y = bow_string_matrix[2][1];
+        float y_proj = mouseY - bow_string_matrix[2][1];
+        float x_proj = mouseX - bow_string_matrix[2][0];
+        // TODO: fix fidget spinner
+        float degrees = -0.0005f * (float)atan(y_proj / x_proj);
+        bow_string_matrix *= Rotate(degrees);
+    }
 }
 
 void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // charging arrow speed
+    // charging arrow
     click_time = time_elapsed;
 
-    /*for (int i = 0; i < bow_line_matrix.length(); ++i) {
-        for (int j = 0; j < bow_line_matrix[0].length(); ++j)
-            cout << bow_line_matrix[i][j] << " ";
-        cout << endl;
-    }
-    float mid_x = bow_line_matrix[2][0];
-    float mid_y = bow_line_matrix[2][1];
-    float y_proj = abs(mouseY - bow_line_matrix[2][1]);
-    float x_proj = mouseX - bow_line_matrix[2][0];
-    float degrees = (float)atan(y_proj / x_proj) * 180 / M_PI;
-    cout << "mid_x=" << mid_x << endl;
-    cout << "mid_y=" << mid_y << endl;
-    cout << "mouseX=" << mouseX << endl;
-    cout << "mouseY=" << mouseY << endl;
-    cout << "x_proj=" << x_proj << endl;
-    cout << "y_proj=" << y_proj << endl;
-    cout << "degrees=" << degrees << endl;*/
+    // for (int i = 0; i < bow_string_matrix.length(); ++i)
+    // {
+    //     for (int j = 0; j < bow_string_matrix[0].length(); ++j)
+    //         cout << bow_string_matrix[i][j] << " ";
+    //     cout << endl;
+    // }
+    // float mid_x = bow_string_matrix[2][0];
+    // float mid_y = bow_string_matrix[2][1];
+    // float y_proj = abs(mouseY - bow_string_matrix[2][1]);
+    // float x_proj = mouseX - bow_string_matrix[2][0];
+    // float degrees = (float)atan(y_proj / x_proj);
+    // cout << "mid_x=" << mid_x << endl;
+    // cout << "mid_y=" << mid_y << endl;
+    // cout << "mouseX=" << mouseX << endl;
+    // cout << "mouseY=" << mouseY << endl;
+    // cout << "x_proj=" << x_proj << endl;
+    // cout << "y_proj=" << y_proj << endl;
+    // cout << "degrees=" << degrees << endl;
 }
 
 void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
@@ -482,6 +512,7 @@ void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
     // releasing arrow with variable speed
     float curr_time = time_elapsed;
     float speed = (curr_time - click_time) * 1e5; // ??????????????????????
+    cout << "ARROW SPEED = " << speed << endl;
     speed = max(1.f, speed);
     speed = min(10.f, speed);
     ShootArrow(speed);
