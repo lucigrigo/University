@@ -12,6 +12,8 @@
 #include <vector>
 #include <math.h>
 
+#define BALLOON_RED_NAME "red_balloon"
+#define BALLOON_YELLOW_NAME "yellow_name"
 #define BALLOON_YELLOW_COLOR glm::vec3(1.f, 1.f, 0)
 #define BALLOON_RED_COLOR glm::vec3(1.f, 0, 0)
 #define BLACK glm::vec3(0, 0, 0)
@@ -46,8 +48,7 @@ private:
     void Tema1::SpawnShurikens();
     void TranslateBalloons(float);
     void Tema1::ShootArrow(float);
-    Mesh *Tema1::CreateMesh(const char *, const std::vector<VertexFormat> &,
-                            const std::vector<unsigned short> &);
+    void Tema1::CreateBalloon(glm::vec3, string);
 
     glm::mat3 Tema1::Translate(float, float);
     glm::mat3 Tema1::Scale(float, float);
@@ -58,6 +59,7 @@ protected:
     int no_visible_balloons;
     std::vector<glm::mat3> balloons_matrix;
     std::vector<glm::mat3> balloons_string_matrix;
+    std::vector<std::string> balloon_type;
     glm::mat3 shuriken_matrix;
     bool shuriken_shot;
     glm::mat3 arrow_matrix;
@@ -65,4 +67,6 @@ protected:
     short no_lives;
     bool is_arrow_shot;
     float arrow_speed;
+    float time_elapsed;
+    float click_time, release_time;
 };

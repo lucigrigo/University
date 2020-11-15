@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Tema1::Tema1() 
+Tema1::Tema1()
 {
     // default initial values
     no_lives = 3;
@@ -17,7 +17,10 @@ Tema1::Tema1()
     is_arrow_shot = false;
     arrow_speed = 5.f;
     arrow_matrix = glm::mat3(1);
+    shuriken_matrix = glm::mat3(1);
     shuriken_shot = false;
+    time_elapsed = 0.f;
+    click_time = release_time = 0.f;
 }
 
 Tema1::~Tema1() {}
@@ -27,9 +30,8 @@ glm::mat3 Tema1::Translate(float translateX, float translateY)
 {
     return glm::transpose(
         glm::mat3(1, 0, translateX,
-            0, 1, translateY,
-            0, 0, 1)
-    );
+                  0, 1, translateY,
+                  0, 0, 1));
 }
 
 // Scale matrix
@@ -37,9 +39,8 @@ glm::mat3 Tema1::Scale(float scaleX, float scaleY)
 {
     return glm::transpose(
         glm::mat3(scaleX, 0, 0,
-            0, scaleY, 0,
-            0, 0, 1)
-    );
+                  0, scaleY, 0,
+                  0, 0, 1));
 }
 
 // Rotate matrix
@@ -47,9 +48,32 @@ glm::mat3 Tema1::Rotate(float degrees)
 {
     return glm::transpose(
         glm::mat3(cos(degrees), -sin(degrees), 0,
-            sin(degrees), cos(degrees), 0,
-            0, 0, 1)
-    );
+                  sin(degrees), cos(degrees), 0,
+                  0, 0, 1));
+}
+
+void Tema1::CreateBalloon(glm::vec3 color, string name)
+{
+    // drawing the circular area
+    Mesh *balloon = new Mesh(name);
+
+    vector<VertexFormat> vertices;
+    vector<unsigned short> indices;
+
+    vertices.emplace_back(glm::vec3(0, 0, 0), color);
+    for (unsigned short i = 0; i < NO_TRIANGLES; i++)
+    {
+        double arg = 2 * M_PI * i / NO_TRIANGLES;
+
+        vertices.emplace_back(glm::vec3(cos(arg), sin(arg), 0), color);
+        indices.push_back(i);
+    }
+    indices.push_back(NO_TRIANGLES);
+    indices.push_back(1);
+
+    balloon->InitFromData(vertices, indices);
+    balloon->SetDrawMode(GL_TRIANGLE_FAN);
+    AddMeshToList(balloon);
 }
 
 void Tema1::Init()
@@ -67,28 +91,28 @@ void Tema1::Init()
     // init bow
     {
         // drawing the string
-        Mesh* bow_string = new Mesh("bow_string");
+        Mesh *bow_string = new Mesh("bow_string");
 
-        float m_y = (float) resolution.y / 2;
+        float m_y = (float)resolution.y / 2;
         glm::vec3 bow_string_pos0 = glm::vec3(0, 75, 0);
         glm::vec3 bow_string_pos1 = glm::vec3(0, -75, 0);
         bow_string_matrix = glm::mat3(1);
         bow_string_matrix *= Translate(100, m_y);
 
-        vector<VertexFormat> vertices{ VertexFormat(bow_string_pos0, BLACK),
-                                      VertexFormat(bow_string_pos1, BLACK) };
+        vector<VertexFormat> vertices{VertexFormat(bow_string_pos0, BLACK),
+                                      VertexFormat(bow_string_pos1, BLACK)};
 
-        vector<unsigned short> indices = { 0, 1 };
+        vector<unsigned short> indices = {0, 1};
 
         bow_string->SetDrawMode(GL_LINES);
         bow_string->InitFromData(vertices, indices);
         AddMeshToList(bow_string);
 
-        Mesh* bow_handle = new Mesh("bow_handle");
+        // drawing the handle
+        Mesh *bow_handle = new Mesh("bow_handle");
         vertices.clear();
         indices.clear();
 
-        // drawing the handle
         bow_handle_matrix = glm::mat3(1);
         bow_handle_matrix *= Translate(100, m_y);
         bow_handle_matrix *= Scale(20, 75);
@@ -111,34 +135,14 @@ void Tema1::Init()
 
     // init balloon
     {
-        // drawing the circular area
-        Mesh *balloon = new Mesh("balloon");
-
-        vector<VertexFormat> vertices;
-        vector<unsigned short> indices;
-
-        vertices.emplace_back(glm::vec3(0, 0, 0), BALLOON_RED_COLOR);
-        for (unsigned short i = 0; i < NO_TRIANGLES; i++)
-        {
-            double arg = 2 * M_PI * i / NO_TRIANGLES;
-
-            vertices.emplace_back(glm::vec3(cos(arg), sin(arg), 0), BALLOON_RED_COLOR);
-            indices.push_back(i);
-        }
-        indices.push_back(NO_TRIANGLES);
-        indices.push_back(1);
-
-        balloon->InitFromData(vertices, indices);
-        balloon->SetDrawMode(GL_TRIANGLE_FAN);
-        AddMeshToList(balloon);
+        // creating meshes for the red and yellow balloons
+        CreateBalloon(BALLOON_RED_COLOR, BALLOON_RED_NAME);
+        CreateBalloon(BALLOON_YELLOW_COLOR, BALLOON_YELLOW_NAME);
 
         // drawing the string
-        Mesh* balloon_string = new Mesh("balloon_string");
+        Mesh *balloon_string = new Mesh("balloon_string");
 
-        vertices.clear();
-        indices.clear();
-
-        vertices = {
+        vector<VertexFormat> vertices{
             VertexFormat(glm::vec3(0, 0, 0), BLACK),
             VertexFormat(glm::vec3(0, 1, 0), BLACK),
             VertexFormat(glm::vec3(1, 2, 0), BLACK),
@@ -146,18 +150,16 @@ void Tema1::Init()
             VertexFormat(glm::vec3(1, 4, 0), BLACK),
             VertexFormat(glm::vec3(-1, 5, 0), BLACK),
             VertexFormat(glm::vec3(0, 6, 0), BLACK),
-            VertexFormat(glm::vec3(0, 7, 0), BLACK)
-        };
+            VertexFormat(glm::vec3(0, 7, 0), BLACK)};
 
-        indices = {
+        vector<unsigned short> indices = {
             0, 1,
             1, 2,
             2, 3,
             3, 4,
             4, 5,
             5, 6,
-            6, 7
-        };
+            6, 7};
 
         balloon_string->InitFromData(vertices, indices);
         balloon_string->SetDrawMode(GL_LINES);
@@ -167,23 +169,21 @@ void Tema1::Init()
     // init arrow
     {
         // drawing arrow body
-        Mesh* arrow = new Mesh("arrow");
+        Mesh *arrow = new Mesh("arrow");
 
         vector<VertexFormat> vertices{
             VertexFormat(glm::vec3(0, 0, 0), BLACK),
-            VertexFormat(glm::vec3(50, 0, 0), BLACK)
-        };
+            VertexFormat(glm::vec3(50, 0, 0), BLACK)};
 
         vector<unsigned short> indices = {
-            0, 1
-        };
+            0, 1};
 
         arrow->InitFromData(vertices, indices);
         arrow->SetDrawMode(GL_LINES);
         AddMeshToList(arrow);
 
         // drawing arrow tip
-        Mesh* arrow_tip = new Mesh("arrow_tip");
+        Mesh *arrow_tip = new Mesh("arrow_tip");
 
         vertices.clear();
         indices.clear();
@@ -191,12 +191,10 @@ void Tema1::Init()
         vertices = {
             VertexFormat(glm::vec3(65, 0, 0), BLACK),
             VertexFormat(glm::vec3(50, 5, 0), BLACK),
-            VertexFormat(glm::vec3(50, -5, 0), BLACK)
-        };
+            VertexFormat(glm::vec3(50, -5, 0), BLACK)};
 
         indices = {
-            0, 2, 1
-        };
+            0, 2, 1};
 
         arrow_tip->InitFromData(vertices, indices);
         arrow_tip->SetDrawMode(GL_TRIANGLES);
@@ -205,7 +203,7 @@ void Tema1::Init()
 
     // init shuriken
     {
-        Mesh* shuriken = new Mesh("shuriken");
+        Mesh *shuriken = new Mesh("shuriken");
 
         vector<VertexFormat> vertices{
             VertexFormat(glm::vec3(0, 0, 0), BLACK),
@@ -216,15 +214,13 @@ void Tema1::Init()
             VertexFormat(glm::vec3(0, 1, 0), BLACK),
             VertexFormat(glm::vec3(1, 0, 0), BLACK),
             VertexFormat(glm::vec3(1, 2, 0), BLACK),
-            VertexFormat(glm::vec3(2, 1, 0), BLACK)
-        };
+            VertexFormat(glm::vec3(2, 1, 0), BLACK)};
 
         vector<unsigned short> indices = {
             1, 4, 8,
             1, 3, 7,
             1, 0, 5,
-            1, 2, 6
-        };
+            1, 2, 6};
 
         shuriken->InitFromData(vertices, indices);
         shuriken->SetDrawMode(GL_TRIANGLES);
@@ -247,20 +243,23 @@ void Tema1::CheckBoundaries()
 {
     glm::ivec2 resolution = window->GetResolution();
 
-    // TODO: check for collisions between balloons and arrow
-    // TODO: scale balloons down to 0 if they are hit
+    // check for collisions between balloons and arrow
+    // scale balloons down to 0 if they are hit
     for (int i = 0; i < no_visible_balloons; ++i)
     {
         ;
     }
 
-    // TODO: check for collisions between shuriken and the bow
-
+    // checking for collisions between shuriken and the bow
     if (shuriken_shot && shuriken_matrix[2][0] <= bow_string_matrix[2][0])
+    {
         shuriken_shot = false;
+        --no_lives;
+    }
 
     // checking for arrows that leave the screen
-    if (is_arrow_shot && arrow_matrix[2][0] >= resolution.x) {
+    if (is_arrow_shot && arrow_matrix[2][0] >= resolution.x)
+    {
         is_arrow_shot = false;
     }
 
@@ -268,9 +267,11 @@ void Tema1::CheckBoundaries()
     for (int i = 0; i < no_visible_balloons; ++i)
     {
         float curr_y = balloons_matrix[i][2][1];
-        if (curr_y - 150 >= resolution.y) {
+        if (curr_y - 150 >= resolution.y)
+        {
             balloons_matrix.erase(balloons_matrix.begin() + i);
             balloons_string_matrix.erase(balloons_string_matrix.begin() + i);
+            balloon_type.erase(balloon_type.begin() + i);
             --no_visible_balloons;
             break;
         }
@@ -285,10 +286,17 @@ void Tema1::SpawnBalloons()
 
     // choosing random position to spawn at
     glm::ivec2 resolution = window->GetResolution();
-    float min_x = (float) resolution.x / 2.f;
-    float max_x = (float) resolution.x - 50;
+    float min_x = (float)resolution.x / 2.f;
+    float max_x = (float)resolution.x - 50;
     float y = -55.f;
     float x = min_x + (rand() % (int)(max_x - min_x + 1));
+
+    // generating yellow balloons at a random ratio of approx. 1/5
+    int r = rand() % 5;
+    if (!r)
+        balloon_type.push_back(BALLOON_YELLOW_NAME);
+    else
+        balloon_type.push_back(BALLOON_RED_NAME);
 
     // building initial position matrix
     glm::mat3 new_pos = glm::mat3(1);
@@ -302,11 +310,11 @@ void Tema1::SpawnBalloons()
     ++no_visible_balloons;
 }
 
-void Tema1::SpawnShurikens() 
+void Tema1::SpawnShurikens()
 {
     if (shuriken_shot)
         return;
-    
+
     // spawning shurikens from right side of the screen
     // coming towards the bow
     float curr_bow_x = bow_string_matrix[2][0];
@@ -330,7 +338,7 @@ void Tema1::TranslateBalloons(float deltaTimeSeconds)
 }
 
 // Function that releases arrow with given speed
-void Tema1::ShootArrow(float speed) 
+void Tema1::ShootArrow(float speed)
 {
     if (is_arrow_shot)
         return;
@@ -340,7 +348,6 @@ void Tema1::ShootArrow(float speed)
     arrow_matrix *= Translate(curr_bow_x, curr_bow_y);
     arrow_speed = speed;
     is_arrow_shot = true;
-    //shot_time = time();
 }
 
 void Tema1::Update(float deltaTimeSeconds)
@@ -356,8 +363,11 @@ void Tema1::Update(float deltaTimeSeconds)
     glLineWidth(4);
     glPointSize(2);
 
+    // updating time elapsed
+    time_elapsed += deltaTimeSeconds;
+
     // displaying current score and lives remaining
-    //cout << "Score: " << score << " | Lives: " << no_lives << endl;
+    cout << "Time elapsed: " << time_elapsed << " | Score: " << score << " | Lives: " << no_lives << endl;
 
     // drawing the bow
     RenderMesh2D(meshes["bow_string"], shaders["VertexColor"], bow_string_matrix);
@@ -368,7 +378,7 @@ void Tema1::Update(float deltaTimeSeconds)
 
     // spawning additional balloons, randomly, very few seconds
     int gen = rand() % 100;
-    if(!gen)
+    if (!gen)
         SpawnBalloons();
 
     // moving the balloons upwards
@@ -377,24 +387,28 @@ void Tema1::Update(float deltaTimeSeconds)
     // drawing visible balloons
     for (int i = 0; i < no_visible_balloons; ++i)
     {
-        RenderMesh2D(meshes["balloon"], shaders["VertexColor"], balloons_matrix[i]);
+        RenderMesh2D(meshes[balloon_type[i]], shaders["VertexColor"], balloons_matrix[i]);
         RenderMesh2D(meshes["balloon_string"], shaders["VertexColor"], balloons_string_matrix[i]);
     }
 
-    // translating arrow;
-    if (is_arrow_shot) {
+    // translating arrow
+    if (is_arrow_shot)
+    {
         arrow_matrix *= Translate(arrow_speed, 0);
         RenderMesh2D(meshes["arrow"], shaders["VertexColor"], arrow_matrix);
         RenderMesh2D(meshes["arrow_tip"], shaders["VertexColor"], arrow_matrix);
     }
 
     // randomly spawn shurikens coming towards the player
-    SpawnShurikens();
-
     // translate shurikens, if there is any
-    if (shuriken_shot) {
-        shuriken_matrix *= Translate(-arrow_speed / 30.f, 0);
-        RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
+    if (score >= 5)
+    {
+        SpawnShurikens();
+        if (shuriken_shot)
+        {
+            shuriken_matrix *= Translate(-arrow_speed / 30.f, 0);
+            RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
+        }
     }
 }
 
@@ -403,14 +417,16 @@ void Tema1::FrameEnd() {}
 void Tema1::OnInputUpdate(float deltaTime, int mods)
 {
     // moving the bow on the OY axis up to the edge of the window
-    if (window->KeyHold(GLFW_KEY_W) && bow_string_matrix[2][1] <= window->GetResolution().y - 75)
+    if (window->KeyHold(GLFW_KEY_W) &&
+        bow_string_matrix[2][1] <= window->GetResolution().y - 75)
     {
         // moving up (positive on axis)
         float factor = deltaTime * BOW_MOVEMENT_SPEED;
         bow_string_matrix *= Translate(0, factor);
         bow_handle_matrix *= Translate(0, factor / 75);
     }
-    else if (window->KeyHold(GLFW_KEY_S) && bow_string_matrix[2][1] >= 0 + 75)
+    else if (window->KeyHold(GLFW_KEY_S) &&
+             bow_string_matrix[2][1] >= 0 + 75)
     {
         // moving down (negative on axis)
         float factor = -deltaTime * BOW_MOVEMENT_SPEED;
@@ -439,8 +455,8 @@ void Tema1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 
 void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // TODO: charge arrow speed
-    // click_time = time()
+    // charging arrow speed
+    click_time = time_elapsed;
 
     /*for (int i = 0; i < bow_line_matrix.length(); ++i) {
         for (int j = 0; j < bow_line_matrix[0].length(); ++j)
@@ -464,8 +480,11 @@ void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // releasing arrow with variable speed
-    //float speed = (click_time - curr_time)
-    ShootArrow(5.f);
+    float curr_time = time_elapsed;
+    float speed = (curr_time - click_time) * 1e5; // ??????????????????????
+    speed = max(1.f, speed);
+    speed = min(10.f, speed);
+    ShootArrow(speed);
 }
 
 void Tema1::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) {}
