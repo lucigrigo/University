@@ -71,4 +71,7 @@ protected:
     float click_time, release_time;
     bool is_hit[MAX_NO_BALLOONS];
     int no_scales[MAX_NO_BALLOONS];
+    float power_indicator_scale_factor;
+    glm::mat3 power_indicator_matrix;
+    bool is_charging_shot;
 };

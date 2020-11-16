@@ -21,6 +21,7 @@ Tema1::Tema1()
     shuriken_shot = false;
     time_elapsed = 0.f;
     click_time = release_time = 0.f;
+    power_indicator_matrix = glm::mat3(1);
 }
 
 Tema1::~Tema1() {}
@@ -226,6 +227,24 @@ void Tema1::Init()
         shuriken->SetDrawMode(GL_TRIANGLES);
         AddMeshToList(shuriken);
     }
+
+    // init power indicator
+    {
+        Mesh *power_indicator = new Mesh("power_indicator");
+
+        vector<VertexFormat> vertices{
+            VertexFormat(glm::vec3(0, 0, 0), BLACK),
+            VertexFormat(glm::vec3(0, 100, 0), BLACK),
+            VertexFormat(glm::vec3(100, 0, 0), BLACK),
+            VertexFormat(glm::vec3(100, 100, 0), BLACK)};
+
+        vector<unsigned short> indices = {
+            0, 1, 3, 2};
+
+        power_indicator->InitFromData(vertices, indices);
+        power_indicator->SetDrawMode(GL_POLYGON);
+        AddMeshToList(power_indicator);
+    }
 }
 
 void Tema1::FrameStart()
@@ -400,10 +419,10 @@ void Tema1::Update(float deltaTimeSeconds)
     RenderMesh2D(meshes["bow_string"], shaders["VertexColor"], bow_string_matrix);
     RenderMesh2D(meshes["bow_handle"], shaders["VertexColor"], bow_handle_matrix);
 
-    // checking if any balloons are hit
+    // checking if any balloons are hit, leave the screen and other conflicts
     CheckBoundaries();
 
-    // spawning additional balloons, randomly, very few seconds
+    // spawning additional balloons, randomly, every few seconds
     int gen = rand() % 100;
     if (!gen)
         SpawnBalloons();
@@ -429,7 +448,7 @@ void Tema1::Update(float deltaTimeSeconds)
                     break;
                 }
                 balloons_matrix[i] *= Scale(.2f, .2f);
-                balloons_string_matrix[i] *= Translate(0, -BALLOON_SPEED * deltaTimeSeconds * 15.f);
+                balloons_string_matrix[i] *= Translate(0, -BALLOON_SPEED * deltaTimeSeconds * 3.f);
             }
             RenderMesh2D(meshes[balloon_type[i]], shaders["VertexColor"], balloons_matrix[i]);
             RenderMesh2D(meshes["balloon_string"], shaders["VertexColor"], balloons_string_matrix[i]);
@@ -459,12 +478,25 @@ void Tema1::Update(float deltaTimeSeconds)
             RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
         }
     }
+
+    // drawing power indicator
+    // TODO: make sure the indicator looks fine
+    if (is_charging_shot)
+    {
+        if (power_indicator_scale_factor < 3.f)
+        {
+            power_indicator_matrix *= Scale(power_indicator_scale_factor, 0.f);
+            power_indicator_scale_factor += 0.1f;
+        }
+        RenderMesh2D(meshes["power_indicator"], shaders["VertexColor"], power_indicator_matrix);
+    }
 }
 
 void Tema1::FrameEnd() {}
 
 void Tema1::OnInputUpdate(float deltaTime, int mods)
 {
+    // TODO: make sure this works
     // moving the bow on the OY axis up to the edge of the window
     if (window->KeyHold(GLFW_KEY_W) &&
         bow_string_matrix[2][1] <= window->GetResolution().y - 75)
@@ -515,6 +547,7 @@ void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // charging arrow
     click_time = time_elapsed;
+    is_charging_shot = true;
 
     // for (int i = 0; i < bow_string_matrix.length(); ++i)
     // {
@@ -539,8 +572,11 @@ void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // releasing arrow with variable speed
+    is_charging_shot = false;
+    power_indicator_scale_factor = 1.f;
+    power_indicator_matrix = glm::mat3(1);
     float curr_time = time_elapsed;
-    float speed = (curr_time - click_time) * 1e5; // ??????????????????????
+    float speed = (curr_time - click_time) * 1e5; // TODO: ??????????????????????
     cout << "ARROW SPEED = " << speed << endl;
     speed = max(1.f, speed);
     speed = min(10.f, speed);
