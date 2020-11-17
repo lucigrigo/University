@@ -16,12 +16,13 @@ Tema1::Tema1()
 	no_visible_balloons = 0;
 	is_arrow_shot = false;
 	arrow_speed = 5.f;
-	arrow_matrix = glm::mat3(1);
+	//arrow_matrix = glm::mat3(1);
 	shuriken_matrix = glm::mat3(1);
 	is_shuriken_shot = false;
 	time_elapsed = 0.f;
 	click_time = release_time = 0.f;
 	last_second = last_display = 0;
+	bow_rotation = 0;
 }
 
 Tema1::~Tema1() {}
@@ -104,8 +105,10 @@ void Tema1::Init()
 		float m_y = (float)resolution.y / 2;
 		glm::vec3 bow_string_pos0 = glm::vec3(0, 75, 0);
 		glm::vec3 bow_string_pos1 = glm::vec3(0, -75, 0);
-		bow_string_matrix = glm::mat3(1);
-		bow_string_matrix *= Translate(100, m_y);
+		//bow_string_matrix = glm::mat3(1);
+		//bow_string_matrix *= Translate(100, m_y);
+		bow_x = 100;
+		bow_y = m_y;
 
 		vector<VertexFormat> vertices{ VertexFormat(bow_string_pos0, BLACK),
 									  VertexFormat(bow_string_pos1, BLACK) };
@@ -121,9 +124,9 @@ void Tema1::Init()
 		vertices.clear();
 		indices.clear();
 
-		bow_handle_matrix = glm::mat3(1);
-		bow_handle_matrix *= Translate(100, m_y);
-		bow_handle_matrix *= Scale(20, 75);
+		//bow_handle_matrix = glm::mat3(1);
+		//bow_handle_matrix *= Translate(100, m_y);
+		//bow_handle_matrix *= Scale(20, 75);
 
 		vertices.emplace_back(glm::vec3(0, 0, 0), BLACK);
 		for (int i = 0; i <= NO_TRIANGLES / 2 + 1; i++)
@@ -258,7 +261,7 @@ void Tema1::Init()
 
 void Tema1::FrameStart()
 {
-	
+
 }
 
 void Tema1::CheckBoundaries()
@@ -268,9 +271,10 @@ void Tema1::CheckBoundaries()
 	// checking for collisions between arrow and the shuriken
 	if (is_arrow_shot &&
 		is_shuriken_shot &&
-		arrow_matrix[2][0] >= shuriken_x &&
-		arrow_matrix[2][1] <= shuriken_y + 30 &&
-		arrow_matrix[2][1] >= shuriken_y - 30) {
+		arrow_x + cos(shot_rotation) * 65 >= shuriken_x - 20 &&
+		arrow_x + cos(shot_rotation) * 65 <= shuriken_x + 20 &&
+		arrow_y  + sin(shot_rotation) * 65 <= shuriken_y + 20 &&
+		arrow_y + sin(shot_rotation) * 65 >= shuriken_y - 20) {
 		is_arrow_shot = false;
 		is_shuriken_shot = false;
 	}
@@ -281,10 +285,10 @@ void Tema1::CheckBoundaries()
 		for (int i = 0; i < no_visible_balloons; ++i)
 		{
 			if (!is_hit[i] &&
-				arrow_matrix[2][0] + 65 >= balloon_x[i] - 30 &&
-				arrow_matrix[2][0] + 65 <= balloon_x[i] + 30 &&
-				arrow_matrix[2][1] >= balloon_y[i] - 55 &&
-				arrow_matrix[2][1] <= balloon_y[i] + 55)
+				arrow_x + cos(shot_rotation) * 65 >= balloon_x[i] - 30 &&
+				arrow_x + cos(shot_rotation) * 65 <= balloon_x[i] + 30 &&
+				arrow_y + sin(shot_rotation) * 65 >= balloon_y[i] - 55 &&
+				arrow_y + sin(shot_rotation) * 65 <= balloon_y[i] + 55)
 			{
 				score = (balloon_type[i] == BALLOON_RED_NAME) ? score + 2 : score - 1;
 				score = max(score, 0);
@@ -296,9 +300,9 @@ void Tema1::CheckBoundaries()
 
 	// checking for collisions between shuriken and the bow
 	if (is_shuriken_shot &&
-		shuriken_matrix[2][0] <= bow_string_matrix[2][0] &&
-		shuriken_matrix[2][1] <= bow_string_matrix[2][1] + 75 &&
-		shuriken_matrix[2][1] >= bow_string_matrix[2][1] - 75)
+		shuriken_matrix[2][0] <= bow_x &&
+		shuriken_matrix[2][1] <= bow_y + 75 &&
+		shuriken_matrix[2][1] >= bow_y - 75)
 	{
 		is_shuriken_shot = false;
 		--no_lives;
@@ -310,7 +314,10 @@ void Tema1::CheckBoundaries()
 		is_shuriken_shot = false;
 
 	// checking for arrows that leave the screen
-	if (is_arrow_shot && arrow_matrix[2][0] >= resolution.x)
+	if (is_arrow_shot && 
+		(arrow_x + cos(shot_rotation) >= resolution.x ||
+			arrow_y + sin(shot_rotation) <= 0 ||
+			arrow_y + sin(shot_rotation) >= resolution.y))
 		is_arrow_shot = false;
 
 	// checking for balloons that are not visible anymore as they leave the screen
@@ -373,14 +380,14 @@ void Tema1::SpawnShurikens()
 	if (is_shuriken_shot)
 		return;
 
-	int safe_f = rand() % 10;
-	if (!safe_f)
+	int safe_factor = rand() % 100;
+	if (!safe_factor)
 		return;
 
 	// spawning shurikens from right side of the screen
 	// coming towards the bow
-	float curr_bow_x = bow_string_matrix[2][0];
-	float curr_bow_y = bow_string_matrix[2][1];
+	float curr_bow_x = bow_x;
+	float curr_bow_y = bow_y;
 
 	is_shuriken_shot = true;
 	shuriken_x = window->GetResolution().x;
@@ -392,11 +399,10 @@ void Tema1::ShootArrow(float speed)
 {
 	if (is_arrow_shot)
 		return;
-	float curr_bow_x = bow_string_matrix[2][0];
-	float curr_bow_y = bow_string_matrix[2][1];
-	arrow_matrix = glm::mat3(1);
-	arrow_matrix *= Translate(curr_bow_x, curr_bow_y);
+
 	arrow_speed = speed;
+	arrow_x = bow_x;
+	arrow_y = bow_y;
 	is_arrow_shot = true;
 }
 
@@ -407,7 +413,7 @@ void Tema1::Update(float deltaTimeSeconds)
 	glViewport(0, 0, resolution.x, resolution.y);
 
 	// we clear the color buffer
-	glClearColor(1, 0.8f, 0.8f, 1);
+	glClearColor(0.8f, 0.8f, 0.8f, 0.8f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glLineWidth(4);
@@ -437,9 +443,19 @@ void Tema1::Update(float deltaTimeSeconds)
 		cout << "Time elapsed: " << last_display << " | Score: " << score << " | Lives: " << no_lives << endl;
 	}
 
-	// drawing the bow
-	RenderMesh2D(meshes["bow_string"], shaders["VertexColor"], bow_string_matrix);
-	RenderMesh2D(meshes["bow_handle"], shaders["VertexColor"], bow_handle_matrix);
+	// drawing the bow 
+	{
+		glm::mat3 model_matrix = glm::mat3(1);
+		model_matrix *= Translate(bow_x, bow_y);
+		model_matrix *= Rotate(bow_rotation);
+		RenderMesh2D(meshes["bow_string"], shaders["VertexColor"], model_matrix);
+
+		model_matrix = glm::mat3(1);
+		model_matrix *= Translate(bow_x, bow_y);
+		model_matrix *= Rotate(bow_rotation);
+		model_matrix *= Scale(35, 75);
+		RenderMesh2D(meshes["bow_handle"], shaders["VertexColor"], model_matrix);
+	}
 
 	// checking if any balloons are hit, leave the screen and other conflicts
 	CheckBoundaries();
@@ -504,9 +520,15 @@ void Tema1::Update(float deltaTimeSeconds)
 	// translating arrow
 	if (is_arrow_shot)
 	{
-		arrow_matrix *= Translate(arrow_speed, 0);
-		RenderMesh2D(meshes["arrow"], shaders["VertexColor"], arrow_matrix);
-		RenderMesh2D(meshes["arrow_tip"], shaders["VertexColor"], arrow_matrix);
+		float x_translate = abs(deltaTimeSeconds * cos(shot_rotation) * arrow_speed * 100);
+		float y_translate = deltaTimeSeconds * sin(shot_rotation) * arrow_speed * 100;
+		glm::mat3 model_matrix = glm::mat3(1);
+		model_matrix *= Translate(arrow_x + x_translate, arrow_y + y_translate);
+		model_matrix *= Rotate(shot_rotation);
+		RenderMesh2D(meshes["arrow"], shaders["VertexColor"], model_matrix);
+		RenderMesh2D(meshes["arrow_tip"], shaders["VertexColor"], model_matrix);
+		arrow_x += x_translate;
+		arrow_y += y_translate;
 	}
 
 	// randomly spawn shurikens coming towards the player
@@ -517,10 +539,9 @@ void Tema1::Update(float deltaTimeSeconds)
 		{
 			shuriken_matrix = glm::mat3(1);
 			shuriken_matrix *= Translate(shuriken_x, shuriken_y);
-			shuriken_matrix *= Scale(30, 30);
+			shuriken_matrix *= Scale(20, 20);
 			shuriken_matrix *= Rotate(time_elapsed * 10);
-
-			shuriken_x -= deltaTimeSeconds * 500;
+			shuriken_x -= deltaTimeSeconds * 700;
 
 			RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
 		}
@@ -537,9 +558,10 @@ void Tema1::Update(float deltaTimeSeconds)
 	if (!is_arrow_shot) {
 		RenderMesh2D(meshes["power_indicator"], shaders["VertexColor"], power_indicator_matrix);
 		glm::mat3 model_matrix = glm::mat3(1);
-		float curr_bow_x = bow_string_matrix[2][0];
-		float curr_bow_y = bow_string_matrix[2][1];
+		float curr_bow_x = bow_x;
+		float curr_bow_y = bow_y;
 		model_matrix *= Translate(curr_bow_x, curr_bow_y);
+		model_matrix *= Rotate(bow_rotation);
 		RenderMesh2D(meshes["arrow"], shaders["VertexColor"], model_matrix);
 		RenderMesh2D(meshes["arrow_tip"], shaders["VertexColor"], model_matrix);
 	}
@@ -552,18 +574,16 @@ void Tema1::OnInputUpdate(float deltaTime, int mods)
 	float factor = deltaTime * BOW_MOVEMENT_SPEED;
 	// moving the bow on the OY axis up to the edge of the window
 	if (window->KeyHold(GLFW_KEY_W) &&
-		bow_string_matrix[2][1] <= window->GetResolution().y - 75)
+		bow_y <= window->GetResolution().y - 75)
 	{
 		// moving up (positive on axis)
-		bow_string_matrix[2][1] += factor;
-		bow_handle_matrix[2][1] += factor;
+		bow_y += factor;
 	}
 	else if (window->KeyHold(GLFW_KEY_S) &&
-		bow_string_matrix[2][1] >= 0 + 75)
+		bow_y >= 0 + 75)
 	{
 		// moving down (negative on axis)
-		bow_string_matrix[2][1] -= factor;
-		bow_handle_matrix[2][1] -= factor;
+		bow_y -= factor;
 	}
 }
 
@@ -574,34 +594,22 @@ void Tema1::OnKeyRelease(int key, int mods) {}
 void Tema1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 	// rotate bow towards mouse position
-	if (mouseX >= bow_string_matrix[2][0])
+	if (mouseX >= bow_x)
 	{
-		float mid_x = bow_string_matrix[2][0];
-		float mid_y = bow_string_matrix[2][1];
 		float rez_y = window->GetResolution().y;
-		float y_proj = (rez_y - mouseY) - bow_string_matrix[2][1];
-		float x_proj = mouseX - bow_string_matrix[2][0];
+		float y_proj = (rez_y - mouseY) - bow_y;
+		float x_proj = mouseX - bow_x;
 		float degrees = (float)atan(y_proj / x_proj);
 		int m_y = window->GetResolution().y / 2;
-		
-		// drawing the string
-		//bow_string_matrix *= Translate(100, m_y);
-		//bow_string_matrix *= Rotate(degrees);
-		//bow_string_matrix *= Translate(-100, -m_y);
 
-		// drawing the handle
-		//bow_handle_matrix *= Scale(20, 75);
-		//bow_handle_matrix *= Translate(100, m_y);
-		//bow_handle_matrix *= Rotate(degrees);
-		//bow_handle_matrix *= Scale(1 / 20, 1 / 75);
-		//bow_handle_matrix *= Translate(-100, -m_y);
+		bow_rotation = degrees;
 	}
 }
 
 void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-	//if (IS_BIT_SET(button, GLFW_MOUSE_BUTTON_1) || is_arrow_shot)
-		//return;
+	if (is_arrow_shot)
+		return;
 
 	// charging arrow
 	click_time = time_elapsed;
@@ -610,11 +618,12 @@ void Tema1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 
 void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-	//if (IS_BIT_SET(button, GLFW_MOUSE_BUTTON_1) || is_arrow_shot)
-		//return;
+	if (is_arrow_shot)
+		return;
 
 	// releasing arrow with variable speed
 	shot_time = time_elapsed;
+	shot_rotation = bow_rotation;
 	is_charging_shot = false;
 	power_indicator_scale_factor = 1.f;
 	power_indicator_matrix = glm::mat3(1);

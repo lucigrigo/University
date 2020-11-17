@@ -54,12 +54,12 @@ private:
     glm::mat3 Tema1::Rotate(float);
 
 protected:
-    glm::mat3 bow_string_matrix, bow_handle_matrix;
+    //glm::mat3 bow_string_matrix, bow_handle_matrix;
     int no_visible_balloons;
     std::vector<std::string> balloon_type;
     glm::mat3 shuriken_matrix;
     bool is_shuriken_shot;
-    glm::mat3 arrow_matrix;
+    //glm::mat3 arrow_matrix;
     int score;
     short no_lives;
     bool is_arrow_shot;
@@ -78,4 +78,10 @@ protected:
     float shuriken_y;
     std::vector<float> balloon_x;
     std::vector<float> balloon_y;
+    float bow_x;
+    float bow_y;
+    float bow_rotation;
+    float shot_rotation;
+    float arrow_x;
+    float arrow_y;
 };
