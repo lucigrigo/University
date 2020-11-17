@@ -16,13 +16,25 @@ Tema1::Tema1()
 	no_visible_balloons = 0;
 	is_arrow_shot = false;
 	arrow_speed = 5.f;
-	//arrow_matrix = glm::mat3(1);
 	shuriken_matrix = glm::mat3(1);
 	is_shuriken_shot = false;
 	time_elapsed = 0.f;
 	click_time = release_time = 0.f;
 	last_second = last_display = 0;
 	bow_rotation = 0;
+	arrow_x = 0.f;
+	shuriken_x = 0.f;
+	shuriken_y = 0.f;
+	shuriken_angle = 0;
+	shot_time = 0;
+	shot_rotation = 0;
+	power_indicator_scale_factor = 1.f;
+	is_shuriken_deflected = false;
+	is_charging_shot = false;
+	arrow_x = 0.f;
+	arrow_y = 0.f;
+	bow_x = 0.f;
+	bow_y = 0.f;
 }
 
 Tema1::~Tema1() {}
@@ -54,6 +66,7 @@ glm::mat3 Tema1::Rotate(float degrees)
 			0, 0, 1));
 }
 
+// Creates the mesh of a single type of balloon
 void Tema1::CreateBalloon(glm::vec3 color, string name)
 {
 	// drawing the circular area
@@ -80,10 +93,13 @@ void Tema1::CreateBalloon(glm::vec3 color, string name)
 
 void Tema1::Init()
 {
+	// displaying welcome message
 	cout << "==========================================================" << endl;
 	cout << "Game Started!" << endl << "You have 3 lives" << endl;
-	cout << "Each red balloon will give you 2 points" << endl;
-	cout << "Each yellow balloon will decrease your score by 1" << endl;
+	cout << "Each red balloon will give you 4 points" << endl;
+	cout << "Each green balloon will give you 10 points" << endl;
+	cout << "Each yellow balloon will decrease your score by 2" << endl;
+	cout << "Each blue balloon will restore 1 life" << endl;
 	cout << "Have fun" << endl;
 	cout << "==========================================================" << endl << endl;
 
@@ -105,8 +121,6 @@ void Tema1::Init()
 		float m_y = (float)resolution.y / 2;
 		glm::vec3 bow_string_pos0 = glm::vec3(0, 75, 0);
 		glm::vec3 bow_string_pos1 = glm::vec3(0, -75, 0);
-		//bow_string_matrix = glm::mat3(1);
-		//bow_string_matrix *= Translate(100, m_y);
 		bow_x = 100;
 		bow_y = m_y;
 
@@ -123,10 +137,6 @@ void Tema1::Init()
 		Mesh* bow_handle = new Mesh("bow_handle");
 		vertices.clear();
 		indices.clear();
-
-		//bow_handle_matrix = glm::mat3(1);
-		//bow_handle_matrix *= Translate(100, m_y);
-		//bow_handle_matrix *= Scale(20, 75);
 
 		vertices.emplace_back(glm::vec3(0, 0, 0), BLACK);
 		for (int i = 0; i <= NO_TRIANGLES / 2 + 1; i++)
@@ -146,11 +156,13 @@ void Tema1::Init()
 
 	// init balloon
 	{
-		// creating meshes for the red and yellow balloons
+		// creating meshes for the balloons
 		CreateBalloon(BALLOON_RED_COLOR, BALLOON_RED_NAME);
 		CreateBalloon(BALLOON_YELLOW_COLOR, BALLOON_YELLOW_NAME);
+		CreateBalloon(BALLOON_GREEN_COLOR, BALLOON_GREEN_NAME);
+		CreateBalloon(BALLOON_BLUE_COLOR, BALLOON_BLUE_NAME);
 
-		// drawing the string
+		// drawing the string, same for each type of balloon
 		Mesh* balloon_string = new Mesh("balloon_string");
 
 		vector<VertexFormat> vertices{
@@ -273,16 +285,14 @@ void Tema1::CheckBoundaries()
 		is_shuriken_shot &&
 		arrow_x + cos(shot_rotation) * 65 >= shuriken_x - 20 &&
 		arrow_x + cos(shot_rotation) * 65 <= shuriken_x + 20 &&
-		arrow_y  + sin(shot_rotation) * 65 <= shuriken_y + 20 &&
+		arrow_y + sin(shot_rotation) * 65 <= shuriken_y + 20 &&
 		arrow_y + sin(shot_rotation) * 65 >= shuriken_y - 20) {
-		is_arrow_shot = false;
 		is_shuriken_shot = false;
 		is_shuriken_deflected = true;
-		shuriken_angle = shot_rotation;
+		shuriken_angle = 45 - shot_rotation;
 	}
 
-	// check for collisions between balloons and arrow
-	// scaling balloons down to 0 if they are hit
+	// checking for collisions between balloons and arrow
 	if (is_arrow_shot) {
 		for (int i = 0; i < no_visible_balloons; ++i)
 		{
@@ -292,8 +302,14 @@ void Tema1::CheckBoundaries()
 				arrow_y + sin(shot_rotation) * 65 >= balloon_y[i] - 55 &&
 				arrow_y + sin(shot_rotation) * 65 <= balloon_y[i] + 55)
 			{
-				score = (balloon_type[i] == BALLOON_RED_NAME) ? score + 2 : score - 1;
-				score = max(score, 0);
+				if (balloon_type[i] == BALLOON_RED_NAME)
+					score += 4;
+				else if (balloon_type[i] == BALLOON_GREEN_NAME)
+					score += 10;
+				else if (balloon_type[i] == BALLOON_YELLOW_NAME)
+					score = max(score, 0);
+				else
+					no_lives = min(3, no_lives + 1);
 				is_hit[i] = true;
 				break;
 			}
@@ -311,7 +327,6 @@ void Tema1::CheckBoundaries()
 	}
 
 	// checking to see if the shuriken leaves screen area
-	cout << shuriken_x << " " << shuriken_y << endl;
 	if ((is_shuriken_shot ||
 		is_shuriken_deflected) &&
 		(shuriken_x <= 0 ||
@@ -323,7 +338,7 @@ void Tema1::CheckBoundaries()
 	}
 
 	// checking for arrows that leave the screen
-	if (is_arrow_shot && 
+	if (is_arrow_shot &&
 		(arrow_x + cos(shot_rotation) >= resolution.x ||
 			arrow_y + sin(shot_rotation) <= 0 ||
 			arrow_y + sin(shot_rotation) >= resolution.y))
@@ -369,14 +384,23 @@ void Tema1::SpawnBalloons()
 			return;
 	}
 
-	// generating yellow balloons sometimes
-	int r = rand() % 5;
-	if (!r)
-		balloon_type.push_back(BALLOON_YELLOW_NAME);
-	else
-		balloon_type.push_back(BALLOON_RED_NAME);
+	// generating new balloons
+	int r = rand() % 100;
+	if (r == 69)
+		balloon_type.push_back(BALLOON_BLUE_NAME);
+	else {
+		if (!r)
+			balloon_type.push_back(BALLOON_GREEN_NAME);
+		else {
+			r = rand() % 5;
+			if (!r)
+				balloon_type.push_back(BALLOON_YELLOW_NAME);
+			else
+				balloon_type.push_back(BALLOON_RED_NAME);
+		}
+	}
 
-	// building initial position matrix
+	// setting initial values
 	is_hit.push_back(false);
 	no_scales.push_back(0);
 	balloon_x.push_back(x);
@@ -389,7 +413,7 @@ void Tema1::SpawnShurikens()
 	if (is_shuriken_shot || is_shuriken_deflected)
 		return;
 
-	int safe_factor = rand() % 100;
+	int safe_factor = rand() % 1000;
 	if (!safe_factor)
 		return;
 
@@ -400,7 +424,7 @@ void Tema1::SpawnShurikens()
 
 	is_shuriken_deflected = false;
 	is_shuriken_shot = true;
-	shuriken_x = window->GetResolution().x;
+	shuriken_x = (float)window->GetResolution().x;
 	shuriken_y = curr_bow_y;
 }
 
@@ -476,7 +500,7 @@ void Tema1::Update(float deltaTimeSeconds)
 	// checking for any type of conflict
 	CheckBoundaries();
 
-	// spawning additional balloons, randomly, every few seconds
+	// spawning additional balloons, randomly
 	int gen = rand() % 100;
 	if (!gen)
 		SpawnBalloons();
@@ -490,6 +514,7 @@ void Tema1::Update(float deltaTimeSeconds)
 			float curr_x = balloon_x[i];
 			float curr_y = balloon_y[i];
 
+			// drawing non-hit balloons and translating them upwards
 			if (!is_hit[i]) {
 				glm::mat3 model_matrix = glm::mat3(1);
 				model_matrix *= Translate(curr_x, curr_y);
@@ -503,18 +528,19 @@ void Tema1::Update(float deltaTimeSeconds)
 
 				balloon_y[i] += deltaTimeSeconds * BALLOON_SPEED;
 			}
+			// drawing hit balloons getting scaled to 0 and their string falling
 			else {
 				++no_scales[i];
-				float ratio = window->GetResolution().y * (no_scales[i]) / 3000;
+				float ratio = (float)1 / no_scales[i];
 
 				glm::mat3 model_matrix = glm::mat3(1);
 				model_matrix *= Translate(curr_x, curr_y);
-				model_matrix *= Scale(1 / ratio, 1 / ratio);
+				model_matrix *= Scale(ratio, ratio);
 				model_matrix *= Scale(30, 55);
 				RenderMesh2D(meshes[balloon_type[i]], shaders["VertexColor"], model_matrix);
 
 				model_matrix = glm::mat3(1);
-				model_matrix *= Translate(0, -no_scales[i] * BALLOON_SPEED / 60);
+				model_matrix *= Translate(0, -no_scales[i] * BALLOON_SPEED / 80);
 				model_matrix *= Translate(curr_x, curr_y);
 				model_matrix *= Scale(5, 5);
 				RenderMesh2D(meshes["balloon_string"], shaders["VertexColor"], model_matrix);
@@ -533,7 +559,7 @@ void Tema1::Update(float deltaTimeSeconds)
 		}
 	}
 
-	// translating arrow
+	// drawing arrow when getting shot
 	if (is_arrow_shot)
 	{
 		float x_translate = abs(deltaTimeSeconds * cos(shot_rotation) * arrow_speed * 100);
@@ -551,6 +577,8 @@ void Tema1::Update(float deltaTimeSeconds)
 	if (score >= 20)
 	{
 		SpawnShurikens();
+
+		// if shuriken is coming towards the player
 		if (is_shuriken_shot)
 		{
 			shuriken_matrix = glm::mat3(1);
@@ -561,6 +589,7 @@ void Tema1::Update(float deltaTimeSeconds)
 
 			RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
 		}
+		// if shuriken was deflected by an arrow
 		else if (is_shuriken_deflected) {
 			shuriken_matrix = glm::mat3(1);
 			shuriken_x += deltaTimeSeconds * 700 * cos(shuriken_angle);
@@ -573,7 +602,7 @@ void Tema1::Update(float deltaTimeSeconds)
 		}
 	}
 
-	// drawing power indicator when charging a shot
+	// scaling power indicator when charging a shot
 	if (is_charging_shot &&
 		power_indicator_scale_factor < (window->GetResolution().y / 100))
 	{
@@ -581,6 +610,7 @@ void Tema1::Update(float deltaTimeSeconds)
 		power_indicator_matrix *= Scale(1.f, power_indicator_scale_factor);
 	}
 
+	// drawwing the arrow and power indicator when not charging a shot
 	if (!is_arrow_shot) {
 		RenderMesh2D(meshes["power_indicator"], shaders["VertexColor"], power_indicator_matrix);
 		glm::mat3 model_matrix = glm::mat3(1);
@@ -598,15 +628,14 @@ void Tema1::FrameEnd() {}
 void Tema1::OnInputUpdate(float deltaTime, int mods)
 {
 	float factor = deltaTime * BOW_MOVEMENT_SPEED;
+
 	// moving the bow on the OY axis up to the edge of the window
-	if (window->KeyHold(GLFW_KEY_W) &&
-		bow_y <= window->GetResolution().y - 75)
+	if (window->KeyHold(GLFW_KEY_W) && bow_y <= window->GetResolution().y - 75)
 	{
 		// moving up (positive on axis)
 		bow_y += factor;
 	}
-	else if (window->KeyHold(GLFW_KEY_S) &&
-		bow_y >= 0 + 75)
+	else if (window->KeyHold(GLFW_KEY_S) && bow_y >= 0 + 75)
 	{
 		// moving down (negative on axis)
 		bow_y -= factor;
@@ -622,7 +651,7 @@ void Tema1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 	// rotate bow towards mouse position
 	if (mouseX >= bow_x)
 	{
-		float rez_y = window->GetResolution().y;
+		float rez_y = (float)window->GetResolution().y;
 		float y_proj = (rez_y - mouseY) - bow_y;
 		float x_proj = mouseX - bow_x;
 		float degrees = (float)atan(y_proj / x_proj);
