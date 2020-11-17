@@ -84,4 +84,6 @@ protected:
     float shot_rotation;
     float arrow_x;
     float arrow_y;
+    bool is_shuriken_deflected;
+    float shuriken_angle;
 };

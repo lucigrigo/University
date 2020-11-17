@@ -84,8 +84,8 @@ void Tema1::Init()
 	cout << "Game Started!" << endl << "You have 3 lives" << endl;
 	cout << "Each red balloon will give you 2 points" << endl;
 	cout << "Each yellow balloon will decrease your score by 1" << endl;
-	cout << "Have fun" << endl << endl;
-	cout << "==========================================================" << endl;
+	cout << "Have fun" << endl;
+	cout << "==========================================================" << endl << endl;
 
 	// setting camera position
 	glm::ivec2 resolution = window->GetResolution();
@@ -277,6 +277,8 @@ void Tema1::CheckBoundaries()
 		arrow_y + sin(shot_rotation) * 65 >= shuriken_y - 20) {
 		is_arrow_shot = false;
 		is_shuriken_shot = false;
+		is_shuriken_deflected = true;
+		shuriken_angle = shot_rotation;
 	}
 
 	// check for collisions between balloons and arrow
@@ -300,18 +302,25 @@ void Tema1::CheckBoundaries()
 
 	// checking for collisions between shuriken and the bow
 	if (is_shuriken_shot &&
-		shuriken_matrix[2][0] <= bow_x &&
-		shuriken_matrix[2][1] <= bow_y + 75 &&
-		shuriken_matrix[2][1] >= bow_y - 75)
+		shuriken_x <= bow_x &&
+		shuriken_y <= bow_y + 75 &&
+		shuriken_y >= bow_y - 75)
 	{
 		is_shuriken_shot = false;
 		--no_lives;
 	}
 
 	// checking to see if the shuriken leaves screen area
-	if (is_shuriken_shot &&
-		shuriken_matrix[2][0] <= 0)
+	cout << shuriken_x << " " << shuriken_y << endl;
+	if ((is_shuriken_shot ||
+		is_shuriken_deflected) &&
+		(shuriken_x <= 0 ||
+			shuriken_x >= resolution.x ||
+			shuriken_y >= resolution.y ||
+			shuriken_y <= 0)) {
 		is_shuriken_shot = false;
+		is_shuriken_deflected = false;
+	}
 
 	// checking for arrows that leave the screen
 	if (is_arrow_shot && 
@@ -377,7 +386,7 @@ void Tema1::SpawnBalloons()
 
 void Tema1::SpawnShurikens()
 {
-	if (is_shuriken_shot)
+	if (is_shuriken_shot || is_shuriken_deflected)
 		return;
 
 	int safe_factor = rand() % 100;
@@ -389,6 +398,7 @@ void Tema1::SpawnShurikens()
 	float curr_bow_x = bow_x;
 	float curr_bow_y = bow_y;
 
+	is_shuriken_deflected = false;
 	is_shuriken_shot = true;
 	shuriken_x = window->GetResolution().x;
 	shuriken_y = curr_bow_y;
@@ -422,6 +432,12 @@ void Tema1::Update(float deltaTimeSeconds)
 	// updating time elapsed
 	time_elapsed += deltaTimeSeconds;
 
+	// to prevent overpowered shots right when cooldowns ends
+	if (!is_arrow_shot &&
+		!is_charging_shot)
+		click_time = time_elapsed;
+
+	// displayin end-game message
 	if (no_lives == 0)
 	{
 		cout << "==========================================================" << endl;
@@ -457,7 +473,7 @@ void Tema1::Update(float deltaTimeSeconds)
 		RenderMesh2D(meshes["bow_handle"], shaders["VertexColor"], model_matrix);
 	}
 
-	// checking if any balloons are hit, leave the screen and other conflicts
+	// checking for any type of conflict
 	CheckBoundaries();
 
 	// spawning additional balloons, randomly, every few seconds
@@ -498,7 +514,7 @@ void Tema1::Update(float deltaTimeSeconds)
 				RenderMesh2D(meshes[balloon_type[i]], shaders["VertexColor"], model_matrix);
 
 				model_matrix = glm::mat3(1);
-				model_matrix *= Translate(0, -no_scales[i] * BALLOON_SPEED / 40);
+				model_matrix *= Translate(0, -no_scales[i] * BALLOON_SPEED / 60);
 				model_matrix *= Translate(curr_x, curr_y);
 				model_matrix *= Scale(5, 5);
 				RenderMesh2D(meshes["balloon_string"], shaders["VertexColor"], model_matrix);
@@ -532,16 +548,26 @@ void Tema1::Update(float deltaTimeSeconds)
 	}
 
 	// randomly spawn shurikens coming towards the player
-	if (score >= 10)
+	if (score >= 20)
 	{
 		SpawnShurikens();
 		if (is_shuriken_shot)
 		{
 			shuriken_matrix = glm::mat3(1);
+			shuriken_x -= deltaTimeSeconds * 700;
 			shuriken_matrix *= Translate(shuriken_x, shuriken_y);
 			shuriken_matrix *= Scale(20, 20);
 			shuriken_matrix *= Rotate(time_elapsed * 10);
-			shuriken_x -= deltaTimeSeconds * 700;
+
+			RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
+		}
+		else if (is_shuriken_deflected) {
+			shuriken_matrix = glm::mat3(1);
+			shuriken_x += deltaTimeSeconds * 700 * cos(shuriken_angle);
+			shuriken_y += deltaTimeSeconds * 700 * sin(shuriken_angle);
+			shuriken_matrix *= Translate(shuriken_x, shuriken_y);
+			shuriken_matrix *= Scale(20, 20);
+			shuriken_matrix *= Rotate(time_elapsed * 10);
 
 			RenderMesh2D(meshes["shuriken"], shaders["VertexColor"], shuriken_matrix);
 		}
@@ -627,9 +653,9 @@ void Tema1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 	is_charging_shot = false;
 	power_indicator_scale_factor = 1.f;
 	power_indicator_matrix = glm::mat3(1);
-	float speed = (time_elapsed - click_time) * 10.f;
-	speed = max(4.f, speed);
-	speed = min(16.f, speed);
+	float speed = (time_elapsed - click_time) * 15.f;
+	speed = max(6.f, speed);
+	speed = min(20.f, speed);
 	ShootArrow(speed);
 }
 
