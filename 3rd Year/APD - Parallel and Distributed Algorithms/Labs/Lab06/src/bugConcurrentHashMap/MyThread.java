@@ -3,7 +3,7 @@ package bugConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MyThread implements Runnable {
-	public static ConcurrentHashMap<Integer, Integer> hashMap = new ConcurrentHashMap<>();
+	public static ConcurrentHashMap<Integer, Integer> hashMap;
 	private final int id;
 
 	public MyThread(int id) {
@@ -16,8 +16,8 @@ public class MyThread implements Runnable {
 		// } else {
 		// 	hashMap.put(key, value);
         // }
-        if(hashMap.putIfAbsent(key, value) == null) {
-            hashMap.put(key, value);
+        if(hashMap.putIfAbsent(key, value) != null) {
+            hashMap.put(key, hashMap.get(key) + value);
         }
 	}
 	

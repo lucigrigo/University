@@ -12,6 +12,7 @@ public class Main {
 		System.out.println("Synchronization problem. Do not solve me with locks");		
 		
 		for (int j = 0; j < N_ITERATIONS; j++) {
+            MyThread.value = new AtomicInteger();
 			MyThread.value.set(0);
 			for (int i = 0; i < 2; i++) {
 				threads[i] = new Thread(new MyThread(i));
