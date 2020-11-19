@@ -29,13 +29,13 @@ void Laborator6::Init()
 		vector<VertexFormat> vertices
 		{
 			VertexFormat(glm::vec3(-1, -1,  1), glm::vec3(0, 1, 1), glm::vec3(0.2, 0.8, 0.2)),
-			VertexFormat(glm::vec3( 1, -1,  1), glm::vec3(1, 0, 1), glm::vec3(0.9, 0.4, 0.2)),
+			VertexFormat(glm::vec3(1, -1,  1), glm::vec3(1, 0, 1), glm::vec3(0.9, 0.4, 0.2)),
 			VertexFormat(glm::vec3(-1,  1,  1), glm::vec3(1, 0, 0), glm::vec3(0.7, 0.7, 0.1)),
-			VertexFormat(glm::vec3( 1,  1,  1), glm::vec3(0, 1, 0), glm::vec3(0.7, 0.3, 0.7)),
+			VertexFormat(glm::vec3(1,  1,  1), glm::vec3(0, 1, 0), glm::vec3(0.7, 0.3, 0.7)),
 			VertexFormat(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1), glm::vec3(0.3, 0.5, 0.4)),
-			VertexFormat(glm::vec3( 1, -1, -1), glm::vec3(0, 1, 1), glm::vec3(0.5, 0.2, 0.9)),
+			VertexFormat(glm::vec3(1, -1, -1), glm::vec3(0, 1, 1), glm::vec3(0.5, 0.2, 0.9)),
 			VertexFormat(glm::vec3(-1,  1, -1), glm::vec3(1, 1, 0), glm::vec3(0.7, 0.0, 0.7)),
-			VertexFormat(glm::vec3( 1,  1, -1), glm::vec3(0, 0, 1), glm::vec3(0.1, 0.5, 0.8)),
+			VertexFormat(glm::vec3(1,  1, -1), glm::vec3(0, 0, 1), glm::vec3(0.1, 0.5, 0.8)),
 		};
 
 		vector<unsigned short> indices =
@@ -53,7 +53,7 @@ void Laborator6::Init()
 
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
-		Shader *shader = new Shader("ShaderLab6");
+		Shader* shader = new Shader("ShaderLab6");
 		shader->AddShader("Source/Laboratoare/Laborator6/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
 		shader->AddShader("Source/Laboratoare/Laborator6/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
@@ -61,7 +61,7 @@ void Laborator6::Init()
 	}
 }
 
-Mesh* Laborator6::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
+Mesh* Laborator6::CreateMesh(const char* name, const std::vector<VertexFormat>& vertices, const std::vector<unsigned short>& indices)
 {
 	unsigned int VAO = 0;
 	// TODO: Create the VAO and bind it
@@ -161,27 +161,23 @@ void Laborator6::FrameEnd()
 	DrawCoordinatSystem();
 }
 
-void Laborator6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix)
+void Laborator6::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix)
 {
 	if (!mesh || !shader || !shader->GetProgramID())
 		return;
 
-	// render an object using the specified shader and the specified position
 	glUseProgram(shader->program);
 
-	// TODO : get shader location for uniform mat4 "Model"
+	GLint model_location = glGetUniformLocation(shader->GetProgramID(), "Model");
+	glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model_matrix));
 
-	// TODO : set shader uniform "Model" to modelMatrix
+	GLint view_location = glGetUniformLocation(shader->GetProgramID(), "View");
+	glm::mat4 view_matrix = GetSceneCamera()->GetViewMatrix();
+	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
 
-	// TODO : get shader location for uniform mat4 "View"
-
-	// TODO : set shader uniform "View" to viewMatrix
-	glm::mat4 viewMatrix = GetSceneCamera()->GetViewMatrix();
-
-	// TODO : get shader location for uniform mat4 "Projection"
-
-	// TODO : set shader uniform "Projection" to projectionMatrix
-	glm::mat4 projectionMatrix = GetSceneCamera()->GetProjectionMatrix();
+	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
+	glm::mat4 projection_matrix = GetSceneCamera()->GetProjectionMatrix();
+	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection_matrix));
 
 	// Draw the object
 	glBindVertexArray(mesh->GetBuffers()->VAO);
