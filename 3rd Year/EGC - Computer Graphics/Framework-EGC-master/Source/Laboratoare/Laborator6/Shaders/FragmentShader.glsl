@@ -1,12 +1,21 @@
 #version 330
 
-// TODO: get values from fragment shader
-in vec3 frag_normal;
+in vec3 fragment_position;
+in vec3 fragment_normal;
+in vec2 fragment_texture;
+in vec3 fragment_color;
 
 layout(location = 0) out vec4 out_color;
+layout(location = 1) out vec4 out_normal;
+layout(location = 2) out vec3 out_texture;
 
 void main()
 {
-	// TODO: write pixel out color
-	out_color = vec4(1);
+	out_color = vec4(fragment_normal, 1.0);
+	// daca folosim normala pt culoare, vedem ca fetele care sunt indreptate catre noi sunt colorate
+	// si celelalte nu
+	// poate daca folosim abs(fragment_normal) atunci toate vor fi colorate
+
+	out_normal = vec4(fragment_normal, 1.0);
+	out_texture = vec3(fragment_texture, 1.0);
 }
