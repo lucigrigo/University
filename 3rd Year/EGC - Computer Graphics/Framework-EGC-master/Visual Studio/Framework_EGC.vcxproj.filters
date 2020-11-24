@@ -64,6 +64,9 @@
     <Filter Include="Laboratoare\Tema1">
       <UniqueIdentifier>{10cd1214-5335-451c-ac0a-1a0eb4e756da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Laboratoare\Tema2">
+      <UniqueIdentifier>{d77b8841-58ab-4115-9707-14360a171ba9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Engine.cpp">
@@ -144,6 +147,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Laboratoare\Tema1\Tema1.cpp">
       <Filter>Laboratoare\Tema1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Tema2\Tema2.cpp">
+      <Filter>Laboratoare\Tema2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Laboratoare\Tema1\Tema1.h">
       <Filter>Laboratoare\Tema1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2.h">
+      <Filter>Laboratoare\Tema2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

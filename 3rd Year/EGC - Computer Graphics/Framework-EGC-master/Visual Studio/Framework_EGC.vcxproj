@@ -45,6 +45,7 @@
     <ClCompile Include="..\Source\Laboratoare\Laborator8\Laborator8.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator9\Laborator9.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Tema1\Tema1.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Tema2\Tema2.cpp" />
     <ClCompile Include="..\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +83,7 @@
     <ClInclude Include="..\Source\Laboratoare\Laborator8\Laborator8.h" />
     <ClInclude Include="..\Source\Laboratoare\Laborator9\Laborator9.h" />
     <ClInclude Include="..\Source\Laboratoare\Tema1\Tema1.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Laboratoare\Laborator6\Shaders\FragmentShader.glsl" />

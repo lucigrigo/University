@@ -11,3 +11,4 @@
 #include <Laboratoare/Laborator8/Laborator8.h>
 #include <Laboratoare/Laborator9/Laborator9.h>
 #include <Laboratoare/Tema1/Tema1.h>
+#include <Laboratoare/Tema1/Tema2.h>
