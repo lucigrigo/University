@@ -1,0 +1,27 @@
+------------------ Grigore Lucian-Florin
+------------------ Algoritmi Paraleli si Distribuiti
+------------------ Test practic 1
+
+Detalii despre rezolvare:
+    - in main initializez valorile din vector
+    - aici creez si thread-urile, la fiecare din ele pasand in argument
+    o structura care contine un vector partajat de sume partiale si id-ul 
+    thread-ului respectiv
+    - in fiecare functie de thread, calculez suma pt intervalul din vector
+    care apartine thread-ului curent si o salvez in vectorul partajat,
+    la indicele corespondent fiecarui thread
+    - astept la o bariera in fiecare thread_function
+    - dupa bariera, pentru un thread anume (unul singur, indicat prin
+    macro-ul ID_EXCEPT), calculez suma sumelor partiale, o salvez intr-o
+    variabila, si o printez
+    - dupa inca o bariera, dezaloc memorie pentru fiecare structura
+    - la intoarcerea in main, dezaloc bariera si vectorul partajat
+
+Timpi de executare:
+    Sincer, nu stiu ce as putea indica ca timpi de executare, avand in vedere
+ca la un singur thread, programul ia pe masina locala undeva la 0.009s sa se
+execute.
+
+    La mai multe rulari, cu numar diferit de thread-uri, diferentele de timp 
+sunt minuscule, toate incadrandu-se in [0.005, 0.010]s la 100.000 de elemente
+in vector. La 1 milion de elemente in vector, se face overflow la contor.
