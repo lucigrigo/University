@@ -4,20 +4,21 @@
 	Elemente de Grafica pe Calculator
 	Tema 2 - Skyroads
 */
-
 #pragma once
 #include <Component/SimpleScene.h>
-#include <Core/GPU/Mesh.h>
+//#include <Core/GPU/Mesh.h>
 #include <Core/Engine.h>
 #include <iostream>
 #include <vector>
 #include <math.h>
 
-class Tema1 : public SimpleScene
+enum CELL_TYPE {RED, YELLOW, ORANGE, GREEN};
+
+class Tema2 : public SimpleScene
 {
 public:
-	Tema1();
-	~Tema1();
+	Tema2();
+	~Tema2();
 	void Init() override;
 
 private:
@@ -32,4 +33,6 @@ private:
 	void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 	void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
 	void OnWindowResize(int width, int height) override;
-}
+
+protected:
+};
