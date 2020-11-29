@@ -41,7 +41,7 @@ void DrawUI() {
 	// TODO
 
 	// drawing sphere
-	RenderMesh(meshes["sphere"], glm::vec3(1, 0, 0));
+	//RenderMesh(meshes["sphere"], glm::vec3(1, 0, 0), glm::vec3(1, 1, 1));
 }
 
 void Tema2::Update(float deltaTimeSeconds)
