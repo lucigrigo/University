@@ -290,6 +290,8 @@ void Tema1::CheckBoundaries()
 		is_shuriken_shot = false;
 		is_shuriken_deflected = true;
 		shuriken_angle = 45 - shot_rotation;
+		/*glm::vec3 shuriken_direction = glm::vec3(1, 0, 0);
+		glm::vec3 shuriken_position += shuriken_direction * arrow_speed;*/
 	}
 
 	// checking for collisions between balloons and arrow
