@@ -12,9 +12,23 @@
 #include <vector>
 #include <math.h>
 
-#define MAX_NO_PLATFORMS 1
+#define MAX_NO_PLATFORMS 1000
 
-enum CELL_TYPE {RED, YELLOW, ORANGE, GREEN};
+enum PLATFORM_TYPE {BASIC, RED, YELLOW, ORANGE, GREEN};
+const PLATFORM_TYPE platform_available_types[5] = {
+	PLATFORM_TYPE::BASIC,
+	PLATFORM_TYPE::RED,
+	PLATFORM_TYPE::YELLOW,
+	PLATFORM_TYPE::ORANGE,
+	PLATFORM_TYPE::GREEN
+};
+const glm::vec3 platform_color_types[5] = {
+	glm::vec3(.0f, .0f, .1f),
+	glm::vec3(1.f, .0f, .0f),
+	glm::vec3(1.f, 1.f, .0f),
+	glm::vec3(1.f, .5f, .0f),
+	glm::vec3(.0f, 1.f, .0f)
+};
 
 class Tema2 : public SimpleScene
 {
@@ -38,12 +52,17 @@ private:
 
 	void RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& modelMatrix, const glm::vec3& color);
 	void Tema2::DrawUI();
-	void Tema2::AnimatePlatforms();
+	void Tema2::AnimatePlatforms(float deltaTimeSeconds);
+	void Tema2::CheckBoundaries();
 
 protected:
 	glm::vec3 player_color;
 	glm::vec3 player_position;
 	int no_visible_platforms;
 	float platform_speed;
-	glm::vec3 platform_pos;
+	std::vector<glm::vec3> platform_positions;
+	std::vector<glm::vec3> platform_colors;
+	std::vector<PLATFORM_TYPE> platform_types;
+	int last_acc;
+	float time_elapsed;
 };
