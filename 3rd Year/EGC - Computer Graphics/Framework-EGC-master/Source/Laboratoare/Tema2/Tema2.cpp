@@ -19,11 +19,28 @@ Tema2::~Tema2()
 void Tema2::Init()
 {
 	// creating UI elements
+	// TODO
 
 	// creating sphere
-	Mesh* mesh = new Mesh("sphere");
-	mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "sphere.obj");
-	meshes[mesh->GetMeshID()] = mesh;
+	{
+		Mesh* mesh = new Mesh("sphere");
+		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "sphere.obj");
+		meshes[mesh->GetMeshID()] = mesh;
+	}
+
+	// creating shader
+	{
+		Shader* shader = new Shader("ShaderTema2");
+		shader->AddShader("Source/Laboratoare/Tema2/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
+		shader->AddShader("Source/Laboratoare/Tema2/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
+		shader->CreateAndLink();
+		shaders[shader->GetName()] = shader;
+	}
+
+	// init variables
+	{
+		player_color = glm::vec3(1.f, 1.f, 1.f);
+	}
 }
 
 void Tema2::FrameStart()
@@ -39,14 +56,36 @@ void Tema2::FrameStart()
 
 void DrawUI() {
 	// TODO
+}
 
-	// drawing sphere
-	//RenderMesh(meshes["sphere"], glm::vec3(1, 0, 0), glm::vec3(1, 1, 1));
+void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix, const glm::vec3& color)
+{
+	if (!mesh || !shader || !shader->GetProgramID())
+		return;
+
+	glUseProgram(shader->program);
+
+	GLint model_location = glGetUniformLocation(shader->GetProgramID(), "Model");
+	glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model_matrix));
+
+	GLint view_location = glGetUniformLocation(shader->GetProgramID(), "View");
+	glm::mat4 view_matrix = GetSceneCamera()->GetViewMatrix();
+	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
+
+	glBindVertexArray(mesh->GetBuffers()->VAO);
+	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 
 void Tema2::Update(float deltaTimeSeconds)
 {
+	// drawing user interface
 	DrawUI();
+
+	// drawing sphere
+	glm::mat4 model_matrix = glm::mat4(1);
+	model_matrix = glm::scale(model_matrix, glm::vec3(3.f));
+	model_matrix = glm::translate(model_matrix, glm::vec3(2, 2, 2));
+	RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color);
 }
 
 void Tema2::FrameEnd()

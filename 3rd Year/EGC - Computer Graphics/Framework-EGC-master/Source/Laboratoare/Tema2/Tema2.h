@@ -6,7 +6,7 @@
 */
 #pragma once
 #include <Component/SimpleScene.h>
-//#include <Core/GPU/Mesh.h>
+#include <Core/GPU/Mesh.h>
 #include <Core/Engine.h>
 #include <iostream>
 #include <vector>
@@ -34,5 +34,8 @@ private:
 	void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
 	void OnWindowResize(int width, int height) override;
 
+	void RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& modelMatrix, const glm::vec3& color);
+
 protected:
+	glm::vec3 player_color;
 };
