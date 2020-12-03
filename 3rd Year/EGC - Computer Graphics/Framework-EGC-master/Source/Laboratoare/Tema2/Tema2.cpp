@@ -19,9 +19,11 @@ Tema2::~Tema2()
 void Tema2::Init()
 {
 	// creating UI elements
-	// TODO
-
-	// creating sphere
+	{
+		// TODO
+	}
+	
+	// creating sphere (player)
 	{
 		Mesh* mesh = new Mesh("sphere");
 		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "sphere.obj");
@@ -46,7 +48,7 @@ void Tema2::Init()
 void Tema2::FrameStart()
 {
 	// clears the color buffer (using the previously set color) and depth buffer
-	glClearColor(0, 0, 0, 1);
+	glClearColor(.2f, .2f, .2f, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glm::ivec2 resolution = window->GetResolution();
@@ -54,7 +56,8 @@ void Tema2::FrameStart()
 	glViewport(0, 0, resolution.x, resolution.y);
 }
 
-void DrawUI() {
+void DrawUI() 
+{
 	// TODO
 }
 
@@ -72,6 +75,10 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_
 	glm::mat4 view_matrix = GetSceneCamera()->GetViewMatrix();
 	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
 
+	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
+	glm::mat4 projection_matrix = GetSceneCamera()->GetProjectionMatrix();
+	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection_matrix));
+
 	glBindVertexArray(mesh->GetBuffers()->VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
@@ -83,13 +90,14 @@ void Tema2::Update(float deltaTimeSeconds)
 
 	// drawing sphere
 	glm::mat4 model_matrix = glm::mat4(1);
-	model_matrix = glm::scale(model_matrix, glm::vec3(3.f));
-	model_matrix = glm::translate(model_matrix, glm::vec3(2, 2, 2));
+	model_matrix = glm::scale(model_matrix, glm::vec3(1.f));
+	model_matrix = glm::translate(model_matrix, glm::vec3(.0f, .0f, -2.f));
 	RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color);
 }
 
 void Tema2::FrameEnd()
 {
+	DrawCoordinatSystem();
 }
 
 void Tema2::OnInputUpdate(float deltaTime, int mods)

@@ -14,7 +14,8 @@ out vec3 fragment_normal;
 out vec3 fragment_color;
 out vec2 fragment_texture;
 
-void main() {
+void main() 
+{
 
 	fragment_position = position;
 	fragment_normal = normal;
