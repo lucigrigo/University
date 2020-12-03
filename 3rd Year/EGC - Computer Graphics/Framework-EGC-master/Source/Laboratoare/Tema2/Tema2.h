@@ -12,6 +12,8 @@
 #include <vector>
 #include <math.h>
 
+#define MAX_NO_PLATFORMS 1
+
 enum CELL_TYPE {RED, YELLOW, ORANGE, GREEN};
 
 class Tema2 : public SimpleScene
@@ -35,7 +37,13 @@ private:
 	void OnWindowResize(int width, int height) override;
 
 	void RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& modelMatrix, const glm::vec3& color);
+	void Tema2::DrawUI();
+	void Tema2::AnimatePlatforms();
 
 protected:
 	glm::vec3 player_color;
+	glm::vec3 player_position;
+	int no_visible_platforms;
+	float platform_speed;
+	glm::vec3 platform_pos;
 };
