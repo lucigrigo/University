@@ -13,6 +13,7 @@
 #include <math.h>
 
 #define MAX_NO_PLATFORMS 1000
+#define PURPLE glm::vec3(.55f, .0f, .55f)
 
 enum PLATFORM_TYPE {BASIC, RED, YELLOW, ORANGE, GREEN};
 const PLATFORM_TYPE platform_available_types[5] = {

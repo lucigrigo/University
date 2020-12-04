@@ -80,7 +80,7 @@ void Tema2::Init()
 void Tema2::FrameStart()
 {
 	// clears the color buffer (using the previously set color) and depth buffer
-	glClearColor(.2f, .2f, .2f, 1);
+	glClearColor(.25f, .25f, .25f, .9f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glm::ivec2 resolution = window->GetResolution();
@@ -91,7 +91,7 @@ void Tema2::FrameStart()
 void Tema2::DrawUI()
 {
 	// checking if we ran out of fuel
-	if (fuel_percent == .0f)
+	if (fuel_percent <= .0f)
 	{
 		exit(0);
 	}
@@ -263,6 +263,14 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 void Tema2::CheckBoundaries()
 {
 	// TODO
+	if (!is_jumping) {
+		for (int i = 0; i < platform_positions.size(); ++i) {
+			glm::vec3 pos = platform_positions.at(i);
+
+			if (pos.x == player_position.x)
+				platform_colors.at(i) = PURPLE;
+		}
+	}
 }
 
 void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix, const glm::vec3& color)
