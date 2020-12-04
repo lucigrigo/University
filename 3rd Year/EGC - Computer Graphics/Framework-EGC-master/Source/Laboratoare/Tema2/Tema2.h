@@ -23,7 +23,7 @@ const PLATFORM_TYPE platform_available_types[5] = {
 	PLATFORM_TYPE::GREEN
 };
 const glm::vec3 platform_color_types[5] = {
-	glm::vec3(.0f, .0f, .1f),
+	glm::vec3(.0f, .0f, .8f),
 	glm::vec3(1.f, .0f, .0f),
 	glm::vec3(1.f, 1.f, .0f),
 	glm::vec3(1.f, .5f, .0f),
@@ -72,4 +72,5 @@ protected:
     bool move_right;
     bool is_third_person;
     bool is_jumping;
+	float player_last_x;
 };
