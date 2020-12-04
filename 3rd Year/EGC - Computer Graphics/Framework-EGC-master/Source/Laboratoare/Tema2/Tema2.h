@@ -53,16 +53,23 @@ private:
 	void RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& modelMatrix, const glm::vec3& color);
 	void Tema2::DrawUI();
 	void Tema2::AnimatePlatforms(float deltaTimeSeconds);
+    void Tema2::AnimatePlayer(float deltaTimeSeconds);
 	void Tema2::CheckBoundaries();
 
 protected:
 	glm::vec3 player_color;
 	glm::vec3 player_position;
+    float player_lateral_speed;
 	int no_visible_platforms;
 	float platform_speed;
 	std::vector<glm::vec3> platform_positions;
 	std::vector<glm::vec3> platform_colors;
 	std::vector<PLATFORM_TYPE> platform_types;
+    std::vector<glm::vec3> initial_platform_positions;
 	int last_acc;
 	float time_elapsed;
+    bool move_left;
+    bool move_right;
+    bool is_third_person;
+    bool is_jumping;
 };
