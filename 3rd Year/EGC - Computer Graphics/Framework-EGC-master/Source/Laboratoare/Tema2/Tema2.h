@@ -73,4 +73,5 @@ protected:
     bool is_third_person;
     bool is_jumping;
 	float player_last_x;
+	float fuel_percent;
 };
