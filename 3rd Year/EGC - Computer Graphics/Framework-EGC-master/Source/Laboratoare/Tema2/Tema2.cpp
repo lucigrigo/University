@@ -18,183 +18,294 @@ Tema2::~Tema2()
 
 void Tema2::Init()
 {
-	// creating UI elements
-	{
-		// TODO
-	}
+    // creating UI elements
+    {
+        // TODO
+    }
 
-	// creating sphere (player)
-	{
-		Mesh* mesh = new Mesh("sphere");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "sphere.obj");
-		meshes[mesh->GetMeshID()] = mesh;
-	}
+    // creating sphere (player)
+    {
+        Mesh *mesh = new Mesh("sphere");
+        mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "sphere.obj");
+        meshes[mesh->GetMeshID()] = mesh;
+    }
 
-	// creating platform model
-	{
-		Mesh* mesh = new Mesh("platform");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "plane50.obj");
-		meshes[mesh->GetMeshID()] = mesh;
-	}
+    // creating platform model
+    {
+        Mesh *mesh = new Mesh("platform");
+        mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "plane50.obj");
+        meshes[mesh->GetMeshID()] = mesh;
+    }
 
-	// creating shader
-	{
-		Shader* shader = new Shader("ShaderTema2");
-		shader->AddShader("Source/Laboratoare/Tema2/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
-		shader->AddShader("Source/Laboratoare/Tema2/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
-		shader->CreateAndLink();
-		shaders[shader->GetName()] = shader;
-	}
+    // creating shader
+    {
+        Shader *shader = new Shader("ShaderTema2");
+        shader->AddShader("Source/Laboratoare/Tema2/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
+        shader->AddShader("Source/Laboratoare/Tema2/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
 
-	// initialising variables
-	{
-		player_position = glm::vec3(.0f, .5f, -2.f);
-		player_color = glm::vec3(.4f, .5f, .8f);
-		no_visible_platforms = 0;
-		platform_speed = 100.f;
-		last_acc = 0;
-		time_elapsed = .0f;
-	}
+    // generating initial platforms
+    {
+        for (int i = -110; i <= 110; i += 55)
+        {
+            for (int j = 0; j <= 450; j += 50)
+            {
+                glm::vec3 pos = glm::vec3(i, 0, j);
+                initial_platform_positions.push_back(pos);
+            }
+        }
+    }
+
+    // initialising variables
+    {
+        player_position = glm::vec3(.0f, .5f, -2.f);
+        player_color = glm::vec3(.4f, .5f, .8f);
+        no_visible_platforms = 0;
+        platform_speed = 100;
+        last_acc = 0;
+        time_elapsed = .0f;
+        move_left = move_right = false;
+        is_third_person = true;
+        is_jumping = false;
+        player_lateral_speed = 10.f;
+    }
 }
 
 void Tema2::FrameStart()
 {
-	// clears the color buffer (using the previously set color) and depth buffer
-	glClearColor(.2f, .2f, .2f, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // clears the color buffer (using the previously set color) and depth buffer
+    glClearColor(.2f, .2f, .2f, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glm::ivec2 resolution = window->GetResolution();
-	// sets the screen area where to draw
-	glViewport(0, 0, resolution.x, resolution.y);
+    glm::ivec2 resolution = window->GetResolution();
+    // sets the screen area where to draw
+    glViewport(0, 0, resolution.x, resolution.y);
 }
 
 void Tema2::DrawUI()
 {
-	// TODO
+    // TODO
 }
 
 void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 {
-	// generate new platforms
-	if (no_visible_platforms < MAX_NO_PLATFORMS)
-	{
-		glm::vec3 pos = glm::vec3(.0f, .0f, -500.f);
-		pos.x = 55 * (rand() % 5 - 2);
-		bool collision = false;
+    // generate new platforms
+    if (no_visible_platforms < MAX_NO_PLATFORMS)
+    {
+        glm::vec3 pos = glm::vec3(.0f, .0f, -500.f);
+        pos.x = 55 * (rand() % 5 - 2);
+        bool collision = false;
 
-		for (glm::vec3 p : platform_positions)
-		{
-			if (p.z <= pos.z + 50)
-			{
-				collision = true;
-				break;
-			}
-		}
+        // checking for possible overlappings
+        for (glm::vec3 p : platform_positions)
+        {
+            if (p.z <= pos.z + 50 && p.x == pos.x)
+            {
+                collision = true;
+                break;
+            }
+        }
 
-		if (!collision)
-		{
-			int rand_fact = rand() % 5;
-			glm::vec3 color = platform_color_types[rand_fact];
-			PLATFORM_TYPE type = platform_available_types[rand_fact];
-			platform_positions.push_back(pos);
-			platform_colors.push_back(color);
-			platform_types.push_back(type);
-			++no_visible_platforms;
-		}
-	}
+        if (!collision)
+        {
+            int simple_prob = rand() % 10;
+            glm::vec3 color = platform_color_types[0];
+            PLATFORM_TYPE type = platform_available_types[0];
 
-	// translating and drawing visible platforms
-	for (int i = 0; i < platform_positions.size(); ++i)
-	{
-		glm::vec3 col = platform_colors.at(i);
-		glm::vec3 pos = platform_positions.at(i);
-		pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
+            if (!simple_prob)
+            {
+                int rand_fact = rand() % 4 + 1;
+                color = platform_color_types[rand_fact];
+                type = platform_available_types[rand_fact];
+            }
 
-		glm::mat4 model_matrix = glm::mat4(1);
-		model_matrix = glm::scale(model_matrix, glm::vec3(.02f, .02f, .08f));
-		model_matrix = glm::translate(model_matrix, pos);
-		RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
-		platform_positions.at(i) = pos;
-	}
+            platform_positions.push_back(pos);
+            platform_colors.push_back(color);
+            platform_types.push_back(type);
+            ++no_visible_platforms;
+        }
+    }
 
-	// delete platforms that are out of viewing area
-	for (int i = 0; i < platform_positions.size(); ++i)
-	{
-		glm::vec3 pos = platform_positions[i];
+    // translating initial platforms, if there are any
+    if (!initial_platform_positions.empty())
+    {
+        for (int i = 0; i < initial_platform_positions.size(); ++i)
+        {
+            glm::vec3 pos = initial_platform_positions.at(i);
+            glm::vec3 col = platform_color_types[0];
+            pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
 
-		if (pos.z >= 60)
-		{
-			platform_positions.erase(platform_positions.begin() + i);
-			platform_colors.erase(platform_colors.begin() + i);
-			platform_types.erase(platform_types.begin() + i);
-			--no_visible_platforms;
-			break;
-		}
-	}
+            glm::mat4 model_matrix = glm::mat4(1);
+            model_matrix = glm::scale(model_matrix, glm::vec3(.02f, .02f, .08f));
+            model_matrix = glm::translate(model_matrix, pos);
+            RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
+            initial_platform_positions.at(i) = pos;
+        }
+    }
+
+    // translating and drawing visible platforms
+    for (int i = 0; i < platform_positions.size(); ++i)
+    {
+        glm::vec3 col = platform_colors.at(i);
+        glm::vec3 pos = platform_positions.at(i);
+        pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
+
+        glm::mat4 model_matrix = glm::mat4(1);
+        model_matrix = glm::scale(model_matrix, glm::vec3(.02f, .02f, .08f));
+        model_matrix = glm::translate(model_matrix, pos);
+        RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
+        platform_positions.at(i) = pos;
+    }
+
+    // delete initial platforms that are out of viewing area
+    if (!initial_platform_positions.empty())
+    {
+        for (int i = 0; i < initial_platform_positions.size(); ++i)
+        {
+            glm::vec3 pos = initial_platform_positions.at(i);
+
+            if (pos.z >= 60)
+            {
+                initial_platform_positions.erase(initial_platform_positions.begin() + i);
+                break;
+            }
+        }
+    }
+
+    // delete platforms that are out of viewing area
+    for (int i = 0; i < platform_positions.size(); ++i)
+    {
+        glm::vec3 pos = platform_positions.at(i);
+
+        if (pos.z >= 60)
+        {
+            platform_positions.erase(platform_positions.begin() + i);
+            platform_colors.erase(platform_colors.begin() + i);
+            platform_types.erase(platform_types.begin() + i);
+            --no_visible_platforms;
+            break;
+        }
+    }
+}
+
+void Tema2::AnimatePlayer(float deltaTimeSeconds)
+{
+    // moving player to the correct position based on keyboard input
+    if (move_left)
+    {
+        player_position -= glm::vec3(1, 0, 0) * deltaTimeSeconds * player_lateral_speed;
+        if (player_position.x <= -110)
+        {
+            move_left = false;
+            player_position.x = -110;
+        }
+    }
+    if (move_right)
+    {
+        player_position += glm::vec3(1, 0, 0) * deltaTimeSeconds * player_lateral_speed;
+        if (player_position.x >= 110)
+        {
+            move_right = false;
+            player_position.x = 110;
+        }
+    }
+    if (is_jumping)
+    {
+        // TODO
+    }
+
+    // drawing player
+    glm::mat4 model_matrix = glm::mat4(1);
+    model_matrix = glm::translate(model_matrix, player_position);
+    RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color);
 }
 
 void Tema2::CheckBoundaries()
 {
-	// TODO
+    // TODO
 }
 
-void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix, const glm::vec3& color)
+void Tema2::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &model_matrix, const glm::vec3 &color)
 {
-	if (!mesh || !shader || !shader->GetProgramID())
-		return;
+    if (!mesh || !shader || !shader->GetProgramID())
+        return;
 
-	glUseProgram(shader->program);
+    glUseProgram(shader->program);
 
-	GLint obj_color = glGetUniformLocation(shader->program, "object_color");
-	glUniform3fv(obj_color, 1, glm::value_ptr(color));
+    GLint obj_color = glGetUniformLocation(shader->program, "object_color");
+    glUniform3fv(obj_color, 1, glm::value_ptr(color));
 
-	GLint model_location = glGetUniformLocation(shader->GetProgramID(), "Model");
-	glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model_matrix));
+    GLint model_location = glGetUniformLocation(shader->GetProgramID(), "Model");
+    glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model_matrix));
 
-	GLint view_location = glGetUniformLocation(shader->GetProgramID(), "View");
-	glm::mat4 view_matrix = GetSceneCamera()->GetViewMatrix();
-	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
+    GLint view_location = glGetUniformLocation(shader->GetProgramID(), "View");
+    glm::mat4 view_matrix = GetSceneCamera()->GetViewMatrix();
+    glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
 
-	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
-	glm::mat4 projection_matrix = GetSceneCamera()->GetProjectionMatrix();
-	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection_matrix));
+    GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
+    glm::mat4 projection_matrix = GetSceneCamera()->GetProjectionMatrix();
+    glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection_matrix));
 
-	glBindVertexArray(mesh->GetBuffers()->VAO);
-	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
+    glBindVertexArray(mesh->GetBuffers()->VAO);
+    glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 
 void Tema2::Update(float deltaTimeSeconds)
 {
-	// updating time & speed info
-	time_elapsed += deltaTimeSeconds;
-	if ((int)time_elapsed == last_acc + 5)
-	{
-		last_acc = (int)time_elapsed;
-		platform_speed = min(platform_speed + 25, 500.f);
-	}
+    // updating time & speed info
+    time_elapsed += deltaTimeSeconds;
+    if ((int)time_elapsed == last_acc + 5)
+    {
+        last_acc = (int)time_elapsed;
+        //platform_speed = min(platform_speed + 25, 500.f);
+    }
 
-	// drawing user interface
-	DrawUI();
+    // drawing user interface
+    DrawUI();
 
-	// drawing platforms
-	AnimatePlatforms(deltaTimeSeconds);
+    // drawing platforms
+    AnimatePlatforms(deltaTimeSeconds);
 
-	// checking collisions
-	CheckBoundaries();
+    // drawing player
+    AnimatePlayer(deltaTimeSeconds);
 
-	// drawing player
-	glm::mat4 model_matrix = glm::mat4(1);
-	model_matrix = glm::translate(model_matrix, player_position);
-	RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color);
+    // checking collisions
+    CheckBoundaries();
 }
 
 void Tema2::FrameEnd()
 {
-	//DrawCoordinatSystem();
+    DrawCoordinatSystem();
 }
 
 void Tema2::OnInputUpdate(float deltaTime, int mods)
 {
+    if (window->KeyHold(GLFW_KEY_A) && player_position.x >= -55)
+    {
+        move_left = true;
+    }
+    if (window->KeyHold(GLFW_KEY_D) && player_position.x <= 55)
+    {
+        move_right = true;
+    }
+    if (window->KeyHold(GLFW_KEY_W) && platform_speed < 500)
+    {
+        platform_speed += 25;
+    }
+    if (window->KeyHold(GLFW_KEY_S) && platform_speed > 100)
+    {
+        platform_speed -= 25;
+    }
+    if (window->KeyHold(GLFW_KEY_C))
+    {
+        is_third_person = !is_third_person;
+    }
+    if (window->KeyHold(GLFW_KEY_SPACE) && !is_jumping)
+    {
+        is_jumping = true;
+    }
 }
 
 void Tema2::OnKeyPress(int key, int mods)
