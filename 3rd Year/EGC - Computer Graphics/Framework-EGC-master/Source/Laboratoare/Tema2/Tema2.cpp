@@ -48,12 +48,13 @@ void Tema2::Init()
 
     // generating initial platforms
     {
-        for (int i = -110; i <= 110; i += 55)
+        for (int i = 0; i >= -550; i -= 50)
         {
-            for (int j = 0; j <= 450; j += 50)
+            for (int j = -55; j <= 55; j += 55)
             {
-                glm::vec3 pos = glm::vec3(i, 0, j);
-                initial_platform_positions.push_back(pos);
+				glm::vec3 pos = glm::vec3(j, 0, i);
+				initial_platform_positions.push_back(pos);
+                cout << pos << endl;
             }
         }
     }
@@ -70,6 +71,7 @@ void Tema2::Init()
         is_third_person = true;
         is_jumping = false;
         player_lateral_speed = 10.f;
+        player_last_x = .0f;
     }
 }
 
@@ -135,12 +137,13 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
         {
             glm::vec3 pos = initial_platform_positions.at(i);
             glm::vec3 col = platform_color_types[0];
-            pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
 
             glm::mat4 model_matrix = glm::mat4(1);
-            model_matrix = glm::scale(model_matrix, glm::vec3(.02f, .02f, .08f));
+            model_matrix = glm::scale(model_matrix, glm::vec3(.02f, .01f, .08f));
             model_matrix = glm::translate(model_matrix, pos);
             RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
+
+            pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
             initial_platform_positions.at(i) = pos;
         }
     }
@@ -150,12 +153,13 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
     {
         glm::vec3 col = platform_colors.at(i);
         glm::vec3 pos = platform_positions.at(i);
-        pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
 
         glm::mat4 model_matrix = glm::mat4(1);
-        model_matrix = glm::scale(model_matrix, glm::vec3(.02f, .02f, .08f));
+        model_matrix = glm::scale(model_matrix, glm::vec3(.02f, .01f, .08f));
         model_matrix = glm::translate(model_matrix, pos);
         RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
+
+        pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
         platform_positions.at(i) = pos;
     }
 
@@ -196,19 +200,19 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
     if (move_left)
     {
         player_position -= glm::vec3(1, 0, 0) * deltaTimeSeconds * player_lateral_speed;
-        if (player_position.x <= -110)
+        if (player_position.x <= player_last_x - 1.125)
         {
             move_left = false;
-            player_position.x = -110;
+            player_position.x = player_last_x - 1.125;
         }
     }
     if (move_right)
     {
         player_position += glm::vec3(1, 0, 0) * deltaTimeSeconds * player_lateral_speed;
-        if (player_position.x >= 110)
+        if (player_position.x >= player_last_x + 1.125)
         {
             move_right = false;
-            player_position.x = 110;
+            player_position.x = player_last_x + 1.125;
         }
     }
     if (is_jumping)
@@ -255,12 +259,11 @@ void Tema2::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &model_
 void Tema2::Update(float deltaTimeSeconds)
 {
     // updating time & speed info
-    time_elapsed += deltaTimeSeconds;
+    /*time_elapsed += deltaTimeSeconds;
     if ((int)time_elapsed == last_acc + 5)
     {
         last_acc = (int)time_elapsed;
-        //platform_speed = min(platform_speed + 25, 500.f);
-    }
+    }*/
 
     // drawing user interface
     DrawUI();
@@ -282,21 +285,25 @@ void Tema2::FrameEnd()
 
 void Tema2::OnInputUpdate(float deltaTime, int mods)
 {
-    if (window->KeyHold(GLFW_KEY_A) && player_position.x >= -55)
+    if (window->KeyHold(GLFW_KEY_A) && player_position.x > -2.25 &&
+        !(move_left || move_right))
     {
         move_left = true;
+        player_last_x = player_position.x;
     }
-    if (window->KeyHold(GLFW_KEY_D) && player_position.x <= 55)
+    if (window->KeyHold(GLFW_KEY_D) && player_position.x < 2.25 &&
+        !(move_left || move_right))
     {
         move_right = true;
+        player_last_x = player_position.x;
     }
     if (window->KeyHold(GLFW_KEY_W) && platform_speed < 500)
     {
-        platform_speed += 25;
+        platform_speed += 50 * deltaTime;
     }
     if (window->KeyHold(GLFW_KEY_S) && platform_speed > 100)
     {
-        platform_speed -= 25;
+        platform_speed -= 50 * deltaTime;
     }
     if (window->KeyHold(GLFW_KEY_C))
     {
