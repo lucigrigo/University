@@ -1,0 +1,20 @@
+BCR - HackITAll
+
+tema:
+	aplicatie that can be used in a digital banking
+	frontend and backend
+	in spate, API-uri
+	== BANKING ==
+	chatbot
+	aplicatie citire card, verificare fata corespunzator cu fata din buletin
+	asistent cumparaturi, in functie de istoricul tranzactiilor
+
+aplicatie:
+	pagina de start:
+		login
+		verificare identitate
+
+	optiuni ulterioare:
+		appointment
+		recomandare cumparaturi (daca sa mai cumpere ceva sau nu)
+		verificare date card
