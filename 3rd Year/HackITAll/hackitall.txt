@@ -18,3 +18,38 @@ aplicatie:
 		appointment
 		recomandare cumparaturi (daca sa mai cumpere ceva sau nu)
 		verificare date card
+		oferire credit in functie de cheltuieli, venituri, diferite recomandari
+
+-------- PREZENTARE --------
+aplicatie de banking cu anumite feature-uri inteligente, cum ar fi:
+	- reminder legat de uitarea efectuarii anumitor plati: intretinere, etc.
+	- warning, daca in functie de cheltuielile si veniturile din ultima vreme,
+	se vede o crestere in cheltuieli care poate afecta contul curent
+	- daca se aplica pt un credit, se poate trimite automat spre banca; daca 
+	nu este acceptat, se recomanda alte credite mai mici sau un plan de economii
+	astfel incat intr o anumita perioada de timp sa se poate achizitiona
+	creditul ales
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------- PITCH -------------------------
+
+
+
+
+
+
