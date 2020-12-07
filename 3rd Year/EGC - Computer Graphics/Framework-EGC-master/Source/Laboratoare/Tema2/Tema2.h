@@ -13,66 +13,76 @@
 #include <math.h>
 
 #define MAX_NO_PLATFORMS 1000
-#define PURPLE glm::vec3(.55f, .0f, .55f)
+#define MAX_PLATFORM_SPEED 500
+#define MIN_PLATFORM_SPEED 100
 
-enum PLATFORM_TYPE {BASIC, RED, YELLOW, ORANGE, GREEN};
+enum PLATFORM_TYPE
+{
+    BASIC,
+    RED,
+    YELLOW,
+    ORANGE,
+    GREEN
+};
 const PLATFORM_TYPE platform_available_types[5] = {
-	PLATFORM_TYPE::BASIC,
-	PLATFORM_TYPE::RED,
-	PLATFORM_TYPE::YELLOW,
-	PLATFORM_TYPE::ORANGE,
-	PLATFORM_TYPE::GREEN
-};
-const glm::vec3 platform_color_types[5] = {
-	glm::vec3(.0f, .0f, .8f),
-	glm::vec3(1.f, .0f, .0f),
-	glm::vec3(1.f, 1.f, .0f),
-	glm::vec3(1.f, .5f, .0f),
-	glm::vec3(.0f, 1.f, .0f)
-};
+    PLATFORM_TYPE::BASIC,
+    PLATFORM_TYPE::RED,
+    PLATFORM_TYPE::YELLOW,
+    PLATFORM_TYPE::ORANGE,
+    PLATFORM_TYPE::GREEN};
+const glm::vec3 platform_color_types[6] = {
+    glm::vec3(.0f, .0f, .8f),
+    glm::vec3(1.f, .0f, .0f),
+    glm::vec3(1.f, 1.f, .0f),
+    glm::vec3(1.f, .5f, .0f),
+    glm::vec3(.0f, 1.f, .0f),
+    glm::vec3(.55f, .0f, .55f)};
 
 class Tema2 : public SimpleScene
 {
 public:
-	Tema2();
-	~Tema2();
-	void Init() override;
+    Tema2();
+    ~Tema2();
+    void Init() override;
 
 private:
-	void FrameStart() override;
-	void Update(float deltaTimeSeconds) override;
-	void FrameEnd() override;
-	void OnInputUpdate(float deltaTime, int mods) override;
-	void OnKeyPress(int key, int mods) override;
-	void OnKeyRelease(int key, int mods) override;
-	void OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY) override;
-	void OnMouseBtnPress(int mouseX, int mouseY, int button, int mods) override;
-	void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
-	void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
-	void OnWindowResize(int width, int height) override;
+    void FrameStart() override;
+    void Update(float deltaTimeSeconds) override;
+    void FrameEnd() override;
+    void OnInputUpdate(float deltaTime, int mods) override;
+    void OnKeyPress(int key, int mods) override;
+    void OnKeyRelease(int key, int mods) override;
+    void OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY) override;
+    void OnMouseBtnPress(int mouseX, int mouseY, int button, int mods) override;
+    void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
+    void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
+    void OnWindowResize(int width, int height) override;
 
-	void RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& modelMatrix, const glm::vec3& color);
-	void Tema2::DrawUI();
-	void Tema2::AnimatePlatforms(float deltaTimeSeconds);
+    void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color);
+    void Tema2::DrawUI();
+    void Tema2::AnimatePlatforms(float deltaTimeSeconds);
     void Tema2::AnimatePlayer(float deltaTimeSeconds);
-	void Tema2::CheckBoundaries();
+    void Tema2::PlatformPlayerInteractions();
 
 protected:
-	glm::vec3 player_color;
-	glm::vec3 player_position;
+    glm::vec3 player_color;
+    glm::vec3 player_position;
     float player_lateral_speed;
-	int no_visible_platforms;
-	float platform_speed;
-	std::vector<glm::vec3> platform_positions;
-	std::vector<glm::vec3> platform_colors;
-	std::vector<PLATFORM_TYPE> platform_types;
+    int no_visible_platforms;
+    float platform_speed;
+    std::vector<glm::vec3> platform_positions;
+    std::vector<glm::vec3> platform_colors;
+    std::vector<PLATFORM_TYPE> platform_types;
     std::vector<glm::vec3> initial_platform_positions;
-	int last_acc;
-	float time_elapsed;
+    int last_acc;
+    float time_elapsed;
     bool move_left;
     bool move_right;
     bool is_third_person;
     bool is_jumping;
-	float player_last_x;
-	float fuel_percent;
+    float player_last_x;
+    float fuel_percent;
+    int orange_platform_start;
+    int is_affected_orange_plat;
+    float last_speed;
 };
