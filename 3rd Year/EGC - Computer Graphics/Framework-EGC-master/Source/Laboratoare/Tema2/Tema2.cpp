@@ -50,7 +50,7 @@ void Tema2::Init()
 
     // generating initial platforms
     {
-        for (float i = 0; i >= -40; i -= 4)
+        for (float i = -0; i >= -52; i -= 4)
         // for (int i = 0; i >= -650; i -= 50)
         {
             for (float j = -2.1f; j <= 2.1f; j += 1.05f)
@@ -67,13 +67,13 @@ void Tema2::Init()
         player_position = glm::vec3(.0f, .5f, -2.f);
         player_color = glm::vec3(.3f, .3f, .9f);
         no_visible_platforms = 0;
-        platform_speed = 100;
+        platform_speed = MIN_PLATFORM_SPEED;
         last_acc = 0;
         time_elapsed = .0f;
         move_left = move_right = false;
         is_third_person = true;
         is_jumping = false;
-        player_lateral_speed = 10.f;
+        player_lateral_speed = 8.f;
         player_last_x = .0f;
         fuel_percent = 1.f;
         orange_platform_start = 0;
@@ -94,13 +94,11 @@ void Tema2::FrameStart()
     glViewport(0, 0, resolution.x, resolution.y);
 }
 
-void Tema2::DrawUI()
+void Tema2::DrawUI(float deltaTimeSeconds)
 {
     // checking if we ran out of fuel
     if (fuel_percent <= .0f)
-    {
-        exit(0);
-    }
+        AnimateFall(deltaTimeSeconds);
 
     // updating fuel level
     if ((int)time_elapsed > last_acc && time_elapsed >= 3)
@@ -133,11 +131,12 @@ void Tema2::DrawUI()
 
 void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 {
+    if (is_falling)
+        return;
+
     // generate new platforms
     if (no_visible_platforms < MAX_NO_PLATFORMS)
     {
-        // glm::vec3 pos = glm::vec3(.0f, .0f, -500.f);
-        // pos.x = 55 * (rand() % 5 - 2);
         glm::vec3 pos = glm::vec3(.0f, .0f, -40.f);
         pos.x = 1.05 * (rand() % 5 - 2);
         bool collision = false;
@@ -145,7 +144,7 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
         // checking for possible overlappings
         for (glm::vec3 p : platform_positions)
         {
-            if (p.z <= pos.z + 4 && p.x == pos.x)
+            if (p.z <= pos.z + 4.1 && p.x == pos.x)
             {
                 collision = true;
                 break;
@@ -168,6 +167,7 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
             platform_positions.push_back(pos);
             platform_colors.push_back(color);
             platform_types.push_back(type);
+            affects_player.push_back(false);
             ++no_visible_platforms;
         }
     }
@@ -179,8 +179,6 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
         glm::vec3 pos = platform_positions.at(i);
 
         glm::mat4 model_matrix = glm::mat4(1);
-        // model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
-        // model_matrix = glm::translate(model_matrix, pos);
         model_matrix = glm::translate(model_matrix, pos);
         model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
         RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
@@ -198,8 +196,6 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
             glm::vec3 col = platform_color_types[0];
 
             glm::mat4 model_matrix = glm::mat4(1);
-            // model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
-            // model_matrix = glm::translate(model_matrix, pos);
             model_matrix = glm::translate(model_matrix, pos);
             model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
             RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
@@ -216,7 +212,7 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
         {
             glm::vec3 pos = initial_platform_positions.at(i);
 
-            if (pos.z >= 4)
+            if (pos.z >= 2)
             {
                 initial_platform_positions.erase(initial_platform_positions.begin() + i);
                 break;
@@ -229,11 +225,12 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
     {
         glm::vec3 pos = platform_positions.at(i);
 
-        if (pos.z >= 4)
+        if (pos.z >= 2)
         {
             platform_positions.erase(platform_positions.begin() + i);
             platform_colors.erase(platform_colors.begin() + i);
             platform_types.erase(platform_types.begin() + i);
+            affects_player.erase(affects_player.begin() + i);
             --no_visible_platforms;
             break;
         }
@@ -244,10 +241,26 @@ void Tema2::AnimateFall(float deltaTimeSeconds)
 {
     is_falling = true;
 
-    if(player_position.y <= 5.f)
+    if(player_position.y <= -10.f)
         exit(0);
 
-    player_position -= glm::vec3(.0f, .1f, .2f) * deltaTimeSeconds * (float) MIN_PLATFORM_SPEED;
+    for (int i = 0; i < platform_positions.size(); ++i) {
+        glm::vec3 col = platform_colors.at(i);
+        glm::vec3 pos = platform_positions.at(i);
+
+        if (pos.z >= -3)
+            continue;
+
+        glm::mat4 model_matrix = glm::mat4(1);
+        model_matrix = glm::translate(model_matrix, pos);
+        model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
+        RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col);
+
+        pos += glm::vec3((rand() % 3 - 1) * .1f, .0f, .0f) * (float) MIN_PLATFORM_SPEED * deltaTimeSeconds;
+        platform_positions.at(i) = pos;
+    }
+
+    player_position -= glm::vec3(.0f, .8f, .4f) * deltaTimeSeconds * (float) MIN_PLATFORM_SPEED;
     glm::mat4 model_matrix = glm::mat4(1);
     model_matrix = glm::translate(model_matrix, player_position);
     RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color);
@@ -255,10 +268,15 @@ void Tema2::AnimateFall(float deltaTimeSeconds)
 
 void Tema2::AnimatePlayer(float deltaTimeSeconds)
 {
+    if (is_falling) {
+        AnimateFall(deltaTimeSeconds);
+        return;
+    }
+
     // moving player to the correct position based on keyboard input
     if (move_left)
     {
-        player_position -= glm::vec3(1, 0, 0) * deltaTimeSeconds * player_lateral_speed;
+        player_position -= glm::vec3(.8f, 0, 0) * deltaTimeSeconds * player_lateral_speed;
         if (player_position.x <= player_last_x - 1.05f)
         {
             move_left = false;
@@ -267,7 +285,7 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
     }
     if (move_right)
     {
-        player_position += glm::vec3(1, 0, 0) * deltaTimeSeconds * player_lateral_speed;
+        player_position += glm::vec3(.8f, 0, 0) * deltaTimeSeconds * player_lateral_speed;
         if (player_position.x >= player_last_x + 1.05f)
         {
             move_right = false;
@@ -276,14 +294,18 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
     }
     if (is_jumping)
     {
-        // TODO
+        // TODO: draw player while in air
+
+        if (time_elapsed - jump_time >= 1.5f) {
+            is_jumping = false;
+        }
     }
-    else
+    else if((int) time_elapsed >= 4 && !move_left && !move_right)
     {
         bool found = false;
         for (glm::vec3 pos : platform_positions)
         {
-            if (pos.x == player_position.x && pos.z <= player_position.z + 1.9f)
+            if (pos.x == player_position.x && pos.z <= player_position.z + 1.f)
             {
                 found = true;
                 break;
@@ -298,14 +320,17 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
     model_matrix = glm::translate(model_matrix, player_position);
     if (!is_affected_orange_plat && !is_falling)
         RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color);
-    else if (!is_falling) // TODO
+    else if (!is_falling) // TODO: deform player
         RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color);
 }
 
-void Tema2::PlatformPlayerInteractions()
+void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
 {
+    if (is_falling)
+        return;
+
     if (is_affected_orange_plat &&
-        (int)time_elapsed >= orange_platform_start)
+        time_elapsed >= orange_platform_start + 3)
     {
         is_affected_orange_plat = false;
         platform_speed = last_speed;
@@ -314,24 +339,28 @@ void Tema2::PlatformPlayerInteractions()
     {
         for (int i = 0; i < platform_positions.size(); ++i)
         {
+            if (affects_player.at(i))
+                continue;
             glm::vec3 pos = platform_positions.at(i);
 
-            if (pos.x == player_position.x && pos.z <= player_position.z + 2)
+            if (pos.x == player_position.x && pos.z >= player_position.z - 2)
             {
                 platform_colors.at(i) = platform_color_types[5];
                 if (platform_types[i] == PLATFORM_TYPE::RED)
-                    exit(0);
+                    AnimateFall(deltaTimeSeconds);
                 if (platform_types[i] == PLATFORM_TYPE::YELLOW)
-                    fuel_percent -= 0.33f * fuel_percent;
-                if (platform_types[i] == PLATFORM_TYPE::ORANGE)
+                    fuel_percent = max(.0f, 0.67f * fuel_percent);
+                if (platform_types[i] == PLATFORM_TYPE::ORANGE &&
+                    !is_affected_orange_plat)
                 {
                     last_speed = platform_speed;
                     platform_speed = MAX_PLATFORM_SPEED;
                     is_affected_orange_plat = true;
-                    orange_platform_start = (int)time_elapsed;
+                    orange_platform_start = time_elapsed;
                 }
                 if (platform_types[i] == PLATFORM_TYPE::GREEN)
-                    fuel_percent += 0.33f * fuel_percent;
+                    fuel_percent = min(1.f, 1.33f * fuel_percent);
+                affects_player.at(i) = true;
             }
         }
     }
@@ -367,7 +396,7 @@ void Tema2::Update(float deltaTimeSeconds)
     time_elapsed += deltaTimeSeconds;
 
     // drawing user interface
-    DrawUI();
+    DrawUI(deltaTimeSeconds);
 
     // drawing platforms
     AnimatePlatforms(deltaTimeSeconds);
@@ -376,7 +405,7 @@ void Tema2::Update(float deltaTimeSeconds)
     AnimatePlayer(deltaTimeSeconds);
 
     // checking collisions
-    PlatformPlayerInteractions();
+    PlatformPlayerInteractions(deltaTimeSeconds);
 }
 
 void Tema2::FrameEnd()
@@ -388,27 +417,31 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
 {
     if(is_falling)
         return;
-    if (window->KeyHold(GLFW_KEY_A) && player_position.x > -2.1 &&
+    if (window->KeyHold(GLFW_KEY_A) &&
+        player_position.x > -2 &&
         !(move_left || move_right))
     {
         move_left = true;
         player_last_x = player_position.x;
     }
-    if (window->KeyHold(GLFW_KEY_D) && player_position.x < 2.1 &&
+    if (window->KeyHold(GLFW_KEY_D) &&
+        player_position.x < 2 &&
         !(move_left || move_right))
     {
         move_right = true;
         player_last_x = player_position.x;
     }
     if (!is_affected_orange_plat &&
-        window->KeyHold(GLFW_KEY_W) && platform_speed < MAX_PLATFORM_SPEED)
+        window->KeyHold(GLFW_KEY_W) &&
+        platform_speed < MAX_PLATFORM_SPEED)
     {
-        platform_speed += 50 * deltaTime;
+        platform_speed += 10 * deltaTime;
     }
     if (!is_affected_orange_plat &&
-        window->KeyHold(GLFW_KEY_S) && platform_speed > MIN_PLATFORM_SPEED)
+        window->KeyHold(GLFW_KEY_S) &&
+        platform_speed > MIN_PLATFORM_SPEED)
     {
-        platform_speed -= 50 * deltaTime;
+        platform_speed -= 10 * deltaTime;
     }
     if (window->KeyHold(GLFW_KEY_C))
     {
@@ -417,6 +450,7 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
     if (window->KeyHold(GLFW_KEY_SPACE) && !is_jumping)
     {
         is_jumping = true;
+        jump_time = time_elapsed;
     }
 }
 

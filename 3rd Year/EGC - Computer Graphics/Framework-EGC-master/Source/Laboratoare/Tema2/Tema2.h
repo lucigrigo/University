@@ -13,8 +13,8 @@
 #include <math.h>
 
 #define MAX_NO_PLATFORMS 1000
-#define MAX_PLATFORM_SPEED 500
-#define MIN_PLATFORM_SPEED 100
+#define MAX_PLATFORM_SPEED 25
+#define MIN_PLATFORM_SPEED 5
 
 enum PLATFORM_TYPE
 {
@@ -59,11 +59,11 @@ private:
     void OnWindowResize(int width, int height) override;
 
     void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color);
-    void Tema2::DrawUI();
+    void Tema2::DrawUI(float deltaTimeSeconds);
     void Tema2::AnimatePlatforms(float deltaTimeSeconds);
     void Tema2::AnimateFall(float deltaTimeSeconds);
     void Tema2::AnimatePlayer(float deltaTimeSeconds);
-    void Tema2::PlatformPlayerInteractions();
+    void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds);
 
 protected:
     glm::vec3 player_color;
@@ -75,6 +75,7 @@ protected:
     std::vector<glm::vec3> platform_colors;
     std::vector<PLATFORM_TYPE> platform_types;
     std::vector<glm::vec3> initial_platform_positions;
+    std::vector<bool> affects_player;
     int last_acc;
     float time_elapsed;
     bool move_left;
@@ -87,4 +88,5 @@ protected:
     int is_affected_orange_plat;
     float last_speed;
     bool is_falling;
+    float jump_time;
 };
