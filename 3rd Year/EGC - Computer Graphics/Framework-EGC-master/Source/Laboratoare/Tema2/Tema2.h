@@ -61,6 +61,7 @@ private:
     void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color);
     void Tema2::DrawUI();
     void Tema2::AnimatePlatforms(float deltaTimeSeconds);
+    void Tema2::AnimateFall(float deltaTimeSeconds);
     void Tema2::AnimatePlayer(float deltaTimeSeconds);
     void Tema2::PlatformPlayerInteractions();
 
@@ -85,4 +86,5 @@ protected:
     int orange_platform_start;
     int is_affected_orange_plat;
     float last_speed;
+    bool is_falling;
 };
