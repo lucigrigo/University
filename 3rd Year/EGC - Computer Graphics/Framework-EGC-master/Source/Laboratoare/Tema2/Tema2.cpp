@@ -105,7 +105,7 @@ void Tema2::DrawUI(float deltaTimeSeconds)
 	if ((int)time_elapsed > last_acc && time_elapsed >= 3 && !is_affected_orange_plat)
 	{
 		last_acc = (int)time_elapsed;
-		fuel_percent -= .002f * platform_speed;
+		fuel_percent -= .001f * platform_speed;
 	}
 
 	// deciding the color of the indicator
@@ -325,7 +325,7 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, player_position);
 	if (!is_affected_orange_plat && !is_falling)
-		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, false);
+		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, true);
 	else if (!is_falling)	
 		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, true);
 }
@@ -393,6 +393,13 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
 	glm::mat4 projection_matrix = GetSceneCamera()->GetProjectionMatrix();
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection_matrix));
+
+	GLint defform_location = glGetUniformLocation(shader->GetProgramID(), "defform");
+	GLint defform = (deform) ? 1 : 0;
+	glUniform1i(defform_location, defform);
+
+	GLint time_location = glGetUniformLocation(shader->GetProgramID(), "time");
+	glUniform1f(time_location, (time_elapsed - orange_platform_start));
 
 	glBindVertexArray(mesh->GetBuffers()->VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
