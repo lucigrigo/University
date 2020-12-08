@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/student/Desktop/lab07_skel/unitTestCpu_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="unitTestCpu" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="7" />
+   <wvobject fp_name="/unitTestCpu/result" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">result</obj_property>
+      <obj_property name="ObjectShortName">result</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/pc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pc[9:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/pipeline_stage" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pipeline_stage[2:0]</obj_property>
+      <obj_property name="ObjectShortName">pipeline_stage[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/pb" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pb[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pb[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/unitTestCpu/uut/uut/pa" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pa[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pa[7:0]</obj_property>
+   </wvobject>
+</wave_config>
