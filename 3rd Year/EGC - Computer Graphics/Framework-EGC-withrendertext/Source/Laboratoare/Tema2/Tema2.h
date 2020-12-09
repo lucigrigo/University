@@ -91,4 +91,5 @@ protected:
     float jump_time;
     float player_jump_speed;
     std::unordered_map<std::string, Texture2D*> textures;
+    float rotate_factor;
 };

@@ -33,9 +33,9 @@ void main()
 		frag_has_texture = 0;
 
 	if(defform == 1) {
-		float x = 0.15 * (1 + cos(10 * position.x * time)) / 2;
-        float y = 0.15 * (1 + cos(10 * position.y * time)) / 2;
-        float z = 0.15 * (1 + cos(10 * position.z * time)) / 2;
+		float x = 0.1 * (1 + cos(10 * position.x * time)) / 2;
+        float y = 0.1 * (1 + cos(10 * position.y * time)) / 2;
+        float z = 0.1 * (1 + cos(10 * position.z * time)) / 2;
 
 		gl_Position = Projection * View * Model * vec4(position.x + x, position.y + y, position.z + z, 1.0);
 	} else {

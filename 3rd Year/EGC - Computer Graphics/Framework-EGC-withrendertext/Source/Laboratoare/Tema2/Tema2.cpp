@@ -18,6 +18,8 @@ Tema2::~Tema2()
 
 void Tema2::Init()
 {
+	const string texture_path = "Source/Laboratoare/Tema2/Textures/";
+
 	// creating sphere (player)
 	{
 		Mesh* mesh = new Mesh("sphere");
@@ -25,9 +27,8 @@ void Tema2::Init()
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 
-	// loading texture
+	// loading texture for sphere
 	{
-		const string texture_path = "Source/Laboratoare/Tema2/Textures/";
 		Texture2D* texture = new Texture2D();
 		texture->Load2D((texture_path + "grass.png").c_str(), GL_REPEAT);
 		textures["sphere_texture"] = texture;
@@ -36,8 +37,15 @@ void Tema2::Init()
 	// creating platform model
 	{
 		Mesh* mesh = new Mesh("platform");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "plane50.obj");
+		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "box.obj");
 		meshes[mesh->GetMeshID()] = mesh;
+	}
+
+	// loading texture for platforms
+	{
+		Texture2D* texture = new Texture2D();
+		texture->Load2D((texture_path + "platform_texture.png").c_str(), GL_REPEAT);
+		textures["platform_texture"] = texture;
 	}
 
 	// creating UI element
@@ -88,7 +96,8 @@ void Tema2::Init()
 		is_affected_orange_plat = false;
 		last_speed = MIN_PLATFORM_SPEED;
 		is_falling = false;
-		player_jump_speed = 1.f;
+		player_jump_speed = 7.f;
+		rotate_factor = .0f;
 	}
 }
 
@@ -146,14 +155,14 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 	// generate new platforms
 	if (no_visible_platforms < MAX_NO_PLATFORMS)
 	{
-		glm::vec3 pos = glm::vec3(.0f, .0f, -40.f);
-		pos.x = 1.05 * (rand() % 5 - 2);
+		glm::vec3 pos = glm::vec3(.0f, .0f, -80.f);
+		pos.x = 2.1 * (rand() % 5 - 2);
 		bool collision = false;
 
 		// checking for possible overlappings
 		for (glm::vec3 p : platform_positions)
 		{
-			if (p.z <= pos.z + 4.01 && p.x == pos.x)
+			if (p.z <= pos.z + 8.01 && p.x == pos.x)
 			{
 				collision = true;
 				break;
@@ -189,8 +198,9 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 
 		glm::mat4 model_matrix = glm::mat4(1);
 		model_matrix = glm::translate(model_matrix, pos);
-		model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
-		RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false, nullptr);
+		model_matrix = glm::scale(model_matrix, glm::vec3(2.f, .1f, 8.f));
+		RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false,
+			(platform_colors[i] == platform_color_types[0]) ? textures["platform_texture"] : nullptr);
 
 		pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
 		platform_positions.at(i) = pos;
@@ -206,8 +216,8 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 
 			glm::mat4 model_matrix = glm::mat4(1);
 			model_matrix = glm::translate(model_matrix, pos);
-			model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
-			RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false, nullptr);
+			model_matrix = glm::scale(model_matrix, glm::vec3(2.f, .1f, 8.f));
+			RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false, textures["platform_texture"]);
 
 			pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
 			initial_platform_positions.at(i) = pos;
@@ -221,7 +231,7 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 		{
 			glm::vec3 pos = initial_platform_positions.at(i);
 
-			if (pos.z >= 3)
+			if (pos.z >= 6)
 			{
 				initial_platform_positions.erase(initial_platform_positions.begin() + i);
 				break;
@@ -234,7 +244,7 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 	{
 		glm::vec3 pos = platform_positions.at(i);
 
-		if (pos.z >= 3)
+		if (pos.z >= 6)
 		{
 			platform_positions.erase(platform_positions.begin() + i);
 			platform_colors.erase(platform_colors.begin() + i);
@@ -263,8 +273,9 @@ void Tema2::AnimateFall(float deltaTimeSeconds)
 
 		glm::mat4 model_matrix = glm::mat4(1);
 		model_matrix = glm::translate(model_matrix, pos);
-		model_matrix = glm::scale(model_matrix, glm::vec3(.02f, 1.f, .08f));
-		RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false, nullptr);
+		model_matrix = glm::scale(model_matrix, glm::vec3(2.f, .1f, 8.f));
+		RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false,
+			(platform_colors[i] == platform_color_types[0]) ? textures["platform_texture"] : nullptr);
 	}
 
 	player_position -= glm::vec3(.0f, .8f, .4f) * deltaTimeSeconds * (float)MIN_PLATFORM_SPEED;
@@ -285,30 +296,35 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 	if (move_left) // moving to the left lane
 	{
 		player_position -= glm::vec3(.8f, 0, 0) * deltaTimeSeconds * player_lateral_speed;
-		if (player_position.x <= player_last_x - 1.05f)
+		if (player_position.x <= player_last_x - 2.1f)
 		{
 			move_left = false;
-			player_position.x = player_last_x - 1.05f;
+			player_position.x = player_last_x - 2.1f;
 		}
 	}
 	if (move_right) // moving to the right lane
 	{
 		player_position += glm::vec3(.8f, 0, 0) * deltaTimeSeconds * player_lateral_speed;
-		if (player_position.x >= player_last_x + 1.05f)
+		if (player_position.x >= player_last_x + 2.1f)
 		{
 			move_right = false;
-			player_position.x = player_last_x + 1.05f;
+			player_position.x = player_last_x + 2.1f;
 		}
 	}
 	if (is_jumping)
 	{
-		if (player_position.y >= .5f)
+		/*if (player_position.y >= .5f)
 		{
 			float elapsed_jump = time_elapsed - jump_time;
 			player_position.y += (player_jump_speed * elapsed_jump) / 4.5f
 				- (player_jump_speed * ((float)(pow(elapsed_jump, 2)) / 2.2f));
 		}
+		else*/
+		if (time_elapsed - jump_time <= .3f)
+			player_position.y += player_jump_speed * deltaTimeSeconds;
 		else
+			player_position.y -= player_jump_speed * deltaTimeSeconds;
+		if(time_elapsed - jump_time >= .6f)
 		{
 			is_jumping = false;
 			player_position.y = .5f;
@@ -332,7 +348,7 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 	// drawing player
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, player_position);
-	//model_matrix = glm::scale(model_matrix, glm::vec3(1.f / 175.f, 1.f / 175, 1.f / 175));
+	model_matrix = glm::rotate(model_matrix, -rotate_factor, glm::vec3(1.f, .0f, .0f));
 	if (!is_affected_orange_plat && !is_falling)
 		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, false, textures["sphere_texture"]);
 	else if (!is_falling)	
@@ -366,7 +382,7 @@ void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
 				if (platform_types[i] == PLATFORM_TYPE::YELLOW)
 					fuel_percent = max(.0f, 0.67f * fuel_percent);
 				if (platform_types[i] == PLATFORM_TYPE::ORANGE &&
-					!is_affected_orange_plat)
+					time_elapsed >= orange_platform_start + 1)
 				{
 					last_speed = platform_speed;
 					platform_speed = MAX_PLATFORM_SPEED * 2;
@@ -431,7 +447,7 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 void Tema2::Update(float deltaTimeSeconds)
 {
 	time_elapsed += deltaTimeSeconds;
-	//cout << 1.f / deltaTimeSeconds << endl;
+	rotate_factor += min((float) MAX_PLATFORM_SPEED, platform_speed) * deltaTimeSeconds * (float) 0.3;
 
 	// drawing user interface
 	DrawUI(deltaTimeSeconds);
@@ -456,14 +472,14 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
 	if (is_falling)
 		return;
 	if (window->KeyHold(GLFW_KEY_A) &&
-		player_position.x > -2 &&
+		player_position.x > -4 &&
 		!(move_left || move_right))
 	{
 		move_left = true;
 		player_last_x = player_position.x;
 	}
 	if (window->KeyHold(GLFW_KEY_D) &&
-		player_position.x < 2 &&
+		player_position.x < 4 &&
 		!(move_left || move_right))
 	{
 		move_right = true;
