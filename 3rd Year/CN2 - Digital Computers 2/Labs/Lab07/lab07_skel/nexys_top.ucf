@@ -1,0 +1,6 @@
+NET "PRI_OSC" LOC = V10;
+
+NET "RESET"	  LOC = B8;
+
+// TODO: Mapati semnalele LED[7:0] la cele 8 LED-uri de pe placa de laborator.
+// TODO: Mapati semnalele SWITCH[7:0] la cele 8 SWITCH-uri de pe placa de laborator.

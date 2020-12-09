@@ -58,7 +58,7 @@ private:
     void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
     void OnWindowResize(int width, int height) override;
 
-    void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color);
+    void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color, bool deform);
     void Tema2::DrawUI(float deltaTimeSeconds);
     void Tema2::AnimatePlatforms(float deltaTimeSeconds);
     void Tema2::AnimateFall(float deltaTimeSeconds);
@@ -89,4 +89,5 @@ protected:
     float last_speed;
     bool is_falling;
     float jump_time;
+    float player_jump_speed;
 };

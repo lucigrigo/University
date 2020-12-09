@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/student/Desktop/lab07_skel/unitTest.v" Line 23: Port <arg fmt="%s" index="1">debug_pipeline_stage</arg> is not connected to this instance
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/student/Desktop/lab07_skel/cpu.v" Line 148: Port <arg fmt="%s" index="1">debug_register_X</arg> is not connected to this instance
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"C:/Users/student/Desktop/lab07_skel/cpu.v" Line 165: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">debug_register_Y</arg>&gt;. Formal port size is <arg fmt="%d" index="2">16</arg>-bit while actual signal size is <arg fmt="%d" index="1">7</arg>-bit.
+</msg>
+
+</messages>
+

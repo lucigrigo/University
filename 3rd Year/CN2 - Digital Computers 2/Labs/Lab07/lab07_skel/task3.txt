@@ -1,0 +1,7 @@
+
+ldi r17, 255
+out 0x01, r17
+ldi r17, 0
+out 0x05, r17
+in r17, 0x04
+out 0x02, r17

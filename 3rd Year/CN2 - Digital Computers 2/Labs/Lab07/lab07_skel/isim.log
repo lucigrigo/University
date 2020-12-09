@@ -1,0 +1,364 @@
+ISim log file
+Running: C:\Users\student\Desktop\lab07_skel\unitTestCpu_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/student/Desktop/lab07_skel/unitTestCpu_isim_beh.wdb 
+ISim P.20131013 (signature 0x7708f090)
+----------------------------------------------------------------------
+INFO:Security:61 - The XILINXD_LICENSE_FILE environment variable is not set.
+INFO:Security:63 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is student, on host WIN-I7C3F74FULA.
+ERROR:Security:14 - No feature was available for 'ISIM'.
+
+No such feature exists.
+Feature:       ISIM
+License path:  C:/.Xilinx\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\XilinxFree.lic;C:\Xilinx\14.7\ISE_DS\EDK/data/core_licenses\Xilinx.lic;
+FLEXnet Licensing error:-5,357
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+----------------------------------------------------------------------
+WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+WARNING: File "C:/Users/student/Desktop/lab07_skel/cpu.v" Line 27.  For instance uut/reg_file/, width 16 of formal port debug_register_Y is not equal to width 7 of actual signal debug_register_Y.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Start cpu ...
+Legend:
+OPERATION OP1, OP2 - STAGE: OK <=> PASS
+OPERATION OP1, OP2 - STAGE: FAILED => EXPECTED_VALUE VS COMPUTED_VALUE <=> FAIL
+Init regs..
+Finished circuit initialization process.
+
+PC =>    0
+LDI R19, 0 - ID: FAILED
+LDI R16, 1 - WB: FAILED => (0) vs (1)
+
+PC =>    1
+OUT           1, R16 - ID: FAILED, check opcode_rr:          16 vs 19
+OUT           1, R16 - WB: OK
+
+PC =>    2
+SBI            1,R1 - ID: FAILED, check opcode_type:          54 vs                  22
+SBI R1,           1 - ID: FAILED, signal CONTROL_IO_WRITE should be active for SBI instruction
+
+PC =>    3
+CBI            1,R0 - ID: FAILED, check opcode_type:          53 vs                  52
+CBI R1,           0 - ID: FAILED, signal CONTROL_IO_WRITE should be active for CBI instruction
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_type:          51 vs                  54
+IN R17,           1 - WB: FAILED, signal CONTROL_REG_RD_WRITE should be active for IN instruction
+ISim P.20131013 (signature 0x7708f090)
+----------------------------------------------------------------------
+INFO:Security:61 - The XILINXD_LICENSE_FILE environment variable is not set.
+INFO:Security:63 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is student, on host WIN-I7C3F74FULA.
+ERROR:Security:14 - No feature was available for 'ISIM'.
+
+No such feature exists.
+Feature:       ISIM
+License path:  C:/.Xilinx\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\XilinxFree.lic;C:\Xilinx\14.7\ISE_DS\EDK/data/core_licenses\Xilinx.lic;
+FLEXnet Licensing error:-5,357
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+----------------------------------------------------------------------
+WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+WARNING: File "C:/Users/student/Desktop/lab07_skel/cpu.v" Line 27.  For instance uut/reg_file/, width 16 of formal port debug_register_Y is not equal to width 7 of actual signal debug_register_Y.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Start cpu ...
+Legend:
+OPERATION OP1, OP2 - STAGE: OK <=> PASS
+OPERATION OP1, OP2 - STAGE: FAILED => EXPECTED_VALUE VS COMPUTED_VALUE <=> FAIL
+Init regs..
+Finished circuit initialization process.
+
+PC =>    0
+LDI R19, 0 - ID: FAILED
+LDI R16, 1 - WB: FAILED => (0) vs (1)
+
+PC =>    1
+OUT           1, R16 - ID: FAILED, check opcode_rr:          16 vs 19
+OUT           1, R16 - WB: OK
+
+PC =>    2
+SBI            1,R1 - ID: FAILED, check opcode_type:          54 vs                  22
+SBI R1,           1 - ID: FAILED, signal CONTROL_IO_WRITE should be active for SBI instruction
+
+PC =>    3
+CBI            1,R0 - ID: FAILED, check opcode_type:          53 vs                  52
+CBI R1,           0 - ID: FAILED, signal CONTROL_IO_WRITE should be active for CBI instruction
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_type:          51 vs                  54
+IN R17,           1 - WB: FAILED, signal CONTROL_REG_RD_WRITE should be active for IN instruction
+ISim P.20131013 (signature 0x7708f090)
+----------------------------------------------------------------------
+INFO:Security:61 - The XILINXD_LICENSE_FILE environment variable is not set.
+INFO:Security:63 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is student, on host WIN-I7C3F74FULA.
+ERROR:Security:14 - No feature was available for 'ISIM'.
+
+No such feature exists.
+Feature:       ISIM
+License path:  C:/.Xilinx\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\XilinxFree.lic;C:\Xilinx\14.7\ISE_DS\EDK/data/core_licenses\Xilinx.lic;
+FLEXnet Licensing error:-5,357
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+----------------------------------------------------------------------
+WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+WARNING: File "C:/Users/student/Desktop/lab07_skel/cpu.v" Line 27.  For instance uut/reg_file/, width 16 of formal port debug_register_Y is not equal to width 7 of actual signal debug_register_Y.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Start cpu ...
+Legend:
+OPERATION OP1, OP2 - STAGE: OK <=> PASS
+OPERATION OP1, OP2 - STAGE: FAILED => EXPECTED_VALUE VS COMPUTED_VALUE <=> FAIL
+Init regs..
+Finished circuit initialization process.
+
+PC =>    0
+LDI Rx, 1 - ID: FAILED
+LDI R16, 1 - WB: FAILED => (0) vs (1)
+
+PC =>    1
+OUT           1, R16 - ID: FAILED, check opcode_type:          52 vs                  54
+OUT           1, R16 - WB: OK
+
+PC =>    2
+SBI            1,R1 - ID: FAILED, check opcode_bit:           1 vs 7
+SBI R1,           1 - ID: FAILED, signal alu_rd should have other value for SBI instruction
+
+PC =>    3
+CBI            1,R0 - ID: FAILED, check opcode_type:          53 vs                  54
+CBI R1,           0 - EX: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_type:          51 vs                  53
+IN R17,           1 - WB: FAILED, signal CONTROL_REG_RD_WRITE should be active for IN instruction
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+ISim P.20131013 (signature 0x7708f090)
+----------------------------------------------------------------------
+INFO:Security:61 - The XILINXD_LICENSE_FILE environment variable is not set.
+INFO:Security:63 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is student, on host WIN-I7C3F74FULA.
+ERROR:Security:14 - No feature was available for 'ISIM'.
+
+No such feature exists.
+Feature:       ISIM
+License path:  C:/.Xilinx\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\XilinxFree.lic;C:\Xilinx\14.7\ISE_DS\EDK/data/core_licenses\Xilinx.lic;
+FLEXnet Licensing error:-5,357
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+----------------------------------------------------------------------
+WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+WARNING: File "C:/Users/student/Desktop/lab07_skel/cpu.v" Line 27.  For instance uut/reg_file/, width 16 of formal port debug_register_Y is not equal to width 7 of actual signal debug_register_Y.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Start cpu ...
+Legend:
+OPERATION OP1, OP2 - STAGE: OK <=> PASS
+OPERATION OP1, OP2 - STAGE: FAILED => EXPECTED_VALUE VS COMPUTED_VALUE <=> FAIL
+Init regs..
+Finished circuit initialization process.
+
+PC =>    0
+LDI R19, 255 - ID: FAILED
+LDI R16, 1 - WB: FAILED => (255) vs (1)
+
+PC =>    1
+OUT           1, R16 - ID: FAILED, check opcode_rr:          16 vs 19
+OUT           1, R16 - WB: OK
+
+PC =>    2
+SBI            1,R1 - ID: FAILED, check opcode_type:          54 vs                  22
+SBI R1,           1 - ID: FAILED, signal CONTROL_IO_WRITE should be active for SBI instruction
+
+PC =>    3
+CBI            1,R0 - ID: FAILED, check opcode_type:          53 vs                  52
+CBI R1,           0 - ID: FAILED, signal CONTROL_IO_WRITE should be active for CBI instruction
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_type:          51 vs                  54
+IN R17,           1 - WB: FAILED, signal CONTROL_REG_RD_WRITE should be active for IN instruction
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+ISim P.20131013 (signature 0x7708f090)
+----------------------------------------------------------------------
+INFO:Security:61 - The XILINXD_LICENSE_FILE environment variable is not set.
+INFO:Security:63 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is student, on host WIN-I7C3F74FULA.
+ERROR:Security:14 - No feature was available for 'ISIM'.
+
+No such feature exists.
+Feature:       ISIM
+License path:  C:/.Xilinx\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\XilinxFree.lic;C:\Xilinx\14.7\ISE_DS\EDK/data/core_licenses\Xilinx.lic;
+FLEXnet Licensing error:-5,357
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+----------------------------------------------------------------------
+WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+WARNING: File "C:/Users/student/Desktop/lab07_skel/cpu.v" Line 27.  For instance uut/reg_file/, width 16 of formal port debug_register_Y is not equal to width 7 of actual signal debug_register_Y.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Start cpu ...
+Legend:
+OPERATION OP1, OP2 - STAGE: OK <=> PASS
+OPERATION OP1, OP2 - STAGE: FAILED => EXPECTED_VALUE VS COMPUTED_VALUE <=> FAIL
+Init regs..
+Finished circuit initialization process.
+
+PC =>    0
+LDI R19, 255 - ID: FAILED
+LDI R16, 1 - WB: FAILED => (255) vs (1)
+
+PC =>    1
+OUT           1, R16 - ID: FAILED, check opcode_rr:          16 vs 19
+OUT           1, R16 - WB: OK
+
+PC =>    2
+SBI            1,R1 - ID: FAILED, check opcode_type:          54 vs                  22
+SBI R1,           1 - ID: FAILED, signal CONTROL_IO_WRITE should be active for SBI instruction
+
+PC =>    3
+CBI            1,R0 - ID: FAILED, check opcode_type:          53 vs                  52
+CBI R1,           0 - ID: FAILED, signal CONTROL_IO_WRITE should be active for CBI instruction
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+# run 1.00us
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+# run 1.00us
+IN R17,           1 - WB: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_rd:          17 vs 21
+IN R17,           1 - WB: OK
+ISim P.20131013 (signature 0x7708f090)
+----------------------------------------------------------------------
+INFO:Security:61 - The XILINXD_LICENSE_FILE environment variable is not set.
+INFO:Security:63 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:68 - For more information or for assistance in obtaining 
+ a license, please run the Xilinx License Configuration Manager
+       (xlcm or "Manage Xilinx Licenses".)
+INFO:Security:68a - user is student, on host WIN-I7C3F74FULA.
+ERROR:Security:14 - No feature was available for 'ISIM'.
+
+No such feature exists.
+Feature:       ISIM
+License path:  C:/.Xilinx\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\Xilinx.lic;C:\Xilinx\14.7\ISE_DS\ISE\/coregen/core_licenses\XilinxFree.lic;C:\Xilinx\14.7\ISE_DS\EDK/data/core_licenses\Xilinx.lic;
+FLEXnet Licensing error:-5,357
+For further information, refer to the FLEXnet Licensing documentation,
+available at "www.flexerasoftware.com".
+----------------------------------------------------------------------
+WARNING: A full ISim License cannot be checked out due to the issues listed above. Please use Xilinx License Configuration Manager to fix these issues in order to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+WARNING: File "C:/Users/student/Desktop/lab07_skel/cpu.v" Line 27.  For instance uut/reg_file/, width 16 of formal port debug_register_Y is not equal to width 7 of actual signal debug_register_Y.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Start cpu ...
+Legend:
+OPERATION OP1, OP2 - STAGE: OK <=> PASS
+OPERATION OP1, OP2 - STAGE: FAILED => EXPECTED_VALUE VS COMPUTED_VALUE <=> FAIL
+Init regs..
+Finished circuit initialization process.
+
+PC =>    0
+LDI R19, 255 - ID: FAILED
+LDI R16, 1 - WB: FAILED => (255) vs (1)
+
+PC =>    1
+OUT           1, R16 - ID: FAILED, check opcode_rr:          16 vs 19
+OUT           1, R16 - WB: OK
+
+PC =>    2
+SBI            1,R1 - ID: FAILED, check opcode_type:          54 vs                  22
+SBI R1,           1 - ID: FAILED, signal CONTROL_IO_WRITE should be active for SBI instruction
+
+PC =>    3
+CBI            1,R0 - ID: FAILED, check opcode_type:          53 vs                  52
+CBI R1,           0 - ID: FAILED, signal CONTROL_IO_WRITE should be active for CBI instruction
+
+PC =>    4
+IN R17,           1 - ID: FAILED, check opcode_type:          51 vs                  54
+IN R17,           1 - WB: FAILED, signal CONTROL_REG_RD_WRITE should be active for IN instruction
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
+# run 1.00us
