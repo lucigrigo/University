@@ -66,10 +66,10 @@ void Tema2::Init()
 
 	// generating initial platforms
 	{
-		for (float i = -0; i >= -40; i -= 4)
+		for (float i = -0; i >= -80; i -= 8)
 			// for (int i = 0; i >= -650; i -= 50)
 		{
-			for (float j = -2.1f; j <= 2.1f; j += 1.05f)
+			for (float j = -4.f; j <= 4.f; j += 2.f)
 				// for (int j = -110; j <= 110; j += 55)
 			{
 				glm::vec3 pos = glm::vec3(j, 0, i);
@@ -80,7 +80,7 @@ void Tema2::Init()
 
 	// initialising variables
 	{
-		player_position = glm::vec3(.0f, .5f, -2.f);
+		player_position = glm::vec3(.0f, .5f, -3.f);
 		player_color = glm::vec3(.3f, .3f, .9f);
 		no_visible_platforms = 0;
 		platform_speed = MIN_PLATFORM_SPEED;
@@ -450,7 +450,7 @@ void Tema2::Update(float deltaTimeSeconds)
 	rotate_factor += min((float) MAX_PLATFORM_SPEED, platform_speed) * deltaTimeSeconds * (float) 0.3;
 
 	// drawing user interface
-	DrawUI(deltaTimeSeconds);
+	//DrawUI(deltaTimeSeconds);
 
 	// drawing platforms
 	AnimatePlatforms(deltaTimeSeconds);
