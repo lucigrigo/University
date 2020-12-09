@@ -12,13 +12,15 @@ uniform mat4 Projection;
 uniform int defform;
 uniform float time;
 
+varying float noise;
+
 out vec3 fragment_position;
 out vec3 fragment_normal;
 out vec3 fragment_color;
 out vec2 fragment_texture;
 out vec3 sec_color;
 
-const float amplitude = 0.5;
+const float amplitude = 0.25;
 const float frequency = 10;
 const float PI = 3.14159;
 
@@ -31,13 +33,11 @@ void main()
 	sec_color = object_color;
 
 	if(defform == 1) {
-		float distance = length(position);
-		float y = amplitude * sin(-PI * distance * frequency + time);
+		float x = 0.15 * (1 + cos(10 * position.x * time)) / 2;
+        float y = 0.15 * (1 + cos(10 * position.y * time)) / 2;
+        float z = 0.15 * (1 + cos(10 * position.z * time)) / 2;
 
-		//y = 0.5 * sin(PI * distance * frequency + time);
-		//x = 0.5 * sin(PI * distance * frequency + time);
-
-		gl_Position = Projection * View * Model * vec4(position.x, y, position.z, 1.0);
+		gl_Position = Projection * View * Model * vec4(position.x + x, position.y + y, position.z + z, 1.0);
 	} else {
 		gl_Position = Projection * View * Model * vec4(position, 1);
 	}

@@ -248,7 +248,7 @@ void Tema2::AnimateFall(float deltaTimeSeconds)
 	for (int i = 0; i < platform_positions.size(); ++i) {
 		glm::vec3 col = platform_colors.at(i);
 		glm::vec3 pos = platform_positions.at(i);
-		pos += glm::vec3((rand() % 3 - 1) * 1.f, (rand() % 3 - 1) * 1.f, .0f) * (float)MIN_PLATFORM_SPEED * deltaTimeSeconds;
+		pos += glm::vec3((rand() % 3 - 1) * 2.f, (rand() % 3 - 1) * 2.f, .0f) * (float)MIN_PLATFORM_SPEED * deltaTimeSeconds;
 
 		if (pos.z >= -3)
 			continue;
@@ -324,8 +324,9 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 	// drawing player
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, player_position);
+	//model_matrix = glm::scale(model_matrix, glm::vec3(1.f / 175.f, 1.f / 175, 1.f / 175));
 	if (!is_affected_orange_plat && !is_falling)
-		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, true);
+		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, false);
 	else if (!is_falling)	
 		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, true);
 }
@@ -373,7 +374,7 @@ void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
 }
 
 void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
-	const glm::mat4& model_matrix, const glm::vec3& color, bool deform)
+	const glm::mat4& model_matrix, const glm::vec3& color, bool is_defformed)
 {
 	if (!mesh || !shader || !shader->GetProgramID())
 		return;
@@ -395,11 +396,11 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection_matrix));
 
 	GLint defform_location = glGetUniformLocation(shader->GetProgramID(), "defform");
-	GLint defform = (deform) ? 1 : 0;
+	GLint defform = (is_defformed) ? 1 : 0;
 	glUniform1i(defform_location, defform);
 
 	GLint time_location = glGetUniformLocation(shader->GetProgramID(), "time");
-	glUniform1f(time_location, (time_elapsed - orange_platform_start));
+	glUniform1f(time_location, time_elapsed);
 
 	glBindVertexArray(mesh->GetBuffers()->VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
@@ -408,6 +409,7 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 void Tema2::Update(float deltaTimeSeconds)
 {
 	time_elapsed += deltaTimeSeconds;
+	cout << 1.f / deltaTimeSeconds << endl;
 
 	// drawing user interface
 	DrawUI(deltaTimeSeconds);

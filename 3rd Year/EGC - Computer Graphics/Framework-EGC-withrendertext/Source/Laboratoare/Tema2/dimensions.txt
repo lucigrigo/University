@@ -1,0 +1,15 @@
+-------- PLANE50
+mesh sizes:
+	x = 50
+	y = 0
+	z = 50
+
+scalare:
+	50 * 0.02 = 1 = dimensiunea pe x
+	50 * 0.08 = 4 = dimensiunea pe z
+
+-------- SPHERE
+mesh sizes:
+	x = y = z = 1.00
+
+5 * 0.02 = 0.1
