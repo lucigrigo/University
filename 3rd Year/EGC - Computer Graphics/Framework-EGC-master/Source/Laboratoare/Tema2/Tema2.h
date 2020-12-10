@@ -12,31 +12,9 @@
 #include <vector>
 #include <math.h>
 
-#define MAX_NO_PLATFORMS 1000
-#define MAX_PLATFORM_SPEED 25
-#define MIN_PLATFORM_SPEED 5
-
-enum PLATFORM_TYPE
-{
-    BASIC,
-    RED,
-    YELLOW,
-    ORANGE,
-    GREEN
-};
-const PLATFORM_TYPE platform_available_types[5] = {
-    PLATFORM_TYPE::BASIC,
-    PLATFORM_TYPE::RED,
-    PLATFORM_TYPE::YELLOW,
-    PLATFORM_TYPE::ORANGE,
-    PLATFORM_TYPE::GREEN};
-const glm::vec3 platform_color_types[6] = {
-    glm::vec3(.0f, .0f, .8f),
-    glm::vec3(1.f, .0f, .0f),
-    glm::vec3(1.f, 1.f, .0f),
-    glm::vec3(1.f, .5f, .0f),
-    glm::vec3(.0f, 1.f, .0f),
-    glm::vec3(.55f, .0f, .55f)};
+// including other source files
+#include "Areas.h"
+#include "Platforms.h"
 
 class Tema2 : public SimpleScene
 {
@@ -90,4 +68,5 @@ protected:
     bool is_falling;
     float jump_time;
     float player_jump_speed;
+    float last_z;
 };
