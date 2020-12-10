@@ -33,6 +33,7 @@
     <ClCompile Include="..\Source\Core\Window\WindowObject.cpp" />
     <ClCompile Include="..\Source\Core\World.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Tema2\Platforms.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Tema2\Tema2.cpp" />
     <ClCompile Include="..\Source\TextRenderer\TextRenderer.cpp" />
     <ClCompile Include="..\Source\include\gl.cpp" />
@@ -65,6 +66,8 @@
     <ClInclude Include="..\Source\Core\Window\WindowObject.h" />
     <ClInclude Include="..\Source\Core\World.h" />
     <ClInclude Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2Levels.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema2\Platforms.h" />
     <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2.h" />
     <ClInclude Include="..\Source\TextRenderer\TextRenderer.h" />
     <ClInclude Include="..\Source\include\gl.h" />

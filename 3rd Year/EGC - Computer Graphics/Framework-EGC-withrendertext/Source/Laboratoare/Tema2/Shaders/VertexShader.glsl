@@ -27,10 +27,6 @@ void main()
 	fragment_texture = texture;
 	fragment_color = color;
 	sec_color = object_color;
-	if(has_texture == 1) 
-		frag_has_texture = 1;
-	else
-		frag_has_texture = 0;
 
 	if(defform == 1) {
 		float x = 0.1 * (1 + cos(10 * position.x * time)) / 2;

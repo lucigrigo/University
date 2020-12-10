@@ -166,6 +166,9 @@
     <ClCompile Include="..\Source\Laboratoare\Tema2\Tema2.cpp">
       <Filter>Laboratoare\Tema2</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Tema2\Platforms.cpp">
+      <Filter>Laboratoare\Tema2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Core\World.h">
@@ -274,6 +277,12 @@
       <Filter>Laboratoare\Laborator_BonusTextRenderer</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2.h">
+      <Filter>Laboratoare\Tema2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema2\Platforms.h">
+      <Filter>Laboratoare\Tema2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2Levels.h">
       <Filter>Laboratoare\Tema2</Filter>
     </ClInclude>
   </ItemGroup>

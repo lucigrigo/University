@@ -11,32 +11,8 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-
-#define MAX_NO_PLATFORMS 1000
-#define MAX_PLATFORM_SPEED 25
-#define MIN_PLATFORM_SPEED 5
-
-enum PLATFORM_TYPE
-{
-    BASIC,
-    RED,
-    YELLOW,
-    ORANGE,
-    GREEN
-};
-const PLATFORM_TYPE platform_available_types[5] = {
-    PLATFORM_TYPE::BASIC,
-    PLATFORM_TYPE::RED,
-    PLATFORM_TYPE::YELLOW,
-    PLATFORM_TYPE::ORANGE,
-    PLATFORM_TYPE::GREEN};
-const glm::vec3 platform_color_types[6] = {
-    glm::vec3(.0f, .0f, .8f),
-    glm::vec3(1.f, .0f, .0f),
-    glm::vec3(1.f, 1.f, .0f),
-    glm::vec3(1.f, .5f, .0f),
-    glm::vec3(.0f, 1.f, .0f),
-    glm::vec3(.55f, .0f, .55f)};
+#include "Platforms.h"
+#include "Tema2Levels.h"
 
 class Tema2 : public SimpleScene
 {
@@ -60,6 +36,7 @@ private:
 
     void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color, bool deform, Texture2D* texture);
     void Tema2::DrawUI(float deltaTimeSeconds);
+    bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position);
     void Tema2::AnimatePlatforms(float deltaTimeSeconds);
     void Tema2::AnimateFall(float deltaTimeSeconds);
     void Tema2::AnimatePlayer(float deltaTimeSeconds);
@@ -73,7 +50,7 @@ protected:
     float platform_speed;
     std::vector<glm::vec3> platform_positions;
     std::vector<glm::vec3> platform_colors;
-    std::vector<PLATFORM_TYPE> platform_types;
+    std::vector<Platforms::PLATFORM_TYPE> platform_types;
     std::vector<glm::vec3> initial_platform_positions;
     std::vector<bool> affects_player;
     int last_acc;
@@ -92,4 +69,7 @@ protected:
     float player_jump_speed;
     std::unordered_map<std::string, Texture2D*> textures;
     float rotate_factor;
+    float last_z;
+    Platforms platforms;
+    float exit_cooldown;
 };
