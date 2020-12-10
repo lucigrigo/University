@@ -36,6 +36,7 @@ private:
 
     void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color, bool deform, Texture2D* texture);
     void Tema2::DrawUI(float deltaTimeSeconds);
+    bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position);
     void Tema2::AnimatePlatforms(float deltaTimeSeconds);
     void Tema2::AnimateFall(float deltaTimeSeconds);
     void Tema2::AnimatePlayer(float deltaTimeSeconds);
@@ -70,4 +71,5 @@ protected:
     float rotate_factor;
     float last_z;
     Platforms platforms;
+    float exit_cooldown;
 };
