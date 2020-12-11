@@ -35,8 +35,10 @@ private:
     void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
     void OnWindowResize(int width, int height) override;
 
-    void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix, const glm::vec3& color);
-    void Tema2::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color, bool deform, Texture2D* texture);
+    void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix,
+        const glm::vec3& color, Texture2D* texture);
+    void Tema2::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix,
+        const glm::vec3 &color, bool deform, Texture2D* texture);
     void Tema2::DrawUI(float deltaTimeSeconds);
     bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position);
     void Tema2::AnimatePlatforms(float deltaTimeSeconds);
@@ -79,5 +81,6 @@ protected:
     float right, left, top, bottom;
     glm::vec3 camera_position_third_person;
     float const Z_NEAR = 1.f;
-    float const Z_FAR = 45.f;
+    float const Z_FAR = 50.f;
+    float score;
 };
