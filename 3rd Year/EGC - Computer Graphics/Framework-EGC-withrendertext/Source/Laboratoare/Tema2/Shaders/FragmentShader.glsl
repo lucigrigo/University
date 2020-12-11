@@ -15,6 +15,10 @@ layout(location = 2) out vec3 out_texture;
 
 void main()
 {
-	vec4 color = texture2D(texture, fragment_texture);
-	out_color = mix(color, vec4(sec_color, 1), 0.8f);
+	if(sec_color != vec3(0.f, 0.f, 0.f)) {
+		vec4 color = texture2D(texture, fragment_texture);
+		out_color = mix(color, vec4(sec_color, 1), 0.85f);
+	} else {
+		out_color = texture2D(texture, fragment_texture);
+	}
 }
