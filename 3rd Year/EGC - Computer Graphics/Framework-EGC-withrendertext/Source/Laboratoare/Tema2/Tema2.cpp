@@ -10,10 +10,12 @@ using namespace std;
 
 Tema2::Tema2()
 {
+	camera = new CameraTema2::Camera();
 }
 
 Tema2::~Tema2()
 {
+	delete camera;
 }
 
 void Tema2::Init()
@@ -62,6 +64,13 @@ void Tema2::Init()
 		textures["game_over"] = texture;
 	}
 
+	// loading texture for fuel indicator
+	{
+		Texture2D* texture = new Texture2D();
+		texture->Load2D((texture_path + "indicator.jpg").c_str(), GL_REPEAT);
+		textures["indicator"] = texture;
+	}
+
 	// creating UI element
 	{
 		Mesh* mesh = new Mesh("indicator");
@@ -80,15 +89,12 @@ void Tema2::Init()
 
 	// initialising camera
 	{
-		//t2_projection_type = true;
-
 		right = 5.f;
 		left = -5.f;
 		bottom = -5.f;
 		top = 5.f;
 		camera_position_third_person = glm::vec3(0, 2, 3.5f);
 
-		camera = new CameraTema2::Camera();
 		camera->Set(camera_position_third_person, glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
 		projection_matrix = glm::perspective(RADIANS(60), window->props.aspectRatio, 0.01f, 200.0f);
 	}
@@ -116,6 +122,7 @@ void Tema2::Init()
 		rotate_factor = .0f;
 		last_z = .0f;
 		exit_cooldown = .0f;
+		score = .0f;
 	}
 
 	// generating initial platforms
@@ -135,6 +142,9 @@ void Tema2::FrameStart()
 
 void Tema2::DrawUI(float deltaTimeSeconds)
 {
+	if (is_falling)
+		return;
+
 	// checking if we ran out of fuel
 	if (fuel_percent <= .0f)
 		AnimateFall(deltaTimeSeconds);
@@ -157,15 +167,18 @@ void Tema2::DrawUI(float deltaTimeSeconds)
 
 	// drawing outer rectangle
 	glm::mat4 model_matrix = glm::mat4(1);
-	model_matrix = glm::translate(model_matrix, glm::vec3(4, 1.2f, -3.01));
-	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, 2.5f, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, glm::vec3(1.f, 1.f, 1.f));
+	model_matrix = glm::translate(model_matrix,
+		glm::vec3(camera_position_third_person.x + 4, camera_position_third_person.y, -3.01));
+	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, 5.f, .01f));
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix,
+		glm::vec3(1.f, 1.f, 1.f), textures["indicator"]);
 
 	// drawing inner rectangle
 	model_matrix = glm::mat4(1);
-	model_matrix = glm::translate(model_matrix, glm::vec3(4, (float)1.2f - 1.25f * (1.f - fuel_percent), -3));
-	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, (float)2.5f * fuel_percent, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color);
+	model_matrix = glm::translate(model_matrix, glm::vec3(camera_position_third_person.x + 4,
+		(float)camera_position_third_person.y - 2.5f * (1 - fuel_percent), -3));
+	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, (float)5.f * fuel_percent, .01f));
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color, textures["indicator"]);
 }
 
 bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position)
@@ -404,7 +417,8 @@ void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
 	}
 }
 
-void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix, const glm::vec3& color)
+void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix,
+	const glm::vec3& color, Texture2D* texture)
 {
 	if (!mesh || !shader || !shader->GetProgramID())
 		return;
@@ -418,7 +432,8 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model_matrix));
 
 	GLint view_location = glGetUniformLocation(shader->GetProgramID(), "View");
-	glm::mat4 view_matrix = camera->GetViewMatrix();
+	glm::mat4 view_matrix = glm::lookAt(camera_position_third_person,
+		glm::vec3(camera_position_third_person.x, camera_position_third_person.y, 0), glm::vec3(0, 1, 0));
 	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
 
 	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
@@ -427,7 +442,13 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_
 
 	glUniform1i(glGetUniformLocation(shader->GetProgramID(), "defform"), 0);
 
-	glUniform1i(glGetUniformLocation(shader->GetProgramID(), "has_texture"), 0);
+	glUniform1i(glGetUniformLocation(shader->GetProgramID(), "has_texture"), (texture) ? 1 : 0);
+
+	glActiveTexture(GL_TEXTURE0);
+
+	glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
+
+	glUniform1i(glGetUniformLocation(shader->program, "texture"), 0);
 
 	glBindVertexArray(mesh->GetBuffers()->VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
@@ -465,13 +486,10 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 
 	if (texture)
 	{
-		// Activate texture location 0
 		glActiveTexture(GL_TEXTURE0);
 
-		// Bind the texture1 ID
 		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
 
-		// Send texture uniform value
 		glUniform1i(glGetUniformLocation(shader->program, "texture"), 0);
 	}
 
@@ -484,7 +502,8 @@ void Tema2::Update(float deltaTimeSeconds)
 	time_elapsed += deltaTimeSeconds;
 	rotate_factor += min((float)MAX_PLATFORM_SPEED, platform_speed) * deltaTimeSeconds * (float)0.3;
 	last_z += deltaTimeSeconds * platform_speed;
-	//cout << 1 / deltaTimeSeconds << endl;
+	score = (int) (time_elapsed * platform_speed);
+	cout << score << endl;
 
 	// drawing user interface
 	DrawUI(deltaTimeSeconds);
@@ -503,11 +522,14 @@ void Tema2::Update(float deltaTimeSeconds)
 	model_matrix = glm::translate(model_matrix, glm::vec3(0, -15, -40));
 	model_matrix = glm::scale(model_matrix, glm::vec3(120, 85, 1.f));
 	RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, glm::vec3(.0f, .0f, .0f), false, textures["background"]);
+	/*model_matrix = glm::translate(model_matrix, camera_position_third_person + glm::vec3(0, -5, -40));
+	model_matrix = glm::scale(model_matrix, glm::vec3(10, 10, 1.f));
+	RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix,
+		glm::vec3(0.f, 0.f, 0.f), textures["background"]);*/
 }
 
 void Tema2::FrameEnd()
 {
-	//DrawCoordinatSystem();
 	//DrawCoordinatSystem(camera->GetViewMatrix(), projection_matrix);
 }
 
