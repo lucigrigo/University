@@ -66,6 +66,7 @@
     <ClInclude Include="..\Source\Core\Window\WindowObject.h" />
     <ClInclude Include="..\Source\Core\World.h" />
     <ClInclude Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema2\LabCamera.h" />
     <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2Levels.h" />
     <ClInclude Include="..\Source\Laboratoare\Tema2\Platforms.h" />
     <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2.h" />

@@ -44,21 +44,21 @@ void Tema2::Init()
 	// loading texture for platforms
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((texture_path + "black_white.png").c_str(), GL_REPEAT);
+		texture->Load2D((texture_path + "bricks.jpg").c_str(), GL_REPEAT);
 		textures["platform_texture"] = texture;
 	}
 
 	// loading texture for background
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((texture_path + "galaxy.jpg").c_str(), GL_REPEAT);
+		texture->Load2D((texture_path + "earth.jpg").c_str(), GL_REPEAT);
 		textures["background"] = texture;
 	}
 
 	// loading texture for game over image
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((texture_path + "game_over.png").c_str(), GL_REPEAT);
+		texture->Load2D((texture_path + "game_over.jpg").c_str(), GL_REPEAT);
 		textures["game_over"] = texture;
 	}
 
@@ -78,6 +78,22 @@ void Tema2::Init()
 		shaders[shader->GetName()] = shader;
 	}
 
+	// initialising camera
+	{
+		//t2_projection_type = true;
+
+		right = 5.f;
+		left = -5.f;
+		bottom = -5.f;
+		top = 5.f;
+		fov = 45;
+		camera_position_third_person = glm::vec3(0, 2, 3.5f);
+
+		camera = new CameraTema2::Camera();
+		camera->Set(camera_position_third_person, glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
+		projection_matrix = glm::perspective(RADIANS(60), window->props.aspectRatio, 0.01f, 200.0f);
+	}
+
 	// initialising variables
 	{
 		platforms.initValues();
@@ -90,7 +106,7 @@ void Tema2::Init()
 		move_left = move_right = false;
 		is_third_person = true;
 		is_jumping = false;
-		player_lateral_speed = 8.f;
+		player_lateral_speed = 15.f;
 		player_last_x = .0f;
 		fuel_percent = 1.f;
 		orange_platform_start = 0;
@@ -110,7 +126,7 @@ void Tema2::Init()
 void Tema2::FrameStart()
 {
 	// clears the color buffer (using the previously set color) and depth buffer
-	glClearColor(.0f, .0f, .0f, .0f);
+	glClearColor(.0f, .0f, .0f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glm::ivec2 resolution = window->GetResolution();
@@ -144,13 +160,21 @@ void Tema2::DrawUI(float deltaTimeSeconds)
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, glm::vec3(4, 1.2f, -3.01));
 	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, 2.5f, .01f));
-	//RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, glm::vec3(.0f, .0f, .0f), false, nullptr);
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, glm::vec3(.0f, .0f, .0f), false, nullptr);
 
 	// drawing inner rectangle
 	model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, glm::vec3(4, (float)1.2f - 1.25f * (1.f - fuel_percent), -3));
 	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, (float)2.5f * fuel_percent, .01f));
-	//RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color, false, nullptr);
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color, false, nullptr);
+}
+
+bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position)
+{
+	return (platform_position.z - 4.5 <= player_position.z) &&
+		(platform_position.z + 4.5 >= player_position.z) &&
+		(platform_position.x - 1.5 <= player_position.x) &&
+		(platform_position.x + 1.5 >= player_position.x);
 }
 
 void Tema2::AnimatePlatforms(float deltaTimeSeconds)
@@ -241,7 +265,7 @@ void Tema2::AnimateFall(float deltaTimeSeconds)
 				exit(0);
 		}
 	}
-	else 
+	else
 	{
 		for (int i = 0; i < platform_positions.size(); ++i) {
 			glm::vec3 col = platform_colors.at(i);
@@ -280,6 +304,8 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 			move_left = false;
 			player_position.x = player_last_x - 2.f;
 		}
+		camera->TranslateRight(player_position.x - camera_position_third_person.x);
+		camera_position_third_person.x = player_position.x;
 	}
 
 	if (move_right) // moving to the right lane
@@ -290,19 +316,23 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 			move_right = false;
 			player_position.x = player_last_x + 2.f;
 		}
+		camera->TranslateRight(player_position.x - camera_position_third_person.x);
+		camera_position_third_person.x = player_position.x;
 	}
 
 	if (is_jumping)
 	{
-		if (time_elapsed - jump_time <= .3f)
+		if (time_elapsed - jump_time <= .5f)
 			player_position.y += player_jump_speed * deltaTimeSeconds;
 		else
 			player_position.y -= player_jump_speed * deltaTimeSeconds;
-		if (time_elapsed - jump_time >= .6f)
+		if (time_elapsed - jump_time >= 1.f)
 		{
 			is_jumping = false;
 			player_position.y = .5f;
 		}
+		camera->TranslateUpword(player_position.y - camera_position_third_person.y + 1.5f);
+		camera_position_third_person.y = player_position.y + 1.5f;
 	}
 
 	if (initial_platform_positions.empty() && !is_jumping)
@@ -310,10 +340,7 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 		bool found = false;
 		for (glm::vec3 pos : platform_positions)
 		{
-			if (pos.z + 4 >= player_position.z &&
-				pos.z - 4 <= player_position.z &&
-				pos.x - 1 <= player_position.x &&
-				pos.x + 1 >= player_position.x)
+			if (CheckIntersect(player_position, pos))
 			{
 				found = true;
 				break;
@@ -323,6 +350,8 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 			AnimateFall(deltaTimeSeconds);
 	}
 
+	if (!is_third_person)
+		return;
 	// drawing player
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, player_position);
@@ -352,10 +381,7 @@ void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
 				continue;
 			glm::vec3 pos = platform_positions.at(i);
 
-			if (pos.z + 4.5f >= player_position.z &&
-				pos.z - 4.5f <= player_position.z &&
-				pos.x - 1.25f <= player_position.x &&
-				pos.x + 1.25f >= player_position.x)
+			if (CheckIntersect(player_position, pos))
 			{
 				platform_colors.at(i) = platforms.platform_color_types[5];
 				if (platform_types[i] == platforms.PLATFORM_TYPE::RED)
@@ -393,11 +419,10 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model_matrix));
 
 	GLint view_location = glGetUniformLocation(shader->GetProgramID(), "View");
-	glm::mat4 view_matrix = GetSceneCamera()->GetViewMatrix();
+	glm::mat4 view_matrix = camera->GetViewMatrix();
 	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
 
 	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
-	glm::mat4 projection_matrix = GetSceneCamera()->GetProjectionMatrix();
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection_matrix));
 
 	GLint defform_location = glGetUniformLocation(shader->GetProgramID(), "defform");
@@ -430,7 +455,7 @@ void Tema2::Update(float deltaTimeSeconds)
 	time_elapsed += deltaTimeSeconds;
 	rotate_factor += min((float)MAX_PLATFORM_SPEED, platform_speed) * deltaTimeSeconds * (float)0.3;
 	last_z += deltaTimeSeconds * platform_speed;
-	cout << 1 / deltaTimeSeconds << endl;
+	//cout << 1 / deltaTimeSeconds << endl;
 
 	// drawing user interface
 	//DrawUI(deltaTimeSeconds);
@@ -454,6 +479,7 @@ void Tema2::Update(float deltaTimeSeconds)
 void Tema2::FrameEnd()
 {
 	//DrawCoordinatSystem();
+	//DrawCoordinatSystem(camera->GetViewMatrix(), projection_matrix);
 }
 
 void Tema2::OnInputUpdate(float deltaTime, int mods)
@@ -487,10 +513,6 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
 	{
 		platform_speed -= 5 * deltaTime;
 	}
-	if (window->KeyHold(GLFW_KEY_C))
-	{
-		is_third_person = !is_third_person;
-	}
 	if (window->KeyHold(GLFW_KEY_SPACE) && !is_jumping)
 	{
 		is_jumping = true;
@@ -500,6 +522,21 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
 
 void Tema2::OnKeyPress(int key, int mods)
 {
+	if (key == GLFW_KEY_C) {
+		is_third_person = !is_third_person;
+		if (is_third_person) {
+			glm::vec3 new_camera_position = glm::vec3(camera_position_third_person);
+			new_camera_position.y = 1;
+			new_camera_position.z = 0;
+			camera->Set(camera_position_third_person, new_camera_position, glm::vec3(0, 1, 0));
+		}
+		else
+		{
+			glm::vec3 new_camera_position = glm::vec3(player_position);
+			new_camera_position.z = -5;
+			camera->Set(player_position, new_camera_position, glm::vec3(0, 1, 0));
+		}
+	}
 }
 
 void Tema2::OnKeyRelease(int key, int mods)

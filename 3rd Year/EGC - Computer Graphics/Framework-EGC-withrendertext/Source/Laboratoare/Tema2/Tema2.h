@@ -13,6 +13,7 @@
 #include <math.h>
 #include "Platforms.h"
 #include "Tema2Levels.h"
+#include "LabCamera.h"
 
 class Tema2 : public SimpleScene
 {
@@ -72,4 +73,11 @@ protected:
     float last_z;
     Platforms platforms;
     float exit_cooldown;
+    CameraTema2::Camera *camera;
+    glm::mat4 projection_matrix;
+    bool t2_projection_type;
+    float right, left, top, bottom, fov;
+    glm::vec3 camera_position_third_person;
+    float const Z_NEAR = 1.f;
+    float const Z_FAR = 45.f;
 };

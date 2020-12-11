@@ -285,6 +285,9 @@
     <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2Levels.h">
       <Filter>Laboratoare\Tema2</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema2\LabCamera.h">
+      <Filter>Laboratoare\Tema2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Laboratoare\Laborator6\Shaders\FragmentShader.glsl">

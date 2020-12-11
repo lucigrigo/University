@@ -6,7 +6,7 @@
 #include <math.h>
 #include "Tema2Levels.h"
 
-#define MAX_PLATFORM_SPEED 25
+#define MAX_PLATFORM_SPEED 20
 #define MIN_PLATFORM_SPEED 5
 
 class Platforms {
