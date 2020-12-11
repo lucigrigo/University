@@ -422,7 +422,7 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_
 	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
 
 	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
-	glm::mat4 proj_matrix = glm::ortho(0.01f, 5.f, 0.01f, 5.f);
+	glm::mat4 proj_matrix = glm::ortho(left, right, bottom, top, Z_NEAR, Z_FAR);
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(proj_matrix));
 
 	glUniform1i(glGetUniformLocation(shader->GetProgramID(), "defform"), 0);
