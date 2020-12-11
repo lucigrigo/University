@@ -86,7 +86,6 @@ void Tema2::Init()
 		left = -5.f;
 		bottom = -5.f;
 		top = 5.f;
-		fov = 45;
 		camera_position_third_person = glm::vec3(0, 2, 3.5f);
 
 		camera = new CameraTema2::Camera();
@@ -98,7 +97,7 @@ void Tema2::Init()
 	{
 		platforms.initValues();
 		player_position = glm::vec3(.0f, .5f, -3.f);
-		player_color = glm::vec3(.2f, .2f, .2f);
+		player_color = glm::vec3(.0f, .0f, .0f);
 		no_visible_platforms = 0;
 		platform_speed = MIN_PLATFORM_SPEED;
 		last_acc = 0;
@@ -160,13 +159,13 @@ void Tema2::DrawUI(float deltaTimeSeconds)
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, glm::vec3(4, 1.2f, -3.01));
 	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, 2.5f, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, glm::vec3(.0f, .0f, .0f), false, nullptr);
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, glm::vec3(1.f, 1.f, 1.f));
 
 	// drawing inner rectangle
 	model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, glm::vec3(4, (float)1.2f - 1.25f * (1.f - fuel_percent), -3));
 	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, (float)2.5f * fuel_percent, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color, false, nullptr);
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color);
 }
 
 bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position)
@@ -352,6 +351,7 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 
 	if (!is_third_person)
 		return;
+
 	// drawing player
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, player_position);
@@ -402,6 +402,35 @@ void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
 			}
 		}
 	}
+}
+
+void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix, const glm::vec3& color)
+{
+	if (!mesh || !shader || !shader->GetProgramID())
+		return;
+
+	glUseProgram(shader->program);
+
+	GLint obj_color = glGetUniformLocation(shader->program, "object_color");
+	glUniform3fv(obj_color, 1, glm::value_ptr(color));
+
+	GLint model_location = glGetUniformLocation(shader->GetProgramID(), "Model");
+	glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model_matrix));
+
+	GLint view_location = glGetUniformLocation(shader->GetProgramID(), "View");
+	glm::mat4 view_matrix = camera->GetViewMatrix();
+	glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view_matrix));
+
+	GLint projection_location = glGetUniformLocation(shader->GetProgramID(), "Projection");
+	glm::mat4 proj_matrix = glm::ortho(0.01f, 5.f, 0.01f, 5.f);
+	glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(proj_matrix));
+
+	glUniform1i(glGetUniformLocation(shader->GetProgramID(), "defform"), 0);
+
+	glUniform1i(glGetUniformLocation(shader->GetProgramID(), "has_texture"), 0);
+
+	glBindVertexArray(mesh->GetBuffers()->VAO);
+	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 
 void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
@@ -458,7 +487,7 @@ void Tema2::Update(float deltaTimeSeconds)
 	//cout << 1 / deltaTimeSeconds << endl;
 
 	// drawing user interface
-	//DrawUI(deltaTimeSeconds);
+	DrawUI(deltaTimeSeconds);
 
 	// drawing platforms
 	AnimatePlatforms(deltaTimeSeconds);
@@ -472,7 +501,7 @@ void Tema2::Update(float deltaTimeSeconds)
 	// drawing background image
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, glm::vec3(0, -15, -40));
-	model_matrix = glm::scale(model_matrix, glm::vec3(120, 60, 1.f));
+	model_matrix = glm::scale(model_matrix, glm::vec3(120, 85, 1.f));
 	RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, glm::vec3(.0f, .0f, .0f), false, textures["background"]);
 }
 
@@ -524,16 +553,15 @@ void Tema2::OnKeyPress(int key, int mods)
 {
 	if (key == GLFW_KEY_C) {
 		is_third_person = !is_third_person;
-		if (is_third_person) {
-			glm::vec3 new_camera_position = glm::vec3(camera_position_third_person);
-			new_camera_position.y = 1;
-			new_camera_position.z = 0;
+		if (is_third_person)
+		{
+			glm::vec3 new_camera_position = glm::vec3(camera_position_third_person.x, 1, 0);
 			camera->Set(camera_position_third_person, new_camera_position, glm::vec3(0, 1, 0));
 		}
 		else
 		{
 			glm::vec3 new_camera_position = glm::vec3(player_position);
-			new_camera_position.z = -5;
+			new_camera_position.z = -10;
 			camera->Set(player_position, new_camera_position, glm::vec3(0, 1, 0));
 		}
 	}
