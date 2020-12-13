@@ -32,4 +32,5 @@ class Laborator8 : public SimpleScene
 		unsigned int materialShininess;
 		float materialKd;
 		float materialKs;
+		bool spotlight;
 };

@@ -104,6 +104,8 @@ void Laborator8::Update(float deltaTimeSeconds)
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f));
 		RenderMesh(meshes["sphere"], shaders["Simple"], modelMatrix);
 	}
+
+	spotlight = false;
 }
 
 void Laborator8::FrameEnd()
@@ -145,6 +147,8 @@ void Laborator8::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 	int object_color = glGetUniformLocation(shader->program, "object_color");
 	glUniform3f(object_color, color.r, color.g, color.b);
 
+	glUniform1i(glGetUniformLocation(shader->program, "is_using_spotlight"), (spotlight) ? 1 : 0);
+
 	// Bind model matrix
 	GLint loc_model_matrix = glGetUniformLocation(shader->program, "Model");
 	glUniformMatrix4fv(loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
@@ -185,12 +189,13 @@ void Laborator8::OnInputUpdate(float deltaTime, int mods)
 		if (window->KeyHold(GLFW_KEY_D)) lightPosition += right * deltaTime * speed;
 		if (window->KeyHold(GLFW_KEY_E)) lightPosition += up * deltaTime * speed;
 		if (window->KeyHold(GLFW_KEY_Q)) lightPosition -= up * deltaTime * speed;
+		if (window->KeyHold(GLFW_KEY_F)) spotlight = !spotlight;
 	}
 }
 
 void Laborator8::OnKeyPress(int key, int mods)
 {
-	// add key press event
+
 }
 
 void Laborator8::OnKeyRelease(int key, int mods)
