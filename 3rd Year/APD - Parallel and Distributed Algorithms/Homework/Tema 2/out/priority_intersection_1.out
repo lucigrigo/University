@@ -1,0 +1,14 @@
+Car 4 with low priority is trying to enter the intersection...
+Car 4 with low priority has entered the intersection
+Car 6 with low priority is trying to enter the intersection...
+Car 6 with low priority has entered the intersection
+Car 1 with high priority has entered the intersection
+Car 2 with low priority is trying to enter the intersection...
+Car 1 with high priority has exited the intersection
+Car 2 with low priority has entered the intersection
+Car 0 with high priority has entered the intersection
+Car 3 with low priority is trying to enter the intersection...
+Car 5 with high priority has entered the intersection
+Car 0 with high priority has exited the intersection
+Car 5 with high priority has exited the intersection
+Car 3 with low priority has entered the intersection

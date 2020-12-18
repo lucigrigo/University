@@ -1,0 +1,36 @@
+Car 1 has come from the lane number 3
+Car 12 has come from the lane number 0
+Car 8 has come from the lane number 1
+Car 10 has come from the lane number 2
+Car 14 has come from the lane number 0
+Car 3 has come from the lane number 3
+Car 11 has come from the lane number 0
+Car 5 has come from the lane number 0
+Car 7 has come from the lane number 1
+Car 9 has come from the lane number 1
+Car 4 has come from the lane number 1
+Car 2 has come from the lane number 1
+Car 6 has come from the lane number 2
+Car 13 has come from the lane number 1
+Car 0 has come from the lane number 0
+Car 12 from the lane 0 has entered lane number 0
+Car 10 from the lane 2 has entered lane number 1
+Car 6 from the lane 2 has entered lane number 1
+Car 14 from the lane 0 has entered lane number 0
+Car 11 from the lane 0 has entered lane number 0
+The initial lane 2 has been emptied and removed from the new lane queue
+The initial lane 0 has no permits and is moved to the back of the new lane queue
+Car 1 from the lane 3 has entered lane number 1
+Car 3 from the lane 3 has entered lane number 1
+The initial lane 3 has been emptied and removed from the new lane queue
+Car 8 from the lane 1 has entered lane number 0
+Car 7 from the lane 1 has entered lane number 0
+Car 9 from the lane 1 has entered lane number 0
+The initial lane 1 has no permits and is moved to the back of the new lane queue
+Car 5 from the lane 0 has entered lane number 0
+Car 0 from the lane 0 has entered lane number 0
+The initial lane 0 has been emptied and removed from the new lane queue
+Car 4 from the lane 1 has entered lane number 0
+Car 2 from the lane 1 has entered lane number 0
+Car 13 from the lane 1 has entered lane number 0
+The initial lane 1 has been emptied and removed from the new lane queue

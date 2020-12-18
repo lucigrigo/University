@@ -1,0 +1,40 @@
+Car 0 with low priority is trying to enter the intersection...
+Car 0 with low priority has entered the intersection
+Car 1 with low priority is trying to enter the intersection...
+Car 1 with low priority has entered the intersection
+Car 2 with low priority is trying to enter the intersection...
+Car 2 with low priority has entered the intersection
+Car 7 with high priority has entered the intersection
+Car 3 with low priority is trying to enter the intersection...
+Car 8 with high priority has entered the intersection
+Car 4 with low priority is trying to enter the intersection...
+Car 7 with high priority has exited the intersection
+Car 6 with low priority is trying to enter the intersection...
+Car 8 with high priority has exited the intersection
+Car 3 with low priority has entered the intersection
+Car 4 with low priority has entered the intersection
+Car 6 with low priority has entered the intersection
+Car 9 with high priority has entered the intersection
+Car 10 with high priority has entered the intersection
+Car 5 with low priority is trying to enter the intersection...
+Car 9 with high priority has exited the intersection
+Car 10 with high priority has exited the intersection
+Car 5 with low priority has entered the intersection
+Car 11 with high priority has entered the intersection
+Car 12 with high priority has entered the intersection
+Car 13 with high priority has entered the intersection
+Car 11 with high priority has exited the intersection
+Car 12 with high priority has exited the intersection
+Car 15 with low priority is trying to enter the intersection...
+Car 13 with high priority has exited the intersection
+Car 15 with low priority has entered the intersection
+Car 16 with low priority is trying to enter the intersection...
+Car 16 with low priority has entered the intersection
+Car 14 with high priority has entered the intersection
+Car 17 with high priority has entered the intersection
+Car 18 with high priority has entered the intersection
+Car 14 with high priority has exited the intersection
+Car 17 with high priority has exited the intersection
+Car 19 with high priority has entered the intersection
+Car 18 with high priority has exited the intersection
+Car 19 with high priority has exited the intersection

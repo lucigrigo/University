@@ -1,0 +1,180 @@
+-------------------------------------------------------------------------------
+							
+							Grigore Lucian-Florin
+							 Grupa 336, Seria CA
+						Algoritmi Paraleli si Distribuiti
+								   Tema 2
+
+-------------------------------------------------------------------------------
+
+Pentru fiecare cerinta o sa scriu cu "-" pasii pe care i-am urmat pentru
+rezolvarea problemei pentru fiecare masina, adaugand, acolo unde a fost cazul, 
+observatii suplimentare, alte rezolvari pe care le am mai incercat, etc.
+
+-------------------------------------------------------------------------------
+
+Cerinta 1: simple_intersection
+	- printez pentru fiecare masina mesajul ca a ajuns in intersectie
+	- astept la o bariera TOATE masinile, astfel incat perioada de asteptare
+sa inceapa in acelasi timp pentru toate
+	- fiecare masina asteapta (sleep) timpul indicat in input pentru fiecare
+	- dupa asteptare, se printeaza pentru fiecare masina mesajul ca a plecat
+din intersectie
+
+-------------------------------------------------------------------------------
+
+Cerinta 2: simple_n_roundabout
+	- pentru fiecare masina afisez mesajul ca a ajuns la intersectie
+	- asteapta la un semafor si ia 1 permit
+	- dupa ce reuseste sa treaca de semafor, printeaza mesajul ca a intrat in
+intersectie
+	- asteapta un timp fix pentru toate masinile in intersectie
+	- printeaza mesajul ca a iesit din intersectie
+	- elibereaza permit-ul luat de la semafor
+
+-------------------------------------------------------------------------------
+
+Cerinta 3: simple_strict_1_car_roundabout
+	- printeaza mesaj ca a ajuns la intersectie
+	- incearca sa ia 1 permit de la semaforul corespunzator benzii de pe care
+a venit masina
+	- asteapta la o bariera si masinile de pe celelalte benzi ca sa se sincro-
+nizeze
+	- printeaza mesaj cand intra in intersectie
+	- asteapta o perioada de timp
+	- printeaza mesaj cand iese din intersectie
+	- elibereaza permit-ul luat de la semaforul benzii corespunzatoare
+
+-------------------------------------------------------------------------------
+
+Cerinta 4: simple_strict_x_car_roundabout
+	- printeaza mesaj ca a ajuns la intersectie
+	- asteapta la o bariera initiala toate masinile din cerinta
+	- incearca sa intre in intersectie, adica sa ia 1 permit din semaforul 
+corespunzator benzii de pe care a venit
+	- printeaza mesaj daca a fost selectata sa intre in intersectie
+	- asteapta si celelalte masini selectate (de pe toate benzile)
+	- printeaza mesaj daca a intrat in intersectie
+	- asteapta fiecare masina acelasi numar de secunde in intersectie
+	- printeaza mesaj cand a iesit din intersectie
+	- asteapta la bariera de iesire si celelalte masini de pe celelalte benzi
+	- elibereaza permit-ul luat de la semaforul benzii de pe care a venit
+
+-------------------------------------------------------------------------------
+
+Cerinta 5: simple_max_x_car_roundabout
+	- printeaza mesaj ca a ajuns la intersectie
+	- asteapta la semafor pentru banda de pe care vine
+	- printeaza mesaj ca a intrat in intersectie
+	- asteapta fiecare masina acelasi timp fix
+	- printeaza mesaj ca a iesit din intersectie
+	- elibereaza permit-ul luat de la semaforul benzii corespunzatoare
+
+	+ am pastrat inainte de apelul functiei handleCar sleep-ul din schelet
+
+-------------------------------------------------------------------------------
+
+Cerinta 6: priority_intersection
+	- pentru masinile cu prioritate:
+		- printeaza mesaj ca a ajuns in intersectie
+		- incearca sa ia 1 permit din semaforul intersectiei
+		- asteapta 2 secunde in intersectie
+		- printeaza mesaj ca a iesit din intersectie
+		- elibereaza permit-ul luat de la semafor
+	- pentru masinile fara prioritate:
+		- printeaza mesaj ca a ajuns in intersectie
+		- incearca sa ia toate permit-urile semaforului
+		- printeaza mesaj de trecere prin intersectie
+		- elibereaza toate permit-urile semaforului
+
+	+ am pastrat inainte de apelul functiei handleCar sleep-ul din schelet
+
+-------------------------------------------------------------------------------
+
+Cerinta 7: crosswalk
+	- execut in bucla urmatoarele actiuni:
+		- verific daca pietonii au trecut sau nu si in functie de ultimul mesaj
+printat, printez mesajul corespunzator sau nu
+		- astept pe fiecare thread (masina) folosind wait() si un lock pe un
+Object din clasa Pedestrians
+		- ies din wait() daca se schimba finished sau pass din Pedestrians
+		- daca pietonii au terminat de trecut, ies din bucla
+	- dupa iesirea din bucla, verific ca ultimul mesaj printat de fiecare masi-
+na este cel de trecere (cu "[...]green light")
+
+	+ in clasa Pedestrians am schimbat variabilele finished si pass sa fie de
+tipul AtomicBoolean, doar ca sa ma asigur ca citirile acestora au loc exact
+cum mi-am imaginat initial
+	+ am adaugat un Object denumit "bell" care serveste ca lacat pentru opera-
+tiile wait() si notify()
+	+ am adaugat cate un notify() la fiecare schimbare a variabilelor pass si
+finished la true
+
+-------------------------------------------------------------------------------
+
+Cerinta 8: simple_maintenance
+	- printez mesaj ca a ajuns in ingustare
+	- incerc sa iau 1 permit din semaforul corespunzator benzii de pe care a
+venit masina
+	- printez mesaj ca a trecut de ingustare
+	- astept la o bariera numarul maxim de masini permise in intersectie la
+un moment de timp, specificat in cerinta
+	- pentru fiecare masina, eliberez pentru celalalt semafor (de pe cealalta)
+banda un permit
+
+-------------------------------------------------------------------------------
+
+Cerinta 9: complex_maintenance
+	- printez mesajul initial ca o masina a ajuns la intersectie si de pe ce
+banda
+	- primesc numarul de ordine de pe acea banda
+	- memorez noua banda pe care trebuie sa intru
+	- incrementez numarul total de masini de pe banda de pe care am venit
+	- astept la o bariera toate masinile
+	- fiecare masina intra in busy waiting; conditia de iesire fiind daca
+numarul de ordine propriu este cel care trebuie sa intre de pe banda de pe
+care a venit si daca banda veche este cea din capul cozii de intrare pe cea
+noua
+	- incearca sa ia un permit de la semafor
+	- printez mesajul ca a intrat pe banda noua
+	- incrementez numarul de masini care a trecut de ingustare
+	- testez daca de pe o banda veche au trecut maxCars masini sau daca aceasta
+s-a terminat
+	- daca banda si-a terminat masinile, aceasta este eliminata si este printat
+mesajul corespunzator
+	- daca banda doar si-a terminat permit-urile, ea este mutata la capatul
+cozii de asteptare si este printat mesajul corespunzator
+	- in ambele cazuri, restabilesc permit-urile semaforului
+	- incrementez numarul de ordine al masinilor de pe banda veche
+
+	+ aici am folosit foarte multe structuri thread-safe doar pentru ca in
+variantele incipiente ale rezolvarii am avut cateva probleme care erau (cred
+eu) datorita faptului ca foloseam ArrayList-uri sau LinkedList-uri
+	+ acel try {} catch {} prezent in while-ul care face busy waiting este doar
+pentru a ascunde exception-ul NoSuchElementException care este provocat de
+operatia de remove de la linia 112 din clasa ComplexMaintenance. In timpul
+eliminarii, pana lista isi reface integritatea (asigneaza urmatorul element
+pe pozitia 0), aceasta exceptia poate fi aruncata de un thread, desi lista nu
+este goala, doar neactualizata in timp util
+	+ in acelasi while cu busy waiting, folosesc synchronized pe acea variabila
+lock pentru ca, uneori, ar fi fost 2 conditii valide pentru masini care vin de
+pe benzi diferite, scenariu care nu poate avea loc. Am observat ca daca o banda
+isi termina permit-urile, pana la schimbarea ordinii de intrare pe banda noua
+dupa acel moment de timp, poate exista un moment de timp in aceasta schimbare
+sa nu fie vazuta de masinile care asteapta, dar numarul de ordine al masinilor
+de pe acea banda veche sa fie incrementat.
+
+-------------------------------------------------------------------------------
+
+Cerinta 10: railroad
+	- printeaza mesaj ca a juns la calea ferata
+	- isi primeste numarul de ordine
+	- se asteapta toate masinile la o bariera
+	- numai o masina printeaza mesajul care indica trecerea trenului
+	- se asteapta toate masinile la alta bariera
+	- dupa bariera, masinile intra in busy waiting pana le vine randul (am
+aflat ca este ok daca busy waiting are loc dupa un element de genul barierei)
+	- printeaza mesajul de trecere peste calea ferata
+	- incrementeaza numarul masinii care trebuie sa treaca dupa cea curenta
+
+-------------------------------------------------------------------------------

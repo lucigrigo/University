@@ -1,0 +1,92 @@
+Car 20 has come from the lane number 4
+Car 38 has come from the lane number 4
+Car 1 has come from the lane number 3
+Car 29 has come from the lane number 2
+Car 16 has come from the lane number 3
+Car 31 has come from the lane number 5
+Car 26 has come from the lane number 6
+Car 14 has come from the lane number 0
+Car 10 has come from the lane number 2
+Car 6 has come from the lane number 2
+Car 37 has come from the lane number 1
+Car 36 has come from the lane number 2
+Car 39 has come from the lane number 4
+Car 22 has come from the lane number 6
+Car 5 has come from the lane number 0
+Car 17 has come from the lane number 5
+Car 30 has come from the lane number 1
+Car 19 has come from the lane number 6
+Car 3 has come from the lane number 3
+Car 4 has come from the lane number 1
+Car 33 has come from the lane number 6
+Car 35 has come from the lane number 6
+Car 18 has come from the lane number 4
+Car 34 has come from the lane number 6
+Car 32 has come from the lane number 5
+Car 0 has come from the lane number 0
+Car 27 has come from the lane number 6
+Car 28 has come from the lane number 3
+Car 8 has come from the lane number 1
+Car 2 has come from the lane number 1
+Car 11 has come from the lane number 0
+Car 24 has come from the lane number 6
+Car 21 has come from the lane number 2
+Car 9 has come from the lane number 1
+Car 12 has come from the lane number 0
+Car 25 has come from the lane number 6
+Car 23 has come from the lane number 6
+Car 7 has come from the lane number 1
+Car 13 has come from the lane number 1
+Car 15 has come from the lane number 6
+Car 29 from the lane 2 has entered lane number 1
+Car 20 from the lane 4 has entered lane number 2
+Car 14 from the lane 0 has entered lane number 0
+Car 38 from the lane 4 has entered lane number 2
+Car 10 from the lane 2 has entered lane number 1
+Car 39 from the lane 4 has entered lane number 2
+Car 18 from the lane 4 has entered lane number 2
+The initial lane 4 has been emptied and removed from the new lane queue
+Car 31 from the lane 5 has entered lane number 2
+Car 17 from the lane 5 has entered lane number 2
+Car 32 from the lane 5 has entered lane number 2
+The initial lane 5 has been emptied and removed from the new lane queue
+Car 26 from the lane 6 has entered lane number 2
+Car 22 from the lane 6 has entered lane number 2
+Car 19 from the lane 6 has entered lane number 2
+Car 33 from the lane 6 has entered lane number 2
+The initial lane 6 has no permits and is moved to the back of the new lane queue
+Car 35 from the lane 6 has entered lane number 2
+Car 34 from the lane 6 has entered lane number 2
+Car 5 from the lane 0 has entered lane number 0
+Car 0 from the lane 0 has entered lane number 0
+Car 11 from the lane 0 has entered lane number 0
+The initial lane 0 has no permits and is moved to the back of the new lane queue
+Car 27 from the lane 6 has entered lane number 2
+Car 24 from the lane 6 has entered lane number 2
+The initial lane 6 has no permits and is moved to the back of the new lane queue
+Car 37 from the lane 1 has entered lane number 0
+Car 30 from the lane 1 has entered lane number 0
+Car 4 from the lane 1 has entered lane number 0
+Car 8 from the lane 1 has entered lane number 0
+The initial lane 1 has no permits and is moved to the back of the new lane queue
+Car 12 from the lane 0 has entered lane number 0
+The initial lane 0 has been emptied and removed from the new lane queue
+Car 2 from the lane 1 has entered lane number 0
+Car 9 from the lane 1 has entered lane number 0
+Car 7 from the lane 1 has entered lane number 0
+Car 13 from the lane 1 has entered lane number 0
+The initial lane 1 has been emptied and removed from the new lane queue
+Car 6 from the lane 2 has entered lane number 1
+Car 36 from the lane 2 has entered lane number 1
+The initial lane 2 has no permits and is moved to the back of the new lane queue
+Car 1 from the lane 3 has entered lane number 1
+Car 16 from the lane 3 has entered lane number 1
+Car 3 from the lane 3 has entered lane number 1
+Car 28 from the lane 3 has entered lane number 1
+The initial lane 3 has been emptied and removed from the new lane queue
+Car 21 from the lane 2 has entered lane number 1
+The initial lane 2 has been emptied and removed from the new lane queue
+Car 25 from the lane 6 has entered lane number 2
+Car 23 from the lane 6 has entered lane number 2
+Car 15 from the lane 6 has entered lane number 2
+The initial lane 6 has been emptied and removed from the new lane queue
