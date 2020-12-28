@@ -6,7 +6,6 @@ Contains:
 - Homework projects
 - Weekly applied university work
 - Personal projects
-- Online courses (on the UDEMY platform mainly)
 
 ## Most important projects are:
 - [Face recognition algorithm using the Eigenfaces technique](https://github.com/lucigrigo/GIT/tree/master/MN/tema2/checker%20Moodle).
@@ -29,7 +28,3 @@ Contains:
 - Machine Learning
 - Object-Oriented Programming
 - Algorithms
-
-## Frameworks used - Python:
-- Sci:Kit Learn
-- Keras using TensorFlow backend or PyTorch
