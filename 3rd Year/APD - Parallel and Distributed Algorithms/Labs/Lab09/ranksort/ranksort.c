@@ -70,7 +70,7 @@ int main(int argc, char * argv[]) {
 
 		// sort the vector v
 		
-        // recv the new pozitions
+        // recv the new positions
 
 		displayVector(v);
 		compareVectors(v, vQSort);
