@@ -503,7 +503,7 @@ void Tema2::Update(float deltaTimeSeconds)
 	rotate_factor += min((float)MAX_PLATFORM_SPEED, platform_speed) * deltaTimeSeconds * (float)0.3;
 	last_z += deltaTimeSeconds * platform_speed;
 	score = (int) (time_elapsed * platform_speed);
-	cout << score << endl;
+	cout << "Score: " << score << endl;
 
 	// drawing user interface
 	DrawUI(deltaTimeSeconds);
