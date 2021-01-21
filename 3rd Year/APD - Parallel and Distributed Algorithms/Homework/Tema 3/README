@@ -1,0 +1,165 @@
+-------------------------------------------------------------------------------
+
+                        Grigore Lucian-Florin
+                    Algoritmi Paraleli si Distribuiti
+                                Tema 3
+
+-------------------------------------------------------------------------------
+
+                        Descrierea implementarii
+
+Programul incepe executia in functia main, unde au loc urmatoarele actiuni:
+- se initializeaza programul din punctul de vedere al topologiei MPI
+- stochez numarul de thread-uri disponibile
+- daca procesul curent este MASTER WORKER (are rang 0 in MPI_COMM_WORLD):
+    - parsez numele fisierului de input
+    - creez vectorul de thread-uri care sa citeasca din fisier (dimensiune 4)
+    - aloc dinamic argumentele pentru fiecare proces reader
+    - pornesc thread-urile
+    - astept terminarea thread-urilor
+    - eliberez memoria alocata pentru argumente
+    - adun in acelasi vector paragrafele editate de fiecare worker, acestea
+aflandu-se intial in vectori diferiti pentru a reduce concurenta
+    - scriu in fisierul de iesire acest vector unic, paragrafele fiind ase-
+zate in ordinea din input
+- daca procesul nu este MASTER WORKER:
+    - initializez cele doua mutexuri folosite de thread-uri
+    - pornesc thread-ul de comunicare cu master
+    - astept terminarea acestuia
+    - eliberez mutex-urile
+
+                        Functia _reader_thread
+
+Aceasta functie este executata de oricare din cele 4 thread-uri de citire,
+indiferent de genul pe care il cauta.
+- se deschide cu ifstream fisierul de input si citesc cu getline() pana la
+finalul fisierului
+- incrementez un index care va fi asociat paragrafului in ordinea finala,
+astfel incat sa fie scrise la output in ordinea citirii
+- cand gasesc un paragraf care este de genul asociat thread-ului curent,
+incep sa il citesc linie cu linie, in bucati de maxim 20 de linii. Atunci
+cand paragraful se termina sau se ajunge la 20 de linii, acesta este trimis
+catre workerul asociat genului pentru editare
+- cand se termina un paragraf, trimit un semnal care sa anunte worker-ul de
+acest lucru
+- cand se termina fisierul de intrare, trimit alt semnal worker-ului care
+sa anunte acest lucru
+- la final, astept de la worker-ul asociat paragrafele editate si le pun in
+vectorul asociat genului corespunzator, primind si indexul la care au fost
+acestea gasite in fisierul de intrare
+
+                        Functia _editor_thread
+
+Aceasta functie este executata de un thread pornit din oricare worker care nu
+este MASTER WORKER.
+Daca thread-ul are rangul 0:
+- acesta este thread de comunicare cu MASTER WORKER
+- porneste thread-urile de editare
+- in bucla infinita, asteapta de la MASTER WORKER sa fie primit o dimensiune
+pentru paragraf, si dupa citeste in bucla bucatile din acel paragraf, pana
+la un semnal de oprire
+- la fiecare citire, pune intr-o coada paragrafele ce trebuie editate
+- cand primesc de la MASTER semnalul ca s-a terminat de citit fisierul de
+input, opresc bucla infinita, astept sa se termine de executat thread-urile
+de editare pornite; dupa aceasta, trimit inapoi catre worker paragrafele
+editate, comunicand si ordinea in care acestea au fost citite
+
+Daca thread-ul are orice rang in afara de 0:
+- acesta este thread de editare si este pornit de thread-ul de comunicare
+- el executa in bucla infinita:
+    - verifica daca exista vreun paragraf care asteapta sa fie editat
+    - il editeaza
+    - dupa editare, il introduce in coada care memoreaza paragrafele
+editate
+    - bucla infinita se opreste atunci cand in coada pentru paragrafele
+needitate este gasit un paragraf dummy care are flagul "done" setat pe true
+
+                            Functiile de editare
+
+Functiile de editare:
+- edit_horror
+- edit_comedy
+- edit_fantasy
+- edit_sf
+Acestea se ocupa de editarea unei singura bucati dintr-un paragraf, stocata
+intr-un char *. Thread-urile de editare din fiecare worker isi asociaza o
+functie de editare prin rangul workerului. M-am folosit de un typedef pentru
+pointer la functie si de un vector in care se memoreaza pointeri la toate
+tipurile de functii.
+
+                        Demonstratie scalabilitate
+
+Pentru a dovedi scalabilitatea, am rulat pe testul 5 executabilul, schimband
+manual in cod numarul de thread-uri. Prin numar de thread-uri ma refer la
+numarul maxim de thread-uri de pe workeri de editare. In cazul in care
+programul ar fi rulat pe mai multe masini in acelasi timp, scalabilitatea
+ar fi fost substantial mai vizibila decat simpla rulare pe un singur cal-
+culator. De aceea, consider ca rularea acestui program distribuit doar pe
+masina proprie nu este neaparat o dovada totala a scalabilitatii. Daca as detine
+mai multe masini pe care sa pot rula acest program, probabil prin schimbarea
+numarului de thread-uri, as putea arata ca programul scaleaza semnificativ.
+
+Cu 2 thread-uri:
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ make
+mpic++ tema3.cpp -o main
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m5.972s
+user    0m10.125s
+sys     0m3.281s
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m6.034s
+user    0m10.719s
+sys     0m3.313s
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m6.028s
+user    0m10.844s
+sys     0m3.625s
+
+Cu 3 thread-uri:
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ make
+mpic++ tema3.cpp -o main
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m5.370s
+user    0m13.078s
+sys     0m3.469s
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m5.155s
+user    0m12.797s
+sys     0m3.297s
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m5.253s 
+user    0m12.906s
+sys     0m2.906s
+
+Cu 4 thread-uri:
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ make
+mpic++ tema3.cpp -o main
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m3.480s
+user    0m7.406s
+sys     0m2.609s 
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt
+real    0m3.268s           
+user    0m6.609s          
+sys     0m2.547s         
+lucian@LuciPC:/mnt/e/Repos/WiP/Tema 3 - APD/fld$ time mpirun --oversubscribe -np 5 main tests/in/input5.txt 
+real    0m3.506s      
+user    0m7.391s   
+sys     0m2.453s
+
+                                Observatii
+
+1. Uneori checker-ul nu detecteaza citirea in paralel, insa aceasta poate fi
+usor verificata daca ne uitam in main, acolo unde pornesc mereu 4 thread-uri,
+fiecare cu un rang diferit. Fiecare thread isi alege un gen in functie de rang.
+
+2. Rareori, cam o data la 10, 15 rulari, imi apare ca solutia nu scaleaza. Insa
+am observat ca se intampla doar la testul 4. In mod special, patesc asta poate
+o data, de doua ori cand pornesc subsistemul de Ubuntu pe care rulez tema. In
+afara de asta, la primele 1-2 rulari pe subsistemul abia pornit se intampla
+cateva lucruri bizare, cum ar fi sa primesc "Test input1.txt took too long",
+dar celelalte teste, inclusiv cele mari (4 si 5) sa nu aiba nicio problema.
+Chiar daca probabil este o problema doar de la mine, am zis sa mentionez si
+acest aspect.
+
+-------------------------------------------------------------------------------
