@@ -1,0 +1,145 @@
+-------------------------------------------------------------------------------
+
+                        Grigore Lucian-Florin
+                        Limbaje Formale si Automate
+                        Tema - Interpretor Glypho
+
+-------------------------------------------------------------------------------
+
+                        Descrierea implementarii
+
+Programul incepe prin verificarea numarului de argumente primite, apoi prin
+construirea unui ArgumentParser pentru parsarea mai usoara a acestora. Acesta
+are 2 argumente: "input_filename" si "base". Acestea sunt parsate din sys args
+in mod automat. Dupa parsare, se memoreaza baza intr-o variabila si se citeste
+sirul de caractere al instructiunilor. Daca lungimea acestui sir nu este
+divizibila cu 4, se printeaza un mesaj de eroare si programul se inchide. Apoi,
+aceste instructiuni sunt decodificate conform algoritmului explicat in 
+descrierea temei. La final, acestea sunt executate.
+
+                        Decodificarea instructiunilor
+
+Are loc in functia decode_instr, care initial preproceseaza sirul de caractere
+in doua moduri: mai intai elimina orice caracter care nu este in intervalul
+ASCII [33, 126] si dupa imparte sirul in grupuri de cate 4. Apoi, pentru
+ficare element al noului sir creat, se apeleaza functia decode_single_instr.
+Aceasta functie construieste codificarea din cerinta utilizand un dictionar,
+in care, in ordinea aparitiilor, se atribuie fiecarui caracter nou un indice
+crescator, iar pentru cele deja intalnite, se foloseste indicele deja exis-
+tent in dictionar.
+
+                        Executia instructiunilor
+
+Este realizata in functia execute_instructions. Pentru simularea stivei din
+cerinta, am utilizat un collections.deque() ("double-ended queue"). Am con-
+siderat potrivita aceasta structura de date intrucat permite usor accesul
+si operatiile pe elemente la ambele capete ale stivei.
+Daca aceasta functie este apelata din main, atunci are loc cautarea indicilor
+parantezelor corespunztoare. Tot aici se verifica ca nu exista niciun fel de
+greseli legate de parantezele din input.
+Functia find_braces se ocupa de acest lucru, iar functia search_corresp
+cauta pentru o paranteza deschisa indexul parantezei inchise corespondente.
+Aceasta din urma se poate apela recursiv.
+Dupa aceasta, cu ajutorul dictionarului "switcher", se va asigna in mod au-
+tomat functia corespunzatoare fiecarui tip de instructiune.
+Daca aceasta functie este apelata din main, atunci se itereaza prin toate
+instructiunile primite, apelandu-se functii diferite pe aceeasi stiva, tot
+aici fiind asteptate si orice fel de exceptii la executarea oricarei instruc-
+tiuni.
+Daca aceasta functie este apelata de o instructiune execute, atunci ea va
+executa doar singura instructiune primita, aceasta fiind deja decodificata.
+De asemenea, nu mai are loc initializarea legata de indicii parantezelor si
+nici nu se asteapta vreo exceptie de la functia corespunzatoare.
+
+                    Functiile pentru fiecare instructiune
+
+Am creat cate o functie pentru fiecare tip de instructiune in parte.
+Numele acestora sunt de tipul "gly_[nume_instructiune]". Acestea 
+intorc stiva si indexul instructiunii de la care sa se continue firul de
+executie.
+
+gly_nop:
+    nu face nimic
+
+gly_input:
+    citeste un numar de la standard input
+    il converteste in decimal din baza specificata
+    il pune pe stiva
+
+gly_rot:
+    realizeaza rotirea stivei cu o unitate
+    collections.deque().rotate() functioneaza si pe un sir gol
+    astfel, a trebuit sa verific separat ca stiva nu este goala
+
+gly_swap:
+    scoate de pe stiva primul si al doilea element
+    le pune inapoi pe stiva in ordinea scoaterii
+
+gly_push:
+    pune pe stiva un element cu valoarea 1
+
+gly_rrot:
+    la fel ca functia gly_rot, doar difera sensul de rotire
+
+gly_dup:
+    scoate de pe stiva primul element
+    il pune inapoi de 2 ori
+
+gly_add:
+    scoate de pe stiva primele 2 elemente
+    pune inapoi pe stiva suma lor
+
+gly_lbrace:
+    scoate de pe stiva primul element
+    daca acesta este egal cu 0, atunci va intoarce ca index pentru
+instructiunea urmatoare indexul parantezei dreapta corespunzatoare cu cea 
+curenta
+    daca nu, acest index nu se modifica si doar va fi intors
+    se asigura ca pune inapoi pe stiva elementul scos
+
+gly_output:
+    scoate de pe stiva primul element
+    daca baza folosita nu este 10, atunci il converteste la reprezentarea
+corecta folosind functiile str_base si digit_to_char
+    printeaza numarul/reprezentarea corespunzatoare
+
+gly_multiply:
+    scoate de pe stiva primele 2 numere
+    pune inapoi pe stiva produsul acestora
+
+gly_execute:
+    construieste codificarea corespunzatoare urmatoarelor 4 elemente de pe stiva
+    daca instructiunea este una cu paranteze o exceptie este aruncata
+    in caz contrar, instructiunea este executata cu ajutorul functiei
+execute_instructions
+
+gly_negate:
+    scoate de pe stiva primul element
+    pune pe stiva opusul acestuia
+
+gly_pop:
+    scoate de pe stiva primul element
+
+gly_rbrace:
+    ca index pentru instructiunea ce urmeaza a fi executata intoarce pozitia
+parantezei deschise corespunzatoare parantezei curente
+
+gly_invalid_instruction:
+    functie dummy care doar acopera cazul in care codificarea functiei nu
+corespunde cu codul niciuneia dintre instructiunile precizate in cerinta
+
+-------------------------------------------------------------------------------
+
+                        Observatii
+
+1. Am folosit limbajul Python intrucat acesta se ocupa automat de valorile care
+ar face overflow pe un long long int (de exemplu 2 ** 120).
+
+2. Toate exceptiile care pot fi intampinate de oricare din instructiuni sunt
+acoperite in functia execute_instructions.
+
+3. Iterarea prin instructiuni se foloseste cu ajutorul unui index. Acesta
+poate fi modificat in functiile apelate, precum in cazul parantezelor care
+fac un salt la alta instructiune.
+
+-------------------------------------------------------------------------------

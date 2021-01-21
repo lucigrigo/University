@@ -1,0 +1,48 @@
+test.sh e programul care evalueaza tema. Trebuie sa se afle in radacina temei, in directorul unde e si Makefile.
+
+checker contine fisiere auxiliare temei.
+
+checker/tests contine testele in sine:
+ <test>.gly: codul pe care il executa programul
+ <test>.gsh: codul glypho simplificat, unde e folosit un simbol pentru fiecare instructiune. Puteti vedea corespondente la [0] sau in checker/glypher.py
+ <test>.in: intrarile pe care le primeste programul
+ <test>.out: iesirile pe care trebuie sa le afiseze programul la iesirea standard
+ <test>.err: iesirile pe care trebuie sa le afiseze programul la iesirea de eroare
+ <test>.ret: valoarea de retur asteptata de la program
+
+checker/base.cfg: configuratia pentru ce baze sunt folosite pentru bonus
+
+checker/glypher.py: converteste glypho simplificat la glypho complet. Primeste ca argumente in linia de comanda numele fisierelor .gsh si creeaza un fisier .gly daca nu exista deja.
+
+checker/logs: aici veti gasi fisierele cu probleme daca pica teste:
+ <test>.command: comanda care ruleaza testul. Trebuie rulata din radacina temei
+ <test>.out: iesirea standard a programului
+ <test>.err: iesirea de eroare a programului
+ <test>.ret: valoarea returnata de program
+ <test>.rawerr: iesirea de erooare a programului concatenata cu mesajul de eroare al make daca valoarea de retur nu e 0
+
+test.sh:
+-poate fi rulat cu argumente, unde un argument reprezinta un grup de teste:
+ -test: teste de functionalitate de baza a programului
+ -bigtest: teste putin mai complicate, cu punctaj triplu
+ -extra: teste pentru care nu e suficienta reprezentarea valorilor din stiva pe 32 de biti
+ -bigextra: analog cu bigtext
+ -error: teste cu erori sintactice
+ -exception: teste cu erori de executie
+ -exceptionextra: teste cu erori de executie si numere mari
+ -bonus: teste care folosesc o baza specificata explicit, de obicei diferita de 10
+ -bigbonus: teste mai complicate cu baze diferite de 10 si numere de obicei mari, cu punctaj triplu
+ -exceptionbonus: teste cu erori de executie cu baza specificata
+-daca argumentul este un grup urmat de o cifra (ex: test3), va rula doar testele test30-test39
+-limita de timp pentru un test este de 0.75 secunde, 150 de secunde pentru toate testele
+-daca limbajul folosit e python, limitele de timp sunt dublate
+
+mytime.cfg:
+-contine linii formate din nume text urmat de o valoare numerica rationala, care reprezinta limita de timp in secunde pe care o doriti pentru un test.
+-daca numarul e 0, testul va fi ignorat
+-puteti folosi pentru a ignora un test care cicleaza infinit
+-puteti folosi pentru a extinde limita de timp pentru un test mai lent
+-daca il folositi, trebuie sa fie in radacina arhivei, langa Makefile
+-e optional
+
+[0] https://esolangs.org/wiki/Glypho
