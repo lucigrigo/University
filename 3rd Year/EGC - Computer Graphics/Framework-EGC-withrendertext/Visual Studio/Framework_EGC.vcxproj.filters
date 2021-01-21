@@ -79,6 +79,9 @@
     <Filter Include="Laboratoare\Tema2\Textures">
       <UniqueIdentifier>{431cbf2f-adbc-4f56-b20e-f4b2a51517e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Laboratoare\Tema3">
+      <UniqueIdentifier>{323982d0-00c8-48b3-afdd-d2e717838975}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Engine.cpp">
@@ -168,6 +171,12 @@
     </ClCompile>
     <ClCompile Include="..\Source\Laboratoare\Tema2\Platforms.cpp">
       <Filter>Laboratoare\Tema2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Tema3\Tema3.cpp">
+      <Filter>Laboratoare\Tema3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Tema3\T3_Platforms.cpp">
+      <Filter>Laboratoare\Tema3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +297,18 @@
     <ClInclude Include="..\Source\Laboratoare\Tema2\LabCamera.h">
       <Filter>Laboratoare\Tema2</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema3\LabCamera.h">
+      <Filter>Laboratoare\Tema3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema3\Tema3.h">
+      <Filter>Laboratoare\Tema3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema3\Tema3Levels.h">
+      <Filter>Laboratoare\Tema3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Tema3\T3_Platforms.h">
+      <Filter>Laboratoare\Tema3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Laboratoare\Laborator6\Shaders\FragmentShader.glsl">
@@ -332,5 +353,10 @@
     <Image Include="..\Source\Laboratoare\Tema2\Textures\sphere_texture.png">
       <Filter>Laboratoare\Tema2\Textures</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Source\Laboratoare\Tema3\dimensions.txt">
+      <Filter>Laboratoare\Tema3</Filter>
+    </Text>
   </ItemGroup>
 </Project>

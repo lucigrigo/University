@@ -1,6 +1,6 @@
-#include "Platforms.h"
+#include "T3_Platforms.h"
 
-void Platforms::initValues()
+void T3_Platforms::initValues()
 {
 	platform_available_types[0] = PLATFORM_TYPE::BASIC;
 	platform_available_types[1] = PLATFORM_TYPE::RED;
@@ -16,7 +16,7 @@ void Platforms::initValues()
 	platform_color_types[5] = glm::vec3(.55f, .0f, .55f);
 }
 
-float Platforms::SpawnNextPlatforms(float far_z,
+float T3_Platforms::SpawnNextPlatforms(float far_z,
 	std::vector<glm::vec3>& positions)
 {
 	for (int i = 0; i >= -80; i -= 8) {
@@ -29,10 +29,10 @@ float Platforms::SpawnNextPlatforms(float far_z,
 	return -80.f;
 }
 
-float Platforms::SpawnNextPlatforms(float far_z,
+float T3_Platforms::SpawnNextPlatforms(float far_z,
 	std::vector<glm::vec3>& positions,
 	std::vector<glm::vec3>& colors,
-	std::vector<Platforms::PLATFORM_TYPE>& types,
+	std::vector<T3_Platforms::PLATFORM_TYPE>& types,
 	std::vector<bool>& it_affects)
 {
 	if (far_z <= -40.f)
@@ -44,8 +44,8 @@ float Platforms::SpawnNextPlatforms(float far_z,
 
 	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 5; ++j) {
-			if (custom_t2_levels[level_no][i][j] >= 1) {
-				int val = custom_t2_levels[level_no][i][j];
+			if (custom_t3_levels[level_no][i][j] >= 1) {
+				int val = custom_t3_levels[level_no][i][j];
 
 				float x = (j - 2) * 2.f;
 				float z = far_z - 8.f * (i + 1 + empty_row);

@@ -2,7 +2,7 @@
 	Grigore Lucian-Florin
 	Grupa 336CA
 	Elemente de Grafica pe Calculator
-	Tema 2 - Skyroads
+	Tema 3 - Stylised Runner
 */
 #pragma once
 #include <Component/SimpleScene.h>
@@ -11,15 +11,26 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-#include "Platforms.h"
-#include "Tema2Levels.h"
+#include "T3_Platforms.h"
+#include "Tema3Levels.h"
 #include "LabCamera.h"
 
-class Tema2 : public SimpleScene
+const enum DECORATION_TYPE {
+    PYRAMID,
+    SPHERE,
+    X
+};
+
+const enum COLLECTIBLE_TYPE {
+    FUEL_POTION,
+    SCORE_BOOST
+};
+
+class Tema3 : public SimpleScene
 {
 public:
-    Tema2();
-    ~Tema2();
+    Tema3();
+    ~Tema3();
     void Init() override;
 
 private:
@@ -35,18 +46,28 @@ private:
     void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
     void OnWindowResize(int width, int height) override;
 
-    void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix,
+    /* TEMA 2 FUNCTII */
+    void Tema3::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix,
         const glm::vec3& color, Texture2D* texture);
-    void Tema2::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix,
+    void Tema3::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix,
         const glm::vec3 &color, bool deform, Texture2D* texture);
-    void Tema2::DrawUI(float deltaTimeSeconds);
-    bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position);
-    void Tema2::AnimatePlatforms(float deltaTimeSeconds);
-    void Tema2::AnimateFall(float deltaTimeSeconds);
-    void Tema2::AnimatePlayer(float deltaTimeSeconds);
-    void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds);
+    void Tema3::DrawUI(float deltaTimeSeconds);
+    bool Tema3::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position);
+    void Tema3::AnimatePlatforms(float deltaTimeSeconds);
+    void Tema3::AnimateFall(float deltaTimeSeconds);
+    void Tema3::AnimatePlayer(float deltaTimeSeconds);
+    void Tema3::PlatformPlayerInteractions(float deltaTimeSeconds);
+
+    /* TEMA 3 FUNCTII */
+    void Tema3::GenerateDecorations();
+    void Tema3::DrawDecorations(float deltaTimeSeconds);
+    void Tema3::GenerateObstacles(float deltaTimeSeconds);
+    void Tema3::DrawObstacles(float deltaTimeSeconds);
+    void Tema3::GenerateCollectibles();
+    void Tema3::DrawCollectibles(float deltaTimeSeconds);
 
 protected:
+    /* TEMA 2 VARIABILE */
     glm::vec3 player_color;
     glm::vec3 player_position;
     float player_lateral_speed;
@@ -54,7 +75,7 @@ protected:
     float platform_speed;
     std::vector<glm::vec3> platform_positions;
     std::vector<glm::vec3> platform_colors;
-    std::vector<Platforms::PLATFORM_TYPE> platform_types;
+    std::vector<T3_Platforms::PLATFORM_TYPE> platform_types;
     std::vector<glm::vec3> initial_platform_positions;
     std::vector<bool> affects_player;
     int last_acc;
@@ -74,13 +95,20 @@ protected:
     std::unordered_map<std::string, Texture2D*> textures;
     float rotate_factor;
     float last_z;
-    Platforms platforms;
+    T3_Platforms platforms;
     float exit_cooldown;
-    CameraTema2::Camera *camera;
+    CameraTema3::CameraTema3 *camera;
     glm::mat4 projection_matrix;
     float right, left, top, bottom;
     glm::vec3 camera_position_third_person;
     float const Z_NEAR = 1.f;
     float const Z_FAR = 50.f;
     float score;
+
+    /* TEMA 3 VARIABILE */
+    std::vector<glm::vec3> decorations_positions;
+    std::vector<DECORATION_TYPE> decorations_types;
+    std::vector<glm::vec3> obstacles_positions;
+    std::vector<glm::vec3> collectibles_positions;
+    std::vector<COLLECTIBLE_TYPE> collectibles_types;
 };

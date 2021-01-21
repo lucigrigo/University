@@ -1,9 +1,9 @@
-#ifndef _T2_LEVELS_
-#define _T2_LEVELS_
+#ifndef _T3_LEVELS_
+#define _T3_LEVELS_
 
-const int no_t2_levels = 10;
+const int no_t3_levels = 10;
 
-const int custom_t2_levels[10][10][5] = {
+const int custom_t3_levels[10][10][5] = {
 	{
 		{1, 1, 1, 1, 1},
 		{1, 1, 1, 1, 1},

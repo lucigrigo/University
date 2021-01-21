@@ -35,6 +35,8 @@
     <ClCompile Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Tema2\Platforms.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Tema2\Tema2.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Tema3\T3_Platforms.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Tema3\Tema3.cpp" />
     <ClCompile Include="..\Source\TextRenderer\TextRenderer.cpp" />
     <ClCompile Include="..\Source\include\gl.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator1\Laborator1.cpp" />
@@ -70,6 +72,10 @@
     <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2Levels.h" />
     <ClInclude Include="..\Source\Laboratoare\Tema2\Platforms.h" />
     <ClInclude Include="..\Source\Laboratoare\Tema2\Tema2.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema3\LabCamera.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema3\T3_Platforms.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema3\Tema3.h" />
+    <ClInclude Include="..\Source\Laboratoare\Tema3\Tema3Levels.h" />
     <ClInclude Include="..\Source\TextRenderer\TextRenderer.h" />
     <ClInclude Include="..\Source\include\gl.h" />
     <ClInclude Include="..\Source\include\glm.h" />
@@ -108,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Source\Laboratoare\Tema2\Textures\sphere_texture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Source\Laboratoare\Tema3\dimensions.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FB43B467-42CC-458C-9556-597B025830F7}</ProjectGuid>

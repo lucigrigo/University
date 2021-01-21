@@ -4,14 +4,14 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-#include "Tema2Levels.h"
+#include "Tema3Levels.h"
 
 #define MAX_PLATFORM_SPEED 20
 #define MIN_PLATFORM_SPEED 5
 
-class Platforms {
+class T3_Platforms {
 public:
-	Platforms()
+	T3_Platforms()
 	{
 	}
 
@@ -30,8 +30,8 @@ public:
 
 	void initValues();
 
-	float Platforms::SpawnNextPlatforms(float, std::vector<glm::vec3>&);
+	float T3_Platforms::SpawnNextPlatforms(float, std::vector<glm::vec3>&);
 
-	float Platforms::SpawnNextPlatforms(float, std::vector<glm::vec3>&, std::vector<glm::vec3>&,
+	float T3_Platforms::SpawnNextPlatforms(float, std::vector<glm::vec3>&, std::vector<glm::vec3>&,
 		std::vector<PLATFORM_TYPE>&, std::vector<bool>&);
 };

@@ -2,25 +2,25 @@
 	Grigore Lucian-Florin
 	Grupa 336CA
 	Elemente de Grafica pe Calculator
-	Tema 2 - Skyroads
+	Tema 3 - Stylised Runner
 */
-#include "Tema2.h"
+#include "Tema3.h"
 
 using namespace std;
 
-Tema2::Tema2()
+Tema3::Tema3()
 {
-	camera = new CameraTema2::Camera();
+	camera = new CameraTema3::CameraTema3();
 }
 
-Tema2::~Tema2()
+Tema3::~Tema3()
 {
 	delete camera;
 }
 
-void Tema2::Init()
+void Tema3::Init()
 {
-	const string texture_path = "Source/Laboratoare/Tema2/Textures/";
+	const string texture_path = "Source/Laboratoare/Tema3/Textures/";
 
 	// creating sphere (player)
 	{
@@ -129,7 +129,7 @@ void Tema2::Init()
 	last_z = platforms.SpawnNextPlatforms(last_z, initial_platform_positions);
 }
 
-void Tema2::FrameStart()
+void Tema3::FrameStart()
 {
 	// clears the color buffer (using the previously set color) and depth buffer
 	glClearColor(.0f, .0f, .0f, 1.f);
@@ -140,8 +140,10 @@ void Tema2::FrameStart()
 	glViewport(0, 0, resolution.x, resolution.y);
 }
 
-void Tema2::DrawUI(float deltaTimeSeconds)
+void Tema3::DrawUI(float deltaTimeSeconds)
 {
+	// TODO draw score in top-right corner
+
 	if (is_falling)
 		return;
 
@@ -181,7 +183,97 @@ void Tema2::DrawUI(float deltaTimeSeconds)
 	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color, textures["indicator"]);
 }
 
-bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position)
+void Tema3::GenerateDecorations() {
+	// generating initial decorations
+	if (decorations_positions.empty()) {
+		for (float i = 0; i >= -80; i -= 10) {
+			decorations_positions.push_back(glm::vec3(5, 0, i));
+			decorations_positions.push_back(glm::vec3(-5, 0, i));
+			decorations_types.push_back(X);
+			decorations_types.push_back(X);
+		}
+	}
+	else {
+		// making sure the game does not run out of decorations
+		float min_x = 0;
+		for (glm::vec3 pos : decorations_positions) {
+			if (pos.z <= min_x) {
+				min_x = pos.z;
+			}
+		}
+
+		if (min_x >= -75) {
+			decorations_positions.push_back(glm::vec3(5, 0, min_x - 5));
+			decorations_positions.push_back(glm::vec3(-5, 0, min_x - 5));
+			decorations_types.push_back(X);
+			decorations_types.push_back(X);
+		}
+	}
+}
+
+void Tema3::DrawDecorations(float deltaTimeSeconds)
+{
+	if (is_falling)
+		return;
+
+	GenerateDecorations();
+
+	for (int i = 0; i < decorations_positions.size(); ++i) {
+		glm::vec3 pos = decorations_positions.at(i);
+		DECORATION_TYPE type = decorations_types.at(i);
+
+		// TODO draw decoration
+		// RenderSimpleMesh(		
+
+		// TODO translate pos
+		// pos +=
+		decorations_positions.at(i) = pos;
+	}
+}
+
+void Tema3::GenerateObstacles(float deltaTimeSeconds)
+{
+	int i = rand() % 100;
+	if (i == 0 && obstacles_positions.size() < 5) {
+		float x = 3 - rand() % 5;
+		obstacles_positions.push_back(glm::vec3(x, 0, -80));
+	}
+}
+
+void Tema3::DrawObstacles(float deltaTimeSeconds)
+{
+	if (is_falling)
+		return;
+
+	for (int i = 0; i < obstacles_positions.size(); ++i) {
+		glm::vec3 pos = obstacles_positions.at(i);
+
+		// TODO draw obstacle
+		// RenderSimpleMesh(
+
+		// TODO translate obstacle
+		// pos +=
+		obstacles_positions.at(i) = pos;
+	}
+}
+
+void Tema3::GenerateCollectibles()
+{
+	// TODO spawn collectibles randomly
+}
+
+void Tema3::DrawCollectibles(float deltaTimeSeconds)
+{
+	if (time_elapsed < 10.f)
+		return;
+
+	GenerateCollectibles();
+
+	// TODO translate collectibles towards origin
+	//		check for intersect with player + add bonuses to game
+}
+
+bool Tema3::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position)
 {
 	return (platform_position.z - 4.5 <= player_position.z) &&
 		(platform_position.z + 4.5 >= player_position.z) &&
@@ -189,7 +281,7 @@ bool Tema2::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_positio
 		(platform_position.x + 1.5 >= player_position.x);
 }
 
-void Tema2::AnimatePlatforms(float deltaTimeSeconds)
+void Tema3::AnimatePlatforms(float deltaTimeSeconds)
 {
 	if (is_falling)
 		return;
@@ -263,7 +355,7 @@ void Tema2::AnimatePlatforms(float deltaTimeSeconds)
 	}
 }
 
-void Tema2::AnimateFall(float deltaTimeSeconds)
+void Tema3::AnimateFall(float deltaTimeSeconds)
 {
 	is_falling = true;
 
@@ -299,7 +391,7 @@ void Tema2::AnimateFall(float deltaTimeSeconds)
 	}
 }
 
-void Tema2::AnimatePlayer(float deltaTimeSeconds)
+void Tema3::AnimatePlayer(float deltaTimeSeconds)
 {
 	if (is_falling)
 	{
@@ -362,6 +454,8 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 			AnimateFall(deltaTimeSeconds);
 	}
 
+	// TODO check intersection / collision with obstacles
+
 	if (!is_third_person)
 		return;
 
@@ -375,7 +469,7 @@ void Tema2::AnimatePlayer(float deltaTimeSeconds)
 		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, true, textures["sphere_texture"]);
 }
 
-void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
+void Tema3::PlatformPlayerInteractions(float deltaTimeSeconds)
 {
 	if (is_falling)
 		return;
@@ -417,7 +511,7 @@ void Tema2::PlatformPlayerInteractions(float deltaTimeSeconds)
 	}
 }
 
-void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix,
+void Tema3::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix,
 	const glm::vec3& color, Texture2D* texture)
 {
 	if (!mesh || !shader || !shader->GetProgramID())
@@ -454,7 +548,7 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 
-void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
+void Tema3::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 	const glm::mat4& model_matrix, const glm::vec3& color, bool is_defformed, Texture2D* texture)
 {
 	if (!mesh || !shader || !shader->GetProgramID())
@@ -497,12 +591,12 @@ void Tema2::RenderSimpleMesh(Mesh* mesh, Shader* shader,
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 
-void Tema2::Update(float deltaTimeSeconds)
+void Tema3::Update(float deltaTimeSeconds)
 {
 	time_elapsed += deltaTimeSeconds;
 	rotate_factor += min((float)MAX_PLATFORM_SPEED, platform_speed) * deltaTimeSeconds * (float)0.3;
 	last_z += deltaTimeSeconds * platform_speed;
-	score = (int) (time_elapsed * platform_speed);
+	score = (int)(time_elapsed * platform_speed);
 	cout << "Score: " << score << endl;
 
 	// drawing user interface
@@ -513,6 +607,14 @@ void Tema2::Update(float deltaTimeSeconds)
 
 	// drawing player
 	AnimatePlayer(deltaTimeSeconds);
+
+	// TODO animate decorations
+
+	// TODO animate obstacles
+
+	// TODO animate collectibles
+
+	// TODO illuminate gameplay from decorations
 
 	// checking collisions
 	PlatformPlayerInteractions(deltaTimeSeconds);
@@ -528,12 +630,12 @@ void Tema2::Update(float deltaTimeSeconds)
 		glm::vec3(0.f, 0.f, 0.f), textures["background"]);*/
 }
 
-void Tema2::FrameEnd()
+void Tema3::FrameEnd()
 {
 	//DrawCoordinatSystem(camera->GetViewMatrix(), projection_matrix);
 }
 
-void Tema2::OnInputUpdate(float deltaTime, int mods)
+void Tema3::OnInputUpdate(float deltaTime, int mods)
 {
 	if (is_falling)
 		return;
@@ -571,7 +673,7 @@ void Tema2::OnInputUpdate(float deltaTime, int mods)
 	}
 }
 
-void Tema2::OnKeyPress(int key, int mods)
+void Tema3::OnKeyPress(int key, int mods)
 {
 	if (key == GLFW_KEY_C) {
 		is_third_person = !is_third_person;
@@ -589,26 +691,26 @@ void Tema2::OnKeyPress(int key, int mods)
 	}
 }
 
-void Tema2::OnKeyRelease(int key, int mods)
+void Tema3::OnKeyRelease(int key, int mods)
 {
 }
 
-void Tema2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Tema3::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 }
 
-void Tema2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Tema3::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
 }
 
-void Tema2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Tema3::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
 }
 
-void Tema2::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Tema3::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
-void Tema2::OnWindowResize(int width, int height)
+void Tema3::OnWindowResize(int width, int height)
 {
 }

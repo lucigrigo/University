@@ -2,12 +2,12 @@
 #include <include/glm.h>
 #include <include/math.h>
 
-namespace CameraTema2
+namespace CameraTema3
 {
-	class Camera
+	class CameraTema3
 	{
 		public:
-			Camera()
+			CameraTema3()
 			{
 				position = glm::vec3(0, 2, 5);
 				forward = glm::vec3(0, 0, -1);
@@ -16,12 +16,12 @@ namespace CameraTema2
 				distanceToTarget = 2;
 			}
 
-			Camera(const glm::vec3 &position, const glm::vec3 &center, const glm::vec3 &up)
+			CameraTema3(const glm::vec3 &position, const glm::vec3 &center, const glm::vec3 &up)
 			{
 				Set(position, center, up);
 			}
 
-			~Camera()
+			~CameraTema3()
 			{ }
 
 			// Update camera
