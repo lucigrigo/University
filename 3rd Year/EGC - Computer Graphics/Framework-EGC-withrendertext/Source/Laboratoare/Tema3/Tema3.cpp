@@ -94,7 +94,7 @@ void Tema3::Init()
 	// loading texture for platforms
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((texture_path + "bricks.jpg").c_str(), GL_REPEAT);
+		texture->Load2D((texture_path + "grass.png").c_str(), GL_REPEAT);
 		textures["platform_texture"] = texture;
 	}
 
@@ -354,7 +354,7 @@ void Tema3::DrawDecorations(float deltaTimeSeconds)
 		case PYRAMID:
 			col = glm::vec3(.0f, .0f, .0f);
 			model_matrix = glm::scale(model_matrix, glm::vec3(.07f, .07f, .07f));
-			RenderSimpleMesh(meshes["pyramid"], shaders["ShaderTema3"], model_matrix, col, false, textures["gold"]);
+			RenderSimpleMesh(meshes["pyramid"], shaders["ShaderTema3"], model_matrix, col, false, textures["galaxy"]);
 			break;
 		default:
 			col = glm::vec3(.0f, .0f, .0f);
@@ -506,7 +506,7 @@ void Tema3::DrawCollectibles(float deltaTimeSeconds)
 			break;
 		}
 
-		RenderSimpleMesh(meshes["bonus"], shaders["ShaderTema3"], model_matrix, col, false, textures["platform_texture"]);
+		RenderSimpleMesh(meshes["bonus"], shaders["ShaderTema3"], model_matrix, col, false, textures["gold"]);
 
 		if (CheckCollectibleCollision(player_position, pos))
 		{
