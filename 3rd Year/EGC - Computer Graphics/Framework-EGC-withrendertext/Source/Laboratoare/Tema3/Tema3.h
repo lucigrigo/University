@@ -18,7 +18,8 @@
 const enum DECORATION_TYPE {
     PYRAMID,
     SPHERE,
-    X
+    X,
+    CUBE
 };
 
 const enum COLLECTIBLE_TYPE {
@@ -47,10 +48,10 @@ private:
     void OnWindowResize(int width, int height) override;
 
     /* TEMA 2 FUNCTII */
-    void Tema3::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& model_matrix,
-        const glm::vec3& color, Texture2D* texture);
+    void Tema3::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &model_matrix,
+                                 const glm::vec3 &color, Texture2D *texture);
     void Tema3::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix,
-        const glm::vec3 &color, bool deform, Texture2D* texture);
+                                 const glm::vec3 &color, bool deform, Texture2D *texture);
     void Tema3::DrawUI(float deltaTimeSeconds);
     bool Tema3::CheckIntersect(glm::vec3 player_position, glm::vec3 platform_position);
     void Tema3::AnimatePlatforms(float deltaTimeSeconds);
@@ -61,10 +62,12 @@ private:
     /* TEMA 3 FUNCTII */
     void Tema3::GenerateDecorations();
     void Tema3::DrawDecorations(float deltaTimeSeconds);
-    void Tema3::GenerateObstacles(float deltaTimeSeconds);
+    void Tema3::GenerateObstacles();
     void Tema3::DrawObstacles(float deltaTimeSeconds);
     void Tema3::GenerateCollectibles();
     void Tema3::DrawCollectibles(float deltaTimeSeconds);
+    bool Tema3::CheckObstacleCollision(glm::vec3 player_position, glm::vec3 obstacle_position);
+    bool Tema3::CheckCollectibleCollision(glm::vec3 player_position, glm::vec3 collectible_position);
 
 protected:
     /* TEMA 2 VARIABILE */
@@ -92,7 +95,7 @@ protected:
     bool is_falling;
     float jump_time;
     float player_jump_speed;
-    std::unordered_map<std::string, Texture2D*> textures;
+    std::unordered_map<std::string, Texture2D *> textures;
     float rotate_factor;
     float last_z;
     T3_Platforms platforms;
@@ -108,7 +111,11 @@ protected:
     /* TEMA 3 VARIABILE */
     std::vector<glm::vec3> decorations_positions;
     std::vector<DECORATION_TYPE> decorations_types;
-    std::vector<glm::vec3> obstacles_positions;
     std::vector<glm::vec3> collectibles_positions;
     std::vector<COLLECTIBLE_TYPE> collectibles_types;
+    std::vector<glm::vec3> obstacles_positions;
+    bool is_using_fuel_potion;
+    float time_remaining_fuel_potion;
+    bool is_using_score_boost;
+    float time_remaining_score_boost;
 };
