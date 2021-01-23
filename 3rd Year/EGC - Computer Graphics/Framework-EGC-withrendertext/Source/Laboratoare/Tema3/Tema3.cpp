@@ -46,7 +46,7 @@ void Tema3::Init()
 	// loading mesh for bonus
 	{
 		Mesh* mesh = new Mesh("bonus");
-		mesh->LoadMesh(texture_path, "box.obj");
+		mesh->LoadMesh(texture_path, "star.obj");
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 
@@ -64,7 +64,27 @@ void Tema3::Init()
 		textures["fire"] = texture;
 	}
 
+	// loading texture for fire
+	{
+		Texture2D* texture = new Texture2D();
+		texture->Load2D((texture_path + "gold.jpg").c_str(), GL_REPEAT);
+		textures["gold"] = texture;
+	}
+
+	// loading texture for fire
+	{
+		Texture2D* texture = new Texture2D();
+		texture->Load2D((texture_path + "galaxy.jpg").c_str(), GL_REPEAT);
+		textures["galaxy"] = texture;
+	}
+
 	// creating platform model
+	{
+		Mesh* mesh = new Mesh("pyramid");
+		mesh->LoadMesh(texture_path, "pyramid.obj");
+		meshes[mesh->GetMeshID()] = mesh;
+	}
+
 	{
 		Mesh* mesh = new Mesh("platform");
 		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "box.obj");
@@ -188,7 +208,7 @@ void Tema3::DrawUI(float deltaTimeSeconds)
 	{
 		last_acc = (int)time_elapsed;
 		//if(!is_using_fuel_potion)
-			fuel_percent -= .001f * platform_speed;
+		fuel_percent -= .001f * platform_speed;
 	}
 
 	if (is_using_fuel_potion)
@@ -238,7 +258,7 @@ void Tema3::GenerateDecorations()
 			decorations_positions.push_back(glm::vec3(-6, .5f, i));
 			decorations_positions.push_back(glm::vec3(6, 1.5f, i));
 			decorations_positions.push_back(glm::vec3(-6, 1.5f, i));
-			
+
 			decorations_types.push_back(CUBE);
 			decorations_types.push_back(CUBE);
 			decorations_types.push_back(SPHERE);
@@ -273,17 +293,33 @@ void Tema3::GenerateDecorations()
 		// adding 10 new rows of platforms
 		if (min_x >= -50)
 		{
-			for (int i = -5; i >= -55; i -= 5)
-			{
-				decorations_positions.push_back(glm::vec3(6, .5f, min_x + i));
-				decorations_positions.push_back(glm::vec3(-6, .5f, min_x + i));
-				decorations_positions.push_back(glm::vec3(6, 1.5f, min_x + i));
-				decorations_positions.push_back(glm::vec3(-6, 1.5f, min_x + i));
+			DECORATION_TYPE type;
+			int x = rand() % 2;
+			if (x == 0) {
+				for (int i = -5; i >= -55; i -= 5)
+				{
+					decorations_positions.push_back(glm::vec3(6, .5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, .5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(6, 1.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, 1.5f, min_x + i));
 
-				decorations_types.push_back(CUBE);
-				decorations_types.push_back(CUBE);
-				decorations_types.push_back(SPHERE);
-				decorations_types.push_back(SPHERE);
+					decorations_types.push_back(CUBE);
+					decorations_types.push_back(CUBE);
+					decorations_types.push_back(SPHERE);
+					decorations_types.push_back(SPHERE);
+				}
+				
+			}
+			else {
+				for (int i = -5; i >= -55; i -= 5)
+				{
+					decorations_positions.push_back(glm::vec3(6, .5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, .5f, min_x + i));
+
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+				}
+				
 			}
 		}
 	}
@@ -308,12 +344,17 @@ void Tema3::DrawDecorations(float deltaTimeSeconds)
 		switch (type)
 		{
 		case CUBE:
-			col = glm::vec3(.1f, .3f, .1f);
-			RenderSimpleMesh(meshes["cube"], shaders["ShaderTema2"], model_matrix, col, false, textures["platform_texture"]);
+			col = glm::vec3(.0f, .0f, .0f);
+			RenderSimpleMesh(meshes["cube"], shaders["ShaderTema2"], model_matrix, col, false, textures["galaxy"]);
 			break;
 		case SPHERE:
 			col = glm::vec3(.0f, .0f, .0f);
 			RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, col, false, textures["fire"]);
+			break;
+		case PYRAMID:
+			col = glm::vec3(.0f, .0f, .0f);
+			model_matrix = glm::scale(model_matrix, glm::vec3(.07f, .07f, .07f));
+			RenderSimpleMesh(meshes["pyramid"], shaders["ShaderTema2"], model_matrix, col, false, textures["gold"]);
 			break;
 		default:
 			col = glm::vec3(.0f, .0f, .0f);
@@ -328,7 +369,7 @@ void Tema3::DrawDecorations(float deltaTimeSeconds)
 void Tema3::GenerateObstacles()
 {
 	int i = rand() % 100;
-	if (i == 0 && obstacles_positions.size() < 3 && time_elapsed >= 10.f)
+	if (i == 0 && obstacles_positions.size() == 0 && time_elapsed >= 10.f)
 	{
 		float x = 2 * (3 - rand() % 5);
 		float z = -80 - 4 * (rand() % 5);
@@ -340,9 +381,9 @@ bool Tema3::CheckObstacleCollision(glm::vec3 player_position, glm::vec3 obstacle
 {
 	return (obstacle_position.x - 1.f <= player_position.x) &&
 		(obstacle_position.x + 1.f >= player_position.x) &&
-		(obstacle_position.z - .5f >= player_position.z) &&
-		(obstacle_position.z + .5f <= player_position.z) &&
-		(obstacle_position.y + 1.f <= player_position.y);
+		(obstacle_position.z - 1.f <= player_position.z) &&
+		(obstacle_position.z + 1.f >= player_position.z) &&
+		(obstacle_position.y + 1.f >= player_position.y);
 }
 
 void Tema3::DrawObstacles(float deltaTimeSeconds)
@@ -368,11 +409,11 @@ void Tema3::DrawObstacles(float deltaTimeSeconds)
 		glm::vec3 pos = obstacles_positions.at(i);
 
 		glm::mat4 model_matrix = glm::mat4(1);
-		model_matrix = glm::translate(model_matrix, glm::vec3(.0f, -.8f, .0f));
+		model_matrix = glm::translate(model_matrix, glm::vec3(.0f, -.7f, .0f));
 		model_matrix = glm::translate(model_matrix, pos);
 		model_matrix = glm::scale(model_matrix, glm::vec3(0.25f, 0.25f, 0.25f));
-		glm::vec3 col = glm::vec3(.8f, .8f, .8f);
-		RenderSimpleMesh(meshes["skull"], shaders["ShaderTema2"], model_matrix, col, false, NULL);
+		glm::vec3 col = glm::vec3(.0f, .0f, .0f);
+		RenderSimpleMesh(meshes["skull"], shaders["ShaderTema2"], model_matrix, col, false, textures["gold"]);
 
 		if (CheckObstacleCollision(player_position, pos))
 		{
@@ -426,10 +467,11 @@ void Tema3::GenerateCollectibles()
 
 bool Tema3::CheckCollectibleCollision(glm::vec3 player_position, glm::vec3 collectible_position)
 {
-	return (collectible_position.x - .5f <= player_position.x) &&
-		(collectible_position.x + .5f >= player_position.x) &&
-		(collectible_position.z - .5f >= player_position.z) &&
-		(collectible_position.z + .5f <= player_position.z);
+	return (collectible_position.x - 1.f <= player_position.x) &&
+		(collectible_position.x + 1.f >= player_position.x) &&
+		(collectible_position.z - 1.f <= player_position.z) &&
+		(collectible_position.z + 1.f >= player_position.z) &&
+		(collectible_position.y + 1.f >= player_position.y);
 }
 
 void Tema3::DrawCollectibles(float deltaTimeSeconds)
@@ -445,7 +487,10 @@ void Tema3::DrawCollectibles(float deltaTimeSeconds)
 		COLLECTIBLE_TYPE type = collectibles_types.at(i);
 
 		glm::mat4 model_matrix = glm::mat4(1);
+		model_matrix = glm::translate(model_matrix, glm::vec3(0, .5f, 0));
 		model_matrix = glm::translate(model_matrix, pos);
+		model_matrix = glm::rotate(model_matrix, 1.67f, glm::vec3(1, 0, 0));
+		model_matrix = glm::scale(model_matrix, glm::vec3(.1f, .1f, .1f));
 		glm::vec3 col;
 
 		switch (type)
@@ -832,7 +877,7 @@ void Tema3::Update(float deltaTimeSeconds)
 	{
 		score += (deltaTimeSeconds * platform_speed);
 	}
-	if((int)time_elapsed % 10 == 0)
+	if ((int)time_elapsed % 10 == 0)
 		//cout << "Score: " << (int)score << endl;
 
 	// drawing user interface
@@ -909,6 +954,8 @@ void Tema3::OnInputUpdate(float deltaTime, int mods)
 		is_jumping = true;
 		jump_time = time_elapsed;
 	}
+	if (window->KeyHold(GLFW_KEY_T))
+		platform_speed = .0f;
 }
 
 void Tema3::OnKeyPress(int key, int mods)

@@ -18,7 +18,6 @@
 const enum DECORATION_TYPE {
     PYRAMID,
     SPHERE,
-    X,
     CUBE
 };
 

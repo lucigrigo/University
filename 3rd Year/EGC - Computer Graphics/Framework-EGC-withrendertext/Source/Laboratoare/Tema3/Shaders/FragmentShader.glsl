@@ -17,7 +17,7 @@ void main()
 {
 	if(sec_color != vec3(0.f, 0.f, 0.f)) {
 		vec4 color = texture2D(texture, fragment_texture);
-		out_color = mix(color, vec4(sec_color, 1), 0.5f);
+		out_color = mix(color, vec4(sec_color, 1), 0.75f);
 	} else {
 		out_color = texture2D(texture, fragment_texture);
 	}
