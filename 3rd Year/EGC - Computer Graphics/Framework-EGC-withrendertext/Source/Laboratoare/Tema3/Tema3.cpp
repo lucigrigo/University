@@ -74,7 +74,7 @@ void Tema3::Init()
 	// loading texture for fire
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((texture_path + "galaxy.jpg").c_str(), GL_REPEAT);
+		texture->Load2D((texture_path + "bricks2.jpg").c_str(), GL_REPEAT);
 		textures["galaxy"] = texture;
 	}
 
@@ -128,9 +128,9 @@ void Tema3::Init()
 
 	// creating shader
 	{
-		Shader* shader = new Shader("ShaderTema2");
-		shader->AddShader("Source/Laboratoare/Tema2/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
-		shader->AddShader("Source/Laboratoare/Tema2/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
+		Shader* shader = new Shader("ShaderTema3");
+		shader->AddShader("Source/Laboratoare/Tema3/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
+		shader->AddShader("Source/Laboratoare/Tema3/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}
@@ -236,7 +236,7 @@ void Tema3::DrawUI(float deltaTimeSeconds)
 	model_matrix = glm::translate(model_matrix,
 		glm::vec3(camera_position_third_person.x + 4, camera_position_third_person.y, -3.01));
 	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, 5.f, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix,
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema3"], model_matrix,
 		glm::vec3(1.f, 1.f, 1.f), textures["indicator"]);
 
 	// drawing inner rectangle
@@ -244,7 +244,7 @@ void Tema3::DrawUI(float deltaTimeSeconds)
 	model_matrix = glm::translate(model_matrix, glm::vec3(camera_position_third_person.x + 4,
 		(float)camera_position_third_person.y - 2.5f * (1 - fuel_percent), -3));
 	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, (float)5.f * fuel_percent, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema2"], model_matrix, color, textures["indicator"]);
+	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema3"], model_matrix, color, textures["indicator"]);
 }
 
 void Tema3::GenerateDecorations()
@@ -345,16 +345,16 @@ void Tema3::DrawDecorations(float deltaTimeSeconds)
 		{
 		case CUBE:
 			col = glm::vec3(.0f, .0f, .0f);
-			RenderSimpleMesh(meshes["cube"], shaders["ShaderTema2"], model_matrix, col, false, textures["galaxy"]);
+			RenderSimpleMesh(meshes["cube"], shaders["ShaderTema3"], model_matrix, col, false, textures["galaxy"]);
 			break;
 		case SPHERE:
 			col = glm::vec3(.0f, .0f, .0f);
-			RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, col, false, textures["fire"]);
+			RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema3"], model_matrix, col, false, textures["fire"]);
 			break;
 		case PYRAMID:
 			col = glm::vec3(.0f, .0f, .0f);
 			model_matrix = glm::scale(model_matrix, glm::vec3(.07f, .07f, .07f));
-			RenderSimpleMesh(meshes["pyramid"], shaders["ShaderTema2"], model_matrix, col, false, textures["gold"]);
+			RenderSimpleMesh(meshes["pyramid"], shaders["ShaderTema3"], model_matrix, col, false, textures["gold"]);
 			break;
 		default:
 			col = glm::vec3(.0f, .0f, .0f);
@@ -413,7 +413,7 @@ void Tema3::DrawObstacles(float deltaTimeSeconds)
 		model_matrix = glm::translate(model_matrix, pos);
 		model_matrix = glm::scale(model_matrix, glm::vec3(0.25f, 0.25f, 0.25f));
 		glm::vec3 col = glm::vec3(.0f, .0f, .0f);
-		RenderSimpleMesh(meshes["skull"], shaders["ShaderTema2"], model_matrix, col, false, textures["gold"]);
+		RenderSimpleMesh(meshes["skull"], shaders["ShaderTema3"], model_matrix, col, false, textures["gold"]);
 
 		if (CheckObstacleCollision(player_position, pos))
 		{
@@ -506,7 +506,7 @@ void Tema3::DrawCollectibles(float deltaTimeSeconds)
 			break;
 		}
 
-		RenderSimpleMesh(meshes["bonus"], shaders["ShaderTema2"], model_matrix, col, false, textures["platform_texture"]);
+		RenderSimpleMesh(meshes["bonus"], shaders["ShaderTema3"], model_matrix, col, false, textures["platform_texture"]);
 
 		if (CheckCollectibleCollision(player_position, pos))
 		{
@@ -563,7 +563,7 @@ void Tema3::AnimatePlatforms(float deltaTimeSeconds)
 		glm::mat4 model_matrix = glm::mat4(1);
 		model_matrix = glm::translate(model_matrix, pos);
 		model_matrix = glm::scale(model_matrix, glm::vec3(2.f, .1f, 8.f));
-		RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false,
+		RenderSimpleMesh(meshes["platform"], shaders["ShaderTema3"], model_matrix, col, false,
 			textures["platform_texture"]);
 
 		pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
@@ -581,7 +581,7 @@ void Tema3::AnimatePlatforms(float deltaTimeSeconds)
 			glm::mat4 model_matrix = glm::mat4(1);
 			model_matrix = glm::translate(model_matrix, pos);
 			model_matrix = glm::scale(model_matrix, glm::vec3(2.f, .1f, 8.f));
-			RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false, textures["platform_texture"]);
+			RenderSimpleMesh(meshes["platform"], shaders["ShaderTema3"], model_matrix, col, false, textures["platform_texture"]);
 
 			pos += glm::vec3(.0f, .0f, 1.f) * platform_speed * deltaTimeSeconds;
 			initial_platform_positions.at(i) = pos;
@@ -648,7 +648,7 @@ void Tema3::AnimateFall(float deltaTimeSeconds)
 			glm::mat4 model_matrix = glm::mat4(1);
 			model_matrix = glm::translate(model_matrix, pos);
 			model_matrix = glm::scale(model_matrix, glm::vec3(2.f, .1f, 8.f));
-			RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, col, false, textures["platform_texture"]);
+			RenderSimpleMesh(meshes["platform"], shaders["ShaderTema3"], model_matrix, col, false, textures["platform_texture"]);
 			platform_positions.at(i) = pos;
 		}
 
@@ -656,7 +656,7 @@ void Tema3::AnimateFall(float deltaTimeSeconds)
 		glm::mat4 model_matrix = glm::mat4(1);
 		model_matrix = glm::translate(model_matrix, player_position);
 		model_matrix = glm::rotate(model_matrix, -rotate_factor, glm::vec3(1.f, .0f, .0f));
-		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, false, textures["sphere_texture"]);
+		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema3"], model_matrix, player_color, false, textures["sphere_texture"]);
 	}
 }
 
@@ -731,9 +731,9 @@ void Tema3::AnimatePlayer(float deltaTimeSeconds)
 	model_matrix = glm::translate(model_matrix, player_position);
 	model_matrix = glm::rotate(model_matrix, -rotate_factor, glm::vec3(1.f, .0f, .0f));
 	if (!is_affected_orange_plat && !is_falling)
-		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, false, textures["sphere_texture"]);
+		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema3"], model_matrix, player_color, false, textures["sphere_texture"]);
 	else if (!is_falling)
-		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema2"], model_matrix, player_color, true, textures["sphere_texture"]);
+		RenderSimpleMesh(meshes["sphere"], shaders["ShaderTema3"], model_matrix, player_color, true, textures["sphere_texture"]);
 }
 
 void Tema3::PlatformPlayerInteractions(float deltaTimeSeconds)
@@ -906,7 +906,7 @@ void Tema3::Update(float deltaTimeSeconds)
 	glm::mat4 model_matrix = glm::mat4(1);
 	model_matrix = glm::translate(model_matrix, glm::vec3(0, -15, -40));
 	model_matrix = glm::scale(model_matrix, glm::vec3(120, 85, 1.f));
-	RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix, glm::vec3(.0f, .0f, .0f), false, textures["background"]);
+	RenderSimpleMesh(meshes["platform"], shaders["ShaderTema3"], model_matrix, glm::vec3(.0f, .0f, .0f), false, textures["background"]);
 	/*model_matrix = glm::translate(model_matrix, camera_position_third_person + glm::vec3(0, -5, -40));
 	model_matrix = glm::scale(model_matrix, glm::vec3(10, 10, 1.f));
 	RenderSimpleMesh(meshes["platform"], shaders["ShaderTema2"], model_matrix,
