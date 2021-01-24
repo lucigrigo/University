@@ -129,4 +129,5 @@ protected:
     float time_remaining_score_boost;
     TextRenderer* Text;
     std::vector<Message> messages;
+    float last_msg;
 };

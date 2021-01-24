@@ -175,6 +175,7 @@ void Tema3::Init()
 		time_remaining_fuel_potion = .0f;
 		is_using_score_boost = false;
 		time_remaining_score_boost = .0f;
+		last_msg = 2.f;
 	}
 
 	// generating initial platforms
@@ -790,8 +791,17 @@ void Tema3::AnimatePlayer(float deltaTimeSeconds)
 				break;
 			}
 		}
-		if (!found)
+		if (!found) {
+			float x = window->GetResolution().x / 2;
+			float y = window->GetResolution().y * 1 / 4;
+			Message m;
+			m.x = x;
+			m.y = y;
+			m.msg = new string("Fell off the Runway");
+			m.time_remaining = 3.0f;
+			messages.push_back(m);
 			AnimateFall(deltaTimeSeconds);
+		}
 	}
 
 	if (!is_third_person)
@@ -985,11 +995,11 @@ void Tema3::Update(float deltaTimeSeconds)
 	if (!messages.empty()) {
 		Message m = messages.at(0);
 		Text->RenderText(m.msg->c_str(), m.x, m.y, 1.0f, glm::vec3(1.0, 1.0, 1.0));
-		m.time_remaining = m.time_remaining - deltaTimeSeconds;
-		cout << m.time_remaining << endl;
-		if (m.time_remaining <= .0f)
+		last_msg -= deltaTimeSeconds;
+		if (last_msg <= .0f) {
 			messages.erase(messages.begin());
-		messages.at(0) = m;
+			last_msg = 2.f;
+		}
 	}
 
 	// displaying score on the screen
