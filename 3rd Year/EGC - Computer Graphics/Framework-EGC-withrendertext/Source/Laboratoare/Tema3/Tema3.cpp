@@ -53,7 +53,7 @@ void Tema3::Init()
 	// loading texture for sphere
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((texture_path + "death_star.jpg").c_str(), GL_REPEAT);
+		texture->Load2D((texture_path + "rock.jpg").c_str(), GL_REPEAT);
 		textures["sphere_texture"] = texture;
 	}
 
@@ -67,7 +67,7 @@ void Tema3::Init()
 	// loading texture for fire
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((texture_path + "gold.jpg").c_str(), GL_REPEAT);
+		texture->Load2D((texture_path + "skull.jpg").c_str(), GL_REPEAT);
 		textures["gold"] = texture;
 	}
 
@@ -444,9 +444,10 @@ void Tema3::DrawObstacles(float deltaTimeSeconds)
 		glm::vec3 pos = obstacles_positions.at(i);
 
 		glm::mat4 model_matrix = glm::mat4(1);
-		model_matrix = glm::translate(model_matrix, glm::vec3(.0f, -.7f, .0f));
+		model_matrix = glm::translate(model_matrix, glm::vec3(.0f, -.5f, .0f));
 		model_matrix = glm::translate(model_matrix, pos);
-		model_matrix = glm::scale(model_matrix, glm::vec3(0.25f, 0.25f, 0.25f));
+		model_matrix = glm::rotate(model_matrix, -1.5f, glm::vec3(1, 0, 0));
+		model_matrix = glm::scale(model_matrix, glm::vec3(0.15f, 0.15f, 0.15f));
 		glm::vec3 col = glm::vec3(.0f, .0f, .0f);
 		RenderSimpleMesh(meshes["skull"], shaders["ShaderTema3"], model_matrix, col, false, textures["gold"]);
 
@@ -802,7 +803,7 @@ void Tema3::PlatformPlayerInteractions(float deltaTimeSeconds)
 					time_elapsed >= orange_platform_start + 1)
 				{
 					last_speed = platform_speed;
-					platform_speed = MAX_PLATFORM_SPEED * 2;
+					platform_speed = MAX_PLATFORM_SPEED * 1.25f;
 					is_affected_orange_plat = true;
 					orange_platform_start = time_elapsed;
 				}
