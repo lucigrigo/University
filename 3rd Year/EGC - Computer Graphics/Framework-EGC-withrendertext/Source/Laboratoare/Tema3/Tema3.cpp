@@ -179,6 +179,13 @@ void Tema3::Init()
 
 	// generating initial platforms
 	last_z = platforms.SpawnNextPlatforms(last_z, initial_platform_positions);
+
+	{
+		glm::ivec2 resolution = window->GetResolution();
+		Text = new TextRenderer(resolution.x, resolution.y);
+
+		Text->Load("Source/TextRenderer/Fonts/Arial.ttf", 18);
+	}
 }
 
 void Tema3::FrameStart()
@@ -246,11 +253,14 @@ void Tema3::DrawUI(float deltaTimeSeconds)
 }
 
 void Tema3::DisplayScore(float deltaTimeSeconds) {
-	// TODO display score
-	// score
+	// display score
+	float x = window->GetResolution().x * 1 / 3;
+	Text->RenderText("Scor: " + std::to_string((int)score), x, 0.0f, 1.0f, glm::vec3(1.0, 1.0, 1.0));
 
-	// TODO display fuel percentage
-	// fuel_percent
+	// display fuel percentage
+	x = window->GetResolution().x * 2 / 3;
+	if (!is_falling)
+		Text->RenderText("Fuel Percent: " + std::to_string((int)round(fuel_percent * 100)) + "%", x, 0.0f, 1.0f, glm::vec3(1.0, 1.0, 1.0));
 }
 
 void Tema3::GenerateDecorations()
@@ -322,7 +332,7 @@ void Tema3::GenerateDecorations()
 					decorations_types.push_back(SPHERE);
 					decorations_types.push_back(SPHERE);
 				}
-				
+
 			}
 			else {
 				for (int i = -5; i >= -55; i -= 5)
@@ -353,7 +363,7 @@ void Tema3::GenerateDecorations()
 					decorations_types.push_back(PYRAMID);
 					decorations_types.push_back(PYRAMID);
 				}
-				
+
 			}
 		}
 	}
@@ -453,6 +463,14 @@ void Tema3::DrawObstacles(float deltaTimeSeconds)
 
 		if (CheckObstacleCollision(player_position, pos))
 		{
+			float x = window->GetResolution().x / 2;
+			float y = window->GetResolution().y * 1 / 4;
+			Message m;
+			m.x = x;
+			m.y = y;
+			m.msg = new string("Died to Obstacle");
+			m.time_remaining = 3.0f;
+			messages.push_back(m);
 			AnimateFall(deltaTimeSeconds);
 			obstacles_positions.erase(obstacles_positions.begin() + i);
 			break;
@@ -551,12 +569,28 @@ void Tema3::DrawCollectibles(float deltaTimeSeconds)
 			{
 			case FUEL_POTION:
 			{
+				float x = window->GetResolution().x / 2;
+				float y = window->GetResolution().y * 1 / 4;
+				Message m;
+				m.x = x;
+				m.y = y;
+				m.msg = new string("Fuel Potion Collected");
+				m.time_remaining = 2.0f;
+				messages.push_back(m);
 				is_using_fuel_potion = true;
 				time_remaining_fuel_potion = 3.f;
 				break;
 			}
 			case SCORE_BOOST:
 			{
+				float x = window->GetResolution().x / 2;
+				float y = window->GetResolution().y * 1 / 4;
+				Message m;
+				m.x = x;
+				m.y = y;
+				m.msg = new string("Score Boost Collected");
+				m.time_remaining = 2.0f;
+				messages.push_back(m);
 				is_using_score_boost = true;
 				time_remaining_score_boost = 3.f;
 				break;
@@ -795,20 +829,52 @@ void Tema3::PlatformPlayerInteractions(float deltaTimeSeconds)
 			if (CheckIntersect(player_position, pos))
 			{
 				platform_colors.at(i) = platforms.platform_color_types[5];
-				if (platform_types[i] == platforms.PLATFORM_TYPE::RED)
+				if (platform_types[i] == platforms.PLATFORM_TYPE::RED) {
+					float x = window->GetResolution().x / 2;
+					float y = window->GetResolution().y * 1 / 4;
+					Message m;
+					m.x = x;
+					m.y = y;
+					m.msg = new string("Died to Red Platform");
+					m.time_remaining = 3.0f;
+					messages.push_back(m);
 					AnimateFall(deltaTimeSeconds);
-				if (platform_types[i] == platforms.PLATFORM_TYPE::YELLOW)
+				}
+				if (platform_types[i] == platforms.PLATFORM_TYPE::YELLOW) {
+					float x = window->GetResolution().x / 2;
+					float y = window->GetResolution().y * 1 / 4;
+					Message m;
+					m.x = x;
+					m.y = y;
+					m.msg = new string("Fuel Lost because of Yellow Platform");
+					messages.push_back(m);
 					fuel_percent = max(.0f, 0.67f * fuel_percent);
+				}
 				if (platform_types[i] == platforms.PLATFORM_TYPE::ORANGE &&
 					time_elapsed >= orange_platform_start + 1)
 				{
+					float x = window->GetResolution().x / 2;
+					float y = window->GetResolution().y * 1 / 4;
+					Message m;
+					m.x = x;
+					m.y = y;
+					m.msg = new string("GO GO GO!!! Survive if you can....");
+					messages.push_back(m);
 					last_speed = platform_speed;
 					platform_speed = MAX_PLATFORM_SPEED * 1.25f;
 					is_affected_orange_plat = true;
 					orange_platform_start = time_elapsed;
 				}
-				if (platform_types[i] == platforms.PLATFORM_TYPE::GREEN)
+				if (platform_types[i] == platforms.PLATFORM_TYPE::GREEN) {
+					float x = window->GetResolution().x / 2;
+					float y = window->GetResolution().y * 1 / 4;
+					Message m;
+					m.x = x;
+					m.y = y;
+					m.msg = new string("Fuel Recovered because of Green Platform");
+					messages.push_back(m);
 					fuel_percent = min(1.f, 1.33f * fuel_percent);
+				}
 				affects_player.at(i) = true;
 			}
 		}
@@ -900,21 +966,32 @@ void Tema3::Update(float deltaTimeSeconds)
 	time_elapsed += deltaTimeSeconds;
 	rotate_factor += min((float)MAX_PLATFORM_SPEED, platform_speed) * deltaTimeSeconds * (float)0.3;
 	last_z += deltaTimeSeconds * platform_speed;
-	if (is_using_score_boost)
-	{
-		score += (3 * deltaTimeSeconds * platform_speed);
-		time_remaining_score_boost -= deltaTimeSeconds;
-		if (time_remaining_score_boost <= .0f)
+	if (!is_falling) {
+		if (is_using_score_boost)
 		{
-			is_using_score_boost = false;
-			time_remaining_score_boost = .0f;
+			score += (3 * deltaTimeSeconds * platform_speed);
+			time_remaining_score_boost -= deltaTimeSeconds;
+			if (time_remaining_score_boost <= .0f)
+			{
+				is_using_score_boost = false;
+				time_remaining_score_boost = .0f;
+			}
+		}
+		else
+		{
+			score += (deltaTimeSeconds * platform_speed);
 		}
 	}
-	else
-	{
-		score += (deltaTimeSeconds * platform_speed);
+	if (!messages.empty()) {
+		Message m = messages.at(0);
+		Text->RenderText(m.msg->c_str(), m.x, m.y, 1.0f, glm::vec3(1.0, 1.0, 1.0));
+		m.time_remaining = m.time_remaining - deltaTimeSeconds;
+		cout << m.time_remaining << endl;
+		if (m.time_remaining <= .0f)
+			messages.erase(messages.begin());
+		messages.at(0) = m;
 	}
-	
+
 	// displaying score on the screen
 	DisplayScore(deltaTimeSeconds);
 

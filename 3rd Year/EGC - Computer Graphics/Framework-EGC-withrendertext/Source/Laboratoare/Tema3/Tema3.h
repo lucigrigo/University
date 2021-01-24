@@ -14,6 +14,8 @@
 #include "T3_Platforms.h"
 #include "Tema3Levels.h"
 #include "LabCamera.h"
+#include <TextRenderer/TextRenderer.h>
+#include <string>
 
 const enum DECORATION_TYPE {
     PYRAMID,
@@ -25,6 +27,13 @@ const enum COLLECTIBLE_TYPE {
     FUEL_POTION,
     SCORE_BOOST
 };
+
+typedef struct {
+    std::string* msg;
+    float time_remaining;
+    float x;
+    float y;
+} Message;
 
 class Tema3 : public SimpleScene
 {
@@ -118,4 +127,6 @@ protected:
     float time_remaining_fuel_potion;
     bool is_using_score_boost;
     float time_remaining_score_boost;
+    TextRenderer* Text;
+    std::vector<Message> messages;
 };
