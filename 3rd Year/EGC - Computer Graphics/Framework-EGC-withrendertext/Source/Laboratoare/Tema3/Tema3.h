@@ -67,6 +67,7 @@ private:
     void Tema3::DrawCollectibles(float deltaTimeSeconds);
     bool Tema3::CheckObstacleCollision(glm::vec3 player_position, glm::vec3 obstacle_position);
     bool Tema3::CheckCollectibleCollision(glm::vec3 player_position, glm::vec3 collectible_position);
+    void Tema3::DisplayScore(float deltaTimeSeconds);
 
 protected:
     /* TEMA 2 VARIABILE */

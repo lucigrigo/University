@@ -194,8 +194,6 @@ void Tema3::FrameStart()
 
 void Tema3::DrawUI(float deltaTimeSeconds)
 {
-	// TODO display score in top-right corner
-
 	if (is_falling)
 		return;
 
@@ -222,29 +220,37 @@ void Tema3::DrawUI(float deltaTimeSeconds)
 		}
 	}
 
-	// deciding the color of the indicator
-	glm::vec3 color;
-	if (fuel_percent >= 0.66f)
-		color = glm::vec3(.0f, 1.f, .0f);
-	else if (fuel_percent >= 0.33f)
-		color = glm::vec3(.9f, .9f, .0f);
-	else
-		color = glm::vec3(.9f, .0f, .0f);
+	//// deciding the color of the indicator
+	//glm::vec3 color;
+	//if (fuel_percent >= 0.66f)
+	//	color = glm::vec3(.0f, 1.f, .0f);
+	//else if (fuel_percent >= 0.33f)
+	//	color = glm::vec3(.9f, .9f, .0f);
+	//else
+	//	color = glm::vec3(.9f, .0f, .0f);
 
-	// drawing outer rectangle
-	glm::mat4 model_matrix = glm::mat4(1);
-	model_matrix = glm::translate(model_matrix,
-		glm::vec3(camera_position_third_person.x + 4, camera_position_third_person.y, -3.01));
-	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, 5.f, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema3"], model_matrix,
-		glm::vec3(1.f, 1.f, 1.f), textures["indicator"]);
+	//// drawing outer rectangle
+	//glm::mat4 model_matrix = glm::mat4(1);
+	//model_matrix = glm::translate(model_matrix,
+	//	glm::vec3(camera_position_third_person.x + 4, camera_position_third_person.y, -3.01));
+	//model_matrix = glm::scale(model_matrix, glm::vec3(.5f, 5.f, .01f));
+	//RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema3"], model_matrix,
+	//	glm::vec3(1.f, 1.f, 1.f), textures["indicator"]);
 
-	// drawing inner rectangle
-	model_matrix = glm::mat4(1);
-	model_matrix = glm::translate(model_matrix, glm::vec3(camera_position_third_person.x + 4,
-		(float)camera_position_third_person.y - 2.5f * (1 - fuel_percent), -3));
-	model_matrix = glm::scale(model_matrix, glm::vec3(.5f, (float)5.f * fuel_percent, .01f));
-	RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema3"], model_matrix, color, textures["indicator"]);
+	//// drawing inner rectangle
+	//model_matrix = glm::mat4(1);
+	//model_matrix = glm::translate(model_matrix, glm::vec3(camera_position_third_person.x + 4,
+	//	(float)camera_position_third_person.y - 2.5f * (1 - fuel_percent), -3));
+	//model_matrix = glm::scale(model_matrix, glm::vec3(.5f, (float)5.f * fuel_percent, .01f));
+	//RenderSimpleMesh(meshes["indicator"], shaders["ShaderTema3"], model_matrix, color, textures["indicator"]);
+}
+
+void Tema3::DisplayScore(float deltaTimeSeconds) {
+	// TODO display score
+	// score
+
+	// TODO display fuel percentage
+	// fuel_percent
 }
 
 void Tema3::GenerateDecorations()
@@ -254,11 +260,15 @@ void Tema3::GenerateDecorations()
 	{
 		for (float i = 0; i >= -100; i -= 10)
 		{
+			decorations_positions.push_back(glm::vec3(6, -.5f, i));
+			decorations_positions.push_back(glm::vec3(-6, -.5f, i));
 			decorations_positions.push_back(glm::vec3(6, .5f, i));
 			decorations_positions.push_back(glm::vec3(-6, .5f, i));
 			decorations_positions.push_back(glm::vec3(6, 1.5f, i));
 			decorations_positions.push_back(glm::vec3(-6, 1.5f, i));
 
+			decorations_types.push_back(CUBE);
+			decorations_types.push_back(CUBE);
 			decorations_types.push_back(CUBE);
 			decorations_types.push_back(CUBE);
 			decorations_types.push_back(SPHERE);
@@ -298,11 +308,15 @@ void Tema3::GenerateDecorations()
 			if (x == 0) {
 				for (int i = -5; i >= -55; i -= 5)
 				{
+					decorations_positions.push_back(glm::vec3(6, -.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, -.5f, min_x + i));
 					decorations_positions.push_back(glm::vec3(6, .5f, min_x + i));
 					decorations_positions.push_back(glm::vec3(-6, .5f, min_x + i));
 					decorations_positions.push_back(glm::vec3(6, 1.5f, min_x + i));
 					decorations_positions.push_back(glm::vec3(-6, 1.5f, min_x + i));
 
+					decorations_types.push_back(CUBE);
+					decorations_types.push_back(CUBE);
 					decorations_types.push_back(CUBE);
 					decorations_types.push_back(CUBE);
 					decorations_types.push_back(SPHERE);
@@ -315,7 +329,27 @@ void Tema3::GenerateDecorations()
 				{
 					decorations_positions.push_back(glm::vec3(6, .5f, min_x + i));
 					decorations_positions.push_back(glm::vec3(-6, .5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(6, 1.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, 1.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(6, 2.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, 2.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(6, 3.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, 3.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(6, 4.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, 4.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(6, 5.5f, min_x + i));
+					decorations_positions.push_back(glm::vec3(-6, 5.5f, min_x + i));
 
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
+					decorations_types.push_back(PYRAMID);
 					decorations_types.push_back(PYRAMID);
 					decorations_types.push_back(PYRAMID);
 				}
@@ -353,8 +387,9 @@ void Tema3::DrawDecorations(float deltaTimeSeconds)
 			break;
 		case PYRAMID:
 			col = glm::vec3(.0f, .0f, .0f);
-			model_matrix = glm::scale(model_matrix, glm::vec3(.07f, .07f, .07f));
-			RenderSimpleMesh(meshes["pyramid"], shaders["ShaderTema3"], model_matrix, col, false, textures["galaxy"]);
+			//model_matrix = glm::scale(model_matrix, glm::vec3(.07f, .07f, .07f));
+			//RenderSimpleMesh(meshes["pyramid"], shaders["ShaderTema3"], model_matrix, col, false, textures["galaxy"]);
+			RenderSimpleMesh(meshes["cube"], shaders["ShaderTema3"], model_matrix, col, false, textures["galaxy"]);
 			break;
 		default:
 			col = glm::vec3(.0f, .0f, .0f);
@@ -489,6 +524,7 @@ void Tema3::DrawCollectibles(float deltaTimeSeconds)
 		glm::mat4 model_matrix = glm::mat4(1);
 		model_matrix = glm::translate(model_matrix, glm::vec3(0, .5f, 0));
 		model_matrix = glm::translate(model_matrix, pos);
+		model_matrix = glm::rotate(model_matrix, time_elapsed, glm::vec3(0, 1, 0));
 		model_matrix = glm::rotate(model_matrix, 1.67f, glm::vec3(1, 0, 0));
 		model_matrix = glm::scale(model_matrix, glm::vec3(.1f, .1f, .1f));
 		glm::vec3 col;
@@ -877,18 +913,19 @@ void Tema3::Update(float deltaTimeSeconds)
 	{
 		score += (deltaTimeSeconds * platform_speed);
 	}
-	if ((int)time_elapsed % 10 == 0)
-		//cout << "Score: " << (int)score << endl;
+	
+	// displaying score on the screen
+	DisplayScore(deltaTimeSeconds);
 
 	// drawing user interface
 	DrawUI(deltaTimeSeconds);
 
-	// drawing platforms
-	AnimatePlatforms(deltaTimeSeconds);
-
 	// TODO illuminate gameplay from decorations
 	// draw decorations
 	DrawDecorations(deltaTimeSeconds);
+
+	// drawing platforms
+	AnimatePlatforms(deltaTimeSeconds);
 
 	// draw obstacles
 	DrawObstacles(deltaTimeSeconds);
