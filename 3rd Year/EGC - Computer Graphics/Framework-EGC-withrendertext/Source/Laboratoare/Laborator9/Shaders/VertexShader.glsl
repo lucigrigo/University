@@ -15,6 +15,6 @@ out vec2 texcoord;
 void main()
 {
 	// TODO : pass v_texture_coord as output to Fragment Shader
-
+	texcoord = v_texture_coord;
 	gl_Position = Projection * View * Model * vec4(v_position, 1.0);
 }
