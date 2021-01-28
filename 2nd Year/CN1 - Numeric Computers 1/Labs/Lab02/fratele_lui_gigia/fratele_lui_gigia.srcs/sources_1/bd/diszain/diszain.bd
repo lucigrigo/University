@@ -1,0 +1,184 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x21408AE65A43C4F7",
+      "device": "xc7a100tcsg324-1",
+      "name": "diszain",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2019.2.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "xor_0": "",
+      "si_1": "",
+      "xor_1": "",
+      "si_2": "",
+      "si_3": "",
+      "vio_0": ""
+    },
+    "ports": {
+      "sum": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "cout": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
+      },
+      "clk_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "diszain_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "xor_0": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "xci_name": "diszain_util_vector_logic_0_0",
+        "parameters": {
+          "C_OPERATION": {
+            "value": "xor"
+          },
+          "C_SIZE": {
+            "value": "1"
+          }
+        }
+      },
+      "si_1": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "xci_name": "diszain_util_vector_logic_0_1",
+        "parameters": {
+          "C_SIZE": {
+            "value": "1"
+          }
+        }
+      },
+      "xor_1": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "xci_name": "diszain_xor_0_0",
+        "parameters": {
+          "C_OPERATION": {
+            "value": "xor"
+          },
+          "C_SIZE": {
+            "value": "1"
+          }
+        }
+      },
+      "si_2": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "xci_name": "diszain_si_1_0",
+        "parameters": {
+          "C_SIZE": {
+            "value": "1"
+          }
+        }
+      },
+      "si_3": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "xci_name": "diszain_si_2_0",
+        "parameters": {
+          "C_OPERATION": {
+            "value": "or"
+          },
+          "C_SIZE": {
+            "value": "1"
+          }
+        }
+      },
+      "vio_0": {
+        "vlnv": "xilinx.com:ip:vio:3.0",
+        "xci_name": "diszain_vio_0_0",
+        "parameters": {
+          "C_NUM_PROBE_IN": {
+            "value": "2"
+          },
+          "C_NUM_PROBE_OUT": {
+            "value": "3"
+          }
+        }
+      }
+    },
+    "nets": {
+      "xor_0_Res": {
+        "ports": [
+          "xor_0/Res",
+          "xor_1/Op1",
+          "si_2/Op1"
+        ]
+      },
+      "si_3_Res": {
+        "ports": [
+          "si_3/Res",
+          "cout",
+          "vio_0/probe_in1"
+        ]
+      },
+      "si_2_Res": {
+        "ports": [
+          "si_2/Res",
+          "si_3/Op2"
+        ]
+      },
+      "si_1_Res": {
+        "ports": [
+          "si_1/Res",
+          "si_3/Op1"
+        ]
+      },
+      "Op1_0_1": {
+        "ports": [
+          "vio_0/probe_out0",
+          "xor_0/Op1",
+          "si_1/Op1"
+        ]
+      },
+      "Op2_0_1": {
+        "ports": [
+          "vio_0/probe_out1",
+          "xor_0/Op2",
+          "si_1/Op2"
+        ]
+      },
+      "Op2_1_1": {
+        "ports": [
+          "vio_0/probe_out2",
+          "si_2/Op2",
+          "xor_1/Op2"
+        ]
+      },
+      "xor_1_Res": {
+        "ports": [
+          "xor_1/Res",
+          "sum",
+          "vio_0/probe_in0"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk_0",
+          "vio_0/clk"
+        ]
+      }
+    }
+  }
+}

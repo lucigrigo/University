@@ -30,4 +30,5 @@ class Laborator9 : public SimpleScene
 
 		std::unordered_map<std::string, Texture2D*> mapTextures;
 		GLuint randomTextureID;
+		bool mix;
 };

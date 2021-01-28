@@ -1,0 +1,7 @@
+Running: xsim.dir/prima_zi_de_scoala_wrapper_behav/xsimk -simmode gui -wdb prima_zi_de_scoala_wrapper_behav.wdb -simrunnum 0 -socket 49791
+Design successfully loaded
+Design Loading Memory Usage: 43900 KB (Peak: 44020 KB)
+Design Loading CPU Usage: 20 ms
+Simulation completed
+Simulation Memory Usage: 125636 KB (Peak: 183168 KB)
+Simulation CPU Usage: 20 ms

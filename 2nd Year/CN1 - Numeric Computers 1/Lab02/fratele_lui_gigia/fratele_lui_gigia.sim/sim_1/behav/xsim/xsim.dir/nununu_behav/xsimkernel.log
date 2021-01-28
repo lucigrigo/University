@@ -1,7 +1,0 @@
-Running: xsim.dir/nununu_behav/xsimk -simmode gui -wdb nununu_behav.wdb -simrunnum 0 -socket 36233
-Design successfully loaded
-Design Loading Memory Usage: 43916 KB (Peak: 44036 KB)
-Design Loading CPU Usage: 20 ms
-Simulation completed
-Simulation Memory Usage: 125652 KB (Peak: 183184 KB)
-Simulation CPU Usage: 30 ms

@@ -78,13 +78,6 @@ void Tema3::Init()
 		textures["galaxy"] = texture;
 	}
 
-	// creating platform model
-	{
-		Mesh* mesh = new Mesh("pyramid");
-		mesh->LoadMesh(texture_path, "pyramid.obj");
-		meshes[mesh->GetMeshID()] = mesh;
-	}
-
 	{
 		Mesh* mesh = new Mesh("platform");
 		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "box.obj");

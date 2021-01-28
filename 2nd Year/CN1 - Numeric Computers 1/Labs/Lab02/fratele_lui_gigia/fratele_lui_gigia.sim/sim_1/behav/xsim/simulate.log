@@ -1,0 +1,8 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+sum = 0 si cout = 0 (              150000) ESTE OK, din a = 0, b = 0, cin = 0
+sum = 1 si cout = 0 (              200000) ESTE OK, din a = 0, b = 1, cin = 0
+sum = 1 si cout = 0 (              250000) ESTE OK, din a = 1, b = 0, cin = 0
+sum = 0 si cout = 1 (              300000) ESTE OK, din a = 1, b = 1, cin = 0
+sum = 1 si cout = 1 (              350000) ESTE OK, din a = 1, b = 1, cin = 1
+$stop called at time : 450 ns : File "/home/student1/Downloads/lab2/fratele_lui_gigia/fratele_lui_gigia.srcs/sim_1/new/nununu.v" Line 53
