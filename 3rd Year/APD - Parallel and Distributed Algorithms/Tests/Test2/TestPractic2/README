@@ -1,0 +1,42 @@
+                        Grigore Lucian-Florin - 336CA
+                        Algoritmi Paraleli si Distribuiti
+                        Test Practic 2 - 26 ianuarie 2021
+
+In functia care calculeaza pentru nodul curent distanta catre celelalte noduri,
+am urmat urmatorii pasi:
+- initializez cu -1 vectorul de distante
+- actualizez cu 0 distanta pana la sine si cu 1 distantele pana la vecini
+- repet pentru un anumit numar de pasi pentru a asigura convergenta:
+    - trimit catre vecini vectorul meu de distante
+    - primesc de la fiecare vecin vectorul lui de distante intr-un alt vector
+    - actualizez distantele
+    - distanta catre un nod n = distanta catre vecin + distanta de la vecin la nod n
+        sau dist[n], daca este mai mic
+- astept la o bariera terminarea acestor pasi pentru toti workerii (desi, datorita
+folosirii MPI_Send si MPI_Recv, workerii nu au cum sa termine la momente de timp
+indepartate; am folosit aceasta bariera mai mult in cazul in care operatiile de dupa
+MPI_Recv ar ocupa mai mult sau mai putin timp, in functie de rangul nodului)
+- iterez printre indicii din topologie (cunosc dimensiunea acesteia)
+- daca am ajuns la nodul curent in iteratie, imi printez distantele pana la toate
+nodurile din graf
+- inainte de urmatoare iteratie din for, astept la o bariera toate nodurile
+astfel incat afisarile sa nu se intercaleze
+
+                                    OUTPUT
+
+(base) Grigores-MacBook-Pro:TestPractic2 grigorelucian$ make
+mpicc main.c -o main -lm
+(base) Grigores-MacBook-Pro:TestPractic2 grigorelucian$ make run
+mpirun --oversubscribe -np 12 main
+De la nodul 0: 0 1 1 2 3 3 4 5 5 4 5 4 
+De la nodul 1: 1 0 1 2 3 3 4 5 5 4 5 4 
+De la nodul 2: 1 1 0 1 2 2 3 4 4 3 4 3 
+De la nodul 3: 2 2 1 0 1 1 2 3 3 2 3 2 
+De la nodul 4: 3 3 2 1 0 2 3 4 4 3 4 1 
+De la nodul 5: 3 3 2 1 2 0 1 2 2 1 2 1 
+De la nodul 6: 4 4 3 2 3 1 0 1 2 2 3 2 
+De la nodul 7: 5 5 4 3 4 2 1 0 1 1 2 3 
+De la nodul 8: 5 5 4 3 4 2 2 1 0 1 2 3 
+De la nodul 9: 4 4 3 2 3 1 2 1 1 0 1 2 
+De la nodul 10: 5 5 4 3 4 2 3 2 2 1 0 3 
+De la nodul 11: 4 4 3 2 1 1 2 3 3 2 3 0
