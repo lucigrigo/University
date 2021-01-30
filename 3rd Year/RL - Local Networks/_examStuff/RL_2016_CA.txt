@@ -1,0 +1,15 @@
+1.
+Nivelul fizic = nivelul de baza atat in stiva OSI, cat si in stiva TCP/IP. Se ocupa in principal cu transmiterea bitilor de la o statie la alta la nivel fizic, adica prin diferite metode in functie de mijlocul de comunicare ales: lumina in fibra optica, unde electromagnetice in aer, etc. Nu interpreteaza pachete, datagrame, sau alte forme mai avansate de reprezentare a datelor. Mai are rol in: sincronizarea bitilor, codificare/decodificare, modulatie, etc.
+Codificare Manchester: in mijlocul perioadei de ceas: tranzitie de jos in sus = 1, tranzitie de sus in jos = 0. Tranzitiile de la inceputul perioadei de ceas sunt folosite pentru sincronizare.
+
+2.
+DHCP = Dynamic Host Configuration Protocol
+Folosit in medii unde configurarea unei adrese unui host se face de catre un server, locatii publice precum un aeroport. Etape:
+a) DHCP_DISCOVER - hostul transmite broadcast un mesaj: "exista vreun server DHCP in zona?"
+b) DHCP_OFFER - serverul DHCP ofera hostului o "oferta" pentru o adresa IP pe care o poate folosi in Internet
+c) DHCP_REQUEST - hostul cere serverului DHCP sa ii ofere acea adresa
+d) DHCP_ACK - serverul confirma hostului ca poate folosi adresa oferita
+
+3.
+NAT si PAT
+NAT = Network Address Translation
