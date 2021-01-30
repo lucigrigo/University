@@ -12,4 +12,26 @@ d) DHCP_ACK - serverul confirma hostului ca poate folosi adresa oferita
 
 3.
 NAT si PAT
-NAT = Network Address Translation
+NAT = Network Address Translation - mijloc de comunicare intre o retea locala de hosturi si restul Internetului. Dpdv exterior, reteaua este reprezentata printr-o singura adresa, cea a serverului de NAT. Din interior, orice host care doreste sa trimita ceva in exterior trebuie sa treaca pachetele prin serverul de NAT. +securitate (din exterior nu se pot vedea in mod direct hosturile) +exista alocate anumite intervale pentru adrese care in retea sunt atribuite unic, dar in Internet nu sunt unice. -dificultati atunci cand se doreste conectarea in mod direct catre un host dintr-o retea cu NAT (exemplu apel Skype catre un server dintr-un NAT -> folosirea Skype Relay)
+PAT = Port Address Translation - functioneaza similar cu NAT, dar identificarea la nivel de server PAT a hosturilor pe care doreste sa le translateze are loc la nivel de port, unde fiecare primeste unul in mod unic. -si NAT si PAT inlocuiesc adresele IP sursa. -dezavantaje cand trebuie calculata o cale care trece printr-un server de PAT sau NAT
+
+4.
+perioada de rotatie = (1 / 100) * (dist_pana_la_pamant + raza_pamant) ^ 1.5
+satelit de tip GEO
+
+5.
+in clasa de IP-uri C: putem avea 256 de subretele cu cate 256 de adrese fiecare
+
+6.
+frecventa vocii umane ~4000Hz
+sampling rate = 2 * 4000 = 8000 samples/sec
+bit rate = sampling rate * number of bits per sample = 8000 * 16 = 128 Kbps
+
+7.
+CSMA/CA - folosit in comunicarea de tip acces multiplu. Este un algoritm urmat de statiile dintr-un astfel de sistem, care merg pe principiul ca mai intai asculta si dupa transmit ("polite conversationalist"). Astfel, se asigura ca mediul de comunicare nu este ocupat pentru o anumita perioada de timp (delay de trimitere/primire) si dupa pot transmite. De asemenea, statiile memoreaza si un timer de la ultima incercare a vedea daca reteaua este libera.
+
+8.
+Go-Back-N Arq = protocol utilizat in comunicarea dintre 2 statii, in care transmitatorul trimite N pachete unul dupa celelalt, fara a astepta vreun ACK de la corespondent (window size)
+
+9.
+CDMS pentru 8 statii: ce e asta?
