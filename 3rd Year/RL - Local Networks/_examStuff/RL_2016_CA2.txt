@@ -1,0 +1,60 @@
+1.
+nivelul fizic si codificare Manchester = already done
+Manchester diferential - tranzitii si la inceputul perioadei de ceas si la mijlocul ei; cele de la inceput sunt folosite pentru sincronizare; tranzitiile din mijlocul perioadei de ceas indica valorea bitului curent; o schimbare a sensului tranzitiei fata de perioada precedenta indica 1, daca nu se schimba sensul tranzitiei fiind 0
+
+2.
+DHCP: DHCP_DISCOVER, DHCP_OFFER, DHCP_REQUEST, DHCP_ACK = already done
+
+3.
+PSK, 8-PSK, 8-QAM
+PSK = phase-shift keying; amplitudinea si frecventa raman constante, in timp de faza se schimba; faza semnalului este variata pentru a reprezenta binar 1 si 0; 
+8-PSK = se doreste reprezentarea a 8 valori in binar pentru diferite valori ale fazei semnalului fiecarei perioade de bit:
+	binar	grade
+	000		0
+	001		45
+	010		90
+	011		135
+	100		180
+	101		225
+	110		270
+	111		315
+8-QAM: QAM (Quadrature Amplitude Modulation) este o combinatie intre ASK si PSK (modulatii pentru faza si amplitudine) pentru a putea codifica eficient mai multe valori intr-o singura valoare pentru semnal; in cazul 8-QAM, se folosesc 2 amplitudini si 4 faze (desen)
+
+4.
+NAT si PAT - avantaje, dezavantaje = already done
+
+5.
+ARP - Address Resolution Protocol = protocol prin care se doreste aflarea adresei MAC destinatie, cand se cunoaste adresa IP a destinatarului; un host care doreste sa trimita un pachet unui alt host din aceeasi retea foloseste ARP direct pentru a afla adresa fizica a acestuia; daca destinatarul este in alta retea, atunci serverul (next-hopul de la sender, dupa rutare) foloseste ARP pentru a afla adresa fizica a destinatarului; daca senderul este un router, foloseste tabela de rutare pentru a afla adresa IP a next-hop si ARP pentru a afla adresa fizica a acestui next-hop; daca entitatea curenta este un router care a primit un pachet cu destinatia IP in reteaua din care face parte, atunci foloseste ARP pentru aflarea adresei fizice; ARP consta din 2 mesaje:
+a) ARP REQUEST - mesaj de tip broadcast, trimis de sender, in care se intreaba "cine are adresa IP x.x.x.x? doresc sa stiu adresa fizica"
+b) ARP REPLY - mesaj de tip unicast, poate fi trimis ori de entitatea care are adresa IP mentionata in REQUEST, ori de un ruter care gaseste adresa IP mentionata in tabela sa de rutare
+
+6.
+clasa de tip A, masca de clasa este /8 = 255.0.0.0
+masca din cerinta este 255.255.192.0 = 1111 1111.1111 1111. 1100 0000. 0000 0000 = /18
+numar de subretele = 2 ^ 10 = 1024 subretele
+numar de hosturi in fiecare subretea = 2 ^ 14 = 1024 * 16 = 16384 hosturi
+
+7.
+CDMA = code-division multiple access; un canal duce in acelasi timp toate transmisiunile; acest lucru este posibil folosind un multiplexor pentru a putea codifica in mod diferit transmisiunile de la fiecare sursa si la fel pt demultiplexor pentru destinatii; 
+a) multiplexorul primeste un bit de la fiecare statie
+b) inmulteste bitul de la statia 1 cu toti bitii de la codificarea A (coresp primei statii)
+c) executa la fel pentru celelalte statii, la fiecare folosind codificarea corespunzatoare
+d) aduna toti primii biti, toti de pe poz 2, samd => o noua secventa
+e) transmite secventa
+
+a) demux primeste secventa
+b) inmulteste secventa cu codul pentru fiecare statie-destinatie (bit cu bit)
+c) se aduna toti bitii din secventa rezultata pt fiecare statie. rezultatul este intotdeauna pozitiv, -4 sau 0
+d) rezultatul se imparte la 4 si decodificat la 0 sau 1, sau silence
+
+8.
+FCS = frame-check sequence; parte din pachetul Ethernet, este ultimul camp din orice pachet Ethernet;l se ocupa de detectia erorilor
+
+9.
+MAC = Media Access Control - adresa fizica a unui device; este atribuita de catre producator; este unica in lume; are formatul 48 de biti; primii 24 identifica organizatia, ultimii 24 identifica interfata de retea
+IP = Internet Protocol - adresa cu care se identifica un dispozitiv in reteaua de Internet; de tip IPv4 sau IPv6 (32 sau 128 de biti); un dispozitiv poate folosi mai multe adrese IP in functie de routerul la care se conecteaza; daca face parte din mai multe retele; un dispozitiv precum NAT poate reprezenta, printr-o singura adresa IP, o intreaga subretea locala
+relatia dintre ele = adresa MAC este atribuita de producatorul placii de retea; adresa IP este atrbuita de ISP-ul local; diferenta dintre ele este ca adresa MAC este folosita pentru a reprezenta fizic un device si pentru a il identifica in mod unic intr-o retea; adresa IP este folosita pentru a identifica in mod unic conexiunile acelui dispozitiv intr-o anumita retea; MAC - nivel legatura de date, IP - nivel retea; MAC - nu se poate modifica in timp sau in functie de mediu, IP - se poate modifica in timp sau in functie de zona; MAC - nu poate fi aflata de aplicatii third-party, IP - poate fi aflata de aplicatii third-party
+
+10.
+centurile Van Allen = reprezinta o multime de particule incarcate energetic (plasma) in jurul Pamantului, fiind tinute de incarcatura electromagnetica a Pamantului; centura interioara este constituita in principal de protoni, iar cea exterioara in principal din electroni; cand centurile se "incarca", particulele se lovesc de atmosfera pamantului, producand aurora boreala; aceste centuri sunt vazute ca rezultatul dintre vanturile solare si campul magnetic al Pamantului
+satelitii GEO = se afla la aproximativ 36.000 km fata de Pamant
