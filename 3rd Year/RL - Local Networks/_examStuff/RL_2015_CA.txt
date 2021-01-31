@@ -1,1 +1,40 @@
 1.
+/23 = 2^23 subretele daca nu consideram clase de retele; 2^15 daca consideram ca face parte din clasa A; 2 ^ 7 daca consideram ca face parte din clasa B; 2^9 hosturi in fiecare subretea
+/24, /25 ANALOG
+
+2.
+PSK = already done
+4-PSK = codificarea pentru 4 valori (2 biti) in functie de faza semnalului pentru fiecare perioada de bit:
+	valoare		grade
+	00			0
+	01			90
+	10			180
+	11			270
+8-QAM = already done
+
+3.
+DHCP = already done
+
+4.
+nivelul fizic = already done
+metode de codificare = NRZ-L, NRZ-I, Manchester, Manchester diferential
+11001101: codificare Manchester si Manchester Diferential = EZ PZ
+
+5.
+STP = Spanning Tree Protocol - folosit pentru a depista cea mai scurta (eficienta) ruta intre doua entitati; poate fi construit folosind algoritmul Prim sau algoritmul Kruskal;
+
+6.
+comparatie CSMD/CA si CSMD/CD = la CDMD/CA, daca hostul depisteaza canalul ca fiind ocupat ('busy'), nu isi restarteaza timerul propriu pentru asteptare; il opreste si il restarteaza cand canalul devine liber
+
+7.
+CDMA - intrari pentru 8 statii: COD
+cum se codifica si cum se decodifica = already done
+
+8.
+CRC = metoda de verificare folosind suma de control
+
+9.
+NAT si PAT, avantaje si dezavantaje = already done
+
+10.
+centurile Van Allen, satelitii Geo = already done
