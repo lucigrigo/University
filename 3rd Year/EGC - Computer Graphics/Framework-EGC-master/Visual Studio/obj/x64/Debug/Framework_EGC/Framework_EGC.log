@@ -1,0 +1,13 @@
+﻿  Tema2.cpp
+E:\Repos\University\3rd Year\EGC - Computer Graphics\Framework-EGC-master\Source\Laboratoare\Tema2\Tema2.cpp(142,16): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+E:\Repos\University\3rd Year\EGC - Computer Graphics\Framework-EGC-master\Source\Laboratoare\Tema2\Tema2.cpp(366,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Framework_EGC.vcxproj -> E:\Repos\University\3rd Year\EGC - Computer Graphics\Framework-EGC-master\x64\Debug\Framework_EGC.exe
+  A subdirectory or file E:\Repos\University\3rd Year\EGC - Computer Graphics\Framework-EGC-master\Visual Studio\scripts\..\..\x64\Debug already exists.
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
