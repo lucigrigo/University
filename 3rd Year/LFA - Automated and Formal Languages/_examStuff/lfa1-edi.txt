@@ -1,0 +1,164 @@
+1.Atentie!! Nu se poate reveni la aceasta intrebare!
+Care este expresia regulata care genereaza L={w∈{0,1}∗∣#00(w)≤1}
+
+((e∪0)11∗)∗(e∪0∪00)(11∗(e∪0))∗
+(e∪0)(e∪1∪10)∗(e∪1∪01)∗(e∪0)
+((e∪0)11∗)∗(e∪00)(11∗(e∪0))∗
+Select one:
+
+a.toate trei-----------------------------------------------------
+b.prima si a treia
+c.a doua si a treia
+d.prima si a doua
+
+2.Atentie!! Nu se poate reveni la aceasta intrebare!
+Pentru orice AFN cu n stari si tranzitii pe siruri de lungime maxim 1, exista un AFD in forma minima care accepta acelasi limbaj cu:
+
+Select one:
+
+a.cel mult 2^n stari--------------------------------------------
+b.cel putin 2^n stari
+c.cel mult log2(n) stari
+d.cel putin log2(n) stari
+
+
+3.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie L={apbkap∣25<p≤k}. Cum este L?
+
+Select one:
+
+a.finit
+b.limbaj independent de context, dar nu regulat
+c.limbaj regulat, dar nu finit
+d.nu este limbaj independent de context si nici regulat---------------------------------
+
+
+4.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie Σ={a,b},L1=L((a∗b∗)∗),L2=L((a∪b)∗) si L3=Σ∗∖(L1∩(Σ∗∖L2)). Alegeti afirmatia adevarata:
+
+Select one:
+
+a.L3≠L2
+b.L3≠Σ∗
+c.L3≠ϕ-----------------------------------------------------------------------
+d.L3≠L1
+
+5.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie Σ={a} si L={w∈Σ∗∣w este palindrom }.
+
+Select one:
+
+a.L nu este independent de context
+b.L este regulat, dar nu finit
+c.L este independent de context, dar nu regulat-------------------------------
+d.L este finit
+
+
+6.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie T={L ∣ L∈LR} si un limbaj oarecare L∈T, astfel incat M1=(K1,Σ1,δ1,s1,F1) un AFD pentru L si M2=(K2,Σ2,Δ2,s2,F2) un AFN pentru L. care dintre urmatoarele afirmatii este adevarata:
+
+Select one:
+
+a.|K2|<=|K1| daca L este un limbaj infinit
+b.|Δ2|=|Σ2|∗|K2|
+c.Numarul de tranzitii din M1≥|K1|--------------------------------------------------
+d.0<|Δ2|<∞
+
+
+7.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie L1={anbnan∣n≥0} si L2={an∣n≥0}. care dintre urmatoarele variante este adevarata?
+
+Select one:
+
+a.L1∈LIC,L2∈LR,L1∖L2∈LR
+b.L1∉LIC,L2∈LR,L1∪L2∈LR
+c.L1∉LIC,L2∈LR,L1∖L2∉LIC--------------------------------------------------------------
+d.L1∈LIC,L2∈LR,L1∪L2∈LIC
+
+
+8.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie M1={L∣L∈LR} si M2={L∣L∈LIC}. Cu cine este egal M2∖M1?
+
+Select one:
+
+a.M2
+b.ϕ
+c.nicio varianta----------------------------------------------------------------------
+d.M1
+
+
+9.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie r=a(ab∗a∪b∗)∗. Alegeti varianta corecta:
+
+Select one:
+
+a.b este in orice sir generat de r
+b.niciuna dintre variante
+c.e∈L(r)
+d.a este in orice sir generat de r-----------------------------------------------
+
+
+10.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie alfabetul Σ={0..9,a..f}. Este multimea limbajelor peste Σ numarabila? Dar multimea limbajelor independente de context peste Σ?
+
+Select one:
+
+a.da, da
+b.nu, nu
+c.nu, da-------------------------------------------
+d.da, nu
+
+
+11.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie L={0n1m1m0n∣m,n≥0}. L este un:
+
+Select one:
+
+a.nu se poate preciza
+b.limbaj independent de context-----------------------------
+c.limbaj dependent de context
+d.limbaj regulat
+
+
+12.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie Σ={0,1} si L={w∈Σ∗∣∀u,v,x∈Σ∗,w=uvx,#0(x)−#1(x)≤1}. Alegeti varianta adevarata:
+
+Select one:
+
+a.L este regulat, dar nu finit------------------------------------------------------
+b.L este finit
+c.L este independent de context, dar nu regulat
+d.L nu este independent de context
+
+
+13.Atentie!! Nu se poate reveni la aceasta intrebare!
+Fie expresia regulata E=0e∗∪1ϕ∗:
+
+Select one:
+
+a.E=0∗∪1
+b.E=0∪1---------------------------
+c.E=0
+d.E=0∗
+
+
+14.Atentie!! Nu se poate reveni la aceasta intrebare!
+Care este ER pentru L(a(a∪b)∗)∩L(b(a∪b)∗)?
+
+Select one:
+
+a.(a∪b)(a∪b)∗
+b.ϕ
+c.(a∪b)∗----------------------------------------------
+d.(a∪b)
+
+
+15.Atentie!! Nu se poate reveni la aceasta intrebare!
+Cate AFD pentru L=L(0∗),Σ={0,1} se pot construi?
+
+Select one:
+
+a.o infinitate--------------------------------------------------
+b.unul
+c.nicio varianta
+d.niciunul
