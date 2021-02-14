@@ -11,7 +11,6 @@ prima
 
 b.
 a doua-------------------------------------------------------
----------------si a treia
 
 c.
 prima si a treia
@@ -66,7 +65,7 @@ una
 Select one:
 
 a.
-limbaj regulat, dar nu finit
+limbaj regulat, dar nu finit-----------------------------------------
 
 
 b.
@@ -74,7 +73,7 @@ finit
 
 
 c.
-limbaj independent de context, dar nu regulat--------------------
+limbaj independent de context, dar nu regulat
 
 
 d.
@@ -140,7 +139,7 @@ c.
 
 
 d.
-Nu exista o relatie intre Δ1 si Δ2-----------------------------------
+Nu exista o relatie intre Δ1 si Δ2----------------------------------------
 
 
 8. Fie Σ={0,1} si L={w∈Σ* ∣ ∀u,v,x∈Σ∗,w=uvx,|#0(v)−#1(v)|≤1}. Alegeti varianta adevarata:
@@ -152,7 +151,7 @@ L este regulat, dar nu finit---------------------------------
 
 
 b.
-L este finit?????????????????????????????????????
+L este finit
 
 
 c.
@@ -267,11 +266,11 @@ poate fi un limbaj regulat
 Select one:
 
 a.
-nicio varianta
+nicio varianta----------------------------------------
 
 
 b.
-unul------------------------
+unul
 
 
 c.
@@ -299,4 +298,4 @@ L1∉LIC,L2∈LR,L1∪L2∈LR
 
 
 d.
-L1∉LIC,L2∈LR,L1∖L2∉LIC---------------------------------------
+L1∉LIC,L2∈LR,L1∖L2∉LIC-----------------------------------------

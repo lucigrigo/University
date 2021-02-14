@@ -5,8 +5,8 @@ Select one:
 
 a.Niciuna dintre celelalte variante
 b.L(M) nu este independent de context
-c.L(M) este independent de context, dar nu regulat-------------------------
-d.L(M) este regulat
+c.L(M) este independent de context, dar nu regulat
+d.L(M) este regulat--------------------------------------------------------
 
 
 2.Atentie!! Nu se poate reveni la aceasta intrebare!
@@ -15,7 +15,7 @@ Un limbaj decis de o masina Turing cu h=20 capete de citire:
 Select one:
 
 a.nu poate fi acceptat de o masina Turing h=3
-b.poate fi decis de o masina Turing cu h=7---------------------------------
+b.poate fi decis de o masina Turing cu h=7-------------------------------------
 c.niciuna dintre variante
 d.nu poate fi decis de o masina Turing cu h=9
 
@@ -25,9 +25,9 @@ Fie L un limbaj Turing acceptat. Atunci LR={w∈Σ∗∣wR∈L} (multimea siruri
 
 Select one:
 
-a.este Turing decidabil---------------------------------------------
+a.este Turing decidabil
 b.nu se poate preciza
-c.este Turing acceptat------? daca nu se poate opri - L infinit?
+c.este Turing acceptat---------------------------------------------------------
 d.nu este Turing acceptat
 
 
@@ -39,7 +39,7 @@ Multimea limbajelor Turing acceptate este inchisa in raport cu operatia de conca
 Select one:
 
 a.Fals, Adevarat
-b.Adevarat, Adevarat--------------------------
+b.Adevarat, Adevarat-----------------------------------------------------------
 c.Fals, Fals
 d.Adevarat, Fals
 
@@ -52,7 +52,7 @@ Select one:
 a.L este Turing acceptat, dar nu Turing decidabil
 b.L este finit
 c.L este Turing decidabil
-d.L nu este Turing acceptat----------------------------------------
+d.L nu este Turing acceptat--------------------------------------------------
 
 
 6.Atentie!! Nu se poate reveni la aceasta intrebare!
@@ -60,10 +60,10 @@ Cum este urmatorul limbaj L={ρ(G1)ρ(G2)∣ G1,G2∈GIC ∧ L(G1)⊇L(G2) }?
 
 Select one:
 
-a.L este Turing decidabil-----------------------------------------
+a.L este Turing decidabil
 b.L este Turing acceptat, dar nu Turing decidabil
 c.L este finit
-d.L nu este Turing acceptat
+d.L nu este Turing acceptat-----------------------------------------------------
 
 
 7.Atentie!! Nu se poate reveni la aceasta intrebare!
@@ -71,9 +71,9 @@ Fie L={w∈{0,1}∗∣w de forma uu}. Alegeti varianta corecta:
 
 Select one:
 
-a.Nu se poate construi un APD pentru L
+a.Nu se poate construi un APD pentru L-----------------------------------------------
 b.Se poate construi un APD determinist pentru L
-c.Nicio varianta----------------------------------------------------------
+c.Nicio varianta
 d.L este finit
 
 
@@ -82,8 +82,8 @@ Cum este urmatorul limbaj L={ρ(M)∣ |L(M)|≥10 }?
 
 Select one:
 
-a.L este Turing decidabil------------------------------------------------------
-b.L nu este Turing acceptat
+a.L este Turing decidabil
+b.L nu este Turing acceptat-----------------------------------------------------------
 c.L este Turing acceptat, dar nu Turing decidabil
 d.L este finit
 
@@ -95,8 +95,8 @@ Select one:
 
 a.L este finit
 b.L este Turing acceptat, dar nu Turing decidabil
-c.L nu este Turing acceptat---------------------------------------------
-d.L este Turing decidabil
+c.L nu este Turing acceptat
+d.L este Turing decidabil-------------------------------------------------------------
 
 
 10.Atentie!! Nu se poate reveni la aceasta intrebare!
@@ -106,5 +106,5 @@ Select one:
 
 a.L este Turing decidabil
 b.L este Turing acceptat, dar nu Turing decidabil
-c.L nu este Turing acceptat------------------------------------
+c.L nu este Turing acceptat----------------------------------------------------------
 d.L este finit

@@ -35,7 +35,7 @@ nu poate fi decis de o masina Turing cu k−20 benzi
 
 
 d.
-poate fi decis de o masina Turing cu k+7 benzi-----------------------------
+poate fi decis de o masina Turing cu k+7 benzi---------------------------------
 
 
 Atentie!! Nu se poate reveni la aceasta intrebare!
@@ -52,7 +52,7 @@ L este finit
 
 
 c.
-Nu se poate construi un APD pentru L------------------------
+Nu se poate construi un APD pentru L--------------------------------------------
 
 
 d.
@@ -68,7 +68,7 @@ L nu este Turing acceptat
 
 
 b.
-L este Turing decidabil------------------------------------
+L este Turing decidabil--------------------------------------------------------
 
 
 c.
@@ -92,7 +92,7 @@ L nu este Turing acceptat
 
 
 c.
-L este Turing acceptat, dar nu Turing decidabil--------------------------
+L este Turing acceptat, dar nu Turing decidabil----------------------------------
 
 
 d.
@@ -138,7 +138,7 @@ L este finit
 
 
 d.
-L este Turing decidabil------------------------------------
+L este Turing decidabil-------------------------------------------------
 
 
 8. Fie L un limbaj Turing decidabil. Alegeti varianta corecta:
@@ -154,7 +154,7 @@ L este Turing acceptat, dar nu si L¯¯¯¯
 
 
 c.
-L si L¯¯¯¯ sunt Turing acceptate------------------------------------
+L si L¯¯¯¯ sunt Turing acceptate-----------------------------------------
 
 
 d.
@@ -166,7 +166,7 @@ L¯¯¯¯ este Turing acceptat, dar nu si L
 Select one:
 
 a.
-L este Turing decidabil
+L este Turing decidabil---------------------------------------------------
 
 
 b.
@@ -178,7 +178,7 @@ L este Turing acceptat, dar nu Turing decidabil
 
 
 d.
-L nu este Turing acceptat---------------------------------------------
+L nu este Turing acceptat
 
 
 10. Fie M=(K,Σ,Γ,Δ,s,F). Alegeti varianta corecta:
@@ -186,7 +186,7 @@ L nu este Turing acceptat---------------------------------------------
 Select one:
 
 a.
-|Σ|≥|Γ|----------------------------------------
+|Σ|≥|Γ|
 
 
 b.
@@ -198,4 +198,4 @@ c.
 
 
 d.
-Niciuna dintre celelalte variante
+Niciuna dintre celelalte variante------------------------------------------

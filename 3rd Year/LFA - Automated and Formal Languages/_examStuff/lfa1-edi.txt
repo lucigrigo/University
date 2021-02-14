@@ -6,10 +6,10 @@ Care este expresia regulata care genereaza L={w∈{0,1}∗∣#00(w)≤1}
 ((e∪0)11∗)∗(e∪00)(11∗(e∪0))∗
 Select one:
 
-a.toate trei-----------------------------------------------------
+a.toate trei
 b.prima si a treia
 c.a doua si a treia
-d.prima si a doua
+d.prima si a doua-----------------------------------------------
 
 2.Atentie!! Nu se poate reveni la aceasta intrebare!
 Pentru orice AFN cu n stari si tranzitii pe siruri de lungime maxim 1, exista un AFD in forma minima care accepta acelasi limbaj cu:
@@ -49,8 +49,8 @@ Fie Σ={a} si L={w∈Σ∗∣w este palindrom }.
 Select one:
 
 a.L nu este independent de context
-b.L este regulat, dar nu finit
-c.L este independent de context, dar nu regulat-------------------------------
+b.L este regulat, dar nu finit-----------------------------------------------
+c.L este independent de context, dar nu regulat
 d.L este finit
 
 
@@ -115,7 +115,7 @@ Fie L={0n1m1m0n∣m,n≥0}. L este un:
 Select one:
 
 a.nu se poate preciza
-b.limbaj independent de context-----------------------------
+b.limbaj independent de context---------------------------------------------------
 c.limbaj dependent de context
 d.limbaj regulat
 
@@ -125,9 +125,9 @@ Fie Σ={0,1} si L={w∈Σ∗∣∀u,v,x∈Σ∗,w=uvx,#0(x)−#1(x)≤1}. Aleget
 
 Select one:
 
-a.L este regulat, dar nu finit------------------------------------------------------
+a.L este regulat, dar nu finit
 b.L este finit
-c.L este independent de context, dar nu regulat
+c.L este independent de context, dar nu regulat-------------------------------------
 d.L nu este independent de context
 
 
@@ -137,7 +137,7 @@ Fie expresia regulata E=0e∗∪1ϕ∗:
 Select one:
 
 a.E=0∗∪1
-b.E=0∪1---------------------------
+b.E=0∪1------------------------------------------------------
 c.E=0
 d.E=0∗
 
@@ -148,8 +148,8 @@ Care este ER pentru L(a(a∪b)∗)∩L(b(a∪b)∗)?
 Select one:
 
 a.(a∪b)(a∪b)∗
-b.ϕ
-c.(a∪b)∗----------------------------------------------
+b.ϕ--------------------------------------------
+c.(a∪b)∗
 d.(a∪b)
 
 
