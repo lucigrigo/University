@@ -1,0 +1,302 @@
+1. Care este expresia regulata care genereaza L={w∈{0,1}* ∣ #00(w)≤1}
+
+(0∪e)(e∪1∪01)*(e∪00)(e∪1∪01)*
+(e∪0)(e∪1∪10)*(e∪1∪01)*(e∪0)
+(e∪1∪01)*(e∪00)(e∪1∪10)*
+Select one:
+
+a.
+prima
+
+
+b.
+a doua-------------------------------------------------------
+---------------si a treia
+
+c.
+prima si a treia
+
+
+d.
+prima si a doua
+
+
+2. Fie M1={L∣L∈LR∧a∈L} si M2={L∣L∈LR∧b∈L}. Cu cine este egal M1∩M2?
+
+Select one:
+
+a.
+nicio varianta---------------------------------
+
+
+b.
+M3=ϕ
+
+
+c.
+M3={L∣L∈LR∧ab∈L}
+
+
+d.
+M3={L∣L∈LR}
+
+
+3. Cate expresii echivalente cu e exista?
+
+Select one:
+
+a.
+nicio varianta
+
+
+b.
+niciuna
+
+
+c.
+o infinitate-------------------------------
+
+
+d.
+una
+
+
+4. Fie L={0^n.1^m.0^n ∣ n < 12 < m}. Cum este L?
+
+Select one:
+
+a.
+limbaj regulat, dar nu finit
+
+
+b.
+finit
+
+
+c.
+limbaj independent de context, dar nu regulat--------------------
+
+
+d.
+nu este limbaj independent de context si nici regulat
+
+
+5. Fie gramatica S→S|0|1. Care este expresia regulata pentru limbajul generat de gramatica:
+
+Select one:
+
+a.
+E=ϕ(0∪1)*∪(ϕ*0)*∪(ϕ*1)*
+
+
+b.
+E=(0∪1)*
+
+
+c.
+E=0∪(ϕ∪e)1---------------------------
+
+
+d.
+E=ϕ
+
+
+6. Alegeti valoarea de adevar a urmatoarelor afirmatii:
+
+Orice expresie regulata ce contine operatia Kleene star genereaza un limbaj infinit.
+Un AFD poate avea 0 stari finale.
+Select one:
+
+a.
+Adevarat, Adevarat
+
+
+b.
+Fals, Adevarat------------------------
+
+
+c.
+Fals, Fals
+
+
+d.
+Adevarat, Fals
+
+
+7. Fie L1 cu AFN-ul asociat M1=(K1,Σ1,Δ1,s1,F1) si L2 cu AFN-ul asociat M2=(K2,Σ2,Δ2,s2,F2). Stiind ca L1⊆L2, K1=K2, Σ1=Σ2 si |Σ1|>1, care dintre urmatoarele variante este adevarata:
+
+Select one:
+
+a.
+Nu exista L1,L2 care sa satisfaca cerintele date
+
+
+b.
+F1=F2
+
+
+c.
+Δ1⊆Δ2
+
+
+d.
+Nu exista o relatie intre Δ1 si Δ2-----------------------------------
+
+
+8. Fie Σ={0,1} si L={w∈Σ* ∣ ∀u,v,x∈Σ∗,w=uvx,|#0(v)−#1(v)|≤1}. Alegeti varianta adevarata:
+
+Select one:
+
+a.
+L este regulat, dar nu finit---------------------------------
+
+
+b.
+L este finit?????????????????????????????????????
+
+
+c.
+L nu este independent de context
+
+
+d.
+L este independent de context, dar nu regulat
+
+
+9. Fie Σ={a,b}, L={ww ∣ w∈Σ∗}. Cum este L?:
+
+Select one:
+
+a.
+L este independent de context, dar nu regulat
+
+
+b.
+L este regulat, dar nu finit
+
+
+c.
+L nu este independent de context-------------------
+
+
+d.
+L este finit
+
+
+10. Fie r=a(a*a∪b*)*. Alegeti varianta corecta:
+
+Select one:
+
+a.
+niciuna dintre variante
+
+
+b.
+b este in orice sir generat de r
+
+
+c.
+b∈L(r)
+
+
+d.
+aa∈L(r)-----------------------------------------
+
+
+11. Fie L={a^n.b^m.b^m.a^n ∣ m,n≥0}. L este un:
+Select one:
+
+a.
+limbaj independent de context-------------------------------------
+
+
+b.
+limbaj regulat
+
+
+c.
+nu se poate preciza
+
+
+d.
+limbaj dependent de context
+
+
+12. Configuratia unui AFD contine:
+
+Select one:
+
+a.
+starea curenta si sirul de intrare care a fost parcurs
+
+
+b.
+starea curenta si sirul de intrare care a mai ramas de parcurs------------------------
+
+
+c.
+starea curenta si intregul sir de intrare
+
+
+d.
+starea urmatoare si intregul sir de intrare
+
+
+13. Fie L=L1∪L2 si L1∩L2=ϕ. Daca L1 este regulat si L2 nu este regulat, atunci L:
+
+Select one:
+
+a.
+nu este un limbaj regulat---------------------
+
+
+b.
+este un limbaj regulat
+
+
+c.
+nu se poate preciza
+
+
+d.
+poate fi un limbaj regulat
+
+
+14. Cate AFD pentru L=L(0*),Σ={0,1} se pot construi?
+
+Select one:
+
+a.
+nicio varianta
+
+
+b.
+unul------------------------
+
+
+c.
+niciunul
+
+
+d.
+doua
+
+
+15. Fie L1={a^p.b^k.a^l ∣ l≥k≥p≥0} si L2={a^p ∣ p≥0}. care dintre urmatoarele variante este adevarata:
+
+Select one:
+
+a.
+L1∈LIC,L2∈LR,L1∪L2∈LIC
+
+
+b.
+L1∈LIC,L2∈LR,L1∖L2∈LR
+
+
+c.
+L1∉LIC,L2∈LR,L1∪L2∈LR
+
+
+d.
+L1∉LIC,L2∈LR,L1∖L2∉LIC---------------------------------------

@@ -1,0 +1,201 @@
+1. Cum este urmatorul limbaj L={ρ(M1)ρ(M2)..ρ(Mn)ρ(w)∣n=23 si exact 13 Mi accepta w }?
+
+Select one:
+
+a.
+L este Turing decidabil
+
+
+b.
+L este Turing acceptat, dar nu Turing decidabil
+
+
+c.
+L nu este Turing acceptat---------------------------
+
+
+d.
+L este finit
+
+
+2. Un limbaj decis de o masina Turing cu k>100 benzi:
+
+Select one:
+
+a.
+nu poate fi acceptat de o masina Turing cu k+10 benzi
+
+
+b.
+niciuna dintre variante
+
+
+c.
+nu poate fi decis de o masina Turing cu k−20 benzi
+
+
+d.
+poate fi decis de o masina Turing cu k+7 benzi-----------------------------
+
+
+Atentie!! Nu se poate reveni la aceasta intrebare!
+3. Fie L={w∈{0,1}* ∣ w de forma uuRu}. Alegeti varianta corecta:
+
+Select one:
+
+a.
+Se poate construi un APD determinist pentru L
+
+
+b.
+L este finit
+
+
+c.
+Nu se poate construi un APD pentru L------------------------
+
+
+d.
+Nicio varianta
+
+
+4. Cum este urmatorul limbaj L={ρ(G1)ρ(G2)∣ G1,G2∈GIC ∧ |L(G1)|=|L(G2)|=0 }?
+
+Select one:
+
+a.
+L nu este Turing acceptat
+
+
+b.
+L este Turing decidabil------------------------------------
+
+
+c.
+L este finit
+
+
+d.
+L este Turing acceptat, dar nu Turing decidabil
+
+
+5. Cum este urmatorul limbaj L={ρ(M)ρ(w)∣ M accepta w}?
+
+Select one:
+
+a.
+L este finit
+
+
+b.
+L nu este Turing acceptat
+
+
+c.
+L este Turing acceptat, dar nu Turing decidabil--------------------------
+
+
+d.
+L este Turing decidabil
+
+
+6. Alegeti valoarea de adevar a urmatoarelor intrebari:
+
+Multimea limbajelor Turing decidabile este inchisa in raport cu operatia complement
+Multimea limbajelor Turing acceptate este inchisa in raport cu operatia complement
+Select one:
+
+a.
+Fals, Adevarat
+
+
+b.
+Adevarat, Fals----------------------------------------
+
+
+c.
+Adevarat, Adevarat
+
+
+d.
+Fals, Fals
+
+
+7. Cum este urmatorul limbaj L={ρ(M)ρ(w)∣M∈AFD ∧ M accepta w}?
+
+Select one:
+
+a.
+L este Turing acceptat, dar nu Turing decidabil
+
+
+b.
+L nu este Turing acceptat
+
+
+c.
+L este finit
+
+
+d.
+L este Turing decidabil------------------------------------
+
+
+8. Fie L un limbaj Turing decidabil. Alegeti varianta corecta:
+
+Select one:
+
+a.
+nici L si nici L¯¯¯¯ nu sunt Turing acceptate
+
+
+b.
+L este Turing acceptat, dar nu si L¯¯¯¯
+
+
+c.
+L si L¯¯¯¯ sunt Turing acceptate------------------------------------
+
+
+d.
+L¯¯¯¯ este Turing acceptat, dar nu si L
+
+
+9. Cum este urmatorul limbaj L={ρ(M1)ρ(M2)∣ M1∈AFN ∧ M2∈AFD ∧ L(M1)⊆L(M2)}?
+
+Select one:
+
+a.
+L este Turing decidabil
+
+
+b.
+L este finit
+
+
+c.
+L este Turing acceptat, dar nu Turing decidabil
+
+
+d.
+L nu este Turing acceptat---------------------------------------------
+
+
+10. Fie M=(K,Σ,Γ,Δ,s,F). Alegeti varianta corecta:
+
+Select one:
+
+a.
+|Σ|≥|Γ|----------------------------------------
+
+
+b.
+|Σ|=|Γ|
+
+
+c.
+Σ=Γ
+
+
+d.
+Niciuna dintre celelalte variante
