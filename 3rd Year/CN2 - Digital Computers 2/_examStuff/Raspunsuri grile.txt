@@ -1,0 +1,108 @@
+1) De cate chip-uri de memorie 32K x 8 aveti nevoie pt a construi o memorie 256K x 32 ?
+a) 10
+*b) 32
+c) 4
+d) 8
+e) 16
+memorie / memorie_chip = nr_chipuri
+256K * 32 / (32K * 8) = 32
+
+2) Un sistem de calcul cu un singur nivel de cache are o rata de hit de 85%. Timpul de acces la date in cazul unui cache hit este de 2ns, iar timpul de access in cazul unui miss este de 500ns. Care este timpul mediu de acces la memorie?
+a) 2.75ns
+b) 9.5ns
+*c) 77ns
+d) 752ns
+e) nicio varianta
+AMAT = hit_time + miss_rate * miss_penalty
+1 = hit_rate + miss_rate
+=> AMAT = 2 + (1 - 85/100) * 500 = 2 + 75 = 77
+
+3) Un sistem cache L1 si L2 are un miss rate de 5% din L1 si 2.5% din L2. Care este miss rate-ul global?
+a) 2.5%
+b) 12.5%
+c) 0.125%
+*d) 1.25%
+e) 0.0125%
+x = nr fetch-uri
+5% din x sunt miss-uri in L1 (deci cauta in L2 mai departe)
+2.5% din 5% din x sunt miss-uri in L2
+=> 2.5/100 * 5/100 = 1.25/100 => 1.25% rata miss globala
+
+4) Citirea dintr-un fisier exploateaza:
+a) localitatea temporala
+*b) localitatea spatiala
+c) ambele localitati
+d) niciuna
+e) nu se poate determina
+Datele din fisier sunt in zona continua de memorie, dupa o citire, se va intoarce in acelasi loc in memorie (plus un deplasament) pt urmatoarea citire => localitate spatiala.
+
+5) Avem o memorie cache cu linii de 4 octeti lungime organizata in 64 de seturi a cate 2 linii. Daca adresarea se face la nivel de octet, cu adrese pe 32 de biti, care este dimensiunea in biti a tag-ului pt fiecare linie de cache?
+a) 21
+b) 20
+*c) 23
+d) 24
+e) 22
+o_adresa = offset + set_index + tag
+line_width = 4B = 2^2 B
+num_of_sets = dim_of_set / set_size
+fiecare linie, deci numaram si liniile:
+num_of_sets = 64 * 2 = 2^7
+=> 32 - 2 - 7 = 23
+
+6) Pt o masina de calcul pe 32 biti, divizam adresele virtuale in urmatoarele campuri:
+10-bit | 8-bit | 6-bit | 8-bit
+Folosim o tablea de pagini ierarhica pe 3 niveluri, astfel incat primii 10 biti sunt pt primul nivel, urmatorii 8 pt al doilea si ultimii 6 pt al treilea. Segmentul final ce contine ultimii 8 biti specifica indexul in cadrul paginii. Care este dimensiunea totala a tabelei de pagini pt un proces care ocupa 256KB de memorie, incepand cu adresa 0?
+a) 1024 octeti
+b) 2304 octeti
+c) 4608 octeti
+d) 1304 octeti
+e) 256 octeti
+Cum se rezolva aici, cu o explicatie clara?
+
+7) Iulian optimizeaza programul de mai jos pt o executie mai rapida. A procedat corect?
+*a) Da
+b) Nu
+Before:
+for (i=0; i<n; i++) {
+	for (j=0; j<n; j++) {
+		sum = 0.0;
+		for (k=0; k<n; k++)
+			sum += a[i][k] * b[k][j];
+		c[i][j] = sum;
+	}
+}
+
+After:
+for (k=0; k<n; k++) {
+	for (i=0; i<n; i++) {
+		r = a[i][k];
+		for (j=0; j<n; j++)
+			c[i][j] += r * b[k][j];
+	}
+}
+Sumarea se face pe linii la a doua vairanta: c[i][j] se misca pe linie, b[k][j] e pe linie. Parcurgerile pe linii sunt mai rapide decat cele pe coloane din cauza ca la o linie ne putem folosi de cache, la o coloana nu. 
+
+8) Avem un sistem de memorie virtuala cu o tabela de pagini pe un singur nivel, stocata in memorie. Daca rata de hit pt TLB este de 80%, o cautare in TLB dureaza 15ns si dureaza 150ns pt un singur acces in memoria principala, care este timpul mediu de acces la memorie?
+a) 185ns
+b) 195ns
+c) 205ns
+d) 175ns
+e) 165ns
+Nu se aplica aceleasi formule ca la cache cu hit si miss? ca memoria fizica e un cache pt memoria virtuala.
+AMAT = hit_time + miss_rate * miss_penalty
+1 = hit_rate + miss_rate
+AMAT = 15 + (1 - 80/100) * (15 + 150) 15 + 33 = 48
+15 + 150 pt ca tot trebuie sa caute in tlb, si pt hit si pt miss, sa vada de care e. am presupus ca la un hit doar cauta, gaseste. iar pt un miss cauta, nu gaseste, si trebuie sa acceseze memoria.
+
+9) Adevarat sau fals: Translatarea adreselor din memoria virtuala este utila chiar si atunci cand dimensiunea totala a memoriei virtuale este mai mica decat dimensiunea memoriei fizice.
+Da, este utila intrucat inca poate oferi siguranta ca programele nu isi acceseaza unele altora memoria.
+=> Adevarat.
+
+10) Avem doua memorii cache de aceeasi dimensiune si care au acelasi timp de acces. Una este complet set-asociativa si cealalta este mapata direct. Daca codul vostru nu acceseaza aceeasi adresa de doua ori, care memorie va genera mai putine miss-uri?
+a) set-asociativa
+b) mapata direct
+*c) sunt egale
+d) niciuna
+e) nu se poate determina
+Daca codul nostru nu acceseaza aceeasi adresa de doua ori, inseamna ca vom avea doar compulsory misses.
+=> sunt egale
