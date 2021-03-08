@@ -1,10 +1,13 @@
+========== START
 spool e:\spool_bd\spool_bd_lab1_4mar2021.lst
 set lines 200
 set pages 100
 select to_char(sysdate, ’dd-mm-yyyy hh:mi:ss’) from dual;
 insert into login_lab_bd values( ’Grigore Lucian’, ’336CA’, ’Lab1’, user, sysdate, null, null);
 select * from login_lab_bd;
+==========
 
+========== FINAL
 update login_lab_bd set data_sf= sysdate where laborator='Lab1';
 update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab1';
 commit;
@@ -13,3 +16,4 @@ from v$instance;
 select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
 to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
 spool off; 
+==========
