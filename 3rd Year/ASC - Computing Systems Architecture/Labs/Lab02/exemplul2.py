@@ -1,7 +1,4 @@
-
-    
-
-    from threading import Thread
+from threading import Thread
   
 class MyThread(Thread):
     """ Clasa care incapsuleaza codul nostru concurent """

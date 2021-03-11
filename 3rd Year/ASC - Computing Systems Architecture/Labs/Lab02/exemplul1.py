@@ -1,7 +1,4 @@
-
-    
-
-    from threading import Thread
+from threading import Thread
   
 def my_concurrent_code(nr, msg):
     """ Functie care va fi rulata concurent """

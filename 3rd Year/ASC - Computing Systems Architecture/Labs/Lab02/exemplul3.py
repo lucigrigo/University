@@ -1,7 +1,4 @@
-
-    
-
-    from threading import Lock, Thread
+from threading import Lock, Thread
 
 def inc(lista, lock, index, n):
     """ Incrementeaza elementul index din lista de n ori """

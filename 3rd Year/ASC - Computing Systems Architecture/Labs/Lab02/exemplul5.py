@@ -1,7 +1,4 @@
-
-    
-
-    from random import randint, seed
+from random import randint, seed
 from threading import Semaphore, Thread
 from time import sleep
 

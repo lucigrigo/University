@@ -1,7 +1,4 @@
-
-    
-
-    from threading import RLock, Thread
+from threading import RLock, Thread
 
 def inc(lista, rlock, index, n):
     """ Incrementeaza elementul index din lista de n ori """
