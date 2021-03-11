@@ -1,0 +1,769 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+11-03-2021 08:06:39                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab2', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab1       SCOTT      04-MAR-21 04-MAR-21          8                                                                                                          
+Grigore Lucian                 336CA      Lab2       SCOTT      11-MAR-21                                                                                                                               
+
+SQL> select * from angajati;
+select * from angajati
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select table_name from user_table;
+select table_name from user_table
+                       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                                                                                                                                              
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+SALGRADE                                                                                                                                                                                                
+BONUS                                                                                                                                                                                                   
+DEPARTAMENTE                                                                                                                                                                                            
+GRILA_SALARIU                                                                                                                                                                                           
+LOGIN_LAB_BD                                                                                                                                                                                            
+
+7 rows selected.
+
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+14 rows selected.
+
+SQL> select ename, hiredate, sal from emp where deptno = 20;
+
+ENAME      HIREDATE         SAL                                                                                                                                                                         
+---------- --------- ----------                                                                                                                                                                         
+SMITH      17-DEC-80        800                                                                                                                                                                         
+JONES      02-APR-81       2975                                                                                                                                                                         
+SCOTT      19-APR-87       3000                                                                                                                                                                         
+ADAMS      23-MAY-87       1100                                                                                                                                                                         
+FORD       03-DEC-81       3000                                                                                                                                                                         
+
+SQL> create table departamente
+  2  (
+  3  id_departament NUMBER(2) NOT NULL,
+  4  denumire_departament VARCHAR2(30),
+  5  telefon VARCHAR2(10)
+  6  );
+create table departamente
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> desc departamente
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEP                                                                                                            NOT NULL NUMBER(2)
+ DEN_DEP                                                                                                                    VARCHAR2(30)
+ SEDIU                                                                                                                      VARCHAR2(20)
+
+SQL> drop table departamente;
+
+Table dropped.
+
+SQL> drop table grila_salariu;
+
+Table dropped.
+
+SQL> create table departamente
+  2  (
+  3  ID_DEP NUMBER(2) NOT NULL,
+  4  DEN_DEP VARCHAR2(30),
+  5  SEDIU VARCHAR2(30)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE ANGAJATI
+  2  (
+  3  ID_ANG NUMBER(4) NOT NULL,
+  4  NUME VARCHAR2(30),
+  5  FUNCTIE VARCHAR2(20),
+  6  ID_SEF NUMBER(4),
+  7  DATA_ANG DATE,
+  8  SALARIU NUMBER(7,2),
+  9  COMISION NUMBER(7,2),
+ 10  ID_DEP NUMBER(2)
+ 11  );
+
+Table created.
+
+SQL> CREATE TABLE GRILA_SALARIU
+  2  (
+  3  GRAD NUMBER(2),
+  4  NIVEL_INF NUMBER,
+  5  NIVEL_SUP NUMBER
+  6  );
+
+Table created.
+
+SQL> INSERT INTO DEPARTAMENTE SELECT * FROM DEPT;
+
+4 rows created.
+
+SQL> INSERT INTO ANGAJATI SELECT * FROM EMP;
+
+14 rows created.
+
+SQL> INSERT INTO GRILA_SALARIU SELECT * FROM SALGRADE;
+
+5 rows created.
+
+SQL> create table comments
+  2  (
+  3  id number(10),
+  4  article_comment varchar2(100),
+  5  idarticle number(10),
+  6  iduser number(10)
+  7  );
+
+Table created.
+
+SQL> create table departamente2
+  2  (
+  3  id_departament number(2) NOT NULL,
+  4  denumire_departament VARCHAR2(30),
+  5  telefon VARCHAR2(10)
+  6  );
+
+Table created.
+
+SQL> create table grila_salariu2
+  2  (
+  3  grad NUMBER(2),
+  4  nivel_inferior NUMBER,
+  5  nivel_superior NUMBER
+  6  );
+
+Table created.
+
+SQL> create table angajati2
+  2  (
+  3  id_angajat NUMBER(4) NOT NULL,
+  4  nume VARCHAR2(30),
+  5  prenume VARCHAR2(30),
+  6  functie VARCHAR2(20),
+  7  id_sef NUMBER(4),
+  8  data_angajarii DATE DEFAULT SYSDATE,
+  9  salariu NUMBER(7,2) DEFAULT 2000,
+ 10  comision NUMBER(7,2),
+ 11  id_departament NUMBER
+ 12  );
+
+Table created.
+
+SQL> drop table comments
+  2  ;
+
+Table dropped.
+
+SQL> desc departamente2
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEPARTAMENT                                                                                                    NOT NULL NUMBER(2)
+ DENUMIRE_DEPARTAMENT                                                                                                       VARCHAR2(30)
+ TELEFON                                                                                                                    VARCHAR2(10)
+
+SQL> ALTER TABLE departamente ADD CONSTRAINT pk_departamente PRIMARY KEY (id_departament);
+ALTER TABLE departamente ADD CONSTRAINT pk_departamente PRIMARY KEY (id_departament)
+                                                                     *
+ERROR at line 1:
+ORA-00904: "ID_DEPARTAMENT": invalid identifier 
+
+
+SQL> ALTER TABLE DEPARTAMENTE ADD CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY(ID_DEPARTAMENTE);
+ALTER TABLE DEPARTAMENTE ADD CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY(ID_DEPARTAMENTE)
+                                                                    *
+ERROR at line 1:
+ORA-00904: "ID_DEPARTAMENTE": invalid identifier 
+
+
+SQL> ALTER TABLE DEPARTAMENTE ADD CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY(ID_DEPARTAMENT);
+ALTER TABLE DEPARTAMENTE ADD CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY(ID_DEPARTAMENT)
+                                                                    *
+ERROR at line 1:
+ORA-00904: "ID_DEPARTAMENT": invalid identifier 
+
+
+SQL> ALTER TABLE DEPARTAMENTE2 ADD CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY(ID_DEPARTAMENT);
+
+Table altered.
+
+SQL> ALTER TABLE GRILA_SALARIU2 ADD CONSTRAINT PK_GRILA PRIMARY KEY(GRAD);
+
+Table altered.
+
+SQL> ALTER TABLE ANGAJATI2 ADD CONSTRAINT PK_ANGAJATI PRIMARY KEY(ID_ANGAJAT);
+
+Table altered.
+
+SQL> ALTER TABLE ANGAJATI2 ADD CONSTRAINT FK_ANG__DEP FOREIGN KEY (ID_DEPARTAMENT) REFERENCES DEPARTAMENTE2 (ID_DEPARTAMENT);
+
+Table altered.
+
+SQL> ALTER TABLE ANGAJATI2 ADD CONSTRAINT FK_ANG__ANG FOREIGN KEY (ID_SEF) REFERENCES ANGAJATI2(ID_ANGAJAT);
+
+Table altered.
+
+SQL> ALTER TABLE DEPARTAMENTE2 ADD CONSTRAINT UQ_DENUMIRE UNIQUE (DENUMIRE_DEPARTAMENT);
+
+Table altered.
+
+SQL> ALTER TABLE ANGAJATI2 ADD CONSTRAINT UQ_NUME UNIQUE (NUME, PRENUME);
+
+Table altered.
+
+SQL> DESC ANGAJATI2
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANGAJAT                                                                                                        NOT NULL NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(30)
+ PRENUME                                                                                                                    VARCHAR2(30)
+ FUNCTIE                                                                                                                    VARCHAR2(20)
+ ID_SEF                                                                                                                     NUMBER(4)
+ DATA_ANGAJARII                                                                                                             DATE
+ SALARIU                                                                                                                    NUMBER(7,2)
+ COMISION                                                                                                                   NUMBER(7,2)
+ ID_DEPARTAMENT                                                                                                             NUMBER
+
+SQL> DESC DEPARTAMENTE2
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEPARTAMENT                                                                                                    NOT NULL NUMBER(2)
+ DENUMIRE_DEPARTAMENT                                                                                                       VARCHAR2(30)
+ TELEFON                                                                                                                    VARCHAR2(10)
+
+SQL> DESC GRILA_SALARIU2
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ GRAD                                                                                                              NOT NULL NUMBER(2)
+ NIVEL_INFERIOR                                                                                                             NUMBER
+ NIVEL_SUPERIOR                                                                                                             NUMBER
+
+SQL> DROP TABLE ANGAJATI2;
+
+Table dropped.
+
+SQL> DROP TABLE DEPARTAMENTE2;
+
+Table dropped.
+
+SQL> DROP TABLE GRILA_SALARIU2;
+
+Table dropped.
+
+SQL> CREATE TABLE DEPARTAMENTE2
+  2  (
+  3  ID_DEPARTAMENT NUMBER(2) NOT NULL,
+  4  DENUMIRE_DEPARTAMENT VARCHAR2(30),
+  5  TELEFON VARCHAR2(10),
+  6  CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY (ID_DEPARTAMENT),
+  7  CONSTRAINT UQ_DENUMIRE UNIQUE (DENUMIRE_DEPARTAMENT)
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE GRILA_SALARIU2
+  2  (
+  3  GRAD NUMBER(2),
+  4  NIVEL_INFERIOR NUMBER,
+  5  NIVEL_SUPERIOR NUMBER,
+  6  CONSTRAINT PK_GRILA PRIMARY KEY(GRAD)
+  7  );
+
+Table created.
+
+SQL> CREATE TABLE ANGAJATI2
+  2  (
+  3  ID_ANGAJAT NUMBER(4) NOT NULL,
+  4  NUME VARCHAR2(30),
+  5  PRENUME VARCHAR2(30),
+  6  FUNCTIE VARCHAR2(20),
+  7  ID_SEF NUMBER(4),
+  8  DATA_ANGAJARII DATE DEFAULT SYSDATEM
+  9  
+SQL> CREATE TABLE ANGAJATI2
+  2  (
+  3  ID_ANGAJAT NUMBER(4) NOT NULL,
+  4  NUME VARCHAR2(30),
+  5  PRENUME VARCHAR2(30),
+  6  FUNCTIE VARCHAR2(20),
+  7  ID_SEF NUMBER(4),
+  8  DATA_ANGAJARII DATE DEFAULT SYSDATE,
+  9  SALARIU NUMBER(7,2) DEFAULT 2000,
+ 10  COMISION NUMBER(7,2),
+ 11  ID_DEPARTAMENT NUMBER,
+ 12  CONSTRAINT PK_ANGAJATI PRIMARY KEY (ID_ANGAJAT),
+ 13  CONSTRAINT FK_ANG__DEP FOREIGN KEY (ID_DEPARTAMENT)
+ 14  REFERENCES DEPARTAMENTE2(ID_DEPARTAMENT),
+ 15  CONSTRAINT FK_ANG__ANG FOREIGN KEY (ID_SEF)
+ 16  REFERENCES ANGAJATI2(ID_ANGAJAT),
+ 17  CONSTRAINT UQ_NUME UNIQUE (NUME, PRENUME)
+ 18  );
+
+Table created.
+
+SQL> INSERT INTO ANGAJATI2 SELECT * FROM EMP;
+INSERT INTO ANGAJATI2 SELECT * FROM EMP
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO ANGAJATI2 SELECT * FROM ANGAJATI;
+INSERT INTO ANGAJATI2 SELECT * FROM ANGAJATI
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO DEPARTAMENTE2 SELECT * FROM DEPT;
+
+4 rows created.
+
+SQL> INSERT INTO GRILA_SALARIU2 SELECT * FROM SALGRADE;
+
+5 rows created.
+
+SQL> DESC GRILA_SALARIU2;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ GRAD                                                                                                              NOT NULL NUMBER(2)
+ NIVEL_INFERIOR                                                                                                             NUMBER
+ NIVEL_SUPERIOR                                                                                                             NUMBER
+
+SQL> DESC DEPARTAMENTE2;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEPARTAMENT                                                                                                    NOT NULL NUMBER(2)
+ DENUMIRE_DEPARTAMENT                                                                                                       VARCHAR2(30)
+ TELEFON                                                                                                                    VARCHAR2(10)
+
+SQL> SELECT * FROM DEPARTAMENTE2;
+
+ID_DEPARTAMENT DENUMIRE_DEPARTAMENT           TELEFON                                                                                                                                                   
+-------------- ------------------------------ ----------                                                                                                                                                
+            10 ACCOUNTING                     NEW YORK                                                                                                                                                  
+            20 RESEARCH                       DALLAS                                                                                                                                                    
+            30 SALES                          CHICAGO                                                                                                                                                   
+            40 OPERATIONS                     BOSTON                                                                                                                                                    
+
+SQL> SELECT * FROM GRILA_SALARIU2;
+
+      GRAD NIVEL_INFERIOR NIVEL_SUPERIOR                                                                                                                                                                
+---------- -------------- --------------                                                                                                                                                                
+         1            700           1200                                                                                                                                                                
+         2           1201           1400                                                                                                                                                                
+         3           1401           2000                                                                                                                                                                
+         4           2001           3000                                                                                                                                                                
+         5           3001           9999                                                                                                                                                                
+
+SQL> DROP GRILA_SALARIU2;
+DROP GRILA_SALARIU2
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> DROP TABLE GRILA_SALARIU2;
+
+Table dropped.
+
+SQL> DROP TABLE DEPARTAMENTE2;
+DROP TABLE DEPARTAMENTE2
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> DROP TABLE ANGAJATI2;
+
+Table dropped.
+
+SQL> DROP TABLE DEPARTAMENTE2;
+
+Table dropped.
+
+SQL> SELECT TABLE_NAME FROM USER_TABLES;
+
+TABLE_NAME                                                                                                                                                                                              
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+SALGRADE                                                                                                                                                                                                
+BONUS                                                                                                                                                                                                   
+LOGIN_LAB_BD                                                                                                                                                                                            
+DEPARTAMENTE                                                                                                                                                                                            
+ANGAJATI                                                                                                                                                                                                
+GRILA_SALARIU                                                                                                                                                                                           
+
+8 rows selected.
+
+SQL> CREATE TABLE ANGAJATI2                                                                        (                                                                                             ID_ANGAJAT NUMBER(4) NOT NULL,                                                                NUME VARCHAR2(30),                                                                            PRENUME VARCHAR2(30),                                                                         FUNCTIE VARCHAR2(20),                                                                         ID_SEF NUMBER(4),                                                                             DATA_ANGAJARII DATE DEFAULT SYSDATE,                                                          SALARIU NUMBER(7,2) DEFAULT 2000,                                                            COMISION NUMBER(7,2),                                                                        ID_DEPARTAMENT NUMBER,                                                                       CONSTRAINT PK_ANGAJATI PRIMARY KEY (ID_ANGAJAT),                                             CONSTRAINT FK_ANG__DEP FOREIGN KEY (ID_DEPARTAMENT)                                          REFERENCES DEPARTAMENTE2(ID_DEPARTAMENT),                                                    CONSTRAINT FK_ANG__ANG FOREIGN KEY (ID_SEF)                                                  REFERENCES ANGAJATI2(ID_ANGAJAT),                                                            CONSTRAINT UQ_NUME UNIQUE (NUME, PRENUME)                                                    );
+CREATE TABLE ANGAJATI2                                                                        (                                                                                             ID_ANGAJAT NUMBER(4) NOT NULL,                                                                NUME VARCHAR2(30),                                                                            PRENUME VARCHAR2(30),                                                                         FUNCTIE VARCHAR2(20),                                                                         ID_SEF NUMBER(4),                                                                             DATA_ANGAJARII DATE DEFAULT SYSDATE,                                                          SALARIU NUMBER(7,2) DEFAULT 2000,                                                            COMISION NUMBER(7,2),                                                                        ID_DEPARTAMENT NUMBER,                                                                       CONSTRAINT PK_ANGAJATI PRIMARY KEY (ID_ANGAJAT),                                             CONSTRAINT FK_ANG__DEP FOREIGN KEY (ID_DEPARTAMENT)                                          REFERENCES DEPARTAMENTE2(ID_DEPARTAMENT),                                                    CONSTRAINT FK_ANG__ANG FOREIGN KEY (ID_SEF)                                                  REFERENCES ANGAJATI2(ID_ANGAJAT),                                                            CONSTRAINT UQ_NUME UNIQUE (NUME, PRENUME)                                                    )
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE DEPARTAMENTE2
+  2      (
+  3      ID_DEPARTAMENT NUMBER(2) NOT NULL,
+  4      DENUMIRE_DEPARTAMENT VARCHAR2(30),
+  5      TELEFON VARCHAR2(10),
+  6      CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY (ID_DEPARTAMENT),
+  7      CONSTRAINT UQ_DENUMIRE UNIQUE (DENUMIRE_DEPARTAMENT)
+  8      );
+
+Table created.
+
+SQL> CREATE TABLE GRILA_SALARIU2
+  2      (
+  3      GRAD NUMBER(2),
+  4      NIVEL_INFERIOR NUMBER,
+  5      NIVEL_SUPERIOR NUMBER,
+  6      CONSTRAINT PK_GRILA PRIMARY KEY(GRAD)
+  7      );
+
+Table created.
+
+SQL> CREATE TABLE ANGAJATI2                                                                        (                                                                                             ID_ANGAJAT NUMBER(4) NOT NULL,                                                                NUME VARCHAR2(30),                                                                            PRENUME VARCHAR2(30),                                                                         FUNCTIE VARCHAR2(20),                                                                         ID_SEF NUMBER(4),                                                                             DATA_ANGAJARII DATE DEFAULT SYSDATE,                                                          SALARIU NUMBER(7,2) DEFAULT 2000,                                                            COMISION NUMBER(7,2),                                                                        ID_DEPARTAMENT NUMBER,                                                                       CONSTRAINT PK_ANGAJATI PRIMARY KEY (ID_ANGAJAT),                                             CONSTRAINT FK_ANG__DEP FOREIGN KEY (ID_DEPARTAMENT)                                          REFERENCES DEPARTAMENTE2(ID_DEPARTAMENT),                                                    CONSTRAINT FK_ANG__ANG FOREIGN KEY (ID_SEF)                                                  REFERENCES ANGAJATI2(ID_ANGAJAT),                                                            CONSTRAINT UQ_NUME UNIQUE (NUME, PRENUME)                                                    );
+
+Table created.
+
+SQL> SELECT TABLE_NAME FROM USER_TABLES;
+
+TABLE_NAME                                                                                                                                                                                              
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+SALGRADE                                                                                                                                                                                                
+BONUS                                                                                                                                                                                                   
+LOGIN_LAB_BD                                                                                                                                                                                            
+DEPARTAMENTE                                                                                                                                                                                            
+ANGAJATI                                                                                                                                                                                                
+GRILA_SALARIU                                                                                                                                                                                           
+GRILA_SALARIU2                                                                                                                                                                                          
+DEPARTAMENTE2                                                                                                                                                                                           
+ANGAJATI2                                                                                                                                                                                               
+
+11 rows selected.
+
+SQL> INSERT INTO DEPARTAMENTE2 SELECT * FROM DEPT;
+
+4 rows created.
+
+SQL> INSERT INTO GRILA_SALARIU2 SELECT * FROM SALGRADE;
+
+5 rows created.
+
+SQL> SELECT * FROM DEPARTAMENTE2;
+
+ID_DEPARTAMENT DENUMIRE_DEPARTAMENT           TELEFON                                                                                                                                                   
+-------------- ------------------------------ ----------                                                                                                                                                
+            10 ACCOUNTING                     NEW YORK                                                                                                                                                  
+            20 RESEARCH                       DALLAS                                                                                                                                                    
+            30 SALES                          CHICAGO                                                                                                                                                   
+            40 OPERATIONS                     BOSTON                                                                                                                                                    
+
+SQL> DESC ANGAJATI2
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANGAJAT                                                                                                        NOT NULL NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(30)
+ PRENUME                                                                                                                    VARCHAR2(30)
+ FUNCTIE                                                                                                                    VARCHAR2(20)
+ ID_SEF                                                                                                                     NUMBER(4)
+ DATA_ANGAJARII                                                                                                             DATE
+ SALARIU                                                                                                                    NUMBER(7,2)
+ COMISION                                                                                                                   NUMBER(7,2)
+ ID_DEPARTAMENT                                                                                                             NUMBER
+
+SQL> SELECT * FROM GRILA_SALARIU2;
+
+      GRAD NIVEL_INFERIOR NIVEL_SUPERIOR                                                                                                                                                                
+---------- -------------- --------------                                                                                                                                                                
+         1            700           1200                                                                                                                                                                
+         2           1201           1400                                                                                                                                                                
+         3           1401           2000                                                                                                                                                                
+         4           2001           3000                                                                                                                                                                
+         5           3001           9999                                                                                                                                                                
+
+SQL> INSERT INTO GRILA_SALARIU2 VALUES(1, 1, 1000);
+INSERT INTO GRILA_SALARIU2 VALUES(1, 1, 1000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PK_GRILA) violated 
+
+
+SQL> INSERT INTO GRILA_SALARIU VALUES(5, 1000, 9999);
+
+1 row created.
+
+SQL> INSERT INTO GRILA_SALARIU2 VALUES(5, 1000, 9999);
+INSERT INTO GRILA_SALARIU2 VALUES(5, 1000, 9999)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PK_GRILA) violated 
+
+
+SQL> INSERT INTO DEPARTAMENTE2 VALUES(10, 'PROIECTARE SOFTWARE', '3212121');
+INSERT INTO DEPARTAMENTE2 VALUES(10, 'PROIECTARE SOFTWARE', '3212121')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PK_DEPARTAMENTE) violated 
+
+
+SQL> INSERT INTO DEPARTAMENTE2 VALUES(50, 'ACCOUNTING', '5555555');
+INSERT INTO DEPARTAMENTE2 VALUES(50, 'ACCOUNTING', '5555555')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.UQ_DENUMIRE) violated 
+
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, FUNCTIE) VALUES(1001, 'IONESCU', 'ION', 'DIRECTOR');
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(NUME, PRENUME, FUNCTIE) VALUES('IONESCU', 'IONEL', 'PROGRAMATOR');
+INSERT INTO ANGAJATI2(NUME, PRENUME, FUNCTIE) VALUES('IONESCU', 'IONEL', 'PROGRAMATOR')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."ANGAJATI2"."ID_ANGAJAT") 
+
+
+SQL> INSERT INTO ANGAJATI(ID_ANGAJAT, NUME, PRENUME, FUNCTIE, ID_SEF, SALARIU, ID_DEPARTAMENT) VALUES(1002, 'IONESCU', 'IONEL', 'PROGRAMATOR', 1001, 1024, 10);
+INSERT INTO ANGAJATI(ID_ANGAJAT, NUME, PRENUME, FUNCTIE, ID_SEF, SALARIU, ID_DEPARTAMENT) VALUES(1002, 'IONESCU', 'IONEL', 'PROGRAMATOR', 1001, 1024, 10)
+                                                                          *
+ERROR at line 1:
+ORA-00904: "ID_DEPARTAMENT": invalid identifier 
+
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, FUNCTIE, ID_SEF, SALARIU, ID_DEPARTAMENT) VALUES(1002, 'IONESCU', 'IONEL', 'PROGRAMATOR', 1001, 1024, 10);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI(ID_ANGAJAT, ID_DEPARTAMENT) VALUES(500, 200);
+INSERT INTO ANGAJATI(ID_ANGAJAT, ID_DEPARTAMENT) VALUES(500, 200)
+                                 *
+ERROR at line 1:
+ORA-00904: "ID_DEPARTAMENT": invalid identifier 
+
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, ID_DEPARTAMENT) VALUES(500, 200);
+INSERT INTO ANGAJATI2(ID_ANGAJAT, ID_DEPARTAMENT) VALUES(500, 200)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.FK_ANG__DEP) violated - parent key not found 
+
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, ID_SEF) VALUES(500, 200);
+INSERT INTO ANGAJATI2(ID_ANGAJAT, ID_SEF) VALUES(500, 200)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.FK_ANG__ANG) violated - parent key not found 
+
+
+SQL> SELECT * FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                        FUNCTIE                  ID_SEF DATA_ANGA    SALARIU   COMISION ID_DEPARTAMENT                                                 
+---------- ------------------------------ ------------------------------ -------------------- ---------- --------- ---------- ---------- --------------                                                 
+      1001 IONESCU                        ION                            DIRECTOR                        11-MAR-21       2000                                                                           
+      1002 IONESCU                        IONEL                          PROGRAMATOR                1001 11-MAR-21       1024                        10                                                 
+
+SQL> SELECT * FROM DEPARTAMENTE2;
+
+ID_DEPARTAMENT DENUMIRE_DEPARTAMENT           TELEFON                                                                                                                                                   
+-------------- ------------------------------ ----------                                                                                                                                                
+            10 ACCOUNTING                     NEW YORK                                                                                                                                                  
+            20 RESEARCH                       DALLAS                                                                                                                                                    
+            30 SALES                          CHICAGO                                                                                                                                                   
+            40 OPERATIONS                     BOSTON                                                                                                                                                    
+
+SQL> SELECT * FROM GRILA_SALARIU2;
+
+      GRAD NIVEL_INFERIOR NIVEL_SUPERIOR                                                                                                                                                                
+---------- -------------- --------------                                                                                                                                                                
+         1            700           1200                                                                                                                                                                
+         2           1201           1400                                                                                                                                                                
+         3           1401           2000                                                                                                                                                                
+         4           2001           3000                                                                                                                                                                
+         5           3001           9999                                                                                                                                                                
+
+SQL> INSERT INTO ANGAJATI(ID_ANGAJAT, NUME, PRENUME, FUNCTIE, ID_DEPARTAMENT) VALUES(10, 'MARICICA', 'EDI', 'PROGRAMATOR', 20);
+INSERT INTO ANGAJATI(ID_ANGAJAT, NUME, PRENUME, FUNCTIE, ID_DEPARTAMENT) VALUES(10, 'MARICICA', 'EDI', 'PROGRAMATOR', 20)
+                                                         *
+ERROR at line 1:
+ORA-00904: "ID_DEPARTAMENT": invalid identifier 
+
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, FUNCTIE, ID_DEPARTAMENT) VALUES(10, 'MARICICA', 'EDI', 'PROGRAMATOR', 20);
+
+1 row created.
+
+SQL> SELECT * FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                        FUNCTIE                  ID_SEF DATA_ANGA    SALARIU   COMISION ID_DEPARTAMENT                                                 
+---------- ------------------------------ ------------------------------ -------------------- ---------- --------- ---------- ---------- --------------                                                 
+      1001 IONESCU                        ION                            DIRECTOR                        11-MAR-21       2000                                                                           
+      1002 IONESCU                        IONEL                          PROGRAMATOR                1001 11-MAR-21       1024                        10                                                 
+        10 MARICICA                       EDI                            PROGRAMATOR                     11-MAR-21       2000                        20                                                 
+
+SQL> SELECT ID_ANGAJAT, NUME, PRENUME FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                                                                                                                                                       
+---------- ------------------------------ ------------------------------                                                                                                                                
+      1001 IONESCU                        ION                                                                                                                                                           
+      1002 IONESCU                        IONEL                                                                                                                                                         
+        10 MARICICA                       EDI                                                                                                                                                           
+
+SQL> SELECT ID_ANGAJAT, NUME, PRENUME FROM ANGAJATI2 WHERE FUNCTIE='DIRECTOR';
+
+ID_ANGAJAT NUME                           PRENUME                                                                                                                                                       
+---------- ------------------------------ ------------------------------                                                                                                                                
+      1001 IONESCU                        ION                                                                                                                                                           
+
+SQL> SELECT ID_ANGAJAT, NUME, PRENUME FROM ANGAJATI2 WHERE FUNCTIE='PROGRAMATOR';
+
+ID_ANGAJAT NUME                           PRENUME                                                                                                                                                       
+---------- ------------------------------ ------------------------------                                                                                                                                
+      1002 IONESCU                        IONEL                                                                                                                                                         
+        10 MARICICA                       EDI                                                                                                                                                           
+
+SQL> SELECT * FROM DEPARTAMENTE2;
+
+ID_DEPARTAMENT DENUMIRE_DEPARTAMENT           TELEFON                                                                                                                                                   
+-------------- ------------------------------ ----------                                                                                                                                                
+            10 ACCOUNTING                     NEW YORK                                                                                                                                                  
+            20 RESEARCH                       DALLAS                                                                                                                                                    
+            30 SALES                          CHICAGO                                                                                                                                                   
+            40 OPERATIONS                     BOSTON                                                                                                                                                    
+
+SQL> SELECT DENUMIRE_DEPARTAMENT FROM DEPARTAMENTE2;
+
+DENUMIRE_DEPARTAMENT                                                                                                                                                                                    
+------------------------------                                                                                                                                                                          
+ACCOUNTING                                                                                                                                                                                              
+RESEARCH                                                                                                                                                                                                
+SALES                                                                                                                                                                                                   
+OPERATIONS                                                                                                                                                                                              
+
+SQL> SELECT DENUMIRE_DEPARTAMENT FROM DEPARTAMENTE2 WHERE ID_DEPARTAMENT=10;
+
+DENUMIRE_DEPARTAMENT                                                                                                                                                                                    
+------------------------------                                                                                                                                                                          
+ACCOUNTING                                                                                                                                                                                              
+
+SQL> SELECT DENUMIRE_DEPARTAMENT FROM DEPARTAMENTE2 WHERE ID_DEPARTAMENT=1000;
+
+no rows selected
+
+SQL> SELECT * FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                        FUNCTIE                  ID_SEF DATA_ANGA    SALARIU   COMISION ID_DEPARTAMENT                                                 
+---------- ------------------------------ ------------------------------ -------------------- ---------- --------- ---------- ---------- --------------                                                 
+      1001 IONESCU                        ION                            DIRECTOR                        11-MAR-21       2000                                                                           
+      1002 IONESCU                        IONEL                          PROGRAMATOR                1001 11-MAR-21       1024                        10                                                 
+        10 MARICICA                       EDI                            PROGRAMATOR                     11-MAR-21       2000                        20                                                 
+
+SQL> SELECT NUME FROM ANGAJATI2 WHERE ID_ANGAJAT = 1002;
+
+NUME                                                                                                                                                                                                    
+------------------------------                                                                                                                                                                          
+IONESCU                                                                                                                                                                                                 
+
+SQL> UPDATE ANGAJATI2 SET NUME='POPESCU' WHERE ID_ANGAJAT = 1002;
+
+1 row updated.
+
+SQL> SELECT NUME FROM ANGAJATI2 WHERE ID_ANGAJAT = 1002;
+
+NUME                                                                                                                                                                                                    
+------------------------------                                                                                                                                                                          
+POPESCU                                                                                                                                                                                                 
+
+SQL> SELECT NUME, SALARIU, COMISION FROM ANGAJATI2;
+
+NUME                              SALARIU   COMISION                                                                                                                                                    
+------------------------------ ---------- ----------                                                                                                                                                    
+IONESCU                              2000                                                                                                                                                               
+POPESCU                              1024                                                                                                                                                               
+MARICICA                             2000                                                                                                                                                               
+
+SQL> UPDATE ANGAJATI SET COMISION = 0.15 * SALARIU;
+
+14 rows updated.
+
+SQL> UPDATE ANGAJATI2 SET COMISION = 0.15 * SALARIU;
+
+3 rows updated.
+
+SQL> SELECT NUME, SALARIU, COMISION FROM ANGAJATI2;
+
+NUME                              SALARIU   COMISION                                                                                                                                                    
+------------------------------ ---------- ----------                                                                                                                                                    
+IONESCU                              2000        300                                                                                                                                                    
+POPESCU                              1024      153.6                                                                                                                                                    
+MARICICA                             2000        300                                                                                                                                                    
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(15, 'TRAIAN', 'BASESCU', 30);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(16, 'GEOANA', 'MIRCEA', 30);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(17, 'ILIESCU', 'ION', 30);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(18, 'POP', 'ALINA', 30);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(19, 'POP', 'ANDREI', 30);
+
+1 row created.
+
+SQL> SELECT * FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                        FUNCTIE                  ID_SEF DATA_ANGA    SALARIU   COMISION ID_DEPARTAMENT                                                 

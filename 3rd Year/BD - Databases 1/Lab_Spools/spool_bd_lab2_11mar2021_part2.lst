@@ -1,0 +1,487 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+11-03-2021 09:37:17                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab2.1', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab1       SCOTT      04-MAR-21 04-MAR-21          8                                                                                                          
+Grigore Lucian                 336CA      Lab2       SCOTT      11-MAR-21 11-MAR-21         90                                                                                                          
+Grigore Lucian                 336CA      Lab2.1     SCOTT      11-MAR-21                                                                                                                               
+
+SQL> SELECT * FROM ANGAJATI2
+  2  ;
+
+no rows selected
+
+SQL> SELECT * FROM ANGAJATI2;
+
+no rows selected
+
+SQL> SELECT TABLE_NAME FROM USER_TABLES;
+
+TABLE_NAME                                                                                                                                                                                              
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+SALGRADE                                                                                                                                                                                                
+BONUS                                                                                                                                                                                                   
+LOGIN_LAB_BD                                                                                                                                                                                            
+DEPARTAMENTE                                                                                                                                                                                            
+ANGAJATI                                                                                                                                                                                                
+GRILA_SALARIU                                                                                                                                                                                           
+GRILA_SALARIU2                                                                                                                                                                                          
+DEPARTAMENTE2                                                                                                                                                                                           
+ANGAJATI2                                                                                                                                                                                               
+
+11 rows selected.
+
+SQL> SELECT * FROM DEPARTAMENTE2;
+
+no rows selected
+
+SQL> INSERT INTO DEPARTAMENTE2 SELECT * FROM DEPT;
+
+4 rows created.
+
+SQL> INSERT INTO GRILA_SALARIU SELECT * FROM SALGRADE;
+
+5 rows created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(15, 'TRAIAN', 'BASESCU', 30);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(16, 'GEOANA', 'MIRCEA', 30);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(17, 'ILIESCU', 'ION', 30);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(18, 'POP', 'ALINA', 20);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(19, 'POP', 'ANDREI', 10);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(20, 'TEST', 'JOHNNY', 10);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(21, 'TEST', 'MIRCIULICA', 10);
+
+1 row created.
+
+SQL> INSERT INTO ANGAJATI2(ID_ANGAJAT, NUME, PRENUME, ID_DEPARTAMENT) VALUES(22, 'TEST', 'MARIUS', 30);
+
+1 row created.
+
+SQL> SELECT * FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                        FUNCTIE                  ID_SEF DATA_ANGA    SALARIU   COMISION ID_DEPARTAMENT                                                 
+---------- ------------------------------ ------------------------------ -------------------- ---------- --------- ---------- ---------- --------------                                                 
+        15 TRAIAN                         BASESCU                                                        11-MAR-21       2000                        30                                                 
+        16 GEOANA                         MIRCEA                                                         11-MAR-21       2000                        30                                                 
+        17 ILIESCU                        ION                                                            11-MAR-21       2000                        30                                                 
+        18 POP                            ALINA                                                          11-MAR-21       2000                        20                                                 
+        19 POP                            ANDREI                                                         11-MAR-21       2000                        10                                                 
+        20 TEST                           JOHNNY                                                         11-MAR-21       2000                        10                                                 
+        21 TEST                           MIRCIULICA                                                     11-MAR-21       2000                        10                                                 
+        22 TEST                           MARIUS                                                         11-MAR-21       2000                        30                                                 
+
+8 rows selected.
+
+SQL> DELETE FROM ANGAJATI2 WHERE NUME = 'POP';
+
+2 rows deleted.
+
+SQL> SELECT * FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                        FUNCTIE                  ID_SEF DATA_ANGA    SALARIU   COMISION ID_DEPARTAMENT                                                 
+---------- ------------------------------ ------------------------------ -------------------- ---------- --------- ---------- ---------- --------------                                                 
+        15 TRAIAN                         BASESCU                                                        11-MAR-21       2000                        30                                                 
+        16 GEOANA                         MIRCEA                                                         11-MAR-21       2000                        30                                                 
+        17 ILIESCU                        ION                                                            11-MAR-21       2000                        30                                                 
+        20 TEST                           JOHNNY                                                         11-MAR-21       2000                        10                                                 
+        21 TEST                           MIRCIULICA                                                     11-MAR-21       2000                        10                                                 
+        22 TEST                           MARIUS                                                         11-MAR-21       2000                        30                                                 
+
+6 rows selected.
+
+SQL> DELETR FROM ANGAJATI2 WHERE ID_DEPARTAMENT='30';
+SP2-0734: unknown command beginning "DELETR FRO..." - rest of line ignored.
+SQL> DELETE FROM ANGAJATI2 WHERE ID_DEPARTAMENT='30';
+
+4 rows deleted.
+
+SQL> SELECT * FROM ANGAJATI2;
+
+ID_ANGAJAT NUME                           PRENUME                        FUNCTIE                  ID_SEF DATA_ANGA    SALARIU   COMISION ID_DEPARTAMENT                                                 
+---------- ------------------------------ ------------------------------ -------------------- ---------- --------- ---------- ---------- --------------                                                 
+        20 TEST                           JOHNNY                                                         11-MAR-21       2000                        10                                                 
+        21 TEST                           MIRCIULICA                                                     11-MAR-21       2000                        10                                                 
+
+SQL> DELETE FROM ANGAJATI2 WHERE COMISION IS NULL;
+
+2 rows deleted.
+
+SQL> SELECT * FROM ANGAJATI2;
+
+no rows selected
+
+SQL> CREATE TABLE STUDENTI
+  2  (
+  3  NUMAR_MATRICOL NUMBER(4),
+  4  NUME VARCHAR2(30),
+  5  PRENUME VARCHAR2(30),
+  6  NUME_FACULTATE VARCHAR2(40),
+  7  TELEFON VARCHAR2(10),
+  8  ADRESA_EMAIL VARCHAR2(30),
+  9  ADRESA VARCHAR2(30)
+ 10  );
+
+Table created.
+
+SQL> CREATE TABLE CATALOG
+  2  (
+  3  ID_NOTA NUMBER(4),
+  4  NUME_MATERIE VARCHAR2(20),
+  5  PRESCURTARE_MATERIE VARCHAR2(3),
+  6  NOTA NUMBER(4,4),
+  7  ID_STUDENT NUMBER(4)
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE MATERII
+  2  (
+  3  ID_MATERIE VARCHAR2(3),
+  4  NUME_COMPLET VARCHAR2(20)
+  5  );
+
+Table created.
+
+SQL> DESC MATERII;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_MATERIE                                                                                                                 VARCHAR2(3)
+ NUME_COMPLET                                                                                                               VARCHAR2(20)
+
+SQL> DESC CATALOG;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_NOTA                                                                                                                    NUMBER(4)
+ NUME_MATERIE                                                                                                               VARCHAR2(20)
+ PRESCURTARE_MATERIE                                                                                                        VARCHAR2(3)
+ NOTA                                                                                                                       NUMBER(4,4)
+ ID_STUDENT                                                                                                                 NUMBER(4)
+
+SQL> DESC STUDENTI;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ NUMAR_MATRICOL                                                                                                             NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(30)
+ PRENUME                                                                                                                    VARCHAR2(30)
+ NUME_FACULTATE                                                                                                             VARCHAR2(40)
+ TELEFON                                                                                                                    VARCHAR2(10)
+ ADRESA_EMAIL                                                                                                               VARCHAR2(30)
+ ADRESA                                                                                                                     VARCHAR2(30)
+
+SQL> ALTER TABLE STUDENTI ADD CONSTRAINT PK_STUDENT PRIMARY KEY (NUMAR_MATRICOL);
+
+Table altered.
+
+SQL> DESC STUDENTI;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ NUMAR_MATRICOL                                                                                                    NOT NULL NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(30)
+ PRENUME                                                                                                                    VARCHAR2(30)
+ NUME_FACULTATE                                                                                                             VARCHAR2(40)
+ TELEFON                                                                                                                    VARCHAR2(10)
+ ADRESA_EMAIL                                                                                                               VARCHAR2(30)
+ ADRESA                                                                                                                     VARCHAR2(30)
+
+SQL> ALTER TABLE CATALOG ADD CONSTRAINT PK_CATALOG PRIMARY KEY (ID_NOTA);
+
+Table altered.
+
+SQL> DESC CATALOG
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_NOTA                                                                                                           NOT NULL NUMBER(4)
+ NUME_MATERIE                                                                                                               VARCHAR2(20)
+ PRESCURTARE_MATERIE                                                                                                        VARCHAR2(3)
+ NOTA                                                                                                                       NUMBER(4,4)
+ ID_STUDENT                                                                                                                 NUMBER(4)
+
+SQL> ALTER TABLE CATALOG ADD CONSTRAING FK_CAT__STD FOREIGN KEY (ID_STUDENT) REFERENCES STUDENTI (NUMAR_MATRICOL);
+ALTER TABLE CATALOG ADD CONSTRAING FK_CAT__STD FOREIGN KEY (ID_STUDENT) REFERENCES STUDENTI (NUMAR_MATRICOL)
+                                               *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> ALTER TABLE CATALOG ADD CONSTRAINT FK_CAT__STD FOREIGN KEY (ID_STUDENT) REFERENCES STUDENTI (NUMAR_MATRICOL);
+
+Table altered.
+
+SQL> ALTER TABLE CATALOG ADD DATA_EXAMEN DATE NOT NULL;
+
+Table altered.
+
+SQL> DESC CATALOG;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_NOTA                                                                                                           NOT NULL NUMBER(4)
+ NUME_MATERIE                                                                                                               VARCHAR2(20)
+ PRESCURTARE_MATERIE                                                                                                        VARCHAR2(3)
+ NOTA                                                                                                                       NUMBER(4,4)
+ ID_STUDENT                                                                                                                 NUMBER(4)
+ DATA_EXAMEN                                                                                                       NOT NULL DATE
+
+SQL> ALTER TABLE CATALOG ADD CONSTRAINT FK_CAT__MAT FOREIGN KEY (PRESCURTARE_MATERIE) REFERENCES MATERII (ID_MATERIE);
+ALTER TABLE CATALOG ADD CONSTRAINT FK_CAT__MAT FOREIGN KEY (PRESCURTARE_MATERIE) REFERENCES MATERII (ID_MATERIE)
+                                                                                                     *
+ERROR at line 1:
+ORA-02270: no matching unique or primary key for this column-list 
+
+
+SQL> ALTER TABLE MATERII ADD CONSTRAINT PK_MATERII PRIMARY KEY (ID_MATERIE);
+
+Table altered.
+
+SQL> ALTER TABLE CATALOG ADD CONSTRAINT FK_CAT__MAT FOREIGN KEY (PRESCURTARE_MATERIE) REFERENCES MATERII (ID_MATERIE);
+
+Table altered.
+
+SQL> DESC CATALOG;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_NOTA                                                                                                           NOT NULL NUMBER(4)
+ NUME_MATERIE                                                                                                               VARCHAR2(20)
+ PRESCURTARE_MATERIE                                                                                                        VARCHAR2(3)
+ NOTA                                                                                                                       NUMBER(4,4)
+ ID_STUDENT                                                                                                                 NUMBER(4)
+ DATA_EXAMEN                                                                                                       NOT NULL DATE
+
+SQL> INSERT INTO MATERII VALUES('APD', 'ALGORITMI PARALELI SI DISTRIBUITI');
+INSERT INTO MATERII VALUES('APD', 'ALGORITMI PARALELI SI DISTRIBUITI')
+                                  *
+ERROR at line 1:
+ORA-12899: value too large for column "SCOTT"."MATERII"."NUME_COMPLET" (actual: 33, maximum: 20) 
+
+
+SQL> INSERT INTO MATERII VALUES('APD', 'ALGORITMI PARALELI');
+
+1 row created.
+
+SQL> INSERT INTO MATERII VALUES('ASC', 'ARHITECTURA SISTEMELOR');
+INSERT INTO MATERII VALUES('ASC', 'ARHITECTURA SISTEMELOR')
+                                  *
+ERROR at line 1:
+ORA-12899: value too large for column "SCOTT"."MATERII"."NUME_COMPLET" (actual: 22, maximum: 20) 
+
+
+SQL> ALTER TABLE MATERII MODIFY NUME_COMPLET VARCHAR2(40);
+
+Table altered.
+
+SQL> INSERT INTO MATERII VALUES('APD', 'ALGORITMI PARALELI SI DISTRIBUITI');
+INSERT INTO MATERII VALUES('APD', 'ALGORITMI PARALELI SI DISTRIBUITI')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PK_MATERII) violated 
+
+
+SQL> DELETE FROM MATERII;
+
+1 row deleted.
+
+SQL> DESC MATERII;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_MATERIE                                                                                                        NOT NULL VARCHAR2(3)
+ NUME_COMPLET                                                                                                               VARCHAR2(40)
+
+SQL> INSERT INTO MATERII VALUES('APD', 'ALGORITMI PARALELI SI DISTRIBUITI');
+
+1 row created.
+
+SQL> INSERT INTO MATERII VALUES('ASC', 'ARHITECTURA SISTEMELOR DE CALCUL');
+
+1 row created.
+
+SQL> INSERT INTO MATERII VALUES('PM', 'PROIECTARE CU MICROPROCESOARE');
+
+1 row created.
+
+SQL> INSERT INTO MATERII VALUES('BD', 'BAZE DE DATE 1');
+
+1 row created.
+
+SQL> SELECT * FROM MATERII;
+
+ID_ NUME_COMPLET                                                                                                                                                                                        
+--- ----------------------------------------                                                                                                                                                            
+APD ALGORITMI PARALELI SI DISTRIBUITI                                                                                                                                                                   
+ASC ARHITECTURA SISTEMELOR DE CALCUL                                                                                                                                                                    
+PM  PROIECTARE CU MICROPROCESOARE                                                                                                                                                                       
+BD  BAZE DE DATE 1                                                                                                                                                                                      
+
+SQL> INSERT INTO STUDENTI(NUMAR_MATRICOL, NUME, PRENUME) VALUES(1234, 'POPESCU', 'STEFAN');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTI(NUMAR_MATRICOL, NUME, PRENUME) VALUES(1235, 'POP', 'MARIUS');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTI(NUMAR_MATRICOL, NUME, PRENUME) VALUES(1236, 'GRIGORE', 'JOHNNY');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTI(NUMAR_MATRICOL, NUME, PRENUME) VALUES(1237, 'CAREJA', 'ALEXANDRU');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTI(NUMAR_MATRICOL, NUME, PRENUME) VALUES(1238, 'OLTEANU', 'EDUARD');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTI(NUMAR_MATRICOL, NUME, PRENUME) VALUES(1238, 'TEST', 'CHEIE PRIMARA');
+INSERT INTO STUDENTI(NUMAR_MATRICOL, NUME, PRENUME) VALUES(1238, 'TEST', 'CHEIE PRIMARA')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PK_STUDENT) violated 
+
+
+SQL> SELECT * FROM STUDENTI
+  2  ;
+
+NUMAR_MATRICOL NUME                           PRENUME                        NUME_FACULTATE                           TELEFON    ADRESA_EMAIL                   ADRESA                                  
+-------------- ------------------------------ ------------------------------ ---------------------------------------- ---------- ------------------------------ ------------------------------          
+          1234 POPESCU                        STEFAN                                                                                                                                                    
+          1235 POP                            MARIUS                                                                                                                                                    
+          1236 GRIGORE                        JOHNNY                                                                                                                                                    
+          1237 CAREJA                         ALEXANDRU                                                                                                                                                 
+          1238 OLTEANU                        EDUARD                                                                                                                                                    
+
+SQL> DESC CATALOG;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_NOTA                                                                                                           NOT NULL NUMBER(4)
+ NUME_MATERIE                                                                                                               VARCHAR2(20)
+ PRESCURTARE_MATERIE                                                                                                        VARCHAR2(3)
+ NOTA                                                                                                                       NUMBER(4,4)
+ ID_STUDENT                                                                                                                 NUMBER(4)
+ DATA_EXAMEN                                                                                                       NOT NULL DATE
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, ID_STUDENT) VALUES(1, 'APD', 9, 1234);
+INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, ID_STUDENT) VALUES(1, 'APD', 9, 1234)
+                                                                                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column 
+
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, ID_STUDENT) VALUES(1, 'APD', 9.0, 1234);
+INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, ID_STUDENT) VALUES(1, 'APD', 9.0, 1234)
+                                                                                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column 
+
+
+SQL> ALTER TABLE CATALOG MODIFY NOTA NUMBER(1);
+
+Table altered.
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, ID_STUDENT) VALUES(1, 'APD', 9.0, 1234);
+INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, ID_STUDENT) VALUES(1, 'APD', 9.0, 1234)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."CATALOG"."DATA_EXAMEN") 
+
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(1, 'APD', 9.0, '01-JAN-2012',1234);
+
+1 row created.
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(2, 'ASC', 7.0, '22-JUL-2019',1234);
+
+1 row created.
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(3, 'PM', 5.0, '22-JUN-2019',1235);
+
+1 row created.
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(3, 'PM', 5.0, '22-JUN-2019',1000);
+INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(3, 'PM', 5.0, '22-JUN-2019',1000)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PK_CATALOG) violated 
+
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(2, 'PM', 5.0, '22-JUN-2019',1234);
+INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(2, 'PM', 5.0, '22-JUN-2019',1234)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PK_CATALOG) violated 
+
+
+SQL> INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(5, 'NMC', 5.0, '22-JUN-2019',1234);
+INSERT INTO CATALOG(ID_NOTA, PRESCURTARE_MATERIE, NOTA, DATA_EXAMEN, ID_STUDENT) VALUES(5, 'NMC', 5.0, '22-JUN-2019',1234)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.FK_CAT__MAT) violated - parent key not found 
+
+
+SQL> SELECT * FROM LOGIN_LAB_BD;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab1       SCOTT      04-MAR-21 04-MAR-21          8                                                                                                          
+Grigore Lucian                 336CA      Lab2       SCOTT      11-MAR-21 11-MAR-21         90                                                                                                          
+Grigore Lucian                 336CA      Lab2.1     SCOTT      11-MAR-21                                                                                                                               
+
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab2.1';
+
+1 row updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab2.1';
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 db19c            11-03-2021 07:26:45 LUCIPC                                                                                                                                             
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grigore Lucian                 336CA      Lab1       04-03-2021 09:17:33 04-03-2021 09:25:32              8                                                                                             
+Grigore Lucian                 336CA      Lab2       11-03-2021 08:06:39 11-03-2021 09:36:32             90                                                                                             
+Grigore Lucian                 336CA      Lab2.1     11-03-2021 09:37:17 11-03-2021 10:10:09             33                                                                                             
+
+SQL> spool off;
