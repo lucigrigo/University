@@ -1,0 +1,1083 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+18-03-2021 08:23:40                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab3', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab3       SCOTT      18-MAR-21                                                                                                                               
+
+SQL> create table angajati1 (
+  2  id_ang number(4),
+  3  nume varchar(20),
+  4  functie varchar2(9),
+  5  id_sef number(4),
+  6  data_ang date,
+  7  salariu number(7, 2),
+  8  comision number(7, 2),
+  9  id_dep number(2));
+
+Table created.
+
+SQL> insert into angajati select * from emp;
+
+14 rows created.
+
+SQL> create table angajati2 as select * from emp;
+
+Table created.
+
+SQL> select * from angajati1;
+
+no rows selected
+
+SQL> insert into angajati1 select * from emp;
+
+14 rows created.
+
+SQL> select * from angajati;
+
+    ID_ANG NUME                           FUNCTIE                  ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                    
+---------- ------------------------------ -------------------- ---------- --------- ---------- ---------- ----------                                                                                    
+      7369 SMITH                          CLERK                      7902 17-DEC-80        800                    20                                                                                    
+      7499 ALLEN                          SALESMAN                   7698 20-FEB-81       1600        300         30                                                                                    
+      7521 WARD                           SALESMAN                   7698 22-FEB-81       1250        500         30                                                                                    
+      7566 JONES                          MANAGER                    7839 02-APR-81       2975                    20                                                                                    
+      7654 MARTIN                         SALESMAN                   7698 28-SEP-81       1250       1400         30                                                                                    
+      7698 BLAKE                          MANAGER                    7839 01-MAY-81       2850                    30                                                                                    
+      7782 CLARK                          MANAGER                    7839 09-JUN-81       2450                    10                                                                                    
+      7788 SCOTT                          ANALYST                    7566 19-APR-87       3000                    20                                                                                    
+      7839 KING                           PRESIDENT                       17-NOV-81       5000                    10                                                                                    
+      7844 TURNER                         SALESMAN                   7698 08-SEP-81       1500          0         30                                                                                    
+      7876 ADAMS                          CLERK                      7788 23-MAY-87       1100                    20                                                                                    
+      7900 JAMES                          CLERK                      7698 03-DEC-81        950                    30                                                                                    
+      7902 FORD                           ANALYST                    7566 03-DEC-81       3000                    20                                                                                    
+      7934 MILLER                         CLERK                      7782 23-JAN-82       1300                    10                                                                                    
+      7369 SMITH                          CLERK                      7902 17-DEC-80        800                    20                                                                                    
+      7499 ALLEN                          SALESMAN                   7698 20-FEB-81       1600        300         30                                                                                    
+      7521 WARD                           SALESMAN                   7698 22-FEB-81       1250        500         30                                                                                    
+      7566 JONES                          MANAGER                    7839 02-APR-81       2975                    20                                                                                    
+      7654 MARTIN                         SALESMAN                   7698 28-SEP-81       1250       1400         30                                                                                    
+      7698 BLAKE                          MANAGER                    7839 01-MAY-81       2850                    30                                                                                    
+      7782 CLARK                          MANAGER                    7839 09-JUN-81       2450                    10                                                                                    
+      7788 SCOTT                          ANALYST                    7566 19-APR-87       3000                    20                                                                                    
+      7839 KING                           PRESIDENT                       17-NOV-81       5000                    10                                                                                    
+      7844 TURNER                         SALESMAN                   7698 08-SEP-81       1500          0         30                                                                                    
+      7876 ADAMS                          CLERK                      7788 23-MAY-87       1100                    20                                                                                    
+      7900 JAMES                          CLERK                      7698 03-DEC-81        950                    30                                                                                    
+      7902 FORD                           ANALYST                    7566 03-DEC-81       3000                    20                                                                                    
+      7934 MILLER                         CLERK                      7782 23-JAN-82       1300                    10                                                                                    
+
+28 rows selected.
+
+SQL> drop table angajati;
+
+Table dropped.
+
+SQL> create table angajati as select * from emp;
+
+Table created.
+
+SQL> select * from angajati;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+14 rows selected.
+
+SQL> select * from angajati1;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80        800                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81       2975                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81       2850                    30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+
+14 rows selected.
+
+SQL> select * from angajati2;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+14 rows selected.
+
+SQL> select id_ang, nume, functie, salariu from angajati2 where id_Sef = &id_sef;
+Enter value for id_sef: 
+old   1: select id_ang, nume, functie, salariu from angajati2 where id_Sef = &id_sef
+new   1: select id_ang, nume, functie, salariu from angajati2 where id_Sef = 
+select id_ang, nume, functie, salariu from angajati2 where id_Sef = 
+                                                                   *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> 
+SQL> select id_ang, nume, functie, salariu from angajati2 where id_Sef = &id_sef;
+Enter value for id_sef: 7839
+old   1: select id_ang, nume, functie, salariu from angajati2 where id_Sef = &id_sef
+new   1: select id_ang, nume, functie, salariu from angajati2 where id_Sef = 7839
+select id_ang, nume, functie, salariu from angajati2 where id_Sef = 7839
+                                                           *
+ERROR at line 1:
+ORA-00904: "ID_SEF": invalid identifier 
+
+
+SQL> select id_ang, nume, functie, salariu from angajati2 where id_sef = &id_sef;
+Enter value for id_sef: 7839
+old   1: select id_ang, nume, functie, salariu from angajati2 where id_sef = &id_sef
+new   1: select id_ang, nume, functie, salariu from angajati2 where id_sef = 7839
+select id_ang, nume, functie, salariu from angajati2 where id_sef = 7839
+                                                           *
+ERROR at line 1:
+ORA-00904: "ID_SEF": invalid identifier 
+
+
+SQL> select id_ang, nume, functie, salariu from angajati1 where id_sef = &id_sef;
+Enter value for id_sef: 7839
+old   1: select id_ang, nume, functie, salariu from angajati1 where id_sef = &id_sef
+new   1: select id_ang, nume, functie, salariu from angajati1 where id_sef = 7839
+
+    ID_ANG NUME                 FUNCTIE      SALARIU                                                                                                                                                    
+---------- -------------------- --------- ----------                                                                                                                                                    
+      7566 JONES                MANAGER         2975                                                                                                                                                    
+      7698 BLAKE                MANAGER         2850                                                                                                                                                    
+      7782 CLARK                MANAGER         2450                                                                                                                                                    
+
+SQL> set verify off
+SQL> select id_ang, nume, functie, salariu from angajati1 where id_sef = &id_sef;
+Enter value for id_sef: 7839
+
+    ID_ANG NUME                 FUNCTIE      SALARIU                                                                                                                                                    
+---------- -------------------- --------- ----------                                                                                                                                                    
+      7566 JONES                MANAGER         2975                                                                                                                                                    
+      7698 BLAKE                MANAGER         2850                                                                                                                                                    
+      7782 CLARK                MANAGER         2450                                                                                                                                                    
+
+SQL> select nume, '&functie' functie, salariu from angajati1 where functie = &functie;
+Enter value for functie: Analist Programator
+Enter value for functie: 'ANALYST'
+
+NUME                 FUNCTIE                SALARIU                                                                                                                                                     
+-------------------- ------------------- ----------                                                                                                                                                     
+SCOTT                Analist Programator       3000                                                                                                                                                     
+FORD                 Analist Programator       3000                                                                                                                                                     
+
+SQL> select nume, functie, &salariu_anual salariu_anual from &tabel where &nume_coloana = &valoare_coloana;
+Enter value for salariu_anual: salariu*12
+Enter value for tabel: angajati1
+Enter value for nume_coloana: id_dep
+Enter value for valoare_coloana: 20
+
+NUME                 FUNCTIE   SALARIU_ANUAL                                                                                                                                                            
+-------------------- --------- -------------                                                                                                                                                            
+SMITH                CLERK              9600                                                                                                                                                            
+JONES                MANAGER           35700                                                                                                                                                            
+SCOTT                ANALYST           36000                                                                                                                                                            
+ADAMS                CLERK             13200                                                                                                                                                            
+FORD                 ANALYST           36000                                                                                                                                                            
+
+SQL> select nume, functie, &&venit_lunar venit_lunar from angajati where &venit_lunar > 2000;
+Enter value for venit_lunar: salariu + nvl(comision, 0)
+select nume, functie, salariu + nvl(comision, 0) venit_lunar from angajati where salariu + nvl(comision, 0) > 2000
+                                                                                               *
+ERROR at line 1:
+ORA-00904: "COMISION": invalid identifier 
+
+
+SQL> select nume, functie, &&venit_lunar venit_lunar from angajati1 where &venit_lunar > 2000;
+
+NUME                 FUNCTIE   VENIT_LUNAR                                                                                                                                                              
+-------------------- --------- -----------                                                                                                                                                              
+JONES                MANAGER          2975                                                                                                                                                              
+MARTIN               SALESMAN         2650                                                                                                                                                              
+BLAKE                MANAGER          2850                                                                                                                                                              
+CLARK                MANAGER          2450                                                                                                                                                              
+SCOTT                ANALYST          3000                                                                                                                                                              
+KING                 PRESIDENT        5000                                                                                                                                                              
+FORD                 ANALYST          3000                                                                                                                                                              
+
+7 rows selected.
+
+SQL> define
+DEFINE _DATE           = "18-MAR-21" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcl" (CHAR)
+DEFINE _USER           = "SCOTT" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1903000000" (CHAR)
+DEFINE _EDITOR         = "Notepad" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0" (CHAR)
+DEFINE _O_RELEASE      = "1903000000" (CHAR)
+DEFINE VENIT_LUNAR     = "salariu + nvl(comision, 0)" (CHAR)
+SQL> undefine venit_lunar
+SQL> define
+DEFINE _DATE           = "18-MAR-21" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcl" (CHAR)
+DEFINE _USER           = "SCOTT" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1903000000" (CHAR)
+DEFINE _EDITOR         = "Notepad" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0" (CHAR)
+DEFINE _O_RELEASE      = "1903000000" (CHAR)
+SQL> @E:\spool_bd\ex5.txt ANALYST 15-AUG-1981
+
+    ID_ANG NUME                 FUNCTIE   DATA_ANG                                                                                                                                                      
+---------- -------------------- --------- ---------                                                                                                                                                     
+      7902 FORD                 ANALYST   03-DEC-81                                                                                                                                                     
+      7788 SCOTT                ANALYST   19-APR-87                                                                                                                                                     
+
+SQL> @E:\spool_bd\ex6.sql
+Introduceti functia angajatului:MANAGER
+where functie = 'MANAGER'
+      *
+ERROR at line 3:
+ORA-00904: "FUNCTIE": invalid identifier 
+
+
+SQL> @E:\spool_bd\ex6.sql
+Introduceti functia angajatului:MANAGER
+
+NUME                    SALARIU   COMISION                                                                                                                                                              
+-------------------- ---------- ----------                                                                                                                                                              
+JONES                      2975                                                                                                                                                                         
+BLAKE                      2850                                                                                                                                                                         
+CLARK                      2450                                                                                                                                                                         
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab3       SCOTT      18-MAR-21                                                                                                                               
+
+SQL> @E:\spool_bd\ex5.sql ANALYST 15-AUG-1981
+
+    ID_ANG NUME                 FUNCTIE   DATA_ANG                                                                                                                                                      
+---------- -------------------- --------- ---------                                                                                                                                                     
+      7902 FORD                 ANALYST   03-DEC-81                                                                                                                                                     
+      7788 SCOTT                ANALYST   19-APR-87                                                                                                                                                     
+
+SQL> @E:\spool_bd\ex6.sql
+Introduceti functia angajatului:MANAGER
+
+NUME                    SALARIU   COMISION                                                                                                                                                              
+-------------------- ---------- ----------                                                                                                                                                              
+JONES                      2975                                                                                                                                                                         
+BLAKE                      2850                                                                                                                                                                         
+CLARK                      2450                                                                                                                                                                         
+
+SQL> select * from angajati1;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80        800                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81       2975                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81       2850                    30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+
+14 rows selected.
+
+SQL> set verify off
+SQL> @E:\spool_bd\ex7.sql
+Introduceti ecusonul angajatului:1111
+Introduceti numele angajatului:IONESCU
+Introduceti functia angajatului:CLERK
+Introduceti salariul angajatului:
+
+1 row created.
+
+SQL> set verify on
+SQL> @E:\spool_bd\ex7.sql
+Introduceti ecusonul angajatului:1112
+Introduceti numele angajatului:POPESCU
+Introduceti functia angajatului:ANALYST
+Introduceti salariul angajatului:
+old   2: values(&id_ang, '&nume', '&functie', &salariu)
+new   2: values(1112, 'POPESCU', 'ANALYST', 3500)
+
+1 row created.
+
+SQL> select * from angajati1;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80        800                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81       2975                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81       2850                    30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+      1111 IONESCU              CLERK                                2000                                                                                                                               
+      1112 POPESCU              ANALYST                              3500                                                                                                                               
+
+16 rows selected.
+
+SQL> define procent_prima = 0.15
+SQL> define id_dep = 20
+SQL> select nume, salariu, salariu * &procent_prima prima from angajati where id_dep = &id_dep;
+old   1: select nume, salariu, salariu * &procent_prima prima from angajati where id_dep = &id_dep
+new   1: select nume, salariu, salariu * 0.15 prima from angajati where id_dep = 20
+select nume, salariu, salariu * 0.15 prima from angajati where id_dep = 20
+                                                               *
+ERROR at line 1:
+ORA-00904: "ID_DEP": invalid identifier 
+
+
+SQL> select nume, salariu, salariu * &procent_prima prima from angajati1 where id_dep = &id_dep;
+old   1: select nume, salariu, salariu * &procent_prima prima from angajati1 where id_dep = &id_dep
+new   1: select nume, salariu, salariu * 0.15 prima from angajati1 where id_dep = 20
+
+NUME                    SALARIU      PRIMA                                                                                                                                                              
+-------------------- ---------- ----------                                                                                                                                                              
+SMITH                       800        120                                                                                                                                                              
+JONES                      2975     446.25                                                                                                                                                              
+SCOTT                      3000        450                                                                                                                                                              
+ADAMS                      1100        165                                                                                                                                                              
+FORD                       3000        450                                                                                                                                                              
+
+SQL> define
+DEFINE _DATE           = "18-MAR-21" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcl" (CHAR)
+DEFINE _USER           = "SCOTT" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1903000000" (CHAR)
+DEFINE _EDITOR         = "Notepad" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0" (CHAR)
+DEFINE _O_RELEASE      = "1903000000" (CHAR)
+DEFINE 1               = "ANALYST" (CHAR)
+DEFINE 2               = "15-AUG-1981" (CHAR)
+DEFINE PROCENT_PRIMA   = "0.15" (CHAR)
+DEFINE ID_DEP          = "20" (CHAR)
+SQL> undefine id_dep
+SQL> undefine procent_prima
+SQL> define
+DEFINE _DATE           = "18-MAR-21" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcl" (CHAR)
+DEFINE _USER           = "SCOTT" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1903000000" (CHAR)
+DEFINE _EDITOR         = "Notepad" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0" (CHAR)
+DEFINE _O_RELEASE      = "1903000000" (CHAR)
+DEFINE 1               = "ANALYST" (CHAR)
+DEFINE 2               = "15-AUG-1981" (CHAR)
+SQL> 
+SQL> 
+SQL> 
+SQL> select * from angajati1;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80        800                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81       2975                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81       2850                    30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+      1111 IONESCU              CLERK                                2000                                                                                                                               
+      1112 POPESCU              ANALYST                              3500                                                                                                                               
+
+16 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> define venit_lunar salariu*12(comision,0)
+SP2-0136: DEFINE requires an equal sign (=)
+SQL> define venit_lunar=salariu*12(comision,0)
+SQL> define venit_anual=12*venit_lunar
+SQL> define
+DEFINE _DATE           = "18-MAR-21" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcl" (CHAR)
+DEFINE _USER           = "SCOTT" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1903000000" (CHAR)
+DEFINE _EDITOR         = "Notepad" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0" (CHAR)
+DEFINE _O_RELEASE      = "1903000000" (CHAR)
+DEFINE 1               = "ANALYST" (CHAR)
+DEFINE 2               = "15-AUG-1981" (CHAR)
+DEFINE VENIT_LUNAR     = "salariu*12(comision,0)" (CHAR)
+DEFINE VENIT_ANUAL     = "12*venit_lunar" (CHAR)
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti departamentul angajatului:10
+Introduceti venitul anual minim:5000
+old   1: select nume, &venit_anual, id_dep, data_ang
+new   1: select nume, 12*venit_lunar, id_dep, data_ang
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 10 and 12*venit_lunar > 5000
+where id_dep = 10 and 12*venit_lunar > 5000
+                         *
+ERROR at line 3:
+ORA-00904: "VENIT_LUNAR": invalid identifier 
+
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti departamentul angajatului:10
+Introduceti venitul anual minim:5000
+old   1: select nume, &venit_anual, id_dep, data_ang
+new   1: select nume, 12*salariu*nvl(comision,, id_dep, data_ang
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 10 and 12*salariu*nvl(comision, > 5000
+select nume, 12*salariu*nvl(comision,, id_dep, data_ang
+                                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti departamentul angajatului:10
+Introduceti venitul anual minim:5000
+old   1: select nume, &venit_anual venit_anual, id_dep, data_ang
+new   1: select nume, 12*salariu*nvl(comision,0) venit_anual, id_dep, data_ang
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 10 and 12*salariu*nvl(comision,0) > 5000
+
+no rows selected
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti departamentul angajatului:10
+Introduceti venitul anual minim:1000
+old   1: select nume, &venit_anual venit_anual, id_dep, data_ang
+new   1: select nume, 12*salariu*nvl(comision,0) venit_anual, id_dep, data_ang
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 10 and 12*salariu*nvl(comision,0) > 1000
+
+no rows selected
+
+SQL> select * from angajati1;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80        800                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81       2975                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81       2850                    30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+      1111 IONESCU              CLERK                                2000                                                                                                                               
+      1112 POPESCU              ANALYST                              3500                                                                                                                               
+
+16 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:1000
+old   1: select nume, &venit_anual venit_anual, id_dep, data_ang
+new   1: select nume, 12*salariu*nvl(comision,0) venit_anual, id_dep, data_ang
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 30 and 12*salariu*nvl(comision,0) > 1000
+
+NUME                 VENIT_ANUAL     ID_DEP DATA_ANG                                                                                                                                                    
+-------------------- ----------- ---------- ---------                                                                                                                                                   
+ALLEN                    5760000         30 20-FEB-81                                                                                                                                                   
+WARD                     7500000         30 22-FEB-81                                                                                                                                                   
+MARTIN                  21000000         30 28-SEP-81                                                                                                                                                   
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:2000
+old   1: select nume, id_dep, data_ang, &venit_anual venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu*nvl(comision,0) venit_anual
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 30 and 12*salariu*nvl(comision,0) > 2000
+
+NUME                     ID_DEP DATA_ANG  VENIT_ANUAL                                                                                                                                                   
+-------------------- ---------- --------- -----------                                                                                                                                                   
+ALLEN                        30 20-FEB-81     5760000                                                                                                                                                   
+WARD                         30 22-FEB-81     7500000                                                                                                                                                   
+MARTIN                       30 28-SEP-81    21000000                                                                                                                                                   
+
+SQL> select * from angajati1
+  2  ;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80        800                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81       2975                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81       2850                    30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+      1111 IONESCU              CLERK                                2000                                                                                                                               
+      1112 POPESCU              ANALYST                              3500                                                                                                                               
+
+16 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+old   1: select nume, id_dep, data_ang, &venit_anual venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu+nvl(comision,0) venit_anual
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 30 and 12*salariu+nvl(comision,0) > 10000
+
+NUME                     ID_DEP DATA_ANG  VENIT_ANUAL                                                                                                                                                   
+-------------------- ---------- --------- -----------                                                                                                                                                   
+ALLEN                        30 20-FEB-81       19500                                                                                                                                                   
+WARD                         30 22-FEB-81       15500                                                                                                                                                   
+MARTIN                       30 28-SEP-81       16400                                                                                                                                                   
+BLAKE                        30 01-MAY-81       34200                                                                                                                                                   
+TURNER                       30 08-SEP-81       18000                                                                                                                                                   
+JAMES                        30 03-DEC-81       11400                                                                                                                                                   
+
+6 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_2.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_anual: 
+old   3: where id_dep = &id_dep and &venit_anual > 12*salariu*nvl(comision,0)
+new   3: where id_dep = 30 and  > 12*salariu*nvl(comision,0)
+where id_dep = 30 and  > 12*salariu*nvl(comision,0)
+                       *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+SQL> @E:\spool_bd\ex_individual_2.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:5000
+old   3: where id_dep = &id_dep and &min_salariu < 12*salariu*nvl(comision,0)
+new   3: where id_dep = 30 and 5000 < 12*salariu*nvl(comision,0)
+
+NUME                     ID_DEP VENIT_ANUAL                                                                                                                                                             
+-------------------- ---------- -----------                                                                                                                                                             
+ALLEN                        30       19500                                                                                                                                                             
+WARD                         30       15500                                                                                                                                                             
+MARTIN                       30       16400                                                                                                                                                             
+
+SQL> @E:\spool_bd\ex_individual_2.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+old   3: where id_dep = &id_dep and &min_salariu < 12*salariu+nvl(comision,0)
+new   3: where id_dep = 30 and 10000 < 12*salariu+nvl(comision,0)
+
+NUME                     ID_DEP VENIT_ANUAL                                                                                                                                                             
+-------------------- ---------- -----------                                                                                                                                                             
+ALLEN                        30       19500                                                                                                                                                             
+WARD                         30       15500                                                                                                                                                             
+MARTIN                       30       16400                                                                                                                                                             
+BLAKE                        30       34200                                                                                                                                                             
+TURNER                       30       18000                                                                                                                                                             
+JAMES                        30       11400                                                                                                                                                             
+
+6 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_2.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+old   3: where id_dep = &id_dep and &min_salariu < 12*salariu+nvl(comision,0)
+new   3: where id_dep = 30 and 10000 < 12*salariu+nvl(comision,0)
+
+NUME                     ID_DEP VENIT_ANUAL                                                                                                                                                             
+-------------------- ---------- -----------                                                                                                                                                             
+ALLEN                        30       19500                                                                                                                                                             
+WARD                         30       15500                                                                                                                                                             
+MARTIN                       30       16400                                                                                                                                                             
+BLAKE                        30       34200                                                                                                                                                             
+TURNER                       30       18000                                                                                                                                                             
+JAMES                        30       11400                                                                                                                                                             
+
+6 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_3.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_anual: salariu*12+nvl(comision,0)
+old   1: select nume, id_dep, data_ang, &&venit_anual venit_anual
+new   1: select nume, id_dep, data_ang, salariu*12+nvl(comision,0) venit_anual
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 30 and salariu*12+nvl(comision,0) > 10000
+
+NUME                     ID_DEP DATA_ANG  VENIT_ANUAL                                                                                                                                                   
+-------------------- ---------- --------- -----------                                                                                                                                                   
+ALLEN                        30 20-FEB-81       19500                                                                                                                                                   
+WARD                         30 22-FEB-81       15500                                                                                                                                                   
+BLAKE                        30 01-MAY-81       34200                                                                                                                                                   
+TURNER                       30 08-SEP-81       18000                                                                                                                                                   
+MARTIN                       30 28-SEP-81       16400                                                                                                                                                   
+JAMES                        30 03-DEC-81       11400                                                                                                                                                   
+
+6 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_4.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_lunar: salariu+nvl(comision,0)
+old   1: select nume, id_dep, data_ang, 12*&&venit_lunar venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu+nvl(comision,0) venit_anual
+Enter value for venit_anual: 12*venit_lunar
+old   3: where id_dep = &id_dep and &&venit_anual > 12*&venit_lunar
+new   3: where id_dep = 30 and 12*venit_lunar > 12*salariu+nvl(comision,0)
+where id_dep = 30 and 12*venit_lunar > 12*salariu+nvl(comision,0)
+                         *
+ERROR at line 3:
+ORA-00904: "VENIT_LUNAR": invalid identifier 
+
+
+SQL> 
+SQL> 
+SQL> @E:\spool_bd\ex_individual_4.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_lunar: salariu+nvl(comision,0)
+old   1: select nume, id_dep, data_ang, 12*&&venit_lunar venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu+nvl(comision,0) venit_anual
+Enter value for venit_anual: 12*venit_lunar
+old   3: where id_dep = &id_dep and &&venit_anual > &min_salariu
+new   3: where id_dep = 30 and 12*venit_lunar > 10000
+where id_dep = 30 and 12*venit_lunar > 10000
+                         *
+ERROR at line 3:
+ORA-00904: "VENIT_LUNAR": invalid identifier 
+
+
+SQL> @E:\spool_bd\ex_individual_4.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_lunar: salariu+nvl(comision,0)
+old   1: select nume, id_dep, data_ang, 12*&&venit_lunar venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu+nvl(comision,0) venit_anual
+Enter value for venit_anual: 12*&venit_lunar
+old   3: where id_dep = &id_dep and &&venit_anual > &min_salariu
+new   3: where id_dep = 30 and 12*&venit_lunar > 10000
+SP2-0552: Bind variable "VENIT_LUNAR" not declared.
+SQL> @E:\spool_bd\ex_individual_4.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_lunar: salariu+nvl(comision,0)
+old   1: select nume, id_dep, data_ang, 12*&&venit_lunar venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu+nvl(comision,0) venit_anual
+old   3: where id_dep = &id_dep and 12*&venit_lunar > &min_salariu
+new   3: where id_dep = 30 and 12*salariu+nvl(comision,0) > 10000
+
+NUME                     ID_DEP DATA_ANG  VENIT_ANUAL                                                                                                                                                   
+-------------------- ---------- --------- -----------                                                                                                                                                   
+ALLEN                        30 20-FEB-81       19500                                                                                                                                                   
+WARD                         30 22-FEB-81       15500                                                                                                                                                   
+BLAKE                        30 01-MAY-81       34200                                                                                                                                                   
+TURNER                       30 08-SEP-81       18000                                                                                                                                                   
+MARTIN                       30 28-SEP-81       16400                                                                                                                                                   
+JAMES                        30 03-DEC-81       11400                                                                                                                                                   
+
+6 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> @E:\spool_bd\ex_individual_1_ocw.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+old   1: select nume, id_dep, data_ang, &venit_anual venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu+nvl(comision,0) venit_anual
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 30 and 12*salariu+nvl(comision,0) > 10000
+
+NUME                     ID_DEP DATA_ANG  VENIT_ANUAL                                                                                                                                                   
+-------------------- ---------- --------- -----------                                                                                                                                                   
+ALLEN                        30 20-FEB-81       19500                                                                                                                                                   
+WARD                         30 22-FEB-81       15500                                                                                                                                                   
+MARTIN                       30 28-SEP-81       16400                                                                                                                                                   
+BLAKE                        30 01-MAY-81       34200                                                                                                                                                   
+TURNER                       30 08-SEP-81       18000                                                                                                                                                   
+JAMES                        30 03-DEC-81       11400                                                                                                                                                   
+
+6 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_2_ocw.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+old   3: where id_dep = &id_dep and &min_salariu < 12*salariu+nvl(comision,0)
+new   3: where id_dep = 30 and 10000 < 12*salariu+nvl(comision,0)
+
+NUME                     ID_DEP VENIT_ANUAL                                                                                                                                                             
+-------------------- ---------- -----------                                                                                                                                                             
+ALLEN                        30       19500                                                                                                                                                             
+WARD                         30       15500                                                                                                                                                             
+MARTIN                       30       16400                                                                                                                                                             
+BLAKE                        30       34200                                                                                                                                                             
+TURNER                       30       18000                                                                                                                                                             
+JAMES                        30       11400                                                                                                                                                             
+
+6 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_3_ocw.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_anual: 12*(salariu+nvl(comision,0))
+old   1: select nume, id_dep, data_ang, &&venit_anual venit_anual
+new   1: select nume, id_dep, data_ang, 12*(salariu+nvl(comision,0)) venit_anual
+old   3: where id_dep = &id_dep and &venit_anual > &min_salariu
+new   3: where id_dep = 30 and 12*(salariu+nvl(comision,0)) > 10000
+
+NUME                     ID_DEP DATA_ANG  VENIT_ANUAL                                                                                                                                                   
+-------------------- ---------- --------- -----------                                                                                                                                                   
+ALLEN                        30 20-FEB-81       22800                                                                                                                                                   
+WARD                         30 22-FEB-81       21000                                                                                                                                                   
+BLAKE                        30 01-MAY-81       34200                                                                                                                                                   
+TURNER                       30 08-SEP-81       18000                                                                                                                                                   
+MARTIN                       30 28-SEP-81       31800                                                                                                                                                   
+JAMES                        30 03-DEC-81       11400                                                                                                                                                   
+
+6 rows selected.
+
+SQL> @E:\spool_bd\ex_individual_4_ocw.sql
+Introduceti departamentul angajatului:30
+Introduceti venitul anual minim:10000
+Enter value for venit_lunar: salariu+nvl(comision,0)
+old   1: select nume, id_dep, data_ang, 12*&&venit_lunar venit_anual
+new   1: select nume, id_dep, data_ang, 12*salariu+nvl(comision,0) venit_anual
+old   3: where id_dep = &id_dep and 12*&venit_lunar > &min_salariu
+new   3: where id_dep = 30 and 12*salariu+nvl(comision,0) > 10000
+
+NUME                     ID_DEP DATA_ANG  VENIT_ANUAL                                                                                                                                                   
+-------------------- ---------- --------- -----------                                                                                                                                                   
+ALLEN                        30 20-FEB-81       19500                                                                                                                                                   
+WARD                         30 22-FEB-81       15500                                                                                                                                                   
+BLAKE                        30 01-MAY-81       34200                                                                                                                                                   
+TURNER                       30 08-SEP-81       18000                                                                                                                                                   
+MARTIN                       30 28-SEP-81       16400                                                                                                                                                   
+JAMES                        30 03-DEC-81       11400                                                                                                                                                   
+
+6 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> defie
+SP2-0042: unknown command "defie" - rest of line ignored.
+SQL> define
+DEFINE _DATE           = "18-MAR-21" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcl" (CHAR)
+DEFINE _USER           = "SCOTT" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1903000000" (CHAR)
+DEFINE _EDITOR         = "Notepad" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0" (CHAR)
+DEFINE _O_RELEASE      = "1903000000" (CHAR)
+DEFINE 1               = "ANALYST" (CHAR)
+DEFINE 2               = "15-AUG-1981" (CHAR)
+SQL> undefine 1
+SQL> undefine 2
+SQL> define
+DEFINE _DATE           = "18-MAR-21" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcl" (CHAR)
+DEFINE _USER           = "SCOTT" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1903000000" (CHAR)
+DEFINE _EDITOR         = "Notepad" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0" (CHAR)
+DEFINE _O_RELEASE      = "1903000000" (CHAR)
+SQL> 
+SQL> 
+SQL> select * from angajati1
+  2  ;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80        800                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81       2975                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81       2850                    30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+      1111 IONESCU              CLERK                                2000                                                                                                                               
+      1112 POPESCU              ANALYST                              3500                                                                                                                               
+
+16 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti ecusonul sefului:7839
+Introduceti data angajarii sefului:01-JAN-1990
+old   3: where id_sef = &id_sef and data_ang > &data_ang_sef
+new   3: where id_sef = 7839 and data_ang > 01-JAN-1990
+where id_sef = 7839 and data_ang > 01-JAN-1990
+                                      *
+ERROR at line 3:
+ORA-00904: "JAN": invalid identifier 
+
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti ecusonul sefului:7698
+Introduceti data angajarii sefului:01-IAN-1990
+old   3: where id_sef = &id_sef and data_ang > &data_ang_sef
+new   3: where id_sef = 7698 and data_ang > 01-IAN-1990
+where id_sef = 7698 and data_ang > 01-IAN-1990
+                                      *
+ERROR at line 3:
+ORA-00904: "IAN": invalid identifier 
+
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti ecusonul sefului:7839
+Introduceti data angajarii sefului:01-JAN-1990
+old   3: where id_sef = &id_sef and data_ang > '&data_ang_sef'
+new   3: where id_sef = 7839 and data_ang > '01-JAN-1990'
+
+no rows selected
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti ecusonul sefului:7698
+Introduceti data angajarii sefului:01-JAN-1920
+old   3: where id_sef = &id_sef and data_ang > '&data_ang_sef'
+new   3: where id_sef = 7698 and data_ang > '01-JAN-1920'
+
+NUME                 DATA_ANG  FUNCTIE       ID_SEF                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+ALLEN                20-FEB-81 SALESMAN        7698                                                                                                                                                     
+WARD                 22-FEB-81 SALESMAN        7698                                                                                                                                                     
+MARTIN               28-SEP-81 SALESMAN        7698                                                                                                                                                     
+TURNER               08-SEP-81 SALESMAN        7698                                                                                                                                                     
+JAMES                03-DEC-81 CLERK           7698                                                                                                                                                     
+
+SQL> @E:\spool_bd\ex_individual_2.sql
+Enter value for id_sef: 7698
+Enter value for data_ang_sef: 01-JAN-1920
+old   3: where id_sef = &&id_sef and data_ang > '&&data_ang_sef'
+new   3: where id_sef = 7698 and data_ang > '01-JAN-1920'
+
+NUME                 DATA_ANG  FUNCTIE       ID_SEF                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+ALLEN                20-FEB-81 SALESMAN        7698                                                                                                                                                     
+WARD                 22-FEB-81 SALESMAN        7698                                                                                                                                                     
+MARTIN               28-SEP-81 SALESMAN        7698                                                                                                                                                     
+TURNER               08-SEP-81 SALESMAN        7698                                                                                                                                                     
+JAMES                03-DEC-81 CLERK           7698                                                                                                                                                     
+
+SQL> @E:\spool_bd\ex_individual_1.sql
+Introduceti ecusonul sefului:7698
+Introduceti data angajarii sefului:01-JAN-1920
+old   3: where id_sef = &id_sef and data_ang > '&data_ang_sef'
+new   3: where id_sef = 7698 and data_ang > '01-JAN-1920'
+
+NUME                 DATA_ANGA JOB       ECUSON_SEF                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+ALLEN                20-FEB-81 SALESMAN        7698                                                                                                                                                     
+WARD                 22-FEB-81 SALESMAN        7698                                                                                                                                                     
+MARTIN               28-SEP-81 SALESMAN        7698                                                                                                                                                     
+TURNER               08-SEP-81 SALESMAN        7698                                                                                                                                                     
+JAMES                03-DEC-81 CLERK           7698                                                                                                                                                     
+
+SQL> @E:\spool_bd\ex_individual_2.sql
+Enter value for id_sef: 7698
+Enter value for data_ang_sef: 05-MAR-1930
+old   3: where id_sef = &&id_sef and data_ang > '&&data_ang_sef'
+new   3: where id_sef = 7698 and data_ang > '05-MAR-1930'
+
+NUME                 DATA_ANGA JOB       ECUSON_SEF                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+ALLEN                20-FEB-81 SALESMAN        7698                                                                                                                                                     
+WARD                 22-FEB-81 SALESMAN        7698                                                                                                                                                     
+MARTIN               28-SEP-81 SALESMAN        7698                                                                                                                                                     
+TURNER               08-SEP-81 SALESMAN        7698                                                                                                                                                     
+JAMES                03-DEC-81 CLERK           7698                                                                                                                                                     
+
+SQL> @E:\spool_bd\ex_individual_3.sql
+Enter value for id_sef: 7698
+Enter value for data_ang_sef: 05-MAR-1935
+old   3: where id_sef = &id_sef and data_ang > '&data_ang_sef'
+new   3: where id_sef = 7698 and data_ang > '05-MAR-1935'
+
+NUME                 DATA_ANGA JOB       ECUSON_SEF                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+ALLEN                20-FEB-81 SALESMAN        7698                                                                                                                                                     
+WARD                 22-FEB-81 SALESMAN        7698                                                                                                                                                     
+MARTIN               28-SEP-81 SALESMAN        7698                                                                                                                                                     
+TURNER               08-SEP-81 SALESMAN        7698                                                                                                                                                     
+JAMES                03-DEC-81 CLERK           7698                                                                                                                                                     
+
+SQL> 
+SQL> @E:\spool_bd\ex_individual_4.sql
+Enter value for nume_afisare: Nume
+Enter value for data_ang_afisare: Data_Angajare
+Enter value for funtie_afisare: Job
+Enter value for id_sef_afisare: Ecuson_Sef
+old   1: select '&nume_afisare' nume, '&data_ang_afisare' data_ang, '&funtie_afisare' functie, '&id_sef_afisare' id_sef
+new   1: select 'Nume' nume, 'Data_Angajare' data_ang, 'Job' functie, 'Ecuson_Sef' id_sef
+Enter value for id_sef: 7698
+Enter value for data_ang_sef: 01-JAN-1920
+old   3: where id_sef = &id_sef and data_ang > '&data_ang_sef'
+new   3: where id_sef = 7698 and data_ang > '01-JAN-1920'
+
+NUME DATA_ANG      FUN ID_SEF                                                                                                                                                                           
+---- ------------- --- ----------                                                                                                                                                                       
+Nume Data_Angajare Job Ecuson_Sef                                                                                                                                                                       
+Nume Data_Angajare Job Ecuson_Sef                                                                                                                                                                       
+Nume Data_Angajare Job Ecuson_Sef                                                                                                                                                                       
+Nume Data_Angajare Job Ecuson_Sef                                                                                                                                                                       
+Nume Data_Angajare Job Ecuson_Sef                                                                                                                                                                       
+
+SQL> @E:\spool_bd\ex_individual_5.sql
+SP2-0310: unable to open file "E:\spool_bd\ex_individual_5.sql"
+SQL> @E:\spool_bd\ex_individual_4.sql
+old   2: from &tabela
+new   2: from angajati1
+old   3: where id_sef = &id_sef and data_ang > '&data_ang_sef'
+new   3: where id_sef = 7698 and data_ang > '01-JAN-1920'
+
+NUME                 DATA_ANGA JOB       ECUSON_SEF                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+ALLEN                20-FEB-81 SALESMAN        7698                                                                                                                                                     
+WARD                 22-FEB-81 SALESMAN        7698                                                                                                                                                     
+MARTIN               28-SEP-81 SALESMAN        7698                                                                                                                                                     
+TURNER               08-SEP-81 SALESMAN        7698                                                                                                                                                     
+JAMES                03-DEC-81 CLERK           7698                                                                                                                                                     
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> @E:\spool_bd\ex_individual_5.sql angajati1 7698 01-MAR-1935
+old   2: from &1
+new   2: from angajati1
+old   3: where id_sef = &2 and data_ang > '&3'
+new   3: where id_sef = 7698 and data_ang > '01-MAR-1935'
+
+NUME                 DATA_ANGA JOB       ECUSON_SEF                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+ALLEN                20-FEB-81 SALESMAN        7698                                                                                                                                                     
+WARD                 22-FEB-81 SALESMAN        7698                                                                                                                                                     
+MARTIN               28-SEP-81 SALESMAN        7698                                                                                                                                                     
+TURNER               08-SEP-81 SALESMAN        7698                                                                                                                                                     
+JAMES                03-DEC-81 CLERK           7698                                                                                                                                                     
+
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab3';
+
+1 row updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab3';
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 orcl             13-03-2021 04:11:04 LUCIPC                                                                                                                                             
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grigore Lucian                 336CA      Lab3       18-03-2021 08:23:40 18-03-2021 09:59:22             96                                                                                             
+
+SQL> spool off;

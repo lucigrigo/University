@@ -1,44 +1,15 @@
-========== START
-spool e:\spool_bd\spool_bd_lab2_11mar2021_part2.lst
+spool e:\spool_bd\spool_bd_lab1_4mar2021.lst
 set lines 200
 set pages 100
 select to_char(sysdate, ’dd-mm-yyyy hh:mi:ss’) from dual;
-insert into login_lab_bd values( ’Grigore Lucian’, ’336CA’, ’Lab2.1’, user, sysdate, null, null);
+insert into login_lab_bd values( ’Grigore Lucian’, ’336CA’, ’Lab1’, user, sysdate, null, null);
 select * from login_lab_bd;
-==========
 
-========== FINAL
-update login_lab_bd set data_sf= sysdate where laborator='Lab2.1';
-update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab2.1';
+update login_lab_bd set data_sf= sysdate where laborator='Lab1';
+update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab1';
 commit;
 select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss’), host_name
 from v$instance;
 select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
 to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
 spool off; 
-==========
-
-CREATE TABLE ANGAJATI2                                                                        (                                                                                             ID_ANGAJAT NUMBER(4) NOT NULL,                                                                NUME VARCHAR2(30),                                                                            PRENUME VARCHAR2(30),                                                                         FUNCTIE VARCHAR2(20),                                                                         ID_SEF NUMBER(4),                                                                             DATA_ANGAJARII DATE DEFAULT SYSDATE,                                                          SALARIU NUMBER(7,2) DEFAULT 2000,                                                            COMISION NUMBER(7,2),                                                                        ID_DEPARTAMENT NUMBER,                                                                       CONSTRAINT PK_ANGAJATI PRIMARY KEY (ID_ANGAJAT),                                             CONSTRAINT FK_ANG__DEP FOREIGN KEY (ID_DEPARTAMENT)                                          REFERENCES DEPARTAMENTE2(ID_DEPARTAMENT),                                                    CONSTRAINT FK_ANG__ANG FOREIGN KEY (ID_SEF)                                                  REFERENCES ANGAJATI2(ID_ANGAJAT),                                                            CONSTRAINT UQ_NUME UNIQUE (NUME, PRENUME)                                                    );
-
-CREATE TABLE DEPARTAMENTE2
-    (
-    ID_DEPARTAMENT NUMBER(2) NOT NULL,
-    DENUMIRE_DEPARTAMENT VARCHAR2(30),
-    TELEFON VARCHAR2(10),
-    CONSTRAINT PK_DEPARTAMENTE PRIMARY KEY (ID_DEPARTAMENT),
-    CONSTRAINT UQ_DENUMIRE UNIQUE (DENUMIRE_DEPARTAMENT)
-    );
-	
-CREATE TABLE GRILA_SALARIU2
-    (
-    GRAD NUMBER(2),
-    NIVEL_INFERIOR NUMBER,
-    NIVEL_SUPERIOR NUMBER,
-    CONSTRAINT PK_GRILA PRIMARY KEY(GRAD)
-    );
-	
-	
-	
-SA SE CREEZE 2 TABELE
-STUDENTI, CATALOG
-INSERT, UPDATE, DELETE, SELECT
