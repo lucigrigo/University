@@ -1,0 +1,983 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+01-04-2021 08:31:59                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab5', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab3       SCOTT      18-MAR-21 18-MAR-21         96                                                                                                          
+Grigore Lucian                 336CA      Lab4       SCOTT      25-MAR-21 25-MAR-21         96                                                                                                          
+Grigore Lucian                 336CA      Lab5       SCOTT      01-APR-21                                                                                                                               
+
+SQL> select * from angajati, departamente;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO     ID_DEP DEN_DEP                        SEDIU                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ---------- ---------- ------------------------------ --------------------                                                    
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20         10 ACCOUNTING                     NEW YORK                                                                
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30         10 ACCOUNTING                     NEW YORK                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30         10 ACCOUNTING                     NEW YORK                                                                
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20         10 ACCOUNTING                     NEW YORK                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30         10 ACCOUNTING                     NEW YORK                                                                
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30         10 ACCOUNTING                     NEW YORK                                                                
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10         10 ACCOUNTING                     NEW YORK                                                                
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20         10 ACCOUNTING                     NEW YORK                                                                
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10         10 ACCOUNTING                     NEW YORK                                                                
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30         10 ACCOUNTING                     NEW YORK                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20         10 ACCOUNTING                     NEW YORK                                                                
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30         10 ACCOUNTING                     NEW YORK                                                                
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20         10 ACCOUNTING                     NEW YORK                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10         10 ACCOUNTING                     NEW YORK                                                                
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20         20 RESEARCH                       DALLAS                                                                  
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30         20 RESEARCH                       DALLAS                                                                  
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30         20 RESEARCH                       DALLAS                                                                  
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20         20 RESEARCH                       DALLAS                                                                  
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30         20 RESEARCH                       DALLAS                                                                  
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30         20 RESEARCH                       DALLAS                                                                  
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10         20 RESEARCH                       DALLAS                                                                  
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20         20 RESEARCH                       DALLAS                                                                  
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10         20 RESEARCH                       DALLAS                                                                  
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30         20 RESEARCH                       DALLAS                                                                  
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20         20 RESEARCH                       DALLAS                                                                  
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30         20 RESEARCH                       DALLAS                                                                  
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20         20 RESEARCH                       DALLAS                                                                  
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10         20 RESEARCH                       DALLAS                                                                  
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20         30 SALES                          CHICAGO                                                                 
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30         30 SALES                          CHICAGO                                                                 
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30         30 SALES                          CHICAGO                                                                 
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20         30 SALES                          CHICAGO                                                                 
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30         30 SALES                          CHICAGO                                                                 
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30         30 SALES                          CHICAGO                                                                 
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10         30 SALES                          CHICAGO                                                                 
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20         30 SALES                          CHICAGO                                                                 
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10         30 SALES                          CHICAGO                                                                 
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30         30 SALES                          CHICAGO                                                                 
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20         30 SALES                          CHICAGO                                                                 
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30         30 SALES                          CHICAGO                                                                 
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20         30 SALES                          CHICAGO                                                                 
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10         30 SALES                          CHICAGO                                                                 
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20         40 OPERATIONS                     BOSTON                                                                  
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30         40 OPERATIONS                     BOSTON                                                                  
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30         40 OPERATIONS                     BOSTON                                                                  
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20         40 OPERATIONS                     BOSTON                                                                  
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30         40 OPERATIONS                     BOSTON                                                                  
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30         40 OPERATIONS                     BOSTON                                                                  
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10         40 OPERATIONS                     BOSTON                                                                  
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20         40 OPERATIONS                     BOSTON                                                                  
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10         40 OPERATIONS                     BOSTON                                                                  
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30         40 OPERATIONS                     BOSTON                                                                  
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20         40 OPERATIONS                     BOSTON                                                                  
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30         40 OPERATIONS                     BOSTON                                                                  
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20         40 OPERATIONS                     BOSTON                                                                  
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10         40 OPERATIONS                     BOSTON                                                                  
+
+56 rows selected.
+
+SQL> select ename, job, den_dep from angajati, departamente where job = 'ANALYST';
+
+ENAME      JOB       DEN_DEP                                                                                                                                                                            
+---------- --------- ------------------------------                                                                                                                                                     
+SCOTT      ANALYST   ACCOUNTING                                                                                                                                                                         
+SCOTT      ANALYST   RESEARCH                                                                                                                                                                           
+SCOTT      ANALYST   SALES                                                                                                                                                                              
+SCOTT      ANALYST   OPERATIONS                                                                                                                                                                         
+FORD       ANALYST   ACCOUNTING                                                                                                                                                                         
+FORD       ANALYST   RESEARCH                                                                                                                                                                           
+FORD       ANALYST   SALES                                                                                                                                                                              
+FORD       ANALYST   OPERATIONS                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> select ename, job, den_dep from angajati cross join departamente where functie = 'ANALYST';
+select ename, job, den_dep from angajati cross join departamente where functie = 'ANALYST'
+                                                                       *
+ERROR at line 1:
+ORA-00904: "FUNCTIE": invalid identifier 
+
+
+SQL> select ename, job, den_dep from angajati cross join departamente where job = 'ANALYST';
+
+ENAME      JOB       DEN_DEP                                                                                                                                                                            
+---------- --------- ------------------------------                                                                                                                                                     
+SCOTT      ANALYST   ACCOUNTING                                                                                                                                                                         
+SCOTT      ANALYST   RESEARCH                                                                                                                                                                           
+SCOTT      ANALYST   SALES                                                                                                                                                                              
+SCOTT      ANALYST   OPERATIONS                                                                                                                                                                         
+FORD       ANALYST   ACCOUNTING                                                                                                                                                                         
+FORD       ANALYST   RESEARCH                                                                                                                                                                           
+FORD       ANALYST   SALES                                                                                                                                                                              
+FORD       ANALYST   OPERATIONS                                                                                                                                                                         
+
+8 rows selected.
+
+SQL> select * from angajati;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+14 rows selected.
+
+SQL> select a.deptno, d.den_dep, a.ename, a.job from angajati a, departamente d where a.deptno = d.id_dep and a.deptno = 10 ordery by 3;
+select a.deptno, d.den_dep, a.ename, a.job from angajati a, departamente d where a.deptno = d.id_dep and a.deptno = 10 ordery by 3
+                                                                                                                       *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select a.deptno, d.den_dep, a.ename, a.job from angajati a, departamente d where a.deptno = d.id_dep and a.deptno = 10 order by 3;
+
+    DEPTNO DEN_DEP                        ENAME      JOB                                                                                                                                                
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+
+SQL> select angajati.deptno, departamente.den_dep, angajati.ename, angajati.job from angajati, departamente where angajati.deptno = departamente.id_dep and angajati.deptno = 10 order by 3;
+
+    DEPTNO DEN_DEP                        ENAME      JOB                                                                                                                                                
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+
+SQL> select a.deptno, d.den_dep, a.ename, a.job from angajati a join departamente d on a.deptno = d.id_dep where a.deptno = 10 order by 3;
+
+    DEPTNO DEN_DEP                        ENAME      JOB                                                                                                                                                
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+
+SQL> select a.deptno, d.den_dep, a.ename, a.job from angajati inner join departamente d on a.deptno = d.id_dep
+  2  where a.id_dep = 10 order by 3;
+select a.deptno, d.den_dep, a.ename, a.job from angajati inner join departamente d on a.deptno = d.id_dep
+                                                                                      *
+ERROR at line 1:
+ORA-00904: "A"."DEPTNO": invalid identifier 
+
+
+SQL> select a.deptno, d.den_dep, a.ename, a.job from angajati a inner join departamente d on a.deptno = d.id_dep
+  2  where a.id_dep = 10 order by 3;
+where a.id_dep = 10 order by 3
+      *
+ERROR at line 2:
+ORA-00904: "A"."ID_DEP": invalid identifier 
+
+
+SQL> select a.deptno, d.den_dep, a.ename, a.job from angajati inner join departamente d on a.deptno = d.id_dep
+  2  select a.deptno, d.den_dep, a.ename, a.job from angajati a join departamente d on a.deptno = d.id_dep where a.deptno = 10 order by 3;
+select a.deptno, d.den_dep, a.ename, a.job from angajati a join departamente d on a.deptno = d.id_dep where a.deptno = 10 order by 3
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select a.deptno, d.den_dep, a.ename, a.job from angajati a join departamente d on a.deptno = d.id_dep where a.deptno = 10 order by 3;
+
+    DEPTNO DEN_DEP                        ENAME      JOB                                                                                                                                                
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+
+SQL> select id_dep, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where id_dep = 10 order by 3;
+select id_dep, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where id_dep = 10 order by 3
+                                                                                        *
+ERROR at line 1:
+ORA-00904: "A"."ID_DEP": invalid identifier 
+
+
+SQL> select id_dep, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where id_dep = 10 order by 3;
+select id_dep, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where id_dep = 10 order by 3
+                                                                                        *
+ERROR at line 1:
+ORA-00904: "A"."ID_DEP": invalid identifier 
+
+
+SQL> select deptno, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (deptno) where deptno = 10 order by 3;
+select deptno, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (deptno) where deptno = 10 order by 3
+                                                                                        *
+ERROR at line 1:
+ORA-00904: "DEPARTAMENTE"."DEPTNO": invalid identifier 
+
+
+SQL> select deptno, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where deptno = 10 order by 3;
+select deptno, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where deptno = 10 order by 3
+                                                                                        *
+ERROR at line 1:
+ORA-00904: "A"."ID_DEP": invalid identifier 
+
+
+SQL> alter angajati rename column deptno id_dep;
+alter angajati rename column deptno id_dep
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> alter angajati rename column deptno to id_dep;
+alter angajati rename column deptno to id_dep
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> alter table angajati rename column deptno to id_dep;
+
+Table altered.
+
+SQL> select deptno, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where deptno = 10 order by 3;
+select deptno, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where deptno = 10 order by 3
+                                                                                                      *
+ERROR at line 1:
+ORA-00904: "DEPTNO": invalid identifier 
+
+
+SQL> select id_dep, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where id_dep = 10 order by 3;
+select id_dep, d.den_dep, a.ename, a.job from angajati a inner join departamente USING (id_dep) where id_dep = 10 order by 3
+               *
+ERROR at line 1:
+ORA-00904: "D"."DEN_DEP": invalid identifier 
+
+
+SQL> desc departamente
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEP                                                                                                            NOT NULL NUMBER(2)
+ DEN_DEP                                                                                                                    VARCHAR2(30)
+ SEDIU                                                                                                                      VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select * from departamente;
+
+    ID_DEP DEN_DEP                        SEDIU                                                                                                                                                         
+---------- ------------------------------ --------------------                                                                                                                                          
+        10 ACCOUNTING                     NEW YORK                                                                                                                                                      
+        20 RESEARCH                       DALLAS                                                                                                                                                        
+        30 SALES                          CHICAGO                                                                                                                                                       
+        40 OPERATIONS                     BOSTON                                                                                                                                                        
+
+SQL> select id_dep, d.den_dep, a.ename, a.job from angajati a inner join departamente d USING (id_dep) where id_dep = 10 order by 3;
+
+    ID_DEP DEN_DEP                        ENAME      JOB                                                                                                                                                
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+
+SQL> alter table angajati column ename to nume;
+alter table angajati column ename to nume
+                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> alter table angajati rename column ename to nume;
+
+Table altered.
+
+SQL> alter table angajati rename column job to functie;
+
+Table altered.
+
+SQL> select id_dep, den_dep, nume, functie from angajati natural join departamente where id_dep = 10 order by 3;
+
+    ID_DEP DEN_DEP                        NUME       FUNCTIE                                                                                                                                            
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+
+SQL> desc angajati
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMPNO                                                                                                                      NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(10)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ MGR                                                                                                                        NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> desc grila_salariu;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ GRAD                                                                                                                       NUMBER(2)
+ NIVEL_INF                                                                                                                  NUMBER
+ NIVEL_SUP                                                                                                                  NUMBER
+
+SQL> select a.nume, a.salariu, g.grad from angajati a, grila_salariu g where a.salariu between g.nivel_inf and g.nivel_sup and a.id_dep = 20;
+select a.nume, a.salariu, g.grad from angajati a, grila_salariu g where a.salariu between g.nivel_inf and g.nivel_sup and a.id_dep = 20
+                                                                        *
+ERROR at line 1:
+ORA-00904: "A"."SALARIU": invalid identifier 
+
+
+SQL> select a.nume, a.sal, g.grad from angajati a, grila_salariu g where a.salariu between g.nivel_inf and g.nivel_sup and a.id_dep = 20;
+select a.nume, a.sal, g.grad from angajati a, grila_salariu g where a.salariu between g.nivel_inf and g.nivel_sup and a.id_dep = 20
+                                                                    *
+ERROR at line 1:
+ORA-00904: "A"."SALARIU": invalid identifier 
+
+
+SQL> select a.nume, a.sal, g.grad from angajati a, grila_salariu g where a.sal between g.nivel_inf and g.nivel_sup and a.id_dep = 20;
+
+NUME              SAL       GRAD                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+SCOTT            3000          4                                                                                                                                                                        
+FORD             3000          4                                                                                                                                                                        
+JONES            2975          4                                                                                                                                                                        
+ADAMS            1100          1                                                                                                                                                                        
+SMITH             800          1                                                                                                                                                                        
+
+SQL> select a.nume, a.sal, g.grad from angajati a inner join grila_salariu g on a.sal between g.nivel_inf and g.nivel_sup where a.id_dep = 20;
+
+NUME              SAL       GRAD                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+SCOTT            3000          4                                                                                                                                                                        
+FORD             3000          4                                                                                                                                                                        
+JONES            2975          4                                                                                                                                                                        
+ADAMS            1100          1                                                                                                                                                                        
+SMITH             800          1                                                                                                                                                                        
+
+SQL> select a.nume, a.sal, g.grad, d.den_dep from angajati a, departamente d, grila_salariu g from a.sal between g.nivel_inf and g.nivel_sup and d.id_dep = a.id_dep and a.id_dep = 20 ordery by 3, 1;
+select a.nume, a.sal, g.grad, d.den_dep from angajati a, departamente d, grila_salariu g from a.sal between g.nivel_inf and g.nivel_sup and d.id_dep = a.id_dep and a.id_dep = 20 ordery by 3, 1
+                                                                                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select a.nume, a.sal, g.grad, d.den_dep from angajati a, departamente d, grila_salariu g from a.sal between g.nivel_inf and g.nivel_sup and d.id_dep = a.id_dep and a.id_dep = 20 order by 3, 1;
+select a.nume, a.sal, g.grad, d.den_dep from angajati a, departamente d, grila_salariu g from a.sal between g.nivel_inf and g.nivel_sup and d.id_dep = a.id_dep and a.id_dep = 20 order by 3, 1
+                                                                                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select a.nume, a.sal, g.grad, d.den_dep from angajati a, departamente d, grila_salariu g from a.sal between g.nivel_inf and g.nivel_sup and d.id_dep = a.id_dep where a.id_dep = 20 order by 3, 1;
+select a.nume, a.sal, g.grad, d.den_dep from angajati a, departamente d, grila_salariu g from a.sal between g.nivel_inf and g.nivel_sup and d.id_dep = a.id_dep where a.id_dep = 20 order by 3, 1
+                                                                                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> 
+SQL> 
+SQL> 
+SQL> select a.nume, a.sal, g.grad, d.den_dep from angajati a, departamente d, grila_salariu g where a.sal between g.nivel_inf and g.nivel_sup and d.id_dep = a.id_dep and a.id_dep = 20 order by 3, 1;
+
+NUME              SAL       GRAD DEN_DEP                                                                                                                                                                
+---------- ---------- ---------- ------------------------------                                                                                                                                         
+ADAMS            1100          1 RESEARCH                                                                                                                                                               
+SMITH             800          1 RESEARCH                                                                                                                                                               
+FORD             3000          4 RESEARCH                                                                                                                                                               
+JONES            2975          4 RESEARCH                                                                                                                                                               
+SCOTT            3000          4 RESEARCH                                                                                                                                                               
+
+SQL> select a.nume, a.sal, g.grad, d.den_dep from angajati a inner join grila_salariu g on a.sal between g.nivel_inf and g.nivel_sup inner join departamente d on d.id_dep = a.id_dep where a.id_dep = 20 order by 3, 1;
+
+NUME              SAL       GRAD DEN_DEP                                                                                                                                                                
+---------- ---------- ---------- ------------------------------                                                                                                                                         
+ADAMS            1100          1 RESEARCH                                                                                                                                                               
+SMITH             800          1 RESEARCH                                                                                                                                                               
+FORD             3000          4 RESEARCH                                                                                                                                                               
+JONES            2975          4 RESEARCH                                                                                                                                                               
+SCOTT            3000          4 RESEARCH                                                                                                                                                               
+
+SQL> select a.nume, a.sal, g.grad, d.den_dep from angajati a join departamente d on d.id_dep = a.id_dep join grila_salariu g on a.sal >= g.nivel_inf and a.sal <= g.nivel_sup where a.id_dep = 20 ordery by 3,1;
+select a.nume, a.sal, g.grad, d.den_dep from angajati a join departamente d on d.id_dep = a.id_dep join grila_salariu g on a.sal >= g.nivel_inf and a.sal <= g.nivel_sup where a.id_dep = 20 ordery by 3,1
+                                                                                                                                                                                             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select a.nume, a.sal, g.grad, d.den_dep from angajati a join departamente d on d.id_dep = a.id_dep join grila_salariu g on a.sal >= g.nivel_inf and a.sal <= g.nivel_sup where a.id_dep = 20 order by 3,1;
+
+NUME              SAL       GRAD DEN_DEP                                                                                                                                                                
+---------- ---------- ---------- ------------------------------                                                                                                                                         
+ADAMS            1100          1 RESEARCH                                                                                                                                                               
+SMITH             800          1 RESEARCH                                                                                                                                                               
+FORD             3000          4 RESEARCH                                                                                                                                                               
+JONES            2975          4 RESEARCH                                                                                                                                                               
+SCOTT            3000          4 RESEARCH                                                                                                                                                               
+
+SQL> select a1.nume "Nume angajat", a1.functie "Functie Angajat", a2.nume "Nume sef", a2.functie "Functie sef" from angajati a1, angajati a2 where a1.id_sef = a2.id_ang and a1.id_dep = 10;
+select a1.nume "Nume angajat", a1.functie "Functie Angajat", a2.nume "Nume sef", a2.functie "Functie sef" from angajati a1, angajati a2 where a1.id_sef = a2.id_ang and a1.id_dep = 10
+                                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "A2"."ID_ANG": invalid identifier 
+
+
+SQL> desc angajati
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMPNO                                                                                                                      NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(10)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ MGR                                                                                                                        NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> alter angajati rename column mgd to id_sef;
+alter angajati rename column mgd to id_sef
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> alter table angajati rename column mgr to id_sef;
+
+Table altered.
+
+SQL> select a1.nume "Nume angajat", a1.functie "Functie Angajat", a2.nume "Nume sef", a2.functie "Functie sef" from angajati a1, angajati a2 where a1.id_sef = a2.id_ang and a1.id_dep = 10;
+select a1.nume "Nume angajat", a1.functie "Functie Angajat", a2.nume "Nume sef", a2.functie "Functie sef" from angajati a1, angajati a2 where a1.id_sef = a2.id_ang and a1.id_dep = 10
+                                                                                                                                                          *
+ERROR at line 1:
+ORA-00904: "A2"."ID_ANG": invalid identifier 
+
+
+SQL> alter angajati rename column empno to id_ang;
+alter angajati rename column empno to id_ang
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> alter table angajati rename column empno to id_ang;
+
+Table altered.
+
+SQL> select a1.nume "Nume angajat", a1.functie "Functie Angajat", a2.nume "Nume sef", a2.functie "Functie sef" from angajati a1, angajati a2 where a1.id_sef = a2.id_ang and a1.id_dep = 10;
+
+Nume angaj Functie A Nume sef   Functie s                                                                                                                                                               
+---------- --------- ---------- ---------                                                                                                                                                               
+MILLER     CLERK     CLARK      MANAGER                                                                                                                                                                 
+CLARK      MANAGER   KING       PRESIDENT                                                                                                                                                               
+
+SQL> select a1.nume "Nume angajat", a1.functie "Functie Angajat", a2.nume "Nume sef", a2.functie "Functie sef" from angajati a1 inner join angajati a2 on a1.id_sef = a2.id_ang and a1.id_dep = 10;
+
+Nume angaj Functie A Nume sef   Functie s                                                                                                                                                               
+---------- --------- ---------- ---------                                                                                                                                                               
+MILLER     CLERK     CLARK      MANAGER                                                                                                                                                                 
+CLARK      MANAGER   KING       PRESIDENT                                                                                                                                                               
+
+SQL> select d.id_dep, d.den_dep, a.nume, a.functie from departamente d, angajati a where d.id_dep = a.id_dep(+) order by a.id_dep;
+
+    ID_DEP DEN_DEP                        NUME       FUNCTIE                                                                                                                                            
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        20 RESEARCH                       JONES      MANAGER                                                                                                                                            
+        20 RESEARCH                       SMITH      CLERK                                                                                                                                              
+        20 RESEARCH                       SCOTT      ANALYST                                                                                                                                            
+        20 RESEARCH                       FORD       ANALYST                                                                                                                                            
+        20 RESEARCH                       ADAMS      CLERK                                                                                                                                              
+        30 SALES                          WARD       SALESMAN                                                                                                                                           
+        30 SALES                          TURNER     SALESMAN                                                                                                                                           
+        30 SALES                          ALLEN      SALESMAN                                                                                                                                           
+        30 SALES                          JAMES      CLERK                                                                                                                                              
+        30 SALES                          MARTIN     SALESMAN                                                                                                                                           
+        30 SALES                          BLAKE      MANAGER                                                                                                                                            
+        40 OPERATIONS                                                                                                                                                                                   
+
+15 rows selected.
+
+SQL> select d.id_dep, d.den_dep, a.nume, a.functie from departamente d left outer join angajati a on d.id_dep = a.id_dep(+) order by a.id_dep;
+
+    ID_DEP DEN_DEP                        NUME       FUNCTIE                                                                                                                                            
+---------- ------------------------------ ---------- ---------                                                                                                                                          
+        10 ACCOUNTING                     CLARK      MANAGER                                                                                                                                            
+        10 ACCOUNTING                     MILLER     CLERK                                                                                                                                              
+        10 ACCOUNTING                     KING       PRESIDENT                                                                                                                                          
+        20 RESEARCH                       JONES      MANAGER                                                                                                                                            
+        20 RESEARCH                       SMITH      CLERK                                                                                                                                              
+        20 RESEARCH                       SCOTT      ANALYST                                                                                                                                            
+        20 RESEARCH                       FORD       ANALYST                                                                                                                                            
+        20 RESEARCH                       ADAMS      CLERK                                                                                                                                              
+        30 SALES                          WARD       SALESMAN                                                                                                                                           
+        30 SALES                          TURNER     SALESMAN                                                                                                                                           
+        30 SALES                          ALLEN      SALESMAN                                                                                                                                           
+        30 SALES                          JAMES      CLERK                                                                                                                                              
+        30 SALES                          MARTIN     SALESMAN                                                                                                                                           
+        30 SALES                          BLAKE      MANAGER                                                                                                                                            
+        40 OPERATIONS                                                                                                                                                                                   
+
+15 rows selected.
+
+SQL> select * from angajati;
+
+    ID_ANG NUME       FUNCTIE       ID_SEF HIREDATE         SAL       COMM     ID_DEP                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+14 rows selected.
+
+SQL> select a.nume, a.sal, g.grad from grila_salariu g full outer join angajati a on a.sal*2 between g.nivel_inf and g.nivel_sup order by a.nume;
+
+NUME              SAL       GRAD                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+ADAMS            1100          4                                                                                                                                                                        
+ALLEN            1600          5                                                                                                                                                                        
+BLAKE            2850          5                                                                                                                                                                        
+CLARK            2450          5                                                                                                                                                                        
+FORD             3000          5                                                                                                                                                                        
+JAMES             950          3                                                                                                                                                                        
+JONES            2975          5                                                                                                                                                                        
+KING             5000                                                                                                                                                                                   
+MARTIN           1250          4                                                                                                                                                                        
+MILLER           1300          4                                                                                                                                                                        
+SCOTT            3000          5                                                                                                                                                                        
+SMITH             800          3                                                                                                                                                                        
+TURNER           1500          4                                                                                                                                                                        
+WARD             1250          4                                                                                                                                                                        
+                               2                                                                                                                                                                        
+                               1                                                                                                                                                                        
+
+16 rows selected.
+
+SQL> select d.den_dep, a.nume, a.sal, g.grad from grila_salariu g full outer join angajati a right outer join departamente d on d.id_dep = a.id_dep on a.salariu*2 between g.nivel_inf and g.nivel_sup order by d.den_dep, a.nume, g.grad;
+select d.den_dep, a.nume, a.sal, g.grad from grila_salariu g full outer join angajati a right outer join departamente d on d.id_dep = a.id_dep on a.salariu*2 between g.nivel_inf and g.nivel_sup order by d.den_dep, a.nume, g.grad
+                                                                                                                                                  *
+ERROR at line 1:
+ORA-00904: "A"."SALARIU": invalid identifier 
+
+
+SQL> select d.den_dep, a.nume, a.sal, g.grad from grila_salariu g full outer join angajati a right outer join departamente d on d.id_dep = a.id_dep on a.sal*2 between g.nivel_inf and g.nivel_sup order by d.den_dep, a.nume, g.grad;
+
+DEN_DEP                        NUME              SAL       GRAD                                                                                                                                         
+------------------------------ ---------- ---------- ----------                                                                                                                                         
+ACCOUNTING                     CLARK            2450          5                                                                                                                                         
+ACCOUNTING                     KING             5000                                                                                                                                                    
+ACCOUNTING                     MILLER           1300          4                                                                                                                                         
+OPERATIONS                                                                                                                                                                                              
+RESEARCH                       ADAMS            1100          4                                                                                                                                         
+RESEARCH                       FORD             3000          5                                                                                                                                         
+RESEARCH                       JONES            2975          5                                                                                                                                         
+RESEARCH                       SCOTT            3000          5                                                                                                                                         
+RESEARCH                       SMITH             800          3                                                                                                                                         
+SALES                          ALLEN            1600          5                                                                                                                                         
+SALES                          BLAKE            2850          5                                                                                                                                         
+SALES                          JAMES             950          3                                                                                                                                         
+SALES                          MARTIN           1250          4                                                                                                                                         
+SALES                          TURNER           1500          4                                                                                                                                         
+SALES                          WARD             1250          4                                                                                                                                         
+                                                              1                                                                                                                                         
+                                                              2                                                                                                                                         
+
+17 rows selected.
+
+SQL> select d.den_dep, a.nume, a.salariu, g.grad from angajati a full outer join grila_salariu g on a.sal*2 between g.nivel_inf and g.nivel_sup full outer join departamente d on d.id_dep = a.id_dep order by d.den_dep, a.nume, g.grad;
+select d.den_dep, a.nume, a.salariu, g.grad from angajati a full outer join grila_salariu g on a.sal*2 between g.nivel_inf and g.nivel_sup full outer join departamente d on d.id_dep = a.id_dep order by d.den_dep, a.nume, g.grad
+                          *
+ERROR at line 1:
+ORA-00904: "A"."SALARIU": invalid identifier 
+
+
+SQL> select d.den_dep, a.nume, a.sal, g.grad from angajati a full outer join grila_salariu g on a.sal*2 between g.nivel_inf and g.nivel_sup full outer join departamente d on d.id_dep = a.id_dep order by d.den_dep, a.nume, g.grad;
+
+DEN_DEP                        NUME              SAL       GRAD                                                                                                                                         
+------------------------------ ---------- ---------- ----------                                                                                                                                         
+ACCOUNTING                     CLARK            2450          5                                                                                                                                         
+ACCOUNTING                     KING             5000                                                                                                                                                    
+ACCOUNTING                     MILLER           1300          4                                                                                                                                         
+OPERATIONS                                                                                                                                                                                              
+RESEARCH                       ADAMS            1100          4                                                                                                                                         
+RESEARCH                       FORD             3000          5                                                                                                                                         
+RESEARCH                       JONES            2975          5                                                                                                                                         
+RESEARCH                       SCOTT            3000          5                                                                                                                                         
+RESEARCH                       SMITH             800          3                                                                                                                                         
+SALES                          ALLEN            1600          5                                                                                                                                         
+SALES                          BLAKE            2850          5                                                                                                                                         
+SALES                          JAMES             950          3                                                                                                                                         
+SALES                          MARTIN           1250          4                                                                                                                                         
+SALES                          TURNER           1500          4                                                                                                                                         
+SALES                          WARD             1250          4                                                                                                                                         
+                                                              1                                                                                                                                         
+                                                              2                                                                                                                                         
+
+17 rows selected.
+
+SQL> select id_dep, nume, functie, sal from angajati where id_dep = 10 union select id_dep, nume, functie, sal from angajati where id_dep = 30;
+
+    ID_DEP NUME       FUNCTIE          SAL                                                                                                                                                              
+---------- ---------- --------- ----------                                                                                                                                                              
+        10 CLARK      MANAGER         2450                                                                                                                                                              
+        10 KING       PRESIDENT       5000                                                                                                                                                              
+        10 MILLER     CLERK           1300                                                                                                                                                              
+        30 ALLEN      SALESMAN        1600                                                                                                                                                              
+        30 BLAKE      MANAGER         2850                                                                                                                                                              
+        30 JAMES      CLERK            950                                                                                                                                                              
+        30 MARTIN     SALESMAN        1250                                                                                                                                                              
+        30 TURNER     SALESMAN        1500                                                                                                                                                              
+        30 WARD       SALESMAN        1250                                                                                                                                                              
+
+9 rows selected.
+
+SQL> select id_dep, nume, 'are salariul' are, sal sal_com from angajati where id_dep = 10 union select id_dep, nume, 'are comisionul' are, comm sal_com from angajati where id_dep = 30;
+
+    ID_DEP NUME       ARE               SAL_COM                                                                                                                                                         
+---------- ---------- -------------- ----------                                                                                                                                                         
+        10 CLARK      are salariul         2450                                                                                                                                                         
+        10 KING       are salariul         5000                                                                                                                                                         
+        10 MILLER     are salariul         1300                                                                                                                                                         
+        30 ALLEN      are comisionul        300                                                                                                                                                         
+        30 BLAKE      are comisionul                                                                                                                                                                    
+        30 JAMES      are comisionul                                                                                                                                                                    
+        30 MARTIN     are comisionul       1400                                                                                                                                                         
+        30 TURNER     are comisionul          0                                                                                                                                                         
+        30 WARD       are comisionul        500                                                                                                                                                         
+
+9 rows selected.
+
+SQL> select functie from angajati where id_dep = 10 union all select functie from angajati where id_dep = 20;
+
+FUNCTIE                                                                                                                                                                                                 
+---------                                                                                                                                                                                               
+MANAGER                                                                                                                                                                                                 
+PRESIDENT                                                                                                                                                                                               
+CLERK                                                                                                                                                                                                   
+CLERK                                                                                                                                                                                                   
+MANAGER                                                                                                                                                                                                 
+ANALYST                                                                                                                                                                                                 
+CLERK                                                                                                                                                                                                   
+ANALYST                                                                                                                                                                                                 
+
+8 rows selected.
+
+SQL> select functie, nvl(comm,0) comision from angajati where id_dep = 10 intersect select functie, nvl(comm,0) from angajati where id_dep = 20 intersect select functie, nvl(comm,0) from angajati where id_dep = 30;
+
+FUNCTIE     COMISION                                                                                                                                                                                    
+--------- ----------                                                                                                                                                                                    
+CLERK              0                                                                                                                                                                                    
+MANAGER            0                                                                                                                                                                                    
+
+SQL> select functie from angajati where id_dep = 10 minus select functie from angajati where id_dep = 30;
+
+FUNCTIE                                                                                                                                                                                                 
+---------                                                                                                                                                                                               
+PRESIDENT                                                                                                                                                                                               
+
+SQL> desc grila_salariu
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ GRAD                                                                                                                       NUMBER(2)
+ NIVEL_INF                                                                                                                  NUMBER
+ NIVEL_SUP                                                                                                                  NUMBER
+
+SQL> select "Nume Angajat" a1.nume, "Departament Angajat" a1.id_dep, "Grila Angajat" g1.grad, "Nume sef" a2.nume, "Departament Sef" a2.id_dep, "Grad Sef" g2.grad from angajati a1 full outer join grila_salariu g1 on a1.sal >= g1.nivel_inf and a1.sal <= g1.nivel_sup full outer join angajati a2 full outer join grila_salariu g2 on a2.grad between g2.nivel_inf and g2.nivel_sup;
+select "Nume Angajat" a1.nume, "Departament Angajat" a1.id_dep, "Grila Angajat" g1.grad, "Nume sef" a2.nume, "Departament Sef" a2.id_dep, "Grad Sef" g2.grad from angajati a1 full outer join grila_salariu g1 on a1.sal >= g1.nivel_inf and a1.sal <= g1.nivel_sup full outer join angajati a2 full outer join grila_salariu g2 on a2.grad between g2.nivel_inf and g2.nivel_sup
+                        *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* select "Nume Angajat" a1.nume, "Departament Angajat" a1.id_dep, "Grila Angajat" g1.grad, "Nume sef" a2.nume, "Departament Sef" a2.id_dep, "Grad Sef" g2.grad from angajati a1 full outer join grila_salariu g1 on a1.sal >= g1.nivel_inf and a1.sal <= g1.nivel_sup full outer join angajati a2 right outer join grila_salariu g2 on a2.grad between g2.nivel_inf and g2.nivel_sup
+SQL> 
+SQL> select "Nume Angajat" a1.nume, "Departament Angajat" a1.id_dep, "Grila Angajat" g1.grad, "Nume sef" a2.nume, "Departament Sef" a2.id_dep, "Grad Sef" g2.grad from angajati a1 full outer join grila_salariu g1 on a1.sal >= g1.nivel_inf and a1.sal <= g1.nivel_sup full outer join angajati a2 right outer join grila_salariu g2 on a2.grad between g2.nivel_inf and g2.nivel_sup;
+select "Nume Angajat" a1.nume, "Departament Angajat" a1.id_dep, "Grila Angajat" g1.grad, "Nume sef" a2.nume, "Departament Sef" a2.id_dep, "Grad Sef" g2.grad from angajati a1 full outer join grila_salariu g1 on a1.sal >= g1.nivel_inf and a1.sal <= g1.nivel_sup full outer join angajati a2 right outer join grila_salariu g2 on a2.grad between g2.nivel_inf and g2.nivel_sup
+                        *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select a1.nume "Nume Angajat", d1.den_dep "Departament Angajat", g1.grad "Grad Angajat", a2.nume "Nume Sef", d2.den_dep "Departament Sef", g2.grad "Grad Sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep full outer join grila_salariu g1 on a1.salariu between g1.nivel_inf and g1.nivel_sup full outer join angajati a2 full outer join departamente d2 on a2.id_dep = d2.id_dep full outer join grila_salariu g2 on a2.salariu between g2.nivel_inf and g2.nivel_sup on a1.id_sef = a2.id_ang;
+select a1.nume "Nume Angajat", d1.den_dep "Departament Angajat", g1.grad "Grad Angajat", a2.nume "Nume Sef", d2.den_dep "Departament Sef", g2.grad "Grad Sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep full outer join grila_salariu g1 on a1.salariu between g1.nivel_inf and g1.nivel_sup full outer join angajati a2 full outer join departamente d2 on a2.id_dep = d2.id_dep full outer join grila_salariu g2 on a2.salariu between g2.nivel_inf and g2.nivel_sup on a1.id_sef = a2.id_ang
+                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+ERROR at line 1:
+ORA-00904: "A2"."SALARIU": invalid identifier 
+
+
+SQL> select a1.nume "Nume Angajat", d1.den_dep "Departament Angajat", g1.grad "Grad Angajat", a2.nume "Nume Sef", d2.den_dep "Departament Sef", g2.grad "Grad Sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep full outer join grila_salariu g1 on a1.sal between g1.nivel_inf and g1.nivel_sup full outer join angajati a2 full outer join departamente d2 on a2.id_dep = d2.id_dep full outer join grila_salariu g2 on a2.sal between g2.nivel_inf and g2.nivel_sup on a1.id_sef = a2.id_ang;
+
+Nume Angaj Departament Angajat            Grad Angajat Nume Sef   Departament Sef                  Grad Sef                                                                                             
+---------- ------------------------------ ------------ ---------- ------------------------------ ----------                                                                                             
+                                                                  OPERATIONS                                                                                                                            
+JONES      RESEARCH                                  4 KING       ACCOUNTING                              5                                                                                             
+BLAKE      SALES                                     4 KING       ACCOUNTING                              5                                                                                             
+CLARK      ACCOUNTING                                4 KING       ACCOUNTING                              5                                                                                             
+SMITH      RESEARCH                                  1 FORD       RESEARCH                                4                                                                                             
+ADAMS      RESEARCH                                  1 SCOTT      RESEARCH                                4                                                                                             
+FORD       RESEARCH                                  4 JONES      RESEARCH                                4                                                                                             
+SCOTT      RESEARCH                                  4 JONES      RESEARCH                                4                                                                                             
+ALLEN      SALES                                     3 BLAKE      SALES                                   4                                                                                             
+TURNER     SALES                                     3 BLAKE      SALES                                   4                                                                                             
+WARD       SALES                                     2 BLAKE      SALES                                   4                                                                                             
+MARTIN     SALES                                     2 BLAKE      SALES                                   4                                                                                             
+JAMES      SALES                                     1 BLAKE      SALES                                   4                                                                                             
+MILLER     ACCOUNTING                                2 CLARK      ACCOUNTING                              4                                                                                             
+                                                       ALLEN      SALES                                   3                                                                                             
+                                                       TURNER     SALES                                   3                                                                                             
+                                                       MILLER     ACCOUNTING                              2                                                                                             
+                                                       WARD       SALES                                   2                                                                                             
+                                                       MARTIN     SALES                                   2                                                                                             
+                                                       ADAMS      RESEARCH                                1                                                                                             
+                                                       JAMES      SALES                                   1                                                                                             
+                                                       SMITH      RESEARCH                                1                                                                                             
+           OPERATIONS                                                                                                                                                                                   
+KING       ACCOUNTING                                5                                                                                                                                                  
+
+24 rows selected.
+
+SQL> desc angajati
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANG                                                                                                                     NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(10)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ ID_SEF                                                                                                                     NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep full outer join a2 on a1.id_sef = a2.id_ang;
+select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep full outer join a2 on a1.id_sef = a2.id_ang
+                                                                                                                                                                                                                                      *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep full outer join angajati a2 on a1.id_sef = a2.id_ang;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+SALES                          ALLEN      20-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          WARD       22-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          MARTIN     28-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+ACCOUNTING                     KING       17-NOV-81                                                                                                                                                     
+SALES                          TURNER     08-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+OPERATIONS                                                                                                                                                                                              
+                                                    ADAMS      23-MAY-87                                                                                                                                
+                                                    WARD       22-FEB-81                                                                                                                                
+                                                    ALLEN      20-FEB-81                                                                                                                                
+                                                    JAMES      03-DEC-81                                                                                                                                
+                                                    SMITH      17-DEC-80                                                                                                                                
+                                                    MILLER     23-JAN-82                                                                                                                                
+                                                    MARTIN     28-SEP-81                                                                                                                                
+                                                    TURNER     08-SEP-81                                                                                                                                
+
+23 rows selected.
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep inner join angajati a2 on a1.id_sef = a2.id_ang;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+SALES                          ALLEN      20-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          WARD       22-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          MARTIN     28-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          TURNER     08-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+
+13 rows selected.
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 inner join departamente d1 on a1.id_dep = d1.id_dep inner join angajati a2 on a1.id_sef = a2.id_ang;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+SALES                          ALLEN      20-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          WARD       22-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          MARTIN     28-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          TURNER     08-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+
+13 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 inner join departamente d1 on a1.id_dep = d1.id_dep self join angajati a2 on a1.id_sef = a2.id_ang
+SQL> 
+SQL> 
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 inner join departamente d1 on a1.id_dep = d1.id_dep self join angajati a2 on a1.id_sef = a2.id_ang;
+select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 inner join departamente d1 on a1.id_dep = d1.id_dep self join angajati a2 on a1.id_sef = a2.id_ang
+                                                                                                                                                                                                                 *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 inner join departamente d1 on a1.id_dep = d1.id_dep inner join angajati a2 on a1.id_sef = a2.id_ang;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+SALES                          ALLEN      20-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          WARD       22-FEB-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          MARTIN     28-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          TURNER     08-SEP-81 BLAKE      01-MAY-81                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+
+13 rows selected.
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 inner join departamente d1 on a1.id_dep = d1.id_dep inner join angajati a2 on a1.id_sef = a2.id_ang where a1.comm is NULL;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+
+9 rows selected.
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep inner join angajati a2 on a1.id_sef = a2.id_ang where a1.comm is NULL;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+
+9 rows selected.
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 full outer join departamente d1 on a1.id_dep = d1.id_dep join angajati a2 on a1.id_sef = a2.id_ang where a1.comm is NULL;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+
+9 rows selected.
+
+SQL> select d1.den_dep "Den_depart_subalt", a1.nume "Nume_subalt", a1.hiredate "Data_ang_subalt", a2.nume "Nume_sef", a2.hiredate "Data_ang_sef" from angajati a1 join departamente d1 on a1.id_dep = d1.id_dep join angajati a2 on a1.id_sef = a2.id_ang where a1.comm is NULL;
+
+Den_depart_subalt              Nume_subal Data_ang_ Nume_sef   Data_ang_                                                                                                                                
+------------------------------ ---------- --------- ---------- ---------                                                                                                                                
+RESEARCH                       SCOTT      19-APR-87 JONES      02-APR-81                                                                                                                                
+RESEARCH                       FORD       03-DEC-81 JONES      02-APR-81                                                                                                                                
+SALES                          JAMES      03-DEC-81 BLAKE      01-MAY-81                                                                                                                                
+ACCOUNTING                     MILLER     23-JAN-82 CLARK      09-JUN-81                                                                                                                                
+RESEARCH                       ADAMS      23-MAY-87 SCOTT      19-APR-87                                                                                                                                
+RESEARCH                       JONES      02-APR-81 KING       17-NOV-81                                                                                                                                
+SALES                          BLAKE      01-MAY-81 KING       17-NOV-81                                                                                                                                
+ACCOUNTING                     CLARK      09-JUN-81 KING       17-NOV-81                                                                                                                                
+RESEARCH                       SMITH      17-DEC-80 FORD       03-DEC-81                                                                                                                                
+
+9 rows selected.
+
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab5';
+
+1 row updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab5';
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 orcl             24-03-2021 11:43:42 LUCIPC                                                                                                                                             
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grigore Lucian                 336CA      Lab3       18-03-2021 08:23:40 18-03-2021 09:59:22             96                                                                                             
+Grigore Lucian                 336CA      Lab4       25-03-2021 08:21:24 25-03-2021 09:57:22             96                                                                                             
+Grigore Lucian                 336CA      Lab5       01-04-2021 08:31:59 01-04-2021 09:50:16             78                                                                                             
+
+SQL> spool off;
