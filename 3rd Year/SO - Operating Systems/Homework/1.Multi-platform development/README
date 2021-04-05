@@ -1,0 +1,74 @@
+Nume: Grigore Lucian-Florin
+Grupa: 336CA
+
+					Tema 1 - Multi-platform development
+
+								Organizare
+
+Structura temei se imparte in mai multe surse si headere, impartite dupa rolul
+si functionalitatea lor astfel:
+
+	- tema1.h, tema1.c -> procesarea efectiva a directivelor in faza de pre-
+procesare; functii dedicate pentru fiecare directiva in parte (de exemplu,
+process_define, process_include, etc.)
+
+	- utils.h, utils.c -> parsarea argumentelor programului si deschiderea sau
+inchiderea fisierelor de input/output
+
+	- hashmap.h, hashmap.c -> implementarea structurii de HashMap si a opera-
+tiilor specifice acesteia
+
+	- strtok_saved.h, strtok_saved.c -> alternativa la strtok-ul clasic de
+C89, care are un buffer static global, astfel fiind imposibil de utilizat
+in acelasi timp in mai multe parti. Functia strtok_r() salveaza starea token-
+ului la fiecare pas intr-un pointer din care poate face load ulterior.
+
+Din punctul meu de vedere, aceasta tema nu este in totalitate utila. Spun asta
+deoarece partea efectiva de SO care este asimilata este mica in comparatie cu
+munca care trebuie depusa pentru a manipula eficient sirurile de caractere
+care reprezinta o linie din cod. Adica partea de SO, oricat de interesanta
+este, nu a reprezentat mai mult de 10% din efortul total depus. Restul muncii
+a constat in manipularea cu succes a stringurilor prin functii si functionali-
+tati clasice de C, adica de cele mai multe ori depasite de unele mai moderne.
+In plus, restrictiile impuse asupra structurii si aspectului codului au adaugat
+un grad de complexitate pe care nu il consider necesar, luand in considerare
+simplitatea efectiva a enuntului temei. Un aspect interesant a fost scrierea de
+cod care sa fie atat Linux, cat si Windows compatible.
+
+Consider implementarea mea destul de bine structurata, astfel incat sunt
+anumite cazuri si situatii mai complicate la care m-am gandit, dar care nu sunt
+sigur ca sunt sau nu acoperite de testele din checker. Eficienta spatiala ar fi
+putut fi mai buna deoarece in multe cazuri am optat pentru a realiza anumite 
+taskuri referitoare la operatiile pe stringuri pe cont propriu si nu prin
+anumite functii de biblioteca. In acest fel, m-am asigurat de un control mai
+bun al acestor operatii si al altora ulterioare.
+
+								Implementare
+
+Intregul enunt al temei este implementat.
+
+Dificultati intampinate: clasicele dificultati cu lucrul pe stringuri, difi-
+cultati legate de checkstyle-ul impus (linie goala dupa declarari de variabile
+si nu numai) si dificultati legate de compilarea cu C89 si pe Windows (toate
+declararile de variabile la inceput de functie, etc).
+
+Lucruri interesante descoperite pe parcurs: anumite caracteristici ale C89 pe
+care nu le cunosteam.
+
+					Cum se compileaza si cum se ruleaza?
+
+Linux:
+	compilare: make / make build
+	rulare: ./so-cpp <args> (unde args pot fi foldere pentru headere, cale
+							catre fisier de input/output si definitii pentru
+							simboluri pe care programul sa le stocheze)
+
+Windows:
+	compilare: nmake -f Makefile
+	rulare: ./so-cpp.exe <args>
+
+							Bibliografie
+
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-01
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-02
+https://linux.die.net/man/3/strtok_r
