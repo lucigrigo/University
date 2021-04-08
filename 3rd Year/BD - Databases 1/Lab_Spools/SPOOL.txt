@@ -1,12 +1,12 @@
-spool e:\spool_bd\spool_bd_lab4_25mar2021.lst
+spool e:\spool_bd\spool_bd_lab6_08apr2021.lst
 set lines 200
 set pages 100
 select to_char(sysdate, ’dd-mm-yyyy hh:mi:ss’) from dual;
-insert into login_lab_bd values( ’Grigore Lucian’, ’336CA’, ’Lab4’, user, sysdate, null, null);
+insert into login_lab_bd values( ’Grigore Lucian’, ’336CA’, ’Lab6’, user, sysdate, null, null);
 select * from login_lab_bd;
 
-update login_lab_bd set data_sf= sysdate where laborator='Lab4';
-update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab4';
+update login_lab_bd set data_sf= sysdate where laborator='Lab6';
+update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab6';
 commit;
 select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss’), host_name
 from v$instance;
