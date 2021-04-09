@@ -1,0 +1,648 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+08-04-2021 08:32:50                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab6', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab6       SCOTT      08-APR-21                                                                                                                               
+Grigore Lucian                 336CA      Lab3       SCOTT      18-MAR-21 18-MAR-21         96                                                                                                          
+Grigore Lucian                 336CA      Lab4       SCOTT      25-MAR-21 25-MAR-21         96                                                                                                          
+Grigore Lucian                 336CA      Lab5       SCOTT      01-APR-21 01-APR-21         78                                                                                                          
+
+SQL> select sign(-12) from dual;
+
+ SIGN(-12)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        -1                                                                                                                                                                                              
+
+SQL> select abs(-12) from dual;
+
+  ABS(-12)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        12                                                                                                                                                                                              
+
+SQL> select ceil(14.2) from dual;
+
+CEIL(14.2)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        15                                                                                                                                                                                              
+
+SQL> define pi = '(select asin(1)*2 from dual)'
+SQL> select sin(40*&pi/180) from dual;
+old   1: select sin(40*&pi/180) from dual
+new   1: select sin(40*(select asin(1)*2 from dual)/180) from dual
+
+SIN(40*(SELECTASIN(1)*2FROMDUAL)/180)                                                                                                                                                                   
+-------------------------------------                                                                                                                                                                   
+                            .64278761                                                                                                                                                                   
+
+SQL> select sin(30*&pi/180) from dual;
+old   1: select sin(30*&pi/180) from dual
+new   1: select sin(30*(select asin(1)*2 from dual)/180) from dual
+
+SIN(30*(SELECTASIN(1)*2FROMDUAL)/180)                                                                                                                                                                   
+-------------------------------------                                                                                                                                                                   
+                                   .5                                                                                                                                                                   
+
+SQL> select cos(60*&pi/180) from dual;
+old   1: select cos(60*&pi/180) from dual
+new   1: select cos(60*(select asin(1)*2 from dual)/180) from dual
+
+COS(60*(SELECTASIN(1)*2FROMDUAL)/180)                                                                                                                                                                   
+-------------------------------------                                                                                                                                                                   
+                                   .5                                                                                                                                                                   
+
+SQL> select tan(135*&pi/180) tan from dual
+  2  ;
+old   1: select tan(135*&pi/180) tan from dual
+new   1: select tan(135*(select asin(1)*2 from dual)/180) tan from dual
+
+       TAN                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        -1                                                                                                                                                                                              
+
+SQL> select cos(60*&pi/180) cos from dual;
+old   1: select cos(60*&pi/180) cos from dual
+new   1: select cos(60*(select asin(1)*2 from dual)/180) cos from dual
+
+       COS                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        .5                                                                                                                                                                                              
+
+SQL> select sin(30*&pi/180) sin from dual;
+old   1: select sin(30*&pi/180) sin from dual
+new   1: select sin(30*(select asin(1)*2 from dual)/180) sin from dual
+
+       SIN                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        .5                                                                                                                                                                                              
+
+SQL> select sinh(1) sinh from dual;
+
+      SINH                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+1.17520119                                                                                                                                                                                              
+
+SQL> select cosh(0) cosh from dual;
+
+      COSH                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+
+SQL> select tanh(0.5) tanh from dual;
+
+      TANH                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+.462117157                                                                                                                                                                                              
+
+SQL> select asin(0.5) asin from dual
+  2  ;
+
+      ASIN                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+.523598776                                                                                                                                                                                              
+
+SQL> select acos(0) acos from dual;
+
+      ACOS                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+1.57079633                                                                                                                                                                                              
+
+SQL> select atan(1) atan from dual;
+
+      ATAN                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+.785398163                                                                                                                                                                                              
+
+SQL> select exp(4) exp from dual;
+
+       EXP                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+  54.59815                                                                                                                                                                                              
+
+SQL> select power(3,4) power from dual;
+
+     POWER                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        81                                                                                                                                                                                              
+
+SQL> select power(3,4) from dual;
+
+POWER(3,4)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        81                                                                                                                                                                                              
+
+SQL> select sqrt(9) from dual;
+
+   SQRT(9)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         3                                                                                                                                                                                              
+
+SQL> select ln(95) from dual;
+
+    LN(95)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+4.55387689                                                                                                                                                                                              
+
+SQL> select log(10, 100) from dual;
+
+LOG(10,100)                                                                                                                                                                                             
+-----------                                                                                                                                                                                             
+          2                                                                                                                                                                                             
+
+SQL> select mod(14,5) from dual;
+
+ MOD(14,5)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         4                                                                                                                                                                                              
+
+SQL> select round(15.193,1) from dual
+  2  ;
+
+ROUND(15.193,1)                                                                                                                                                                                         
+---------------                                                                                                                                                                                         
+           15.2                                                                                                                                                                                         
+
+SQL> select round (15.193) from dual;
+
+ROUND(15.193)                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+           15                                                                                                                                                                                           
+
+SQL> select round(15.193,-1) from dual;
+
+ROUND(15.193,-1)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+              20                                                                                                                                                                                        
+
+SQL> select trunc(15.193,1) from dual;
+
+TRUNC(15.193,1)                                                                                                                                                                                         
+---------------                                                                                                                                                                                         
+           15.1                                                                                                                                                                                         
+
+SQL> select trunc(15.193) from dual;
+
+TRUNC(15.193)                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+           15                                                                                                                                                                                           
+
+SQL> select trunc(15.193,-1) from dual;
+
+TRUNC(15.193,-1)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+              10                                                                                                                                                                                        
+
+SQL> select chr(75) from dual;
+
+C                                                                                                                                                                                                       
+-                                                                                                                                                                                                       
+K                                                                                                                                                                                                       
+
+SQL> select concat(concat(nume, ' este '), functie) ANG_FUNC from angajati1 where id_ang=7839;
+
+ANG_FUNC                                                                                                                                                                                                
+-----------------------------------                                                                                                                                                                     
+KING este PRESIDENT                                                                                                                                                                                     
+
+SQL> select INITCAP(nume) ex_initcap from angajati1 where id_ang = 7839;
+
+EX_INITCAP                                                                                                                                                                                              
+--------------------                                                                                                                                                                                    
+King                                                                                                                                                                                                    
+
+SQL> select REPLACE('JACK si JUE', 'J', 'BL') EX_REPLACE from dual;
+
+EX_REPLACE                                                                                                                                                                                              
+-------------                                                                                                                                                                                           
+BLACK si BLUE                                                                                                                                                                                           
+
+SQL> select RPAD(nume, 10, '*') EX_RPAD from angajati where id_dep = 10;
+
+EX_RPAD                                                                                                                                                                                                 
+----------------------------------------                                                                                                                                                                
+CLARK*****                                                                                                                                                                                              
+KING******                                                                                                                                                                                              
+MILLER****                                                                                                                                                                                              
+
+SQL> select LPAD(nume, 10, '*') EX_LPAD from angajati where id_dep = 10;
+
+EX_LPAD                                                                                                                                                                                                 
+----------------------------------------                                                                                                                                                                
+*****CLARK                                                                                                                                                                                              
+******KING                                                                                                                                                                                              
+****MILLER                                                                                                                                                                                              
+
+SQL> select RTRIM('Popescu', 'scu') from dual;
+
+RTRI                                                                                                                                                                                                    
+----                                                                                                                                                                                                    
+Pope                                                                                                                                                                                                    
+
+SQL> select SUBSTR('Popescu', 2, 3) from dual;
+
+SUB                                                                                                                                                                                                     
+---                                                                                                                                                                                                     
+ope                                                                                                                                                                                                     
+
+SQL> select INSTR('Protopopescu', 'op', 3, 2) from dual;
+
+INSTR('PROTOPOPESCU','OP',3,2)                                                                                                                                                                          
+------------------------------                                                                                                                                                                          
+                             7                                                                                                                                                                          
+
+SQL> select length('analyst') from dual;
+
+LENGTH('ANALYST')                                                                                                                                                                                       
+-----------------                                                                                                                                                                                       
+                7                                                                                                                                                                                       
+
+SQL> select translate('Oana are mere', 'Om', ' p') from dual;
+
+TRANSLATE('OA                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+ ana are pere                                                                                                                                                                                           
+
+SQL> select nume, data_ang, ADD_MONTHS(data_ang, 3) data_mod from angajati where id_dep = 10;
+select nume, data_ang, ADD_MONTHS(data_ang, 3) data_mod from angajati where id_dep = 10
+                                  *
+ERROR at line 1:
+ORA-00904: "DATA_ANG": invalid identifier 
+
+
+SQL> desc angajati
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANG                                                                                                                     NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(10)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ ID_SEF                                                                                                                     NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> select nume, data_ang, ADD_MONTHS(hiredate, 3) data_mod from angajati where id_dep = 10;
+select nume, data_ang, ADD_MONTHS(hiredate, 3) data_mod from angajati where id_dep = 10
+             *
+ERROR at line 1:
+ORA-00904: "DATA_ANG": invalid identifier 
+
+
+SQL> select nume, hiredate, ADD_MONTHS(hiredate, 3) data_mod from angajati where id_dep = 10;
+
+NUME       HIREDATE  DATA_MOD                                                                                                                                                                           
+---------- --------- ---------                                                                                                                                                                          
+CLARK      09-JUN-81 09-SEP-81                                                                                                                                                                          
+KING       17-NOV-81 17-FEB-82                                                                                                                                                                          
+MILLER     23-JAN-82 23-APR-82                                                                                                                                                                          
+
+SQL> select nume, hiredate, LAST_DAY(hiredate) ultima_zi from angajati where id_dep = 10;
+
+NUME       HIREDATE  ULTIMA_ZI                                                                                                                                                                          
+---------- --------- ---------                                                                                                                                                                          
+CLARK      09-JUN-81 30-JUN-81                                                                                                                                                                          
+KING       17-NOV-81 30-NOV-81                                                                                                                                                                          
+MILLER     23-JAN-82 31-JAN-82                                                                                                                                                                          
+
+SQL> select NEXT_DAY('24-MAR-2014', 'MONDAY') urmatoarea_luni from dual;
+
+URMATOARE                                                                                                                                                                                               
+---------                                                                                                                                                                                               
+31-MAR-14                                                                                                                                                                                               
+
+SQL> select nume, hiredate, MONTHS_BETWEEN('01-JAN-2014', hiredate) luni_vechime1, MONTHS_BETWEEN(hiredate, '01-JAN-2014') luni_vechime2 from angajati where id_dep = 10;
+
+NUME       HIREDATE  LUNI_VECHIME1 LUNI_VECHIME2                                                                                                                                                        
+---------- --------- ------------- -------------                                                                                                                                                        
+CLARK      09-JUN-81    390.741935    -390.74194                                                                                                                                                        
+KING       17-NOV-81    385.483871    -385.48387                                                                                                                                                        
+MILLER     23-JAN-82    383.290323    -383.29032                                                                                                                                                        
+
+SQL> select hiredate, ROUND(hiredate, 'YEAR') rot_an from angajati where id_dep=7369;
+
+no rows selected
+
+SQL> select hiredate, ROUND(hiredate, 'YEAR') rot_an from angajati;
+
+HIREDATE  ROT_AN                                                                                                                                                                                        
+--------- ---------                                                                                                                                                                                     
+17-DEC-80 01-JAN-81                                                                                                                                                                                     
+20-FEB-81 01-JAN-81                                                                                                                                                                                     
+22-FEB-81 01-JAN-81                                                                                                                                                                                     
+02-APR-81 01-JAN-81                                                                                                                                                                                     
+28-SEP-81 01-JAN-82                                                                                                                                                                                     
+01-MAY-81 01-JAN-81                                                                                                                                                                                     
+09-JUN-81 01-JAN-81                                                                                                                                                                                     
+19-APR-87 01-JAN-87                                                                                                                                                                                     
+17-NOV-81 01-JAN-82                                                                                                                                                                                     
+08-SEP-81 01-JAN-82                                                                                                                                                                                     
+23-MAY-87 01-JAN-87                                                                                                                                                                                     
+03-DEC-81 01-JAN-82                                                                                                                                                                                     
+03-DEC-81 01-JAN-82                                                                                                                                                                                     
+23-JAN-82 01-JAN-82                                                                                                                                                                                     
+
+14 rows selected.
+
+SQL> select data_ang, ROUND(data_ang, 'MONTH') rot_luna from angajati where id_ang = 7369;
+select data_ang, ROUND(data_ang, 'MONTH') rot_luna from angajati where id_ang = 7369
+                       *
+ERROR at line 1:
+ORA-00904: "DATA_ANG": invalid identifier 
+
+
+SQL> select hiredate, ROUND(hiredate, 'MONTH') rot_luna from angajati where id_ang = 7369;
+
+HIREDATE  ROT_LUNA                                                                                                                                                                                      
+--------- ---------                                                                                                                                                                                     
+17-DEC-80 01-JAN-81                                                                                                                                                                                     
+
+SQL> select data_ang, TRUNC(hiredate, 'YEAR') rot_an from angajati where id_ang = 7369;
+select data_ang, TRUNC(hiredate, 'YEAR') rot_an from angajati where id_ang = 7369
+       *
+ERROR at line 1:
+ORA-00904: "DATA_ANG": invalid identifier 
+
+
+SQL> select hiredate, TRUNC(hiredate, 'YEAR') rot_an from angajati where id_ang = 7369;
+
+HIREDATE  ROT_AN                                                                                                                                                                                        
+--------- ---------                                                                                                                                                                                     
+17-DEC-80 01-JAN-80                                                                                                                                                                                     
+
+SQL> select hiredate, TRUNC(hiredate, 'MONTH') rot_luna from angajati where id_ang = 7369;
+
+HIREDATE  ROT_LUNA                                                                                                                                                                                      
+--------- ---------                                                                                                                                                                                     
+17-DEC-80 01-DEC-80                                                                                                                                                                                     
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                                                                                                                                                 
+---------                                                                                                                                                                                               
+08-APR-21                                                                                                                                                                                               
+
+SQL> select extract(day from sysdate) from dual;
+
+EXTRACT(DAYFROMSYSDATE)                                                                                                                                                                                 
+-----------------------                                                                                                                                                                                 
+                      8                                                                                                                                                                                 
+
+SQL> select extract(month from sysdate) from dual;
+
+EXTRACT(MONTHFROMSYSDATE)                                                                                                                                                                               
+-------------------------                                                                                                                                                                               
+                        4                                                                                                                                                                               
+
+SQL> select extrag(year from sysdate) from dual;
+select extrag(year from sysdate) from dual
+                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select extract(year from sysdate) from dual;
+
+EXTRACT(YEARFROMSYSDATE)                                                                                                                                                                                
+------------------------                                                                                                                                                                                
+                    2021                                                                                                                                                                                
+
+SQL> select hiredate, hiredate + 7, hiredate - 7, sysdate - hiredate from angajati where hiredate like '%JUN%';
+
+HIREDATE  HIREDATE+ HIREDATE- SYSDATE-HIREDATE                                                                                                                                                          
+--------- --------- --------- ----------------                                                                                                                                                          
+09-JUN-81 16-JUN-81 02-JUN-81       14548.3813                                                                                                                                                          
+
+SQL> alter session set NLS_DATE_FORMAT='DD-MM-YYYY';
+
+Session altered.
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                                                                                                                                                 
+----------                                                                                                                                                                                              
+08-04-2021                                                                                                                                                                                              
+
+SQL> alter session set NLS_DATE_FORMAT='DD-MM-YYYY HH24:MI:SS';
+
+Session altered.
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                                                                                                                                                 
+-------------------                                                                                                                                                                                     
+08-04-2021 09:10:05                                                                                                                                                                                     
+
+SQL> alter session set NLS_DATE_FORMAT='DD-MONTH-YYYY';
+
+Session altered.
+
+SQL> select replace(sysdate, ' ', '') from dual;
+
+REPLACE(SYSDATE,'','')                                                                                                                                                                                  
+--------------------------------------------                                                                                                                                                            
+08-APRIL-2021                                                                                                                                                                                           
+
+SQL> desc angajati;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANG                                                                                                                     NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(10)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ ID_SEF                                                                                                                     NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> desc departamente;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEP                                                                                                            NOT NULL NUMBER(2)
+ DEN_DEP                                                                                                                    VARCHAR2(30)
+ SEDIU                                                                                                                      VARCHAR2(20)
+
+SQL> select upper(a1.nume) NUME, a1.hiredate DATA_ANG, lower(d.den_dep) DENUMIRE_DEPARTAMENT, a2.nume NUME_SEF from angajati a1 join departamente d on a1.id_dep = d.id_dep full outer join angajati a2 on a1.id_sef = a2.id_ang where length(a1.nume) = 4;
+
+NUME       DATA_ANG          DENUMIRE_DEPARTAMENT           NUME_SEF                                                                                                                                    
+---------- ----------------- ------------------------------ ----------                                                                                                                                  
+FORD       03-DECEMBER -1981 research                       JONES                                                                                                                                       
+WARD       22-FEBRUARY -1981 sales                          BLAKE                                                                                                                                       
+KING       17-NOVEMBER -1981 accounting                                                                                                                                                                 
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select a.nume nume_angajat, d.den_dep job, substr(d.den_dep, 2, 1) litera, (length(a.nume) - length(replace(a.nume, substr(d.den_dep, 2, 1), ''))) nr_aparitii
+  2    2  from angajati a, departamente d, dual;
+  2  from angajati a, departamente d, dual
+  *
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> desc angajati;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANG                                                                                                                     NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(10)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ ID_SEF                                                                                                                     NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> select nume Nume_angajat, functie Job, substr(functie, 2, 1) Litera, (length(nume) - length(replace(nume, substr(functie, 2, 1), ''))) Numar_aparitii from angajati, dual;
+
+NUME_ANGAJ JOB       LITE NUMAR_APARITII                                                                                                                                                                
+---------- --------- ---- --------------                                                                                                                                                                
+SMITH      CLERK     L                 0                                                                                                                                                                
+ALLEN      SALESMAN  A                 1                                                                                                                                                                
+WARD       SALESMAN  A                 1                                                                                                                                                                
+JONES      MANAGER   A                 0                                                                                                                                                                
+MARTIN     SALESMAN  A                 1                                                                                                                                                                
+BLAKE      MANAGER   A                 1                                                                                                                                                                
+CLARK      MANAGER   A                 1                                                                                                                                                                
+SCOTT      ANALYST   N                 0                                                                                                                                                                
+KING       PRESIDENT R                 0                                                                                                                                                                
+TURNER     SALESMAN  A                 0                                                                                                                                                                
+ADAMS      CLERK     L                 0                                                                                                                                                                
+JAMES      CLERK     L                 0                                                                                                                                                                
+FORD       ANALYST   N                 0                                                                                                                                                                
+MILLER     CLERK     L                 2                                                                                                                                                                
+
+14 rows selected.
+
+SQL> 
+SQL> 
+SQL> select id_dep ID_dep, nume Nume_angajat, hiredate Data_angajare, next_day(trunct(add_months, hiredate, 3), 'd'), 'friday') Data_evaluare, 'vineri' Ziua from angajati where lower(functie) <> 'president';
+select id_dep ID_dep, nume Nume_angajat, hiredate Data_angajare, next_day(trunct(add_months, hiredate, 3), 'd'), 'friday') Data_evaluare, 'vineri' Ziua from angajati where lower(functie) <> 'president'
+                                                                                                                         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select id_dep ID_dep, nume Nume_angajat, hiredate Data_angajare, next_day(trunc(add_months, hiredate, 3), 'd'), 'friday') Data_evaluare, 'vineri' Ziua from angajati where lower(functie) <> 'president';
+select id_dep ID_dep, nume Nume_angajat, hiredate Data_angajare, next_day(trunc(add_months, hiredate, 3), 'd'), 'friday') Data_evaluare, 'vineri' Ziua from angajati where lower(functie) <> 'president'
+                                                                                                                        *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select id_dep ID_dep, nume Nume_angajat, hiredate Data_angajare, next_day(trunc(add_months(hiredate, 3), 'd'), 'friday') Data_evaluare, 'vineri' Ziua from angajati where lower(functie) <> 'president';
+
+    ID_DEP NUME_ANGAJ DATA_ANGAJARE     DATA_EVALUARE     ZIUA                                                                                                                                          
+---------- ---------- ----------------- ----------------- ------                                                                                                                                        
+        20 SMITH      17-DECEMBER -1980 20-MARCH    -1981 vineri                                                                                                                                        
+        30 ALLEN      20-FEBRUARY -1981 22-MAY      -1981 vineri                                                                                                                                        
+        30 WARD       22-FEBRUARY -1981 22-MAY      -1981 vineri                                                                                                                                        
+        20 JONES      02-APRIL    -1981 03-JULY     -1981 vineri                                                                                                                                        
+        30 MARTIN     28-SEPTEMBER-1981 01-JANUARY  -1982 vineri                                                                                                                                        
+        30 BLAKE      01-MAY      -1981 31-JULY     -1981 vineri                                                                                                                                        
+        10 CLARK      09-JUNE     -1981 11-SEPTEMBER-1981 vineri                                                                                                                                        
+        20 SCOTT      19-APRIL    -1987 24-JULY     -1987 vineri                                                                                                                                        
+        30 TURNER     08-SEPTEMBER-1981 11-DECEMBER -1981 vineri                                                                                                                                        
+        20 ADAMS      23-MAY      -1987 28-AUGUST   -1987 vineri                                                                                                                                        
+        30 JAMES      03-DECEMBER -1981 05-MARCH    -1982 vineri                                                                                                                                        
+        20 FORD       03-DECEMBER -1981 05-MARCH    -1982 vineri                                                                                                                                        
+        10 MILLER     23-JANUARY  -1982 23-APRIL    -1982 vineri                                                                                                                                        
+
+13 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> select sysdate + 1 from dual;
+
+SYSDATE+1                                                                                                                                                                                               
+-----------------                                                                                                                                                                                       
+09-APRIL    -2021                                                                                                                                                                                       
+
+SQL> select id_dep ID_dep, nume Nume_angajat, hiredate Data_angajare, next_day(trunc(add_months(hiredate, 3), 'd'), 'friday') Data_evaluare, 'vineri' Ziua from angajati where lower(functie) <> 'president';
+
+    ID_DEP NUME_ANGAJ DATA_ANGAJARE     DATA_EVALUARE     ZIUA                                                                                                                                          
+---------- ---------- ----------------- ----------------- ------                                                                                                                                        
+        20 SMITH      17-DECEMBER -1980 20-MARCH    -1981 vineri                                                                                                                                        
+        30 ALLEN      20-FEBRUARY -1981 22-MAY      -1981 vineri                                                                                                                                        
+        30 WARD       22-FEBRUARY -1981 22-MAY      -1981 vineri                                                                                                                                        
+        20 JONES      02-APRIL    -1981 03-JULY     -1981 vineri                                                                                                                                        
+        30 MARTIN     28-SEPTEMBER-1981 01-JANUARY  -1982 vineri                                                                                                                                        
+        30 BLAKE      01-MAY      -1981 31-JULY     -1981 vineri                                                                                                                                        
+        10 CLARK      09-JUNE     -1981 11-SEPTEMBER-1981 vineri                                                                                                                                        
+        20 SCOTT      19-APRIL    -1987 24-JULY     -1987 vineri                                                                                                                                        
+        30 TURNER     08-SEPTEMBER-1981 11-DECEMBER -1981 vineri                                                                                                                                        
+        20 ADAMS      23-MAY      -1987 28-AUGUST   -1987 vineri                                                                                                                                        
+        30 JAMES      03-DECEMBER -1981 05-MARCH    -1982 vineri                                                                                                                                        
+        20 FORD       03-DECEMBER -1981 05-MARCH    -1982 vineri                                                                                                                                        
+        10 MILLER     23-JANUARY  -1982 23-APRIL    -1982 vineri                                                                                                                                        
+
+13 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* select id_dep ID_dep, nume Nume_angajat, hiredate Data_angajare, (trunc(add_months(hiredate, 3), 'd') + 5) Data_evaluare, 'vineri' Ziua from angajati where lower(functie) <> 'president'
+SQL> /
+
+    ID_DEP NUME_ANGAJ DATA_ANGAJARE     DATA_EVALUARE     ZIUA                                                                                                                                          
+---------- ---------- ----------------- ----------------- ------                                                                                                                                        
+        20 SMITH      17-DECEMBER -1980 20-MARCH    -1981 vineri                                                                                                                                        
+        30 ALLEN      20-FEBRUARY -1981 22-MAY      -1981 vineri                                                                                                                                        
+        30 WARD       22-FEBRUARY -1981 22-MAY      -1981 vineri                                                                                                                                        
+        20 JONES      02-APRIL    -1981 03-JULY     -1981 vineri                                                                                                                                        
+        30 MARTIN     28-SEPTEMBER-1981 01-JANUARY  -1982 vineri                                                                                                                                        
+        30 BLAKE      01-MAY      -1981 31-JULY     -1981 vineri                                                                                                                                        
+        10 CLARK      09-JUNE     -1981 11-SEPTEMBER-1981 vineri                                                                                                                                        
+        20 SCOTT      19-APRIL    -1987 24-JULY     -1987 vineri                                                                                                                                        
+        30 TURNER     08-SEPTEMBER-1981 11-DECEMBER -1981 vineri                                                                                                                                        
+        20 ADAMS      23-MAY      -1987 28-AUGUST   -1987 vineri                                                                                                                                        
+        30 JAMES      03-DECEMBER -1981 05-MARCH    -1982 vineri                                                                                                                                        
+        20 FORD       03-DECEMBER -1981 05-MARCH    -1982 vineri                                                                                                                                        
+        10 MILLER     23-JANUARY  -1982 23-APRIL    -1982 vineri                                                                                                                                        
+
+13 rows selected.
+
+SQL> 
+SQL> 
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab6';
+
+1 row updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab6';
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 orcl             24-03-2021 11:43:42 LUCIPC                                                                                                                                             
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grigore Lucian                 336CA      Lab6       08-04-2021 08:32:50 08-04-2021 09:48:12             75                                                                                             
+Grigore Lucian                 336CA      Lab3       18-03-2021 08:23:40 18-03-2021 09:59:22             96                                                                                             
+Grigore Lucian                 336CA      Lab4       25-03-2021 08:21:24 25-03-2021 09:57:22             96                                                                                             
+Grigore Lucian                 336CA      Lab5       01-04-2021 08:31:59 01-04-2021 09:50:16             78                                                                                             
+
+SQL> spool off;
