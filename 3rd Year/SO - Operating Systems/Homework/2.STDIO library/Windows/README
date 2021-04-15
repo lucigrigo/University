@@ -1,0 +1,41 @@
+Nume: Grigore Lucian-Florin
+Grupa: 336CA
+
+  - Organizare
+
+Structura aleasa pentru tema contine doar so_stdio.c si so_stdio.h. Header-ul este cel din schelet,
+la care doar am adaugat anumite macro-uri si am definit campurile din interiorul structurii
+SO_FILE *. Fisierul .c contine implementarea functiilor necesare de biblioteca.
+
+Consider ca tema este utila deoarece ofera o buna perspectiva in interiorul implementarii unor
+functii folosite destul de des in C.
+
+Consider implementarea mea destul de eficienta intrucat nu utilizeaza operatii redundante si are
+o structura ierarhica care bazeaza operatiile mari pe unele mai mici.
+
+  - Implementare
+
+Am implementat intregul enunt, cu exceptia rularii de procese.
+
+Nu exista functionalitati extra, iar o functionalitate lipsa din enunt este rularea de procese.
+
+Dificultati intampinate: nu neaparat "dificultati", ci mai multa munca de research legata in principal
+de descriptori, pipe-uri si lucrul cu cursorul intr-un fisier deschis.
+
+Lucruri interesante descoperite: cum poti folosi si fork() si pipe() pentru a crea un nou proces :) (asta pe Linux).
+
+  - Cum se compileaza si cum se ruleaza?
+
+compilare: nmake -f Makefile
+
+rulare: se foloseste biblioteca rezultata in urma compilarii
+
+  - Bibliografie
+
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-03
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-02
+https://man7.org/linux/man-pages/man3/stdio.3.html
+
+  - GIT
+
+Nu am folosit Gitlab in rezolvarea temei.
