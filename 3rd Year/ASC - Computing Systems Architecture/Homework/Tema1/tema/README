@@ -1,0 +1,30 @@
+Nume: Grigore Lucian-Florin
+Grupa: 336CA
+
+                                Tema 1 - Marketplace
+
+                        Explicatia pentru solutia aleasa
+
+Solutia este formata din 3 module: Marketplace, Producer si Consumer. Operatiile
+din Producer si Consumer nu contin elemente de sincronizare, ele apeland functii
+din Marketplace. Marketplace contine implementarile in mod detaliat a tuturor
+functionalitatilor, utilizand, acolo unde este cazul, si elemente de sincronizare.
+
+Consider ca tema este utila pentru ca m-a ajutat sa inteleg mai bine particulari-
+tatile de sincronizare specifice Python.
+
+Consider implementarea mea destul de eficienta intrucat foloseste 3 Lock-uri
+si niciunul din ele pentru operatiile care sunt deja thread-safe in Python.
+
+                                    Implementare
+
+Intreaga cerinta a fost implementata.
+
+Dificultati intampinate: niciuna
+
+Lucruri interesante: am reusit sa imi modific implementarea initiala care folosea
+4 Lock-uri astfel incat sa utilizeze 3 in final.
+
+                                Resurse utilizate
+
+https://ocw.cs.pub.ro/courses/asc/laboratoare/03

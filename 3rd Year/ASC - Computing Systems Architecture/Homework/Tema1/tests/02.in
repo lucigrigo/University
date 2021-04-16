@@ -1,0 +1,80 @@
+{
+    "products": {
+        "id1": {
+            "product_type": "Coffee",
+            "name": "Indonezia",
+            "acidity": 5.05,
+            "roast_level": "MEDIUM",
+            "price": 1
+        },
+        "id2": {
+            "product_type": "Tea",
+            "name": "Linden",
+            "type": "Herbal",
+            "price": 9
+        }
+    },
+    "producers": [
+        {
+            "name": "prod1",
+            "products": [
+                [
+                    "id2",
+                    2,
+                    0.18
+                ],
+                [
+                    "id1",
+                    1,
+                    0.23
+                ]
+            ],
+            "republish_wait_time": 0.15
+        }
+    ],
+    "consumers": [
+        {
+            "name": "cons1",
+            "retry_wait_time": 0.31,
+            "carts": [
+                [
+                    {
+                        "type": "add",
+                        "product": "id2",
+                        "quantity": 1
+                    },
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 3
+                    },
+                    {
+                        "type": "remove",
+                        "product": "id1",
+                        "quantity": 1
+                    }
+                ],
+                [
+                    {
+                        "type": "add",
+                        "product": "id2",
+                        "quantity": 5
+                    },
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 4
+                    },
+                    {
+                        "type": "remove",
+                        "product": "id1",
+                        "quantity": 3
+                    }
+                ]
+            ]
+        }
+    ],
+    "marketplace": {
+        "queue_size_per_producer": 15
+    }
+}
