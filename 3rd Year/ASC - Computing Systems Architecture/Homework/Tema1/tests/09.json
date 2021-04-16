@@ -1,0 +1,457 @@
+{
+    "products": {
+        "id1": {
+            "product_type": "Coffee",
+            "name": "Indonezia",
+            "acidity": 5.05,
+            "roast_level": "MEDIUM",
+            "price": 1
+        },
+        "id2": {
+            "product_type": "Tea",
+            "name": "Linden",
+            "type": "Herbal",
+            "price": 9
+        }
+    },
+    "producers": [
+        {
+            "name": "prod1",
+            "products": [
+                [
+                    "id2",
+                    2,
+                    0.18
+                ],
+                [
+                    "id1",
+                    1,
+                    0.23
+                ]
+            ],
+            "republish_wait_time": 0.15
+        },
+        {
+            "name": "prod2",
+            "products": [
+                [
+                    "id2",
+                    3,
+                    0.39
+                ]
+            ],
+            "republish_wait_time": 0.33
+        },
+        {
+            "name": "prod3",
+            "products": [
+                [
+                    "id2",
+                    1,
+                    0.31
+                ]
+            ],
+            "republish_wait_time": 0.36
+        },
+        {
+            "name": "prod4",
+            "products": [
+                [
+                    "id2",
+                    2,
+                    0.2
+                ],
+                [
+                    "id1",
+                    3,
+                    0.27
+                ]
+            ],
+            "republish_wait_time": 0.12
+        },
+        {
+            "name": "prod5",
+            "products": [
+                [
+                    "id2",
+                    1,
+                    0.33
+                ],
+                [
+                    "id1",
+                    3,
+                    0.37
+                ]
+            ],
+            "republish_wait_time": 0.08
+        },
+        {
+            "name": "prod6",
+            "products": [
+                [
+                    "id1",
+                    2,
+                    0.14
+                ],
+                [
+                    "id2",
+                    2,
+                    0.3
+                ]
+            ],
+            "republish_wait_time": 0.07
+        },
+        {
+            "name": "prod7",
+            "products": [
+                [
+                    "id1",
+                    1,
+                    0.33
+                ]
+            ],
+            "republish_wait_time": 0.21
+        },
+        {
+            "name": "prod8",
+            "products": [
+                [
+                    "id2",
+                    3,
+                    0.4
+                ]
+            ],
+            "republish_wait_time": 0.22
+        },
+        {
+            "name": "prod9",
+            "products": [
+                [
+                    "id2",
+                    3,
+                    0.17
+                ],
+                [
+                    "id1",
+                    3,
+                    0.12
+                ]
+            ],
+            "republish_wait_time": 0.33
+        },
+        {
+            "name": "prod10",
+            "products": [
+                [
+                    "id2",
+                    3,
+                    0.33
+                ],
+                [
+                    "id1",
+                    2,
+                    0.25
+                ]
+            ],
+            "republish_wait_time": 0.15
+        },
+        {
+            "name": "prod11",
+            "products": [
+                [
+                    "id1",
+                    1,
+                    0.26
+                ]
+            ],
+            "republish_wait_time": 0.28
+        },
+        {
+            "name": "prod12",
+            "products": [
+                [
+                    "id1",
+                    3,
+                    0.32
+                ],
+                [
+                    "id2",
+                    1,
+                    0.37
+                ]
+            ],
+            "republish_wait_time": 0.34
+        },
+        {
+            "name": "prod13",
+            "products": [
+                [
+                    "id2",
+                    1,
+                    0.36
+                ],
+                [
+                    "id1",
+                    3,
+                    0.34
+                ]
+            ],
+            "republish_wait_time": 0.2
+        },
+        {
+            "name": "prod14",
+            "products": [
+                [
+                    "id2",
+                    3,
+                    0.27
+                ],
+                [
+                    "id1",
+                    3,
+                    0.37
+                ]
+            ],
+            "republish_wait_time": 0.33
+        },
+        {
+            "name": "prod15",
+            "products": [
+                [
+                    "id2",
+                    3,
+                    0.09
+                ]
+            ],
+            "republish_wait_time": 0.26
+        },
+        {
+            "name": "prod16",
+            "products": [
+                [
+                    "id1",
+                    1,
+                    0.31
+                ],
+                [
+                    "id2",
+                    1,
+                    0.3
+                ]
+            ],
+            "republish_wait_time": 0.18
+        },
+        {
+            "name": "prod17",
+            "products": [
+                [
+                    "id2",
+                    2,
+                    0.34
+                ]
+            ],
+            "republish_wait_time": 0.09
+        },
+        {
+            "name": "prod18",
+            "products": [
+                [
+                    "id1",
+                    1,
+                    0.34
+                ]
+            ],
+            "republish_wait_time": 0.27
+        },
+        {
+            "name": "prod19",
+            "products": [
+                [
+                    "id1",
+                    1,
+                    0.27
+                ]
+            ],
+            "republish_wait_time": 0.26
+        },
+        {
+            "name": "prod20",
+            "products": [
+                [
+                    "id2",
+                    1,
+                    0.18
+                ]
+            ],
+            "republish_wait_time": 0.39
+        }
+    ],
+    "consumers": [
+        {
+            "name": "cons1",
+            "retry_wait_time": 0.06,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 4
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 4
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cons2",
+            "retry_wait_time": 0.3,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id2",
+                            "quantity": 3
+                        },
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 1
+                        }
+                    ],
+                    "expected_cart": {
+                        "id2": 3,
+                        "id1": 1
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cons3",
+            "retry_wait_time": 0.08,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 5
+                        },
+                        {
+                            "type": "add",
+                            "product": "id2",
+                            "quantity": 4
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 5,
+                        "id2": 4
+                    }
+                },
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id2",
+                            "quantity": 3
+                        },
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 3
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id1",
+                            "quantity": 1
+                        }
+                    ],
+                    "expected_cart": {
+                        "id2": 3,
+                        "id1": 2
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cons4",
+            "retry_wait_time": 0.29,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 2
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id1",
+                            "quantity": 1
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 1
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cons5",
+            "retry_wait_time": 0.26,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 4
+                        },
+                        {
+                            "type": "add",
+                            "product": "id2",
+                            "quantity": 5
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id2",
+                            "quantity": 3
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 4,
+                        "id2": 2
+                    }
+                },
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id2",
+                            "quantity": 5
+                        },
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 1
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id1",
+                            "quantity": 1
+                        }
+                    ],
+                    "expected_cart": {
+                        "id2": 5
+                    }
+                }
+            ]
+        }
+    ],
+    "marketplace": {
+        "queue_size_per_producer": 25
+    }
+}

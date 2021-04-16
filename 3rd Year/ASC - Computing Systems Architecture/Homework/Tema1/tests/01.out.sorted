@@ -1,0 +1,3 @@
+cons1 bought Coffee(name='Indonezia', price=1, acidity=5.05, roast_level='MEDIUM')
+cons1 bought Coffee(name='Indonezia', price=1, acidity=5.05, roast_level='MEDIUM')
+cons1 bought Tea(name='Linden', price=9, type='Herbal')

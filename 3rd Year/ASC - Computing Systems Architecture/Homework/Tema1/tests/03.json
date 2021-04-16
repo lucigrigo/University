@@ -1,0 +1,171 @@
+{
+    "products": {
+        "id1": {
+            "product_type": "Coffee",
+            "name": "Indonezia",
+            "acidity": 5.05,
+            "roast_level": "MEDIUM",
+            "price": 1
+        }
+    },
+    "producers": [
+        {
+            "name": "prod1",
+            "products": [
+                [
+                    "id1",
+                    2,
+                    0.37
+                ]
+            ],
+            "republish_wait_time": 0.34
+        }
+    ],
+    "consumers": [
+        {
+            "name": "cons1",
+            "retry_wait_time": 0.39,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 3
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 3
+                    }
+                },
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 5
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 5
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cons2",
+            "retry_wait_time": 0.16,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 5
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 5
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cons3",
+            "retry_wait_time": 0.17,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 4
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id1",
+                            "quantity": 1
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 3
+                    }
+                },
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 1
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id1",
+                            "quantity": 1
+                        }
+                    ],
+                    "expected_cart": {}
+                }
+            ]
+        },
+        {
+            "name": "cons4",
+            "retry_wait_time": 0.31,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 2
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 2
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cons5",
+            "retry_wait_time": 0.33,
+            "carts": [
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 5
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id1",
+                            "quantity": 3
+                        }
+                    ],
+                    "expected_cart": {
+                        "id1": 2
+                    }
+                },
+                {
+                    "ops": [
+                        {
+                            "type": "add",
+                            "product": "id1",
+                            "quantity": 5
+                        },
+                        {
+                            "type": "remove",
+                            "product": "id1",
+                            "quantity": 5
+                        }
+                    ],
+                    "expected_cart": {}
+                }
+            ]
+        }
+    ],
+    "marketplace": {
+        "queue_size_per_producer": 12
+    }
+}

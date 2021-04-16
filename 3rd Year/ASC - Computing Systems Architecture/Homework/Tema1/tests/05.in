@@ -1,0 +1,263 @@
+{
+    "products": {
+        "id1": {
+            "product_type": "Coffee",
+            "name": "Indonezia",
+            "acidity": 5.05,
+            "roast_level": "MEDIUM",
+            "price": 1
+        },
+        "id2": {
+            "product_type": "Coffee",
+            "name": "Brasil",
+            "acidity": 5.09,
+            "roast_level": "MEDIUM",
+            "price": 7
+        },
+        "id3": {
+            "product_type": "Coffee",
+            "name": "Ethiopia",
+            "acidity": 5.09,
+            "roast_level": "MEDIUM",
+            "price": 10
+        },
+        "id5": {
+            "product_type": "Tea",
+            "name": "Cactus fig",
+            "type": "Green",
+            "price": 3
+        }
+    },
+    "producers": [
+        {
+            "name": "prod1",
+            "products": [
+                [
+                    "id2",
+                    2,
+                    0.4
+                ],
+                [
+                    "id1",
+                    3,
+                    0.39
+                ],
+                [
+                    "id3",
+                    3,
+                    0.37
+                ]
+            ],
+            "republish_wait_time": 0.16
+        },
+        {
+            "name": "prod2",
+            "products": [
+                [
+                    "id3",
+                    2,
+                    0.25
+                ]
+            ],
+            "republish_wait_time": 0.17
+        },
+        {
+            "name": "prod3",
+            "products": [
+                [
+                    "id5",
+                    2,
+                    0.2
+                ],
+                [
+                    "id2",
+                    3,
+                    0.14
+                ],
+                [
+                    "id3",
+                    3,
+                    0.37
+                ]
+            ],
+            "republish_wait_time": 0.08
+        }
+    ],
+    "consumers": [
+        {
+            "name": "cons1",
+            "retry_wait_time": 0.34,
+            "carts": [
+                [
+                    {
+                        "type": "add",
+                        "product": "id5",
+                        "quantity": 3
+                    },
+                    {
+                        "type": "add",
+                        "product": "id2",
+                        "quantity": 1
+                    },
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 2
+                    }
+                ],
+                [
+                    {
+                        "type": "add",
+                        "product": "id5",
+                        "quantity": 1
+                    }
+                ],
+                [
+                    {
+                        "type": "add",
+                        "product": "id5",
+                        "quantity": 3
+                    },
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 5
+                    },
+                    {
+                        "type": "remove",
+                        "product": "id1",
+                        "quantity": 1
+                    }
+                ]
+            ]
+        },
+        {
+            "name": "cons2",
+            "retry_wait_time": 0.24,
+            "carts": [
+                [
+                    {
+                        "type": "add",
+                        "product": "id3",
+                        "quantity": 4
+                    }
+                ],
+                [
+                    {
+                        "type": "add",
+                        "product": "id3",
+                        "quantity": 3
+                    },
+                    {
+                        "type": "add",
+                        "product": "id5",
+                        "quantity": 2
+                    },
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 2
+                    }
+                ],
+                [
+                    {
+                        "type": "add",
+                        "product": "id3",
+                        "quantity": 4
+                    }
+                ]
+            ]
+        },
+        {
+            "name": "cons3",
+            "retry_wait_time": 0.08,
+            "carts": [
+                [
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 5
+                    },
+                    {
+                        "type": "remove",
+                        "product": "id1",
+                        "quantity": 5
+                    }
+                ]
+            ]
+        },
+        {
+            "name": "cons4",
+            "retry_wait_time": 0.33,
+            "carts": [
+                [
+                    {
+                        "type": "add",
+                        "product": "id3",
+                        "quantity": 3
+                    },
+                    {
+                        "type": "add",
+                        "product": "id2",
+                        "quantity": 1
+                    },
+                    {
+                        "type": "add",
+                        "product": "id5",
+                        "quantity": 3
+                    }
+                ]
+            ]
+        },
+        {
+            "name": "cons5",
+            "retry_wait_time": 0.22,
+            "carts": [
+                [
+                    {
+                        "type": "add",
+                        "product": "id2",
+                        "quantity": 3
+                    },
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 1
+                    }
+                ],
+                [
+                    {
+                        "type": "add",
+                        "product": "id3",
+                        "quantity": 1
+                    },
+                    {
+                        "type": "add",
+                        "product": "id2",
+                        "quantity": 1
+                    }
+                ],
+                [
+                    {
+                        "type": "add",
+                        "product": "id1",
+                        "quantity": 1
+                    },
+                    {
+                        "type": "add",
+                        "product": "id3",
+                        "quantity": 1
+                    },
+                    {
+                        "type": "add",
+                        "product": "id5",
+                        "quantity": 2
+                    }
+                ]
+            ]
+        }
+    ],
+    "marketplace": {
+        "queue_size_per_producer": 50
+    }
+}
