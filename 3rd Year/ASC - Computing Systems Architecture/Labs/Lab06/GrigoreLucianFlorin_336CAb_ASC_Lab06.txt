@@ -1,0 +1,37 @@
+	ASC - Laborator 06
+Analiza performantei programelor
+Grigore Lucian-Florin 336CAb
+
+	1. Valgrind / KCachegrind
+
+am rulat doar pentru 400.000 elemente
+varianta seriala - time ~ 11,3 s
+varianta paralela - time ~ 1 s
+
+comanda kcachegrind -> nu mi-a mers: "cannot connect to X server"
+	am incercat sa o rulez pe 2 masini virtuale diferite si am primit aceeasi eroare
+
+	2. Solaris Studio
+
+in Solaris Studio am trecut prin toate tab-urile din program, in special Threads, Overview, Call Tree.
+mi s-a parut foarte interesanta comparatie dintre rularile cu si fara paralelizare.
+am vazut ca s-a rulat pe 40 de thread-uri (unele au fost active 1s+, majoritatea sub 1s), si in Call Tree se apeleaza din main functia start_thread
+in Timeline -> foarte interesant cum au muncit thread-urile
+de asemenea, in Timeline daca am grupat munca by Threads, exista diferente, dar grupand dupa CPU, am vazut ca munca este destul de echilibrat distribuita, ceea ce este bine
+in varianta paralela si Functions se modifica, se adauga functii specifice calculului paralel
+
+	3. Analysis of the Tachyon raytracing engine
+
+exercitiul asta nu mi-a mers :(
+ceva eroare cu X11 display not working
+
+	4. Valgrind / cachegrind
+
+am rulat cu cachegrind in cele 3 moduri specificate
+pentru arg='1' -> miss rate pentru I1 era de approx 6.4%
+pentru arg='2' -> miss rate pentru I1 era de approx. 0.9%
+pentru arg='3' -> miss rate pentru I1 era de approx. 14.3%
+
+sincer, mi s-au parut rezultate foarte asemanatoare pentru cele 3 rulari
+adica I refs este undeva pe la 4,1 miliarde, si in toate cele 3 cazuri I1 misses era undeva pe la 700
+deci foarte putin pentru cate hit-uri erau (miss rate pentru nivelul acesta de cache approx. 0.0%)
