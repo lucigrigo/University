@@ -1,0 +1,44 @@
+Nume: Grigore Lucian-Florin
+Grupa: 336CA
+
+	Sisteme de Operare - Tema 3 - Loader de executabile
+
+	Organizare
+
+Am implementat doar handler-ul pentru SIGSEGV in loader.c
+
+Consider ca tema este utila pentru ca m-a ajutat sa inteleg mai bine
+cum functioneaza prinderea exceptiilor pe Windows, maparea paginilor
+si alocarea/gestionarea memoriei virtuale, precum si functiile din Windows
+corespondente celor din Linux.
+
+Consider implementarea mea destul de simpla si, in speta, destul de eficienta.
+
+	Implementare
+
+Intregul enunt al temei a fost implementat.
+
+Nu exista functionalitati extra.
+
+Nu exista functionalitati lipsa.
+
+Dificultati intampinate: gasirea valorilor corecte pe care sa le pasez
+functiilor utilizate, checkstyle pentru macro-ul DIE care genereaza niste erori
+imposibil de rezolvat, asa ca l-am abandonat.
+
+Lucruri interesante descoperite de parcurs: echivalentele dintre Windows si
+Linux, dar si diferentele dintre ele. Cum sunt gestionate erorile (exceptiile)
+din Windows.
+
+	Cum se compileaza si cum se ruleaza?
+
+se compileaza cu: nmake
+
+se ruleaza: se foloseste biblioteca rezultata in urma make-ului
+
+	Bibliografie
+
+https://docs.microsoft.com/ (multe de aici)
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-06
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-04
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-02
