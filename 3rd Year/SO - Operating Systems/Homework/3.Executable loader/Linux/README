@@ -1,0 +1,43 @@
+Nume: Grigore Lucian-Florin
+Grupa: 336CA
+
+	So Tema 3 - Loader de executabile
+
+	Organizare
+
+Am scris cod doar in loader.c
+
+Consider ca tema a fost utila intrucat m-a ajutat sa inteleg mult mai bine ce 
+se intampla atat cu paginile din memorie, cat si cu semnalele de eroare si 
+interpretarea lor.
+
+Consider ca implementarea mea este prea simpla pentru a putea fi catalogata
+drept eficienta sau nu.
+
+	Implementare
+
+Intregul enunt al temei a fost implementat.
+
+Nu exista functionalitati extra.
+
+Nu exista functionalitati lipsa.
+
+Dificultati intampinate: am incercat initial sa mapez zone mai mari de pagesize,
+dar am avut probleme la gestionarea datelor si la scrieri efectiv acolo unde trebuie
+in memorie.
+
+Lucruri interesante descoperite pe parcurs: cum faci un handler de semnale & cum mapezi
+pagini in memorie. Mi se par interesante :)
+
+	Cum se compileaza si cum se ruleaza?
+
+Cum se compileaza: make
+
+Cum se ruleaza: libso_loader.so este o biblioteca dinamica
+
+	Bibliografie
+
+https://man7.org/linux/man-pages/man2/sigaction.2.html
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-04
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-06
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-05
