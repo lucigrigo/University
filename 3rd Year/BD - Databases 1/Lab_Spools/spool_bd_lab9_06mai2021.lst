@@ -1,0 +1,1170 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+06-05-2021 08:27:23                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab9', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab6       SCOTT      08-APR-21 08-APR-21         75                                                                                                          
+Grigore Lucian                 336CA      Lab7       SCOTT      15-APR-21 15-APR-21         92                                                                                                          
+Grigore Lucian                 336CA      Lab3       SCOTT      18-MAR-21 18-MAR-21         96                                                                                                          
+Grigore Lucian                 336CA      Lab4       SCOTT      25-MAR-21 25-MAR-21         96                                                                                                          
+Grigore Lucian                 336CA      Lab8       SCOTT      22-APR-21 22-APR-21         82                                                                                                          
+Grigore Lucian                 336CA      Lab9       SCOTT      06-MAY-21                                                                                                                               
+Grigore Lucian                 336CA      Lab5       SCOTT      01-APR-21 01-APR-21         78                                                                                                          
+
+7 rows selected.
+
+SQL> 
+SQL> desc departamente
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEP                                                                                                            NOT NULL NUMBER(2)
+ DEN_DEP                                                                                                                    VARCHAR2(30)
+ SEDIU                                                                                                                      VARCHAR2(20)
+
+SQL> desc angajati
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANG                                                                                                                     NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(10)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ ID_SEF                                                                                                                     NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> desc angajati1
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANG                                                                                                                     NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(20)
+ FUNCTIE                                                                                                                    VARCHAR2(9)
+ ID_SEF                                                                                                                     NUMBER(4)
+ DATA_ANG                                                                                                                   DATE
+ SALARIU                                                                                                                    NUMBER(7,2)
+ COMISION                                                                                                                   NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> 
+SQL> 
+SQL> -- ex 1
+SQL> select d.den_dep, a.functie, count(a.id_ang) nr_ang from angajati1 natural join departamente d
+  2  group by d.den_dep, a.functie having count(a.id_ang) =
+  3  (select max(count(id_ang)) from angajati1 group by id_dep, functie);
+group by d.den_dep, a.functie having count(a.id_ang) =
+                                           *
+ERROR at line 2:
+ORA-00904: "A"."ID_ANG": invalid identifier 
+
+
+SQL> select d.den_dep, a.functie, count(a.id_ang) nr_ang from angajati1 natural join departamente d
+  2  group by d.den_dep, a.functie having count(a.id_ang) =
+  3  group by d.den_dep, a.functie having count(a.id_ang) = ;;;;;
+group by d.den_dep, a.functie having count(a.id_ang) = ;;;;
+*
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+SQL> select d.den_dep, a.functie, count(a.id_ang) nr_ang from angajati1 natural join departamente d
+  2  select d.den_dep, a.functie, count(a.id_ang) nr_ang from angajati1 natural join departamente d
+  3  ;
+select d.den_dep, a.functie, count(a.id_ang) nr_ang from angajati1 natural join departamente d
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> -- ex 1
+SQL> select d.den_dep, a.functie, count(a.id_ang) nr_ang from angajati1 a natural join departamente d
+  2  group by d.den_dep, a.functie having count(a.id_ang) =
+  3  (select max(count(id_ang)) from angajati1 group by id_dep, functie);
+
+DEN_DEP                        FUNCTIE       NR_ANG                                                                                                                                                     
+------------------------------ --------- ----------                                                                                                                                                     
+SALES                          SALESMAN           4                                                                                                                                                     
+
+SQL> 
+SQL> 
+SQL> -- ex 1 metoda 2 pasul 1
+SQL> 
+SQL> select max((select (count(id_ang)) from angajati1 where id_dep = s.id_dep and functie = s.functie
+  2  group by id_dep, functie)) max_count
+  3  from angajati1 s;
+
+ MAX_COUNT                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         4                                                                                                                                                                                              
+
+SQL> -- pasul 2
+SQL> select d.den_dep, a.functie, count(a.id_ang) nr_ang
+  2  from angajati1 a
+  3  natural join departamente d
+  4  group by d.den_dep, a.functie
+  5  having count(a.id_ang) = (select max((select (count(id_ang)) from angajati1
+  6  where id_dep = s.id_dep
+  7  and functie = s.functie
+  8  group by id_dep, functie)) max_count
+  9  from angajati1 s);
+
+DEN_DEP                        FUNCTIE       NR_ANG                                                                                                                                                     
+------------------------------ --------- ----------                                                                                                                                                     
+SALES                          SALESMAN           4                                                                                                                                                     
+
+SQL> 
+SQL> -- ex 2
+SQL> define id_dep=30
+SQL> select d.den_dep, a.nume, a.functie, a.comision from angajati1 a inner join departamente d on a.id_dep = d.id_dep
+  2  group by d.den_dep, a.nume, a.functie, a.comision
+  3  having max(a.comision) in (select max(comision) from angajati1 where id_dep=&id_dep group by id_dep)
+  4  order by 2.
+  5  ;
+old   3: having max(a.comision) in (select max(comision) from angajati1 where id_dep=&id_dep group by id_dep)
+new   3: having max(a.comision) in (select max(comision) from angajati1 where id_dep=30 group by id_dep)
+
+DEN_DEP                        NUME                 FUNCTIE     COMISION                                                                                                                                
+------------------------------ -------------------- --------- ----------                                                                                                                                
+SALES                          MARTIN               SALESMAN        1400                                                                                                                                
+
+SQL> 
+SQL> select * from angajati 1;
+select * from angajati 1
+                       *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select * from angajati1;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80     1017.5                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81    1756.67        550         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81    1406.67        550         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81     3192.5                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81    3006.67        550         30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+      1111 IONESCU              CLERK                                2000                                                                                                                               
+      1112 POPESCU              ANALYST                              3500                                                                                                                               
+
+16 rows selected.
+
+SQL> 
+SQL> -- ex 3
+SQL> select a.nume, a.functie, a.data_ang, a.salariu from angajati1,
+  2  (select id_dep, max(salariu) sal_MAX_dep from angajati1 group by id_dep) b
+  3  group by a.nume, a.functie, a.data_ang, a.salariu
+  4  having a.salariu = max(b.sal_MAX_dep) order by a.nume;
+having a.salariu = max(b.sal_MAX_dep) order by a.nume
+                                               *
+ERROR at line 4:
+ORA-00904: "A"."NUME": invalid identifier 
+
+
+SQL> select a.nume, a.functie, a.data_ang, a.salariu from angajati1 a,
+  2  (select id_dep, max(salariu) sal_MAX_dep from angajati1 group by id_dep) b
+  3  group by a.nume, a.functie, a.data_ang, a.salariu
+  4  having a.salariu = max(b.sal_MAX_dep) order by a.nume;
+
+NUME                 FUNCTIE   DATA_ANG     SALARIU                                                                                                                                                     
+-------------------- --------- --------- ----------                                                                                                                                                     
+KING                 PRESIDENT 17-NOV-81       5000                                                                                                                                                     
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> -- ex 4
+SQL> select nume Nume_ang,
+  2  (select nume from angajati1 where id_ang = a.id_sef) Nume_Sef
+  3  from angajati1 a
+  4  where id_dep = 20
+  5  order by nume;
+
+NUME_ANG             NUME_SEF                                                                                                                                                                           
+-------------------- --------------------                                                                                                                                                               
+ADAMS                SCOTT                                                                                                                                                                              
+FORD                 JONES                                                                                                                                                                              
+JONES                KING                                                                                                                                                                               
+SCOTT                JONES                                                                                                                                                                              
+SMITH                FORD                                                                                                                                                                               
+
+SQL> 
+SQL> -- ex 5
+SQL> select id_dep, nume, functie from angajati1 a
+  2  where id_dep in (10, 20)
+  3  order by (select count(*) from angajati1 b where id_dep = b.id_dep) desc;
+
+    ID_DEP NUME                 FUNCTIE                                                                                                                                                                 
+---------- -------------------- ---------                                                                                                                                                               
+        20 SMITH                CLERK                                                                                                                                                                   
+        20 JONES                MANAGER                                                                                                                                                                 
+        10 CLARK                MANAGER                                                                                                                                                                 
+        10 MILLER               CLERK                                                                                                                                                                   
+        10 KING                 PRESIDENT                                                                                                                                                               
+        20 ADAMS                CLERK                                                                                                                                                                   
+        20 FORD                 ANALYST                                                                                                                                                                 
+        20 SCOTT                ANALYST                                                                                                                                                                 
+
+8 rows selected.
+
+SQL> 
+SQL> 
+SQL> -- ex 6
+SQL> 
+SQL> select id_dep, nume, functie, salariu from angajati1
+  2  where salariu > some(select distinct salariu from angajati where functie = 'SALESMAN')
+  3  order by id_dep, nume;
+
+no rows selected
+
+SQL> 
+SQL> select id_dep, nume, functie, salariu from angajati1
+  2  where salariu > some(select distinct salariu from angajati1 where functie = 'SALESMAN')
+  3  order by id_dep, nume;
+
+    ID_DEP NUME                 FUNCTIE      SALARIU                                                                                                                                                    
+---------- -------------------- --------- ----------                                                                                                                                                    
+        10 CLARK                MANAGER         2450                                                                                                                                                    
+        10 KING                 PRESIDENT       5000                                                                                                                                                    
+        10 MILLER               CLERK           1300                                                                                                                                                    
+        20 FORD                 ANALYST         3000                                                                                                                                                    
+        20 JONES                MANAGER       3192.5                                                                                                                                                    
+        20 SCOTT                ANALYST         3000                                                                                                                                                    
+        30 ALLEN                SALESMAN     1756.67                                                                                                                                                    
+        30 BLAKE                MANAGER      3006.67                                                                                                                                                    
+        30 TURNER               SALESMAN        1500                                                                                                                                                    
+        30 WARD                 SALESMAN     1406.67                                                                                                                                                    
+           IONESCU              CLERK           2000                                                                                                                                                    
+           POPESCU              ANALYST         3500                                                                                                                                                    
+
+12 rows selected.
+
+SQL> 
+SQL> -- ex 7
+SQL> select id_dep, nume, functie, salariu from angajati1
+  2  where salariu >= all(select distinct salariu from angajati1 where functie = 'SALESMAN')
+  3  order by id_dep, nume;
+
+    ID_DEP NUME                 FUNCTIE      SALARIU                                                                                                                                                    
+---------- -------------------- --------- ----------                                                                                                                                                    
+        10 CLARK                MANAGER         2450                                                                                                                                                    
+        10 KING                 PRESIDENT       5000                                                                                                                                                    
+        20 FORD                 ANALYST         3000                                                                                                                                                    
+        20 JONES                MANAGER       3192.5                                                                                                                                                    
+        20 SCOTT                ANALYST         3000                                                                                                                                                    
+        30 ALLEN                SALESMAN     1756.67                                                                                                                                                    
+        30 BLAKE                MANAGER      3006.67                                                                                                                                                    
+           IONESCU              CLERK           2000                                                                                                                                                    
+           POPESCU              ANALYST         3500                                                                                                                                                    
+
+9 rows selected.
+
+SQL> 
+SQL> -- ex 8
+SQL> select d.id_dep, d.den_dep from departamente d
+  2  where exists(select nume from angajati1 where id_dep=d.id_dep)
+  3  order by id_dep;
+
+    ID_DEP DEN_DEP                                                                                                                                                                                      
+---------- ------------------------------                                                                                                                                                               
+        10 ACCOUNTING                                                                                                                                                                                   
+        20 RESEARCH                                                                                                                                                                                     
+        30 SALES                                                                                                                                                                                        
+
+SQL> select * from angajati1
+  2  ;
+
+    ID_ANG NUME                 FUNCTIE       ID_SEF DATA_ANG     SALARIU   COMISION     ID_DEP                                                                                                         
+---------- -------------------- --------- ---------- --------- ---------- ---------- ----------                                                                                                         
+      7369 SMITH                CLERK           7902 17-DEC-80     1017.5                    20                                                                                                         
+      7499 ALLEN                SALESMAN        7698 20-FEB-81    1756.67        550         30                                                                                                         
+      7521 WARD                 SALESMAN        7698 22-FEB-81    1406.67        550         30                                                                                                         
+      7566 JONES                MANAGER         7839 02-APR-81     3192.5                    20                                                                                                         
+      7654 MARTIN               SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                         
+      7698 BLAKE                MANAGER         7839 01-MAY-81    3006.67        550         30                                                                                                         
+      7782 CLARK                MANAGER         7839 09-JUN-81       2450                    10                                                                                                         
+      7788 SCOTT                ANALYST         7566 19-APR-87       3000                    20                                                                                                         
+      7839 KING                 PRESIDENT            17-NOV-81       5000                    10                                                                                                         
+      7844 TURNER               SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                         
+      7876 ADAMS                CLERK           7788 23-MAY-87       1100                    20                                                                                                         
+      7900 JAMES                CLERK           7698 03-DEC-81        950                    30                                                                                                         
+      7902 FORD                 ANALYST         7566 03-DEC-81       3000                    20                                                                                                         
+      7934 MILLER               CLERK           7782 23-JAN-82       1300                    10                                                                                                         
+      1111 IONESCU              CLERK                                2000                                                                                                                               
+      1112 POPESCU              ANALYST                              3500                                                                                                                               
+
+16 rows selected.
+
+SQL> 
+SQL> 
+SQL> -- ex 9
+SQL> select id_dep, id_ang, nume, functie, id_sef from angajati1 a
+  2  where not exists(select id_sef from angajati1 where id_ang=a.id_sef)
+  3  order by id_dep;
+
+    ID_DEP     ID_ANG NUME                 FUNCTIE       ID_SEF                                                                                                                                         
+---------- ---------- -------------------- --------- ----------                                                                                                                                         
+        10       7839 KING                 PRESIDENT                                                                                                                                                    
+                 1112 POPESCU              ANALYST                                                                                                                                                      
+                 1111 IONESCU              CLERK                                                                                                                                                        
+
+SQL> 
+SQL> -- ex 10
+SQL> select id_dep, id_ang, nume, functie, id_sef from angajati1 a
+  2  where id_sef not in (select distinct id_sef from angajati1)
+  3  order by id_dep;
+
+no rows selected
+
+SQL> 
+SQL> 
+SQL> select a.functie, (select avg(salariu) from angajati1 where functie = a.functie) sal_mediu
+  2  from angajati1;
+select a.functie, (select avg(salariu) from angajati1 where functie = a.functie) sal_mediu
+       *
+ERROR at line 1:
+ORA-00904: "A"."FUNCTIE": invalid identifier 
+
+
+SQL> select a.functie, (select avg(salariu) from angajati1 where functie = a.functie) sal_mediu
+  2  from angajati1 a;
+
+FUNCTIE    SAL_MEDIU                                                                                                                                                                                    
+--------- ----------                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+ANALYST   3166.66667                                                                                                                                                                                    
+ANALYST   3166.66667                                                                                                                                                                                    
+ANALYST   3166.66667                                                                                                                                                                                    
+MANAGER   2883.05667                                                                                                                                                                                    
+MANAGER   2883.05667                                                                                                                                                                                    
+MANAGER   2883.05667                                                                                                                                                                                    
+PRESIDENT       5000                                                                                                                                                                                    
+
+16 rows selected.
+
+SQL> select a.functie, (select avg(salariu) from angajati1 where functie = a.functie) sal_mediu
+  2  from angajati1 a;
+
+FUNCTIE    SAL_MEDIU                                                                                                                                                                                    
+--------- ----------                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+ANALYST   3166.66667                                                                                                                                                                                    
+ANALYST   3166.66667                                                                                                                                                                                    
+ANALYST   3166.66667                                                                                                                                                                                    
+MANAGER   2883.05667                                                                                                                                                                                    
+MANAGER   2883.05667                                                                                                                                                                                    
+MANAGER   2883.05667                                                                                                                                                                                    
+PRESIDENT       5000                                                                                                                                                                                    
+
+16 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select a.functie, (select avg(salariu) from angajati1 where functie = a.functie) sal_mediu
+  2  from angajati1 a
+  3  group by a.functie;l
+  4  ;
+group by a.functie;l
+                  *
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select a.functie, (select avg(salariu) from angajati1 where functie = a.functie) sal_mediu
+  2  from angajati1 a
+  3  group by a.functie;
+
+FUNCTIE    SAL_MEDIU                                                                                                                                                                                    
+--------- ----------                                                                                                                                                                                    
+CLERK         1273.5                                                                                                                                                                                    
+ANALYST   3166.66667                                                                                                                                                                                    
+MANAGER   2883.05667                                                                                                                                                                                    
+PRESIDENT       5000                                                                                                                                                                                    
+SALESMAN    1478.335                                                                                                                                                                                    
+
+SQL> 
+SQL> 
+SQL> 
+SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                                                                                                                                              
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+SALGRADE                                                                                                                                                                                                
+BONUS                                                                                                                                                                                                   
+DEPARTAMENTE                                                                                                                                                                                            
+GRILA_SALARIU                                                                                                                                                                                           
+LOGIN_LAB_BD                                                                                                                                                                                            
+ANGAJATI1                                                                                                                                                                                               
+ANGAJATI2                                                                                                                                                                                               
+ANGAJATI                                                                                                                                                                                                
+
+10 rows selected.
+
+SQL> select * from grila_salariu;
+
+      GRAD  NIVEL_INF  NIVEL_SUP                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+         1        700       1200                                                                                                                                                                        
+         2       1201       1400                                                                                                                                                                        
+         3       1401       2000                                                                                                                                                                        
+         4       2001       3000                                                                                                                                                                        
+         5       3001       9999                                                                                                                                                                        
+
+SQL> 
+SQL> 
+SQL> select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu d
+  3  where sal_med > some((g.nivel_sup - g.nivel_inf)/2);
+where sal_med > some((g.nivel_sup - g.nivel_inf)/2)
+                                    *
+ERROR at line 3:
+ORA-00904: "G"."NIVEL_INF": invalid identifier 
+
+
+SQL> select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu d
+  3  where sal_med > some((d.nivel_sup - d.nivel_inf)/2);
+where sal_med > some((d.nivel_sup - d.nivel_inf)/2)
+      *
+ERROR at line 3:
+ORA-00904: "SAL_MED": invalid identifier 
+
+
+SQL> select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu d
+  3  having sal_med > some((d.nivel_sup - d.nivel_inf)/2);
+having sal_med > some((d.nivel_sup - d.nivel_inf)/2)
+       *
+ERROR at line 3:
+ORA-00904: "SAL_MED": invalid identifier 
+
+
+SQL> select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu d
+  3  where (select avg(salariu) from angajati1 where functie=a.functie) > some((d.nivel_sup - d.nivel_inf)/2);
+select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+                  *
+ERROR at line 1:
+ORA-00904: "G"."GRAD": invalid identifier 
+
+
+SQL> select a.functie, d.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu d
+  3  having sal_med > some((d.nivel_sup - d.nivel_inf)/2);
+having sal_med > some((d.nivel_sup - d.nivel_inf)/2)
+       *
+ERROR at line 3:
+ORA-00904: "SAL_MED": invalid identifier 
+
+
+SQL> select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu g
+  3  where (select avg(salariu) from angajati1 where functie=a.functie) > some((g.nivel_sup - g.nivel_inf)/2);
+
+FUNCTIE         GRAD    SAL_MED                                                                                                                                                                         
+--------- ---------- ----------                                                                                                                                                                         
+CLERK              4     1273.5                                                                                                                                                                         
+CLERK              3     1273.5                                                                                                                                                                         
+CLERK              1     1273.5                                                                                                                                                                         
+CLERK              2     1273.5                                                                                                                                                                         
+CLERK              4     1273.5                                                                                                                                                                         
+CLERK              3     1273.5                                                                                                                                                                         
+CLERK              1     1273.5                                                                                                                                                                         
+CLERK              2     1273.5                                                                                                                                                                         
+CLERK              4     1273.5                                                                                                                                                                         
+CLERK              3     1273.5                                                                                                                                                                         
+CLERK              1     1273.5                                                                                                                                                                         
+CLERK              2     1273.5                                                                                                                                                                         
+CLERK              4     1273.5                                                                                                                                                                         
+CLERK              3     1273.5                                                                                                                                                                         
+CLERK              1     1273.5                                                                                                                                                                         
+CLERK              2     1273.5                                                                                                                                                                         
+CLERK              4     1273.5                                                                                                                                                                         
+CLERK              3     1273.5                                                                                                                                                                         
+CLERK              1     1273.5                                                                                                                                                                         
+CLERK              2     1273.5                                                                                                                                                                         
+SALESMAN           4   1478.335                                                                                                                                                                         
+SALESMAN           3   1478.335                                                                                                                                                                         
+SALESMAN           1   1478.335                                                                                                                                                                         
+SALESMAN           2   1478.335                                                                                                                                                                         
+SALESMAN           4   1478.335                                                                                                                                                                         
+SALESMAN           3   1478.335                                                                                                                                                                         
+SALESMAN           1   1478.335                                                                                                                                                                         
+SALESMAN           2   1478.335                                                                                                                                                                         
+SALESMAN           4   1478.335                                                                                                                                                                         
+SALESMAN           3   1478.335                                                                                                                                                                         
+SALESMAN           1   1478.335                                                                                                                                                                         
+SALESMAN           2   1478.335                                                                                                                                                                         
+SALESMAN           4   1478.335                                                                                                                                                                         
+SALESMAN           3   1478.335                                                                                                                                                                         
+SALESMAN           1   1478.335                                                                                                                                                                         
+SALESMAN           2   1478.335                                                                                                                                                                         
+ANALYST            4 3166.66667                                                                                                                                                                         
+ANALYST            3 3166.66667                                                                                                                                                                         
+ANALYST            1 3166.66667                                                                                                                                                                         
+ANALYST            2 3166.66667                                                                                                                                                                         
+ANALYST            4 3166.66667                                                                                                                                                                         
+ANALYST            3 3166.66667                                                                                                                                                                         
+ANALYST            1 3166.66667                                                                                                                                                                         
+ANALYST            2 3166.66667                                                                                                                                                                         
+ANALYST            4 3166.66667                                                                                                                                                                         
+ANALYST            3 3166.66667                                                                                                                                                                         
+ANALYST            1 3166.66667                                                                                                                                                                         
+ANALYST            2 3166.66667                                                                                                                                                                         
+MANAGER            4 2883.05667                                                                                                                                                                         
+MANAGER            3 2883.05667                                                                                                                                                                         
+MANAGER            1 2883.05667                                                                                                                                                                         
+MANAGER            2 2883.05667                                                                                                                                                                         
+MANAGER            4 2883.05667                                                                                                                                                                         
+MANAGER            3 2883.05667                                                                                                                                                                         
+MANAGER            1 2883.05667                                                                                                                                                                         
+MANAGER            2 2883.05667                                                                                                                                                                         
+MANAGER            4 2883.05667                                                                                                                                                                         
+MANAGER            3 2883.05667                                                                                                                                                                         
+MANAGER            1 2883.05667                                                                                                                                                                         
+MANAGER            2 2883.05667                                                                                                                                                                         
+PRESIDENT          5       5000                                                                                                                                                                         
+PRESIDENT          4       5000                                                                                                                                                                         
+PRESIDENT          3       5000                                                                                                                                                                         
+PRESIDENT          1       5000                                                                                                                                                                         
+PRESIDENT          2       5000                                                                                                                                                                         
+
+65 rows selected.
+
+SQL> select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu g
+  3  where (select avg(salariu) from angajati1 where functie=a.functie) > some((g.nivel_sup - g.nivel_inf)/2)
+  4  group by a.functie;
+select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+                  *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select a.functie, g.grad, (select avg(salariu) from angajati1 where functie=a.functie) sal_med
+  2  from angajati1 a, grila_salariu g
+  3  where (select avg(salariu) from angajati1 where functie=a.functie) > some((g.nivel_sup - g.nivel_inf)/2)
+  4  group by a.functie, g.grad;
+
+FUNCTIE         GRAD    SAL_MED                                                                                                                                                                         
+--------- ---------- ----------                                                                                                                                                                         
+CLERK              3     1273.5                                                                                                                                                                         
+CLERK              1     1273.5                                                                                                                                                                         
+CLERK              2     1273.5                                                                                                                                                                         
+ANALYST            2 3166.66667                                                                                                                                                                         
+MANAGER            2 2883.05667                                                                                                                                                                         
+PRESIDENT          3       5000                                                                                                                                                                         
+PRESIDENT          2       5000                                                                                                                                                                         
+SALESMAN           4   1478.335                                                                                                                                                                         
+MANAGER            3 2883.05667                                                                                                                                                                         
+SALESMAN           3   1478.335                                                                                                                                                                         
+SALESMAN           1   1478.335                                                                                                                                                                         
+ANALYST            4 3166.66667                                                                                                                                                                         
+MANAGER            4 2883.05667                                                                                                                                                                         
+MANAGER            1 2883.05667                                                                                                                                                                         
+PRESIDENT          4       5000                                                                                                                                                                         
+PRESIDENT          1       5000                                                                                                                                                                         
+ANALYST            3 3166.66667                                                                                                                                                                         
+PRESIDENT          5       5000                                                                                                                                                                         
+CLERK              4     1273.5                                                                                                                                                                         
+SALESMAN           2   1478.335                                                                                                                                                                         
+ANALYST            1 3166.66667                                                                                                                                                                         
+
+21 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4  a.salariu+nvl(a.comision,0) >= some(select distinct salariu from angajati1 where id_dep=a.id_dep);
+
+NUME                 DEN_DEP                        FUNCTIE        VENIT                                                                                                                                
+-------------------- ------------------------------ --------- ----------                                                                                                                                
+CLARK                ACCOUNTING                     MANAGER         2450                                                                                                                                
+KING                 ACCOUNTING                     PRESIDENT       5000                                                                                                                                
+MILLER               ACCOUNTING                     CLERK           1300                                                                                                                                
+SMITH                RESEARCH                       CLERK         1017.5                                                                                                                                
+JONES                RESEARCH                       MANAGER       3192.5                                                                                                                                
+SCOTT                RESEARCH                       ANALYST         3000                                                                                                                                
+ADAMS                RESEARCH                       CLERK           1100                                                                                                                                
+FORD                 RESEARCH                       ANALYST         3000                                                                                                                                
+ALLEN                SALES                          SALESMAN     2306.67                                                                                                                                
+WARD                 SALES                          SALESMAN     1956.67                                                                                                                                
+MARTIN               SALES                          SALESMAN        2650                                                                                                                                
+BLAKE                SALES                          MANAGER      3556.67                                                                                                                                
+TURNER               SALES                          SALESMAN        1500                                                                                                                                
+JAMES                SALES                          CLERK            950                                                                                                                                
+
+14 rows selected.
+
+SQL> select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4  a.salariu+nvl(a.comision,0) >= all(select distinct salariu from angajati1 where id_dep=a.id_dep);
+
+NUME                 DEN_DEP                        FUNCTIE        VENIT                                                                                                                                
+-------------------- ------------------------------ --------- ----------                                                                                                                                
+JONES                RESEARCH                       MANAGER       3192.5                                                                                                                                
+BLAKE                SALES                          MANAGER      3556.67                                                                                                                                
+KING                 ACCOUNTING                     PRESIDENT       5000                                                                                                                                
+
+SQL> select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4  a.salariu+nvl(a.comision,0) >= some(select max(salariu) from angajati1 where id_dep=a.id_dep);
+
+NUME                 DEN_DEP                        FUNCTIE        VENIT                                                                                                                                
+-------------------- ------------------------------ --------- ----------                                                                                                                                
+KING                 ACCOUNTING                     PRESIDENT       5000                                                                                                                                
+JONES                RESEARCH                       MANAGER       3192.5                                                                                                                                
+BLAKE                SALES                          MANAGER      3556.67                                                                                                                                
+
+SQL> 
+SQL> 
+SQL> select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4  a.salariu+nvl(a.comision,0) exists in (select max(salariu) from angajati1 where id_dep=a.id_dep);
+a.salariu+nvl(a.comision,0) exists in (select max(salariu) from angajati1 where id_dep=a.id_dep)
+                            *
+ERROR at line 4:
+ORA-00920: invalid relational operator 
+
+
+SQL> select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4  a.salariu+nvl(a.comision,0) exists(select max(salariu) from angajati1 where id_dep=a.id_dep);
+a.salariu+nvl(a.comision,0) exists(select max(salariu) from angajati1 where id_dep=a.id_dep)
+                            *
+ERROR at line 4:
+ORA-00920: invalid relational operator 
+
+
+SQL> a.salariu+nvl(a.comision,0) exists(select max(salariu) from angajati1 where id_dep=a.id_dep);
+  4* a.salariu+nvl(a.comision,0) exists(select max(salariu) from angajati1 where id_dep=a.id_dep).salariu+nvl(a.comision,0) exists(select max(salariu) from angajati1 where id_dep=a.id_dep)
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4* exists(select max(salariu) from angajati1 where id_dep=a.id_dep)
+SQL> /
+
+NUME                 DEN_DEP                        FUNCTIE        VENIT                                                                                                                                
+-------------------- ------------------------------ --------- ----------                                                                                                                                
+SMITH                RESEARCH                       CLERK         1017.5                                                                                                                                
+ALLEN                SALES                          SALESMAN     2306.67                                                                                                                                
+WARD                 SALES                          SALESMAN     1956.67                                                                                                                                
+JONES                RESEARCH                       MANAGER       3192.5                                                                                                                                
+MARTIN               SALES                          SALESMAN        2650                                                                                                                                
+BLAKE                SALES                          MANAGER      3556.67                                                                                                                                
+CLARK                ACCOUNTING                     MANAGER         2450                                                                                                                                
+SCOTT                RESEARCH                       ANALYST         3000                                                                                                                                
+KING                 ACCOUNTING                     PRESIDENT       5000                                                                                                                                
+TURNER               SALES                          SALESMAN        1500                                                                                                                                
+ADAMS                RESEARCH                       CLERK           1100                                                                                                                                
+JAMES                SALES                          CLERK            950                                                                                                                                
+FORD                 RESEARCH                       ANALYST         3000                                                                                                                                
+MILLER               ACCOUNTING                     CLERK           1300                                                                                                                                
+
+14 rows selected.
+
+SQL> 
+SQL> 
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4* exists(select max(salariu) from angajati1 where id_dep=a.id_dep and max(salariu) = a.salariu)
+SQL> /
+exists(select max(salariu) from angajati1 where id_dep=a.id_dep and max(salariu) = a.salariu)
+                                                                    *
+ERROR at line 4:
+ORA-00934: group function is not allowed here 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4* exists(select max(salariu) ss from angajati1 where id_dep=a.id_dep and ss = a.salariu)
+SQL> /
+exists(select max(salariu) ss from angajati1 where id_dep=a.id_dep and ss = a.salariu)
+                                                                       *
+ERROR at line 4:
+ORA-00904: "SS": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4* exists(select max(salariu) from angajati1 where id_dep=a.id_dep and salariu = a.salariu)
+SQL> /
+
+NUME                 DEN_DEP                        FUNCTIE        VENIT                                                                                                                                
+-------------------- ------------------------------ --------- ----------                                                                                                                                
+SMITH                RESEARCH                       CLERK         1017.5                                                                                                                                
+ALLEN                SALES                          SALESMAN     2306.67                                                                                                                                
+WARD                 SALES                          SALESMAN     1956.67                                                                                                                                
+JONES                RESEARCH                       MANAGER       3192.5                                                                                                                                
+MARTIN               SALES                          SALESMAN        2650                                                                                                                                
+BLAKE                SALES                          MANAGER      3556.67                                                                                                                                
+CLARK                ACCOUNTING                     MANAGER         2450                                                                                                                                
+SCOTT                RESEARCH                       ANALYST         3000                                                                                                                                
+KING                 ACCOUNTING                     PRESIDENT       5000                                                                                                                                
+TURNER               SALES                          SALESMAN        1500                                                                                                                                
+ADAMS                RESEARCH                       CLERK           1100                                                                                                                                
+JAMES                SALES                          CLERK            950                                                                                                                                
+FORD                 RESEARCH                       ANALYST         3000                                                                                                                                
+MILLER               ACCOUNTING                     CLERK           1300                                                                                                                                
+
+14 rows selected.
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.nume, d.den_dep, a.functie, a.salariu+nvl(a.comision,0) venit
+  2  from angajati1 a, departamente d
+  3  where a.id_dep = d.id_dep and
+  4* not exists(select salariu from angajati1 b where id_dep=a.id_dep and b.salariu > a.salariu)
+SQL> /
+
+NUME                 DEN_DEP                        FUNCTIE        VENIT                                                                                                                                
+-------------------- ------------------------------ --------- ----------                                                                                                                                
+KING                 ACCOUNTING                     PRESIDENT       5000                                                                                                                                
+JONES                RESEARCH                       MANAGER       3192.5                                                                                                                                
+BLAKE                SALES                          MANAGER      3556.67                                                                                                                                
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select d.id_dep
+  2  from departamente d
+  3  where (select count(*) from angajati1 where id_dep=d.id_dep and salariu >
+  4  (select avg(salariu) from angajati1 where id_dep=d.id_dep)) >=
+  5  all(select count(*) from angajati1 where id_dep=d.id_dep and salariu >
+  6  (select avg(salariu) from angajati1 where id_dep=d.id_dep));
+
+    ID_DEP                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        40                                                                                                                                                                                              
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select d.id_dep
+  2  from departamente d
+  3  where (select count(*) from angajati1 where id_dep=d.id_dep and salariu >
+  4  (select avg(salariu) from angajati1 where id_dep=d.id_dep)) >=
+  5  any(select count(*) from angajati1 where id_dep=d.id_dep and salariu >
+  6* (select avg(salariu) from angajati1 where id_dep=d.id_dep))
+SQL> /
+
+    ID_DEP                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        40                                                                                                                                                                                              
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select d.id_dep
+  2  from departamente d
+  3  where (select count(*) from angajati1 where id_dep=d.id_dep and salariu >
+  4  (select avg(salariu) from angajati1 where id_dep=d.id_dep)) >
+  5  all(select count(*) from angajati1 where id_dep=d.id_dep and salariu >
+  6* (select avg(salariu) from angajati1 where id_dep=d.id_dep))
+SQL> /
+
+no rows selected
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select d.id_dep
+  2  from departamente d
+  3  where (select count(*) from angajati1 where id_dep=d.id_dep and salariu >
+  4  (select avg(salariu) from angajati1 where id_dep=d.id_dep)) >=
+  5  all(select count(*) from angajati1 b where salariu >
+  6* (select avg(salariu) from angajati1 where id_dep=b.id_dep))
+SQL> /
+
+no rows selected
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* select b.id_dep from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a) b where b.nr_ang = (select max(nr_ang) from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a));
+SQL> /
+select b.id_dep from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a) b where b.nr_ang = (select max(nr_ang) from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a));
+                                                                                                                                                                                                                                                                                                                                                                                                                                       *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1* select b.id_dep from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a) b where b.nr_ang = (select max(nr_ang) from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a))
+SQL> /
+select b.id_dep from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a) b where b.nr_ang = (select max(nr_ang) from (select distinct id_dep, (select count(*) from angajati where id_dep = a.id_dep and salariu > (select avg(salariu) from angajati where id_dep = a.id_dep)) nr_ang from angajati a))
+                                                                                                         *
+ERROR at line 1:
+ORA-00904: "SALARIU": invalid identifier 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select b.id_dep
+  2  from
+  3  (select distinct id_dep,
+  4  	(select count(*)
+  5  	from angajati1
+  6  	where id_dep = a.id_dep and
+  7  	salariu > (select avg(salariu)
+  8  		from angajati1
+  9  		where id_dep = a.id_dep)) nr_ang
+ 10  	from angajati1 a) b
+ 11  where b.nr_ang =
+ 12  (select max(nr_ang)
+ 13  from (select distinct id_dep,
+ 14  	(select count(*)
+ 15  	from angajati1
+ 16  	where id_dep = a.id_dep and
+ 17  	salariu > (select avg(salariu)
+ 18  		from angajati1 where id_dep = a.id_dep))nr_ang
+ 19* from angajati1 a))
+SQL> /
+
+    ID_DEP                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.id_dep ID_dep, select(avg(salariu) from angajati1 where id_dep=a.id_dep) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+  2  from angajati1 a
+  3  where a.salariu >
+  4  	(select avg(salariu)
+  5  	from angajati1
+  6  	where id_dep=a.id_dep)
+  7  and a.id_dep = (select b.id_dep
+  8  from
+  9  (select distinct id_dep,
+ 10  	(select count(*)
+ 11  	from angajati1
+ 12  	where id_dep = a.id_dep and
+ 13  	salariu > (select avg(salariu)
+ 14  		from angajati1
+ 15  		where id_dep = a.id_dep)) nr_ang
+ 16  	from angajati1 a) b
+ 17  where b.nr_ang =
+ 18  (select max(nr_ang)
+ 19  from (select distinct id_dep,
+ 20  	(select count(*)
+ 21  	from angajati1
+ 22  	where id_dep = a.id_dep and
+ 23  	salariu > (select avg(salariu)
+ 24  		from angajati1 where id_dep = a.id_dep))nr_ang
+ 25* from angajati1 a)))
+SQL> /
+select a.id_dep ID_dep, select(avg(salariu) from angajati1 where id_dep=a.id_dep) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+                        *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.id_dep ID_dep, (select(avg(salariu) from angajati1 where id_dep=a.id_dep)) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+  2  from angajati1 a
+  3  where a.salariu >
+  4  	(select avg(salariu)
+  5  	from angajati1
+  6  	where id_dep=a.id_dep)
+  7  and a.id_dep = (select b.id_dep
+  8  from
+  9  (select distinct id_dep,
+ 10  	(select count(*)
+ 11  	from angajati1
+ 12  	where id_dep = a.id_dep and
+ 13  	salariu > (select avg(salariu)
+ 14  		from angajati1
+ 15  		where id_dep = a.id_dep)) nr_ang
+ 16  	from angajati1 a) b
+ 17  where b.nr_ang =
+ 18  (select max(nr_ang)
+ 19  from (select distinct id_dep,
+ 20  	(select count(*)
+ 21  	from angajati1
+ 22  	where id_dep = a.id_dep and
+ 23  	salariu > (select avg(salariu)
+ 24  		from angajati1 where id_dep = a.id_dep))nr_ang
+ 25* from angajati1 a)))
+SQL> /
+select a.id_dep ID_dep, (select(avg(salariu) from angajati1 where id_dep=a.id_dep)) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+                                             *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.id_dep ID_dep, (select (avg(salariu) from angajati1 where id_dep=a.id_dep)) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+  2  from angajati1 a
+  3  where a.salariu >
+  4  	(select avg(salariu)
+  5  	from angajati1
+  6  	where id_dep=a.id_dep)
+  7  and a.id_dep = (select b.id_dep
+  8  from
+  9  (select distinct id_dep,
+ 10  	(select count(*)
+ 11  	from angajati1
+ 12  	where id_dep = a.id_dep and
+ 13  	salariu > (select avg(salariu)
+ 14  		from angajati1
+ 15  		where id_dep = a.id_dep)) nr_ang
+ 16  	from angajati1 a) b
+ 17  where b.nr_ang =
+ 18  (select max(nr_ang)
+ 19  from (select distinct id_dep,
+ 20  	(select count(*)
+ 21  	from angajati1
+ 22  	where id_dep = a.id_dep and
+ 23  	salariu > (select avg(salariu)
+ 24  		from angajati1 where id_dep = a.id_dep))nr_ang
+ 25* from angajati1 a)))
+SQL> /
+select a.id_dep ID_dep, (select (avg(salariu) from angajati1 where id_dep=a.id_dep)) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+                                              *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.id_dep ID_dep, (select avg(salariu) from angajati1 where id_dep=a.id_dep) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+  2  from angajati1 a
+  3  where a.salariu >
+  4  	(select avg(salariu)
+  5  	from angajati1
+  6  	where id_dep=a.id_dep)
+  7  and a.id_dep = (select b.id_dep
+  8  from
+  9  (select distinct id_dep,
+ 10  	(select count(*)
+ 11  	from angajati1
+ 12  	where id_dep = a.id_dep and
+ 13  	salariu > (select avg(salariu)
+ 14  		from angajati1
+ 15  		where id_dep = a.id_dep)) nr_ang
+ 16  	from angajati1 a) b
+ 17  where b.nr_ang =
+ 18  (select max(nr_ang)
+ 19  from (select distinct id_dep,
+ 20  	(select count(*)
+ 21  	from angajati1
+ 22  	where id_dep = a.id_dep and
+ 23  	salariu > (select avg(salariu)
+ 24  		from angajati1 where id_dep = a.id_dep))nr_ang
+ 25* from angajati1 a)))
+SQL> /
+
+    ID_DEP SAL_MED_DEP NUME_ANG             SALARIU_ANG                                                                                                                                                 
+---------- ----------- -------------------- -----------                                                                                                                                                 
+        20        2262 JONES                     3192.5                                                                                                                                                 
+        20        2262 SCOTT                       3000                                                                                                                                                 
+        20        2262 FORD                        3000                                                                                                                                                 
+
+SQL> 
+SQL> 
+SQL> 
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select a.id_dep ID_dep, (select avg(salariu) from angajati1 where id_dep=a.id_dep) Sal_med_dep, a.nume Nume_ang, a.salariu Salariu_ang
+  2  from angajati1 a
+  3  where a.salariu >
+  4  	(select avg(salariu)
+  5  	from angajati1
+  6  	where id_dep=a.id_dep)
+  7  and a.id_dep = (select b.id_dep
+  8  from
+  9  (select distinct id_dep,
+ 10  	(select count(*)
+ 11  	from angajati1
+ 12  	where id_dep = a.id_dep and
+ 13  	salariu > (select avg(salariu)
+ 14  		from angajati1
+ 15  		where id_dep = a.id_dep)) nr_ang
+ 16  	from angajati1 a) b
+ 17  where b.nr_ang =
+ 18  (select max(nr_ang)
+ 19  from (select distinct id_dep,
+ 20  	(select count(*)
+ 21  	from angajati1
+ 22  	where id_dep = a.id_dep and
+ 23  	salariu > (select avg(salariu)
+ 24  		from angajati1 where id_dep = a.id_dep))nr_ang
+ 25* from angajati1 a)))
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> (select distinct id_dep,
+  2   20     (select count(*)
+  3   21     from angajati1
+  4   22     where id_dep = a.id_dep and
+  5   23     salariu > (select avg(salariu)
+  6   24             from angajati1 where id_dep = a.id_dep));
+ 20     (select count(*)
+        *
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select distinct id_dep,
+  2  (select count(*)
+  3  from angajati1
+  4  where id_dep = a.id_dep and
+  5  salariu > (select avg(salariu)
+  6* from angajati1 where id_dep = a.id_dep)) 
+SQL> /
+from angajati1 where id_dep = a.id_dep)) 
+                                        *
+ERROR at line 6:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select distinct id_dep,
+  2  (select count(*)
+  3  from angajati1 a
+  4  where id_dep = a.id_dep and
+  5  salariu > (select avg(salariu)
+  6* from angajati1 where id_dep = a.id_dep))
+SQL> /
+from angajati1 where id_dep = a.id_dep))
+                                       *
+ERROR at line 6:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab9';
+
+1 row updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab9';
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 orcl             06-05-2021 08:21:03 LUCIPC                                                                                                                                             
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grigore Lucian                 336CA      Lab6       08-04-2021 08:32:50 08-04-2021 09:48:12             75                                                                                             
+Grigore Lucian                 336CA      Lab7       15-04-2021 08:18:59 15-04-2021 09:50:52             92                                                                                             
+Grigore Lucian                 336CA      Lab3       18-03-2021 08:23:40 18-03-2021 09:59:22             96                                                                                             
+Grigore Lucian                 336CA      Lab4       25-03-2021 08:21:24 25-03-2021 09:57:22             96                                                                                             
+Grigore Lucian                 336CA      Lab8       22-04-2021 08:33:21 22-04-2021 09:55:35             82                                                                                             
+Grigore Lucian                 336CA      Lab9       06-05-2021 08:27:23 06-05-2021 09:53:57             87                                                                                             
+Grigore Lucian                 336CA      Lab5       01-04-2021 08:31:59 01-04-2021 09:50:16             78                                                                                             
+
+7 rows selected.
+
+SQL> spool off;
