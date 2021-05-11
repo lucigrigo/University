@@ -1,0 +1,4 @@
+﻿  barrier.c
+c:\cygwin\home\student\so\labs\lab09\skel\win\6-barrier\barrier.c(103): warning C4996: 'setbuf': This function or variable may be unsafe. Consider using setvbuf instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(313) : see declaration of 'setbuf'
+  6-barrier.vcxproj -> C:\cygwin\home\Student\so\labs\lab09\skel\win\Debug\6-barrier.exe
