@@ -1,0 +1,923 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+12-05-2021 11:16:36                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab10', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab10      SCOTT      12-MAY-21                                                                                                                               
+
+SQL> 
+SQL> 
+SQL> create table exemplu
+  2  (
+  3  	data_implicita date default sysdate,
+  4  	numar_implicit number(7,2) default 7.24,
+  5  	string_implicit varchar2(5) default 'test',
+  6  	operator varchar2(10) default user
+  7  );
+
+Table created.
+
+SQL> select table_name, column_name, data_default from user_tab_columns where table_name='exemplu';
+
+no rows selected
+
+SQL> select table_name, column_name, data_default from user_tab_columns where table_name='EXEMPLU';
+
+TABLE_NAME                                                                                                                                                                                              
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+COLUMN_NAME                                                                                                                                                                                             
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DATA_DEFAULT                                                                                                                                                                                            
+--------------------------------------------------------------------------------                                                                                                                        
+EXEMPLU                                                                                                                                                                                                 
+DATA_IMPLICITA                                                                                                                                                                                          
+sysdate                                                                                                                                                                                                 
+                                                                                                                                                                                                        
+EXEMPLU                                                                                                                                                                                                 
+NUMAR_IMPLICIT                                                                                                                                                                                          
+7.24                                                                                                                                                                                                    
+                                                                                                                                                                                                        
+EXEMPLU                                                                                                                                                                                                 
+STRING_IMPLICIT                                                                                                                                                                                         
+'test'                                                                                                                                                                                                  
+                                                                                                                                                                                                        
+EXEMPLU                                                                                                                                                                                                 
+OPERATOR                                                                                                                                                                                                
+user                                                                                                                                                                                                    
+                                                                                                                                                                                                        
+
+SQL> 
+SQL> 
+SQL> create table studenti
+  2  (
+  3  	facultate char(30) default 'Automatica si Calculatoare',
+  4  	catedra char(20),
+  5  	cnp number(13),
+  6  	nume varchar2(30),
+  7  	data_nasterii date,
+  8  	an_univ number(4) default 2021,
+  9  	medie_admitere number(4,2),
+ 10  	disclip_oblig varchar2(20) default 'Matematica',
+ 11  	discip_opt varchar(20) default 'Fizica',
+ 12  	operator varchar(20) default user,
+ 13  	data_op timestamp default sysdate);
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> create table dept_20
+  2  as
+  3  select id_dep, nume, data_ang, salariu + nvl(comision,0) venit
+  4  from angajati
+  5  where id_dep=20;
+
+Table created.
+
+SQL> select * from dept_20
+  2  ;
+
+    ID_DEP NUME                           DATA_ANG       VENIT                                                                                                                                          
+---------- ------------------------------ --------- ----------                                                                                                                                          
+        20 SMITH                          17-DEC-80        800                                                                                                                                          
+        20 JONES                          02-APR-81       2975                                                                                                                                          
+        20 SCOTT                          19-APR-87       3000                                                                                                                                          
+        20 ADAMS                          23-MAY-87       1100                                                                                                                                          
+        20 FORD                           03-DEC-81       3000                                                                                                                                          
+
+SQL> create table dept_30
+  2  (
+  3  	id_default 30,
+  4  	nume not null,
+  5  	data_ang,
+  6  	prima
+  7  )
+  8  as
+  9  select id_dep, nume, data_ang,
+ 10  	round(0.15*(salariu+nvl(comision,0)),0)
+ 11  from angajati
+ 12  where id_dep=30;
+	id_default 30,
+	           *
+ERROR at line 3:
+ORA-00902: invalid datatype 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  create table dept_30
+  2  (
+  3  	id default 30,
+  4  	nume not null,
+  5  	data_ang,
+  6  	prima
+  7  )
+  8  as
+  9  select id_dep, nume, data_ang,
+ 10  	round(0.15*(salariu+nvl(comision,0)),0)
+ 11  from angajati
+ 12* where id_dep=30
+SQL> /
+
+Table created.
+
+SQL> select * from dept_30;
+
+        ID NUME                           DATA_ANG       PRIMA                                                                                                                                          
+---------- ------------------------------ --------- ----------                                                                                                                                          
+        30 ALLEN                          20-FEB-81        285                                                                                                                                          
+        30 WARD                           22-FEB-81        263                                                                                                                                          
+        30 MARTIN                         28-SEP-81        398                                                                                                                                          
+        30 BLAKE                          01-MAY-81        428                                                                                                                                          
+        30 TURNER                         08-SEP-81        225                                                                                                                                          
+        30 JAMES                          03-DEC-81        143                                                                                                                                          
+
+6 rows selected.
+
+SQL> create table exemplu2
+  2  (
+  3  	col1 number(2) constraint nn_col1 not null,
+  4  	col2 varchar2(20) not null
+  5  );
+
+Table created.
+
+SQL> desc exemplu2
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ COL1                                                                                                              NOT NULL NUMBER(2)
+ COL2                                                                                                              NOT NULL VARCHAR2(20)
+
+SQL> 
+SQL> create table exemplu3
+  2  (
+  3  	col1 number(2) constraint uq_col1 unique,
+  4  	col2 varchar2(20) unique
+  5  );
+
+Table created.
+
+SQL> 
+SQL> create table exemplu4
+  2  (
+  3  	col1 number(2),
+  4  	col2 varchar2(20),
+  5  	contraint uq_col1_a unique(col1),
+  6  	unique(col2)
+  7  );
+	contraint uq_col1_a unique(col1),
+	                          *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  create table exemplu4
+  2  (
+  3  	col1 number(2),
+  4  	col2 varchar2(20),
+  5  	contraint uq_col1_a unique(col1),
+  6  	unique(col2)
+  7* )
+SQL> /
+	contraint uq_col1_a unique(col1),
+	                          *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> edit
+Wrote file afiedt.buf
+
+  1  create table exemplu4
+  2  (
+  3  	col1 number(2),
+  4  	col2 varchar2(20),
+  5  	contraint uq_col1_a unique(col1),
+  6  	unique(col2)
+  7* )
+SQL> /
+	contraint uq_col1_a unique(col1),
+	                          *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> 
+SQL> 
+SQL> 
+SQL> create table exemplu5
+  2  (
+  3  	col1 number(2),
+  4  	col2 varchar2(20),
+  5  	constraint uq_col12 unique(col1, col2)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> desc exemplu5
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ COL1                                                                                                                       NUMBER(2)
+ COL2                                                                                                                       VARCHAR2(20)
+
+SQL> create table functii
+  2  (
+  3  	cod number(2) constraint pk_cod primary key,
+  4  	functie varchar2(30),
+  5  	data_vigoare date default sysdate
+  6  );
+
+Table created.
+
+SQL> desc functii
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ COD                                                                                                               NOT NULL NUMBER(2)
+ FUNCTIE                                                                                                                    VARCHAR2(30)
+ DATA_VIGOARE                                                                                                               DATE
+
+SQL> 
+SQL> 
+SQL> 
+SQL> create table persoane
+  2  (
+  3  nume varchar2(20),
+  4  prenume varchar2(20),
+  5  serie_ci varchar2(2),
+  6  cod_ci number(6),
+  7  cnp number(13),
+  8  constraint pk_persoane primary key(serie_ci, cod_ci, cnp)
+  9  );
+
+Table created.
+
+SQL> desc persoane
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ NUME                                                                                                                       VARCHAR2(20)
+ PRENUME                                                                                                                    VARCHAR2(20)
+ SERIE_CI                                                                                                          NOT NULL VARCHAR2(2)
+ COD_CI                                                                                                            NOT NULL NUMBER(6)
+ CNP                                                                                                               NOT NULL NUMBER(13)
+
+SQL> 
+SQL> 
+SQL> create table angajati2
+  2  (
+  3  id_ang number(4) constraint pk_id_ang2 primary key,
+  4  id_sef number(4),
+  5  id_dep number(2),
+  6  
+SQL> 
+SQL> edit
+Wrote file afiedt.buf
+
+  1  create table angajati2
+  2  (
+  3  id_ang number(4) constraint pk_id_ang2 primary key,
+  4  id_sef number(4),
+  5  id_dep number(2) constraint fk_id_dep2 references departamente(id_dep),
+  6  nume varchar2(20),
+  7  functie varchar2(9),
+  8  data_ang date,
+  9  salariu number(7,2),
+ 10  comision number(7,2),
+ 11* constraint fk_id_sef2 foreign key(id_sef) references angajati2(id_ang))
+SQL> /
+id_dep number(2) constraint fk_id_dep2 references departamente(id_dep),
+                                                               *
+ERROR at line 5:
+ORA-02270: no matching unique or primary key for this column-list 
+
+
+SQL> desc departamente
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_DEP                                                                                                            NOT NULL NUMBER(2)
+ DEN_DEP                                                                                                                    VARCHAR2(30)
+ SEDIU                                                                                                                      VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> edit
+Wrote file afiedt.buf
+
+  1  create table angajati3
+  2  (
+  3  id_ang number(4) constraint pk_id_ang3 primary key,
+  4  nume varchar(10) constraint ck_nume check(nume=upper(nume)),
+  5  functie varchar2(10),
+  6  id_sef number(4) constraint fk_id_sef3 references angajati3(id_ang),
+  7  data_ang date default sysdate,
+  8  salariu number(7,2) constraint nn_salariu not null,
+  9  comision number(7,2),
+ 10  id_dep number(2) constraint nn_id_dep3 not null,
+ 11  constraint fk_id_dep3 foreign key (id_dep) references departamente(id_dep),
+ 12  constraint ck_comision check(comision <= salariu)
+ 13* )
+SQL> /
+constraint fk_id_dep3 foreign key (id_dep) references departamente(id_dep),
+                                                                   *
+ERROR at line 11:
+ORA-02270: no matching unique or primary key for this column-list 
+
+
+SQL> select * from departamente;
+
+    ID_DEP DEN_DEP                        SEDIU                                                                                                                                                         
+---------- ------------------------------ --------------------                                                                                                                                          
+        10 ACCOUNTING                     NEW YORK                                                                                                                                                      
+        20 RESEARCH                       DALLAS                                                                                                                                                        
+        30 SALES                          CHICAGO                                                                                                                                                       
+        40 OPERATIONS                     BOSTON                                                                                                                                                        
+
+SQL> 
+SQL> 
+SQL> create table example6
+  2  (
+  3  colA number(2), col2 number(2), col3 number(2),
+  4  col4 number(2), col5 number(2), col6 number(2),
+  5  col7 number(2), col8 number(2), col9 number(2)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> alter table example6 rename to exampleAlter;
+
+Table altered.
+
+SQL> alter table exampleAlter rename column colA to col1;
+
+Table altered.
+
+SQL> alter table exampleAlter modify (col1 varchar2(20));
+
+Table altered.
+
+SQL> alter table exampleAlter modify (col2 varchar2(20), col3 date);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> alter table exampleAlter set unused(col4);
+
+Table altered.
+
+SQL> desc exampleAlter
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ COL1                                                                                                                       VARCHAR2(20)
+ COL2                                                                                                                       VARCHAR2(20)
+ COL3                                                                                                                       DATE
+ COL5                                                                                                                       NUMBER(2)
+ COL6                                                                                                                       NUMBER(2)
+ COL7                                                                                                                       NUMBER(2)
+ COL8                                                                                                                       NUMBER(2)
+ COL9                                                                                                                       NUMBER(2)
+
+SQL> alter table exampleAlter set unused(col5, col6);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> alter table exampleAlter drop unused columns;
+
+Table altered.
+
+SQL> desc exampleAlter
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ COL1                                                                                                                       VARCHAR2(20)
+ COL2                                                                                                                       VARCHAR2(20)
+ COL3                                                                                                                       DATE
+ COL7                                                                                                                       NUMBER(2)
+ COL8                                                                                                                       NUMBER(2)
+ COL9                                                                                                                       NUMBER(2)
+
+SQL> 
+SQL> 
+SQL> 
+SQL> alter table exampleAlter add
+  2  (col4 varchar2(20), col5 varchar2(20), col6 varchar2(20));
+
+Table altered.
+
+SQL> 
+SQL> desc exampleAlter
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ COL1                                                                                                                       VARCHAR2(20)
+ COL2                                                                                                                       VARCHAR2(20)
+ COL3                                                                                                                       DATE
+ COL7                                                                                                                       NUMBER(2)
+ COL8                                                                                                                       NUMBER(2)
+ COL9                                                                                                                       NUMBER(2)
+ COL4                                                                                                                       VARCHAR2(20)
+ COL5                                                                                                                       VARCHAR2(20)
+ COL6                                                                                                                       VARCHAR2(20)
+
+SQL> 
+SQL> 
+SQL> alter table exampleAlter drop column col7;
+
+Table altered.
+
+SQL> desc exampleAlter
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ COL1                                                                                                                       VARCHAR2(20)
+ COL2                                                                                                                       VARCHAR2(20)
+ COL3                                                                                                                       DATE
+ COL8                                                                                                                       NUMBER(2)
+ COL9                                                                                                                       NUMBER(2)
+ COL4                                                                                                                       VARCHAR2(20)
+ COL5                                                                                                                       VARCHAR2(20)
+ COL6                                                                                                                       VARCHAR2(20)
+
+SQL> alter table exampleAlter drop (col8, col9);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> alter table exampleAlter add constraint pk_col1_alter primary key (col1)l
+  2  ;
+alter table exampleAlter add constraint pk_col1_alter primary key (col1)l
+                                                                        *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table exampleAlter add constraint pk_col1_alter primary key (col1);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> alter table exampleAlter add constraint pk_col12_alter primary key (col1, col2);
+alter table exampleAlter add constraint pk_col12_alter primary key (col1, col2)
+                                                       *
+ERROR at line 1:
+ORA-02260: table can have only one primary key 
+
+
+SQL> alter table exampleAlter add constraint fk_col21 foreign key (col2)
+  2  references exampleAlter(col1);
+
+Table altered.
+
+SQL> alter table exampleAlter add constraint fk_col34_12 foreign key (col3, col4)
+  2  references exampleAlter(col1, col2);
+alter table exampleAlter add constraint fk_col34_12 foreign key (col3, col4)
+                                                                 *
+ERROR at line 1:
+ORA-02267: column type incompatible with referenced column type 
+
+
+SQL> 
+SQL> 
+SQL> alter table exampleAlter add constraint uq_col3_alter unique(col3);
+
+Table altered.
+
+SQL> 
+SQL> alter table exampleAlter add constraint uq_col45_alter unique(col4, col5);
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> alter table exampleAlter disable constraint uq_col3_alter;
+
+Table altered.
+
+SQL> alter table exampleAlter enable constraint uq_col3_alterl
+  2  ;
+alter table exampleAlter enable constraint uq_col3_alterl
+*
+ERROR at line 1:
+ORA-02430: cannot enable constraint (UQ_COL3_ALTERL) - no such constraint 
+
+
+SQL> alter table exampleAlter enable constraint uq_col3_alter;
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> alter table exampleAlter drop constraint uq_col3_alterl
+  2  ;
+alter table exampleAlter drop constraint uq_col3_alterl
+                                         *
+ERROR at line 1:
+ORA-02443: Cannot drop constraint  - nonexistent constraint 
+
+
+SQL> alter table exampleAlter drop constraint uq_col3_alter;
+
+Table altered.
+
+SQL> 
+SQL> 
+SQL> alter table angajati add venit number(4,3);
+
+Table altered.
+
+SQL> alter table angajati add
+  2  (vechime number(4), venit_anual number(6,2));
+
+Table altered.
+
+SQL> drop table example;
+drop table example
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                                                                                                                                              
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DEPT                                                                                                                                                                                                    
+EMP                                                                                                                                                                                                     
+SALGRADE                                                                                                                                                                                                
+BONUS                                                                                                                                                                                                   
+DEPARTAMENTE                                                                                                                                                                                            
+ANGAJATI                                                                                                                                                                                                
+GRILA_SALARIU                                                                                                                                                                                           
+LOGIN_LAB_BD                                                                                                                                                                                            
+EXEMPLU                                                                                                                                                                                                 
+STUDENTI                                                                                                                                                                                                
+DEPT_20                                                                                                                                                                                                 
+DEPT_30                                                                                                                                                                                                 
+EXEMPLU2                                                                                                                                                                                                
+EXEMPLU3                                                                                                                                                                                                
+EXEMPLU5                                                                                                                                                                                                
+FUNCTII                                                                                                                                                                                                 
+PERSOANE                                                                                                                                                                                                
+EXAMPLEALTER                                                                                                                                                                                            
+
+18 rows selected.
+
+SQL> drop table exemplu;
+
+Table dropped.
+
+SQL> truncate table exemplu2;
+
+Table truncated.
+
+SQL> 
+SQL> create table dept2
+  2  (
+  3  	id_dep number(2),
+  4  	dname varchar(14),
+  5  );
+)
+*
+ERROR at line 5:
+ORA-00904: : invalid identifier 
+
+
+SQL> 
+SQL> edit
+Wrote file afiedt.buf
+
+  1  create table dept2
+  2  (
+  3  	id_dep number(2),
+  4  	dname varchar(14)
+  5* )
+SQL> /
+
+Table created.
+
+SQL> insert into dept2 values(50, 'IT');
+
+1 row created.
+
+SQL> insert into dept2 (id_dep) values (60);
+
+1 row created.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+        50 IT                                                                                                                                                                                           
+        60                                                                                                                                                                                              
+
+SQL> insert into dept2
+  2  select deptno, dname
+  3  from dept
+  4  where deptno in (20,30);
+
+2 rows created.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+        50 IT                                                                                                                                                                                           
+        60                                                                                                                                                                                              
+        20 RESEARCH                                                                                                                                                                                     
+        30 SALES                                                                                                                                                                                        
+
+SQL> 
+SQL> 
+SQL> update dept2
+  2  set dname='HR',
+  3  id_dep=80
+  4  where id_dep=60;
+
+1 row updated.
+
+SQL> update dept2
+  2  set dname='Human Res'
+  3  where id_dep=80;
+
+1 row updated.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+        50 IT                                                                                                                                                                                           
+        80 Human Res                                                                                                                                                                                    
+        20 RESEARCH                                                                                                                                                                                     
+        30 SALES                                                                                                                                                                                        
+
+SQL> update dept2
+  2  set (id_dep, dname) =
+  3  	(select deptno, dname from dept where deptno = 10)
+  4  where id_dep = 20;
+
+1 row updated.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+        50 IT                                                                                                                                                                                           
+        80 Human Res                                                                                                                                                                                    
+        10 ACCOUNTING                                                                                                                                                                                   
+        30 SALES                                                                                                                                                                                        
+
+SQL> delete from dept2 where id_dep = 80;
+
+1 row deleted.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+        50 IT                                                                                                                                                                                           
+        10 ACCOUNTING                                                                                                                                                                                   
+        30 SALES                                                                                                                                                                                        
+
+SQL> delete from dept2
+  2  where (id_dep, dname) in
+  3  	(select deptno, dname from dept where deptno in (10, 30));
+
+2 rows deleted.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+        50 IT                                                                                                                                                                                           
+
+SQL> delete from dept2;
+
+1 row deleted.
+
+SQL> select * from dept2;
+
+no rows selected
+
+SQL> create sequence seq_id_dep
+  2  start with 1
+  3  increment by 10
+  4  nocache
+  5  nocycle;
+
+Sequence created.
+
+SQL> alter sequence seq_id_dep cycle;
+
+Sequence altered.
+
+SQL> insert into dept2
+  2  values(seq_id_dep.nextval, 'test');
+
+1 row created.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+         1 test                                                                                                                                                                                         
+
+SQL> insert into dept2
+  2  values(seq_id_dep.nextval, 'test');
+
+1 row created.
+
+SQL> select * from dept2;
+
+    ID_DEP DNAME                                                                                                                                                                                        
+---------- --------------                                                                                                                                                                               
+         1 test                                                                                                                                                                                         
+        11 test                                                                                                                                                                                         
+
+SQL> 
+SQL> 
+SQL> drop sequence seq_id_dep;
+
+Sequence dropped.
+
+SQL> 
+SQL> create index idx_name on dept2(dname);
+
+Index created.
+
+SQL> alter index idx_name initrans 5 storage (next 100k);
+
+Index altered.
+
+SQL> drop index idx_name;
+
+Index dropped.
+
+SQL> create or replace view view_dept
+  2  as select id_dep, den_dep from departamente;
+
+View created.
+
+SQL> select * from view_dept;
+
+    ID_DEP DEN_DEP                                                                                                                                                                                      
+---------- ------------------------------                                                                                                                                                               
+        10 ACCOUNTING                                                                                                                                                                                   
+        20 RESEARCH                                                                                                                                                                                     
+        30 SALES                                                                                                                                                                                        
+        40 OPERATIONS                                                                                                                                                                                   
+
+SQL> insert into view_dept values (80, 'test');
+
+1 row created.
+
+SQL> select * from view_dept;
+
+    ID_DEP DEN_DEP                                                                                                                                                                                      
+---------- ------------------------------                                                                                                                                                               
+        10 ACCOUNTING                                                                                                                                                                                   
+        20 RESEARCH                                                                                                                                                                                     
+        30 SALES                                                                                                                                                                                        
+        40 OPERATIONS                                                                                                                                                                                   
+        80 test                                                                                                                                                                                         
+
+SQL> update view_dept set den_dep='HR' where id_dep = 80;
+
+1 row updated.
+
+SQL> 
+SQL> select * from view_dept;
+
+    ID_DEP DEN_DEP                                                                                                                                                                                      
+---------- ------------------------------                                                                                                                                                               
+        10 ACCOUNTING                                                                                                                                                                                   
+        20 RESEARCH                                                                                                                                                                                     
+        30 SALES                                                                                                                                                                                        
+        40 OPERATIONS                                                                                                                                                                                   
+        80 HR                                                                                                                                                                                           
+
+SQL> delete from view_dept where id_dep = 80;
+
+1 row deleted.
+
+SQL> select * from view_dept;
+
+    ID_DEP DEN_DEP                                                                                                                                                                                      
+---------- ------------------------------                                                                                                                                                               
+        10 ACCOUNTING                                                                                                                                                                                   
+        20 RESEARCH                                                                                                                                                                                     
+        30 SALES                                                                                                                                                                                        
+        40 OPERATIONS                                                                                                                                                                                   
+
+SQL> 
+SQL> 
+SQL> drop view view_dept;
+
+View dropped.
+
+SQL> 
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select id_dep from
+  2  	(select count(distinct functie) cnt, id_dep from angajati group by id_dep) a
+  3* where a.cnt = (select max(cnt) from (select count(distinct functie) cnt, id_dep from angajati group by id_dep))
+SQL> /
+
+    ID_DEP                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select
+  2  	id_dep id_depart,
+  3  	functie job,
+  4  	salariu sal_min_job,
+  5  	(select max(cnt) from
+  6  		(select count(distinct functie) cnt, id_dep from angajati group by id_dep)) nr_job_distincte,
+  7  	nume nume_angajat
+  8  from angajati
+  9  where
+ 10  	(id_dep, functie, salariu) in
+ 11  		(select distinct id_dep id_depart, functie job, (select min(salariu) from angajati where id_dep = ang.id_dep and functie = ang.functie) sal_min_job
+ 12  		from angajati ang where id_dep in
+ 13  		(select id_dep from (select count(distinct functie) cnt, id_dep from angajati group by id_dep) a where
+ 14* 			a.cnt = (select max(cnt) from (select count(distinct functie) cnt, id_dep from angajati group by id_dep))))
+SQL> /
+
+ ID_DEPART JOB                  SAL_MIN_JOB NR_JOB_DISTINCTE NUME_ANGAJAT                                                                                                                               
+---------- -------------------- ----------- ---------------- ------------------------------                                                                                                             
+        30 CLERK                        950                3 JAMES                                                                                                                                      
+        10 PRESIDENT                   5000                3 KING                                                                                                                                       
+        20 ANALYST                     3000                3 SCOTT                                                                                                                                      
+        30 MANAGER                     2850                3 BLAKE                                                                                                                                      
+        20 CLERK                        800                3 SMITH                                                                                                                                      
+        20 MANAGER                     2975                3 JONES                                                                                                                                      
+        30 SALESMAN                    1250                3 WARD                                                                                                                                       
+        10 CLERK                       1300                3 MILLER                                                                                                                                     
+        10 MANAGER                     2450                3 CLARK                                                                                                                                      
+        20 ANALYST                     3000                3 FORD                                                                                                                                       
+        30 SALESMAN                    1250                3 MARTIN                                                                                                                                     
+
+11 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab10';
+
+1 row updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab10';
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 db19c            12-05-2021 10:57:07 MSEDGEWIN10                                                                                                                                        
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grigore Lucian                 336CA      Lab10      12-05-2021 11:16:36 13-05-2021 12:16:22             60                                                                                             
+
+SQL> spool off;
