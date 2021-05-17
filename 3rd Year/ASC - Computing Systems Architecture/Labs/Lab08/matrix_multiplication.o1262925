@@ -1,0 +1,8 @@
+Timing simple implementation... done.
+Timing optimized implementation... done.
+Matrix size: 1024x1024
+Tile size: 16x16
+Throughput of simple kernel: 97.2498 GFLOPS
+Throughput of optimized kernel: 282.183 GFLOPS
+Performance improvement: 2.90163x
+
