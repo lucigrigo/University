@@ -1,0 +1,42 @@
+-- exercitiu individual
+set pagesize 40
+set linesize 120
+set space 2
+set echo off
+set verify off
+set feedback off
+
+define data="to_char(sysdate, 'dd/mm/yyyy')"
+
+col D for a15 hea 'Den_departament'
+col E for a20 hea 'Nume_sef'
+col F for a20 hea 'Nume_subaltern'
+col S for 99,9990.99$ hea 'Salariu_subaltern'
+
+ttitle center 'STRUCTURA ORGANIZATORICA' skip 1 left 'Pagina ' format 09 sql.pno right 'Data: ' H
+btitle right 'DIRECTOR RESURSE UMANE'
+
+comp sum label 'Total/Dept' of S on D
+comp sum label 'Total' of S on report
+
+break on D nodup on E nodup skip 1
+
+select
+	d.den_dep D,
+	s.nume E,
+	ang.nume F,
+	ang.salariu S,
+from
+	angajati ang
+		inner join angajati s
+			on s.id_ang=and.id_sef
+		join departamente d
+			on d.id_dep=ang.id_dep
+order by 1, 2;
+
+clear col
+clear break
+clear comp
+ttitle off
+btitle off
+set echo on

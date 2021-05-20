@@ -1,0 +1,500 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+19-05-2021 10:34:16                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( 'Grigore Lucian', '336CA', 'Lab11', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grigore Lucian                 336CA      Lab11      SCOTT      19-MAY-21                                                                                                                               
+Grigore Lucian                 336CA      Lab10      SCOTT      12-MAY-21 13-MAY-21         60                                                                                                          
+
+SQL> 
+SQL> -- ex 1
+SQL> set lines 120
+SQL> set pagesize 24
+SQL> set space 2
+SQL> set newpage 5
+SQL> set heading off
+SQL> set feedback off
+SQL> 
+SQL> select * from angajati
+  2  ;
+
+
+
+
+
+      7369  SMITH                           CLERK                       7902  17-DEC-80         800                     
+        20                                                                                                              
+                                                                                                                        
+      7499  ALLEN                           SALESMAN                    7698  20-FEB-81        1600         300         
+        30                                                                                                              
+                                                                                                                        
+      7521  WARD                            SALESMAN                    7698  22-FEB-81        1250         500         
+        30                                                                                                              
+                                                                                                                        
+      7566  JONES                           MANAGER                     7839  02-APR-81        2975                     
+        20                                                                                                              
+                                                                                                                        
+      7654  MARTIN                          SALESMAN                    7698  28-SEP-81        1250        1400         
+        30                                                                                                              
+                                                                                                                        
+      7698  BLAKE                           MANAGER                     7839  01-MAY-81        2850                     
+        30                                                                                                              
+                                                                                                                        
+      7782  CLARK                           MANAGER                     7839  09-JUN-81        2450                     
+
+
+
+
+
+        10                                                                                                              
+                                                                                                                        
+      7788  SCOTT                           ANALYST                     7566  19-APR-87        3000                     
+        20                                                                                                              
+                                                                                                                        
+      7839  KING                            PRESIDENT                         17-NOV-81        5000                     
+        10                                                                                                              
+                                                                                                                        
+      7844  TURNER                          SALESMAN                    7698  08-SEP-81        1500           0         
+        30                                                                                                              
+                                                                                                                        
+      7876  ADAMS                           CLERK                       7788  23-MAY-87        1100                     
+        20                                                                                                              
+                                                                                                                        
+      7900  JAMES                           CLERK                       7698  03-DEC-81         950                     
+        30                                                                                                              
+                                                                                                                        
+      7902  FORD                            ANALYST                     7566  03-DEC-81        3000                     
+        20                                                                                                              
+
+
+
+
+
+                                                                                                                        
+      7934  MILLER                          CLERK                       7782  23-JAN-82        1300                     
+        10                                                                                                              
+                                                                                                                        
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> -- ex 2
+SQL> column id_dep format 099 heading 'Departament' justify center
+SQL> column functia format A10 heading 'Job' justify left
+SQL> column id_ang format 9999 heading 'Ecuson' justify center
+SQL> column salariu format 99,999
+SQL> column comision format 99,999.99 null 0
+SQL> column venit format 99,999.99 heading 'Venit lunar'
+SQL> 
+SQL> select
+  2  	id_dep, functie, id_ang, salariu,
+  3  	comision, salariu+nvl(comision,0) venit
+  4  from
+  5  	angajati
+  6  where
+  7  	id_dep=30;
+
+
+
+
+
+        030  SALESMAN                7499    1,600      300.00     1,900.00                                             
+        030  SALESMAN                7521    1,250      500.00     1,750.00                                             
+        030  SALESMAN                7654    1,250    1,400.00     2,650.00                                             
+        030  MANAGER                 7698    2,850  0              2,850.00                                             
+        030  SALESMAN                7844    1,500         .00     1,500.00                                             
+        030  CLERK                   7900      950  0                950.00                                             
+SQL> 
+SQL> 
+SQL> 
+SQL> -- ex 3
+SQL> set lines 80
+SQL> set pagesize 20
+SQL> column A format 9999 heading 'Ecuson' justify center
+SQL> column B format A20 heading 'Nume angajat'
+SQL> column C format A10 heading 'Job' justify left
+SQL> column D format A14 heading 'Data Angajare' justify center
+SQL> column E format 99,999.00 heading 'salariu'
+SQL> 
+SQL> title left 'Pag:' sql.pno center underline 'Lista Angajati' bittle right 'Director'
+SP2-0734: unknown command beginning "title left..." - rest of line ignored.
+SQL> ttitle left 'Pag:' sql.pno center underline 'Lista Angajati' bittle right 'Director'
+SQL> 
+SQL> 
+SQL> select id_ang A, nume B, functie C, data_ang D, salariu E
+  2  from angajati
+  3  where id_dep=20;
+
+
+
+
+
+Pag:         1                Lista Angajatibittle                      Director
+                              ____________________                      ________
+                                                                                
+  7369  SMITH                 CLERK       17-DEC-80           800.00            
+  7566  JONES                 MANAGER     02-APR-81         2,975.00            
+  7788  SCOTT                 ANALYST     19-APR-87         3,000.00            
+  7876  ADAMS                 CLERK       23-MAY-87         1,100.00            
+  7902  FORD                  ANALYST     03-DEC-81         3,000.00            
+SQL> ttitle left 'Pag:' sql.pno center underline 'Lista Angajati' btitle right 'Director'
+SQL> select id_ang A, nume B, functie C, data_ang D, salariu E
+  2  from angajati
+  3  where id_dep=20;
+
+
+
+
+
+Pag:         1                Lista Angajatibtitle                      Director
+                              ____________________                      ________
+                                                                                
+  7369  SMITH                 CLERK       17-DEC-80           800.00            
+  7566  JONES                 MANAGER     02-APR-81         2,975.00            
+  7788  SCOTT                 ANALYST     19-APR-87         3,000.00            
+  7876  ADAMS                 CLERK       23-MAY-87         1,100.00            
+  7902  FORD                  ANALYST     03-DEC-81         3,000.00            
+SQL> ttitle left 'Pag:' sql.pno center underline 'Lista Angajati'
+SQL> btitle right 'Director'
+SQL> select id_ang A, nume B, functie C, data_ang D, salariu E
+  2  from angajati
+  3  where id_dep=20;
+
+
+
+
+
+Pag:         1                   Lista Angajati                                 
+                                 ______________                                 
+                                                                                
+  7369  SMITH                 CLERK       17-DEC-80           800.00            
+  7566  JONES                 MANAGER     02-APR-81         2,975.00            
+  7788  SCOTT                 ANALYST     19-APR-87         3,000.00            
+  7876  ADAMS                 CLERK       23-MAY-87         1,100.00            
+  7902  FORD                  ANALYST     03-DEC-81         3,000.00            
+
+
+
+
+
+
+
+
+                                                                        Director
+SQL> 
+SQL> 
+SQL> 
+SQL> -- ex 4
+SQL> set pages 30
+SQL> column den_dep heading 'Departament'
+SQL> column nume format a25 heading 'Nume Angajat'
+SQL> column functia format a15 heading 'Job' justify left
+SQL> solumn salariu format 99,999 heading 'Salariu'
+SP2-0734: unknown command beginning "solumn sal..." - rest of line ignored.
+SQL> column salariu format 99,999 heading 'Salariu'
+SQL> 
+SQL> ttitle left 'Pag:' sql.pno center underline 'Lista Salarii'
+SQL> btitle right 'Director'
+SQL> 
+SQL> break on den_dep noduplicates on report
+SQL> compute sum of salariu on den_dep skip 1 report
+SQL> 
+SQL> select
+  2  d.den_dep, a.nume, a.functie, a.salariu
+  3  from angajati a
+  4  inner join departamente d on a.id_dep = d.id_dep
+  5  order by a.id_dep;
+
+
+
+
+
+Pag:         1                    Lista Salarii                                 
+                                  _____________                                 
+                                                                                
+ACCOUNTING                      CLARK                      MANAGER              
+  2,450                                                                         
+                                                                                
+                                KING                       PRESIDENT            
+  5,000                                                                         
+                                                                                
+                                MILLER                     CLERK                
+  1,300                                                                         
+                                                                                
+******************************                                                  
+-------                                                                         
+                                                                                
+sum                                                                             
+  8,750                                                                         
+                                                                                
+RESEARCH                        JONES                      MANAGER              
+  2,975                                                                         
+                                                                                
+                                FORD                       ANALYST              
+  3,000                                                                         
+                                                                                
+                                ADAMS                      CLERK                
+  1,100                                                                         
+                                                                        Director
+
+
+
+
+
+Pag:         2                    Lista Salarii                                 
+                                  _____________                                 
+                                                                                
+                                                                                
+RESEARCH                        SMITH                      CLERK                
+    800                                                                         
+                                                                                
+                                SCOTT                      ANALYST              
+  3,000                                                                         
+                                                                                
+******************************                                                  
+-------                                                                         
+                                                                                
+sum                                                                             
+ 10,875                                                                         
+                                                                                
+SALES                           WARD                       SALESMAN             
+  1,250                                                                         
+                                                                                
+                                TURNER                     SALESMAN             
+  1,500                                                                         
+                                                                                
+                                ALLEN                      SALESMAN             
+  1,600                                                                         
+                                                                                
+                                JAMES                      CLERK                
+                                                                        Director
+
+
+
+
+
+Pag:         3                    Lista Salarii                                 
+                                  _____________                                 
+                                                                                
+    950                                                                         
+                                                                                
+SALES                           BLAKE                      MANAGER              
+  2,850                                                                         
+                                                                                
+                                MARTIN                     SALESMAN             
+  1,250                                                                         
+                                                                                
+******************************                                                  
+-------                                                                         
+                                                                                
+sum                                                                             
+  9,400                                                                         
+                                                                                
+                                                                                
+-------                                                                         
+                                                                                
+sum                                                                             
+ 29,025                                                                         
+                                                                                
+
+
+
+                                                                        Director
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> ttitle off
+SQL> btitle off
+SQL> clear column
+columns cleared
+SQL> clear break
+breaks cleared
+SQL> clear compute
+computes cleared
+SQL> 
+SQL> 
+SQL> 
+SQL> -- ex 5
+SQL> set pagesize 40
+SQL> set linesize 120
+SQL> set space 2
+SQL> set echo off
+SQL> set verify off
+SQL> set feedback off
+SQL> col den_dep for a15 hea 'Departament'
+SQL> col nume for a20 hea 'Nume'
+SQL> col functia for a15 hea 'Job'
+SQL> col v for 99,9990.99$ hea 'Venit'
+SQL> col i for 99,9990.99$ hea 'Departament'
+SQL> col d noprint new_value H
+SQL> col s for a10 hea 'Semnatura'
+SQL> 
+SQL> ttitle center 'Stat Salarii' skip 1 center '============' skip 1 'Pagina' format 09 sql.pno skip 1
+SQL> btitle left 'Data:' H right 'Director'
+SQL> 
+SQL> break on den_dep on report skip 1
+SQL> comp sum label 'Total/Dept' of v i on den_dep
+SQL> comp sum label 'Total' of v i on report
+SQL> 
+SQL> define venit="(salariu+nvl(comision,0))"
+SQL> define data="to_char(sysdate, 'dd/mm/yyyy')"
+SQL> 
+SQL> select
+  2  	d.den_dep, a.nume, a.functie, &venit v,
+  3  	decode(sign(2000-&venit),
+  4  		1,
+  5  		0,1*&venit,
+  6  		0.2*&venit) i,
+  7  	&data d, null s
+  8  from angajati a natural join departamente d
+  9  order by 1, 2;
+
+
+
+
+
+                                                      Stat Salarii                                                      
+                                                      ============                                                      
+Pagina 01                                                                                                               
+ACCOUNTING       CLARK                 MANAGER                   $2450.00                                               
+                 KING                  PRESIDENT                 $5000.00                                               
+                 MILLER                CLERK                     $1300.00         $0.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                       $8750.00         $0.00                                 
+RESEARCH         ADAMS                 CLERK                     $1100.00         $0.00                                 
+                 FORD                  ANALYST                   $3000.00                                               
+                 JONES                 MANAGER                   $2975.00                                               
+                 SCOTT                 ANALYST                   $3000.00                                               
+                 SMITH                 CLERK                      $800.00         $0.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                     $1,0875.00         $0.00                                 
+SALES            ALLEN                 SALESMAN                  $1900.00         $0.00                                 
+                 BLAKE                 MANAGER                   $2850.00                                               
+                 JAMES                 CLERK                      $950.00         $0.00                                 
+                 MARTIN                SALESMAN                  $2650.00                                               
+                 TURNER                SALESMAN                  $1500.00         $0.00                                 
+                 WARD                  SALESMAN                  $1750.00         $0.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                     $1,1600.00         $0.00                                 
+                                                             ------------  ------------                                 
+Total                                                          $3,1225.00         $0.00                                 
+                                                                                                                        
+
+
+
+
+
+
+
+
+Data:19/05/2021                                                                                                 Director
+SQL> edit
+Wrote file afiedt.buf
+
+  1  select
+  2  	d.den_dep, a.nume, a.functie, &venit v,
+  3  	decode(sign(2000-&venit),
+  4  		1,
+  5  		0.1*&venit,
+  6  		0.2*&venit) i,
+  7  	&data d, null s
+  8  from angajati a natural join departamente d
+  9* order by 1, 2
+SQL> /
+
+
+
+
+
+                                                      Stat Salarii                                                      
+                                                      ============                                                      
+Pagina 01                                                                                                               
+ACCOUNTING       CLARK                 MANAGER                   $2450.00       $490.00                                 
+                 KING                  PRESIDENT                 $5000.00      $1000.00                                 
+                 MILLER                CLERK                     $1300.00       $130.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                       $8750.00      $1620.00                                 
+RESEARCH         ADAMS                 CLERK                     $1100.00       $110.00                                 
+                 FORD                  ANALYST                   $3000.00       $600.00                                 
+                 JONES                 MANAGER                   $2975.00       $595.00                                 
+                 SCOTT                 ANALYST                   $3000.00       $600.00                                 
+                 SMITH                 CLERK                      $800.00        $80.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                     $1,0875.00      $1985.00                                 
+SALES            ALLEN                 SALESMAN                  $1900.00       $190.00                                 
+                 BLAKE                 MANAGER                   $2850.00       $570.00                                 
+                 JAMES                 CLERK                      $950.00        $95.00                                 
+                 MARTIN                SALESMAN                  $2650.00       $530.00                                 
+                 TURNER                SALESMAN                  $1500.00       $150.00                                 
+                 WARD                  SALESMAN                  $1750.00       $175.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                     $1,1600.00      $1710.00                                 
+                                                             ------------  ------------                                 
+Total                                                          $3,1225.00      $5315.00                                 
+                                                                                                                        
+
+
+
+
+
+
+
+
+Data:19/05/2021                                                                                                 Director
+SQL> 
+SQL> 
+SQL> /
+
+
+
+
+
+                                                      Stat Salarii                                                      
+                                                      ============                                                      
+Pagina 01                                                                                                               
+ACCOUNTING       CLARK                 MANAGER                   $2450.00       $490.00                                 
+                 KING                  PRESIDENT                 $5000.00      $1000.00                                 
+                 MILLER                CLERK                     $1300.00       $130.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                       $8750.00      $1620.00                                 
+RESEARCH         ADAMS                 CLERK                     $1100.00       $110.00                                 
+                 FORD                  ANALYST                   $3000.00       $600.00                                 
+                 JONES                 MANAGER                   $2975.00       $595.00                                 
+                 SCOTT                 ANALYST                   $3000.00       $600.00                                 
+                 SMITH                 CLERK                      $800.00        $80.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                     $1,0875.00      $1985.00                                 
+SALES            ALLEN                 SALESMAN                  $1900.00       $190.00                                 
+                 BLAKE                 MANAGER                   $2850.00       $570.00                                 
+                 JAMES                 CLERK                      $950.00        $95.00                                 
+                 MARTIN                SALESMAN                  $2650.00       $530.00                                 
+                 TURNER                SALESMAN                  $1500.00       $150.00                                 
+                 WARD                  SALESMAN                  $1750.00       $175.00                                 
+***************                                              ------------  ------------                                 
+Total/Dept                                                     $1,1600.00      $1710.00                                 
+                                                             ------------  ------------                                 
+Total                                                          $3,1225.00      $5315.00                                 
+                                                                                                                        
+
+
+
+
+
+
+
+
+Data:19/05/2021                                                                                                 Director
+SQL> spool d:\stat_plata.txt
