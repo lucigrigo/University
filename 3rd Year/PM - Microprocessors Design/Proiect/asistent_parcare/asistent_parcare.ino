@@ -1,23 +1,22 @@
-/*
-  Garage Parking Sensor - Published By Bob Torrence
-*/
 #include <FastLED.h>
 #include <QuickStats.h>
-
 QuickStats stats; //initialize an instance of this class
+
 // defining the pins
 #define LED_PIN     7
 #define NUM_LEDS    15
 const int trigPin = 9;
 const int echoPin = 10;
+
 // defining variables
 CRGB leds[NUM_LEDS];
 float duration;
 float durationarray[15];
 int distance;
-int stopdistance = 115; //parking position from sensor (CENTIMETERS)
+int stopdistance = 55; //parking position from sensor (CENTIMETERS)
 int startdistance = 400; //distance from sensor to begin scan as car pulls in(CENTIMETERS)
 int increment = ((startdistance - stopdistance) / 15);
+
 void setup() {
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
