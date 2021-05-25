@@ -1,0 +1,46 @@
+Nume: Grigore Lucian-Florin
+Grupa: 336CA
+
+    Tema 4 - Planificator de Thread-uri
+
+    Organizare
+
+Toata implementarea este realizata in so_scheduler.c.
+
+Tema este utila pentru ca m-am familiarizat cu lucrul cu thread-uri in Windows
+si cu elementele de sincronizare, in plus fata de laborator.
+
+Consider implementarea destul de eficienta intrucat am incercat sa minimizez
+numarul de operatii redundante la fiecare functionalitate importanta.
+
+    Implementare
+
+Intregul enunt al temei a fost implementat.
+
+Nu exista functionalitati extra, dar, consider eu, numai pentru a fi sigur
+de sincronizarea pe care o aveam in minte, ca exista elemente de sincronizare
+care nu sunt necesare in suita de teste oferita: cum ar fi anumite verificari
+interne al scheduler-ului.
+
+Nu exista functionalitati lipsa.
+
+Dificultati intampinate: lucrul cu semafoare, thread-uri si sincronizare in
+Win32, intrucat inainte am fost obisnuit in Linux si a trebuit sa investesc
+putin efort inainte de a scrie cod eficient in acest sens. :)
+
+Lucruri interesante descoperite pe parcurs: tot ce tine de thread-uri si de
+caracteristicile implicate de acestea in Windows, adica mai exact functiile
+care se ocupa de asta pe aceasta platforma.
+
+    Cum se compileaza si cum se ruleaza?
+
+Se compileaza cu 'nmake /f ./Makefile' in PowerShell.
+
+Se ruleaza ca o librarie dinamica shared-object. Pentru rularea checker-ului
+se foloseste 'make all' in Cygwin sau orice terminal asemanator.
+
+    Bibliografie
+
+https://ocw.cs.pub.ro/courses/so/teme/tema-4
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-09#semafor-win32 (mai ales)
+https://docs.microsoft.com/en-us/windows/win32/api/synchapi/ (si aceasta la fel)

@@ -1,0 +1,47 @@
+Nume: Grigore Lucian-Florin
+Grupa: 336CA
+
+	Tema 4 - Planificator de Threaduri
+
+	Organizare
+
+Intreaga logica a cerintei este implementata in so_scheduler.c.
+
+Consider tema destul de utila intrucat m-a facut sa inteleg mai bine
+comportamentul thread-urilor din perspectiva SO-ului.
+
+Consider implementarea destul de eficienta, intrucat am incercat
+minimizarea numarului de operatii executate la fiecare pas.
+
+Cred ca am acoperit si anumite edge cases neacoperite in cod, cum ar
+fi sincronizarea interna a scheduler-ului astfel incat sa nu se
+suprapuna cu so_end, so_signal, so_wait sau rutina de thread.
+
+	Implementare
+
+Intregul enunt al temei a fost implementat.
+
+Functionalitati extra -> nu, dar poate sunt anumite situatii neprevazute,
+luate in considerare in cod.
+
+Nu exista functionalitati lipsa.
+
+Dificultati intampinate: debugging-ul :(. Pana m-am prins cum functioneaza
+exact checker-ul a durat putin.
+
+Lucruri interensate descoperite pe parcurs: idk, poate cat se simplu poate
+fi sa implementezi un prio_q minimal, in ciuda functionalitatii destul de
+importante pe care o ofera.
+
+	Cum se compileaza si cum se ruleaza?
+
+Se compileaza cu 'make' in folderul cu fisierul 'Makefile'.
+
+Se utilizeaza ca o librarie dinamica shared-object.
+
+	Bibliografie
+
+https://ocw.cs.pub.ro/courses/so/laboratoare/laborator-08
+https://ocw.cs.pub.ro/courses/so/teme/tema-4
+https://man7.org/linux/man-pages/man7/pthreads.7.html
+https://man7.org/linux/man-pages/man0/semaphore.h.0p.html
