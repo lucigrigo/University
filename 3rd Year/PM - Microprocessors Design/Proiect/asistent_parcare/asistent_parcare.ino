@@ -38,7 +38,7 @@ void buzz() {
 }
 
 void loop() {
-  buzz();
+  //buzz();
   for (int i = 0; i <= 14; i++) {
     // Clears the trigPin
     digitalWrite(trigPin, LOW);
