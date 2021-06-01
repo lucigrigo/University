@@ -66,17 +66,20 @@ void light_yellow() {
 
 void rgb(int red_val, int green_val, int blue_val) {
   if (red_val > 255 || red_val < 0 || green_val > 255 || green_val < 0 ||
-    blue_val > 255 || blue_val < 0) {
-      rgb(0, 0, 0);
-      return;
-    }
-    
+      blue_val > 255 || blue_val < 0) {
+    rgb(0, 0, 0);
+    return;
+  }
+
   analogWrite(RGB_RED, red_val);
   analogWrite(RGB_GREEN, green_val);
   analogWrite(RGB_BLUE, blue_val);
 }
 
 void setup() {
+  pinMode(13, OUTPUT);
+  digitalWrite(13, LOW);
+
   // sensor pins
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
@@ -103,12 +106,12 @@ void loop() {
     // Clears the trigPin
     digitalWrite(trigPin, LOW);
     delayMicroseconds(2);
-    
+
     // Sets the trigPin on HIGH state for 10 micro seconds
     digitalWrite(trigPin, HIGH);
     delayMicroseconds(10);
     digitalWrite(trigPin, LOW);
-    
+
     // Reads the echoPin, returns the sound wave travel time in microseconds
     durationarray[i] = pulseIn(echoPin, HIGH);
     distance = durationarray[i] * 0.034 / 2;
@@ -116,10 +119,10 @@ void loop() {
     Serial.print(" ");
   }
   duration = (stats.median(durationarray, 15));
-  
+
   // Calculating the distance
   distance = duration * 0.034 / 2;
-  
+
   // Prints the distance on the Serial Monitor
   Serial.print("Distance: ");
   Serial.println(distance);
@@ -147,6 +150,6 @@ void loop() {
     light_red();
     rgb(255, 0, 0);
   }
-  
+
   buzz();
 }
