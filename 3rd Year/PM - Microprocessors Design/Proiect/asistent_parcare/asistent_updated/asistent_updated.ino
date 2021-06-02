@@ -144,7 +144,7 @@ void loop() {
   } else if (distance > 25) {
     buzzerDelay = 100;
     light_yellow();
-    rgb(255, 255, 0);
+    rgb(255, 165, 0);
   } else {
     buzzerDelay = 25;
     light_red();
