@@ -118,7 +118,7 @@ void loop() {
     Serial.print(distance);
     Serial.print(" ");
   }
-  duration = (stats.median(durationarray, 15));
+  duration = (stats.median(durationarray, 20));
 
   // Calculating the distance
   distance = duration * 0.034 / 2;
