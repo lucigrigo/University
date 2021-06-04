@@ -130,18 +130,18 @@ void loop() {
   // sound reset
   buzzerDelay = 0;
 
-  if (distance > 100) {
+  if (distance > 300) {
     light_blue();
     rgb(0, 0, 0);
-  } else if (distance > 75) {
+  } else if (distance > 250) {
     buzzerDelay = 250;
     light_green();
     rgb(0, 0, 0);
-  } else if (distance > 50) {
+  } else if (distance > 200) {
     buzzerDelay = 100;
     light_green();
     rgb(0, 255, 0);
-  } else if (distance > 25) {
+  } else if (distance > 150) {
     buzzerDelay = 100;
     light_yellow();
     rgb(255, 165, 0);
