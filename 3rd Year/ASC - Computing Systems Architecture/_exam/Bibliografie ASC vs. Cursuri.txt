@@ -1,0 +1,45 @@
+1. Introduction to Parallel Computing: Design & Analysis of Algorithms
+	- Aceasta carte este utila pentru cursurile 
+		- 6 (Capitolele 2 si 4) 
+		- 8 (Capitolele 1 si 2) 
+		- 11 (Capitolele 2 si 3)
+2. The Sourcebook of Parallel Computing
+	- Aceasta carte este utila pentru cursurile 
+		- 4 (Partea 1 - Parallelism)
+		- 13 (Partea 4 - Enabling Technologies and Algorithms - Templates and Numerical Linear Algebra)
+		- 14 (Partea 2 - Applications)
+3. Computer Architecture: A Quantitative Approach
+	- Aceasta carte este utila pentru cursurile 
+		- 3 (Chapter 1 - Fundamentals of Computer Design)
+		- 4 (Chapter 5 - Memory Hierarchy Design & Appendix C - Review of Memory Hierarchy)
+		- 7 (Chapter 4 - Multiprocessors and Thread-Level Parallelism)
+		- 9 (Appendix B - Instruction Set Principles and Examples)
+		- 10 (Appendix E - Interconnection Networks)
+		- 11 (Appendix E - Interconnection Networks)
+4. Introduction to Parallel Processing; Algorithms and Architectures 
+	- Aceasta carte este utila pentru cursurile 
+		- 6 (Part 3 - Mesh-Based Architectures; Part 4 - Low-Diameter Architectures)
+		- 7 (Part 3 - Mesh-Based Architectures; Part 4 - Low-Diameter Architectures) 
+		- 8 (Chapter 1 - Introduction to Parallelism; Chapter 24 - Past, Present, and Future) 
+		- 9 (Chapter 23 - Data-Parallel SIMD Machines) 
+		- 10 (Chapter 23 - Data-Parallel SIMD Machines) 
+		- 11 (Chapter 21 - Shared-Memory MIMD Machines; Chapter 22 - Message-Passing MIMD Machines)
+5. Techniques for Optimizing Applications: High Performance Computing: 
+	- Aceasta carte este utila pentru cursul 4 (Chapter 1 - Introduction; Part II - Optimizing Serial Applications)
+6. Practical Computing on the Cell Broadband Engine
+	- Aceasta carte este utila pentru cursul 5 (Part I - Introducing the Cell Broadband Engine; Part II Programming the Cell Broadband Engine - Chapters 6, 7, 8, 9, 10)
+7.  a. www.top500.org - Acest site contine atat topul 500 actual al celor mai rapide supercalculatoare cat si toate topurile realizate din 1993 pana acum
+	b. http://www.netlib.org/benchmark/hpl/ - Pe acest site se pot gasi specificatiile si descrierile tehnice ale benchmark-ului High Performance Linpack
+	c. http://icl.cs.utk.edu/hpcc/ - Pe acest site se pot gasi specificatiile si descrierile tehnice ale suitei de benchmark-uri HPC Challenge Benchmark
+	- Aceste documentatii sunt utile pentru cursurile 
+		- 13 (7b & 7c)
+		- 14 (7a)
+8. Structura si Arhitectura Sistemelor Numerice - capitolele cartii corespund direct cursurilor de ASC - corespondenta se va face dupa denumirea capitolului
+	- Aceasta carte este utila pentru cursurile 2, 3, 6, 7, 8, 9, 10, 11, 12
+
+9. Inside the machine: an illustrated introduction to microprocessors and computer architecture
+	- Aceasta carte este utila pentru cursurile:
+		- 1 - Chapters 1 and 2
+		- 4 - Chapters 1, 2 and 11
+		- 5 - Chapters 6 to 10 and 12
+		- 7 si 8 - Chapters 3 and 4
