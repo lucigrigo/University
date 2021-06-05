@@ -1,5 +1,5 @@
 #include <QuickStats.h>
-QuickStats stats; //initialize an instance of this class
+QuickStats stats;
 
 #define RED_PIN 8
 #define BLUE_PIN 2
