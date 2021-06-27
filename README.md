@@ -2,7 +2,7 @@
 Made for easy back-up and presentation purposes (constantly updated).
 
 Contains:
--
+- University courses & practical labs
 - Homework projects
 - Weekly applied university work
 - Personal projects
@@ -28,3 +28,5 @@ Contains:
 - Machine Learning
 - Object-Oriented Programming
 - Algorithms
+- Parallel Programming
+- Operating Systems & Architecture
