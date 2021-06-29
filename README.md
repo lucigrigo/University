@@ -17,7 +17,7 @@ Contains:
 
 ## Languages used:
 - Java
-- C / C++
+- C/C++
 - Python
 - Matlab
 - JavaScript
