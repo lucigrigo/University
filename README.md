@@ -1,5 +1,4 @@
-# University work from
-*Faculty of Automatic Controls and Computers, Politehnica University, Bucharest*
+# University work - Faculty of Automatic Controls and Computers, Politehnica University, Bucharest
 
 Made for easy back-up and presentation purposes (constantly updated).
 
