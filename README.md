@@ -16,12 +16,12 @@ Contains:
 - [A program used to format text documents](https://github.com/lucigrigo/GIT/tree/master/PC/Tema2.FormatareText).
 
 ## Languages used:
-- Java
 - C/C++
+- Java
 - Python
 - Matlab
-- JavaScript
 - Assembly
+- Bash
 
 ## Topics covered:
 - Dynamic Programming
@@ -29,4 +29,4 @@ Contains:
 - Object-Oriented Programming
 - Algorithms
 - Parallel Programming
-- Operating Systems & Architecture
+- Operating Systems & Computer Architecture
