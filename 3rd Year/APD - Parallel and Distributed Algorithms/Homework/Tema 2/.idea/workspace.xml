@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46b1f3a9-4755-4cc5-85d2-fce7b9c7459d" name="Default Changelist" comment="" />
+    <list default="true" id="46b1f3a9-4755-4cc5-85d2-fce7b9c7459d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../../4th Year/IA - Artificial Intelligence/Labs/Lab01-Searching-Skel.ipynb" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
