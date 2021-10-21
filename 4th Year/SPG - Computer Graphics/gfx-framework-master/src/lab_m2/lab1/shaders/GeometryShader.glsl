@@ -1,11 +1,11 @@
-#version 430
+#version 330
 
 // Input and output topologies
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 170) out;
 
 // Input
-layout(location = 0) in vec2 v_texture_coord[];
+in vec2 texture_coord[];
 
 // Uniform properties
 uniform mat4 View;
@@ -15,7 +15,7 @@ uniform int instances;
 uniform float shrink_param;
 
 // Output
-layout(location = 0) out vec2 texture_coord;
+out vec2 texture_coord2;
 
 void EmitPoint(vec3 pos, vec3 offset)
 {
@@ -54,13 +54,13 @@ void main()
                 vec3 offset = offset;
                 offset.x += j * 2;
 
-                texture_coord = v_texture_coord[0];
+                texture_coord2 = texture_coord[0];
                 EmitPoint(p1, offset);
 
-                texture_coord = v_texture_coord[1];
+                texture_coord2 = texture_coord[1];
                 EmitPoint(p2, offset);
 
-                texture_coord = v_texture_coord[2];
+                texture_coord2 = texture_coord[2];
                 EmitPoint(p3, offset);
 
                 EndPrimitive();
