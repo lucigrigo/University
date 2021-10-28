@@ -1,7 +1,7 @@
-#version 430
+#version 330
 
 // Output
-layout(location = 0) out vec4 out_color;
+out vec4 out_color;
 
 
 void main()
