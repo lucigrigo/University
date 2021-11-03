@@ -17,16 +17,17 @@ layout(location = 0) out vec4 out_color;
 vec3 myReflect()
 {
     // TODO(student): Compute the reflection color value
-    return vec3(0.5);
-
+    vec3 razaIncidenta = normalize(world_position - camera_position);
+    return reflect(razaIncidenta, world_normal);
 }
 
 
 vec3 myRefract(float refractive_index)
 {
     // TODO(student): Compute the refraction color value
-    return vec3(0.5);
-
+    vec3 razaIncidenta = normalize(world_position - camera_position);
+    //return refract(razaIncidenta, world_normal, refractive_index);
+    return refract(razaIncidenta, world_normal, 1.0f); // because it looks cool :)
 }
 
 
@@ -41,10 +42,10 @@ void main()
 
     if (LIGHT_PROP == LIGHT_PROP_REFLECTION)
     {
-        out_color = vec4(myReflect(), 0);
+        out_color = texture(texture_cubemap, myReflect());
     }
     else
     {
-        out_color = vec4(myRefract(1.33), 0);
+        out_color = texture(texture_cubemap, myRefract(1.0f / 1.33f));
     }
 }
