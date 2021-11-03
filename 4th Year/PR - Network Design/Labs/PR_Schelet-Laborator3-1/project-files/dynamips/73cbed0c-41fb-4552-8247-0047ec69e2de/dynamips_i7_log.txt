@@ -1,0 +1,35 @@
+Oct 31 22:42:10.445 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Oct 31 22:42:10.446 HYPERVISOR: Started on IP = localhost, TCP port = 53179.
+Oct 31 22:42:10.934 HYPERVISOR: exec_cmd: hypervisor version 
+Oct 31 22:42:10.934 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips 
+Oct 31 22:42:10.934 GENERAL: working_dir=C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips
+Oct 31 22:42:10.934 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips\73cbed0c-41fb-4552-8247-0047ec69e2de 
+Oct 31 22:42:10.936 GENERAL: working_dir=C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips\73cbed0c-41fb-4552-8247-0047ec69e2de
+Oct 31 22:42:10.936 HYPERVISOR: exec_cmd: vm create R7 7 c3600 
+Oct 31 22:42:10.937 VM: VM R7 created.
+Oct 31 22:42:10.938 HYPERVISOR: exec_cmd: vm set_con_tcp_port R7 5017 
+Oct 31 22:42:10.938 HYPERVISOR: exec_cmd: c3600 get_mac_addr R7 
+Oct 31 22:42:10.938 HYPERVISOR: exec_cmd: vm set_exec_area R7 64 
+Oct 31 22:42:10.939 HYPERVISOR: exec_cmd: vm set_ios R7 C:/Users/tudor_stefan.manea/Downloads/IOS/c3640-js.bin 
+Oct 31 22:42:10.939 HYPERVISOR: exec_cmd: c3600 set_mac_addr R7 cc07.449c.0000 
+Oct 31 22:42:10.939 HYPERVISOR: exec_cmd: vm set_nvram R7 256 
+Oct 31 22:42:10.939 HYPERVISOR: exec_cmd: vm set_ram R7 192 
+Oct 31 22:42:10.939 HYPERVISOR: exec_cmd: vm get_status R7 
+Oct 31 22:42:10.939 HYPERVISOR: exec_cmd: vm slot_add_binding R7 0 0 NM-1FE-TX 
+Oct 31 22:42:10.940 HYPERVISOR: exec_cmd: vm get_status R7 
+Oct 31 22:42:10.940 HYPERVISOR: exec_cmd: vm slot_add_binding R7 1 0 NM-1FE-TX 
+Oct 31 22:42:10.940 HYPERVISOR: exec_cmd: vm get_status R7 
+Oct 31 22:42:10.940 HYPERVISOR: exec_cmd: vm slot_add_binding R7 2 0 NM-1FE-TX 
+Oct 31 22:42:10.940 HYPERVISOR: exec_cmd: vm get_status R7 
+Oct 31 22:42:10.940 HYPERVISOR: exec_cmd: vm slot_add_binding R7 3 0 NM-1FE-TX 
+Oct 31 22:42:13.392 HYPERVISOR: exec_cmd: nio create_udp udp-e1510500-68f1-43e9-9111-5680812eb1ef 10004 127.0.0.1 10005 
+Oct 31 22:42:13.625 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R7 0 0 udp-e1510500-68f1-43e9-9111-5680812eb1ef 
+Oct 31 22:42:13.625 HYPERVISOR: exec_cmd: vm get_status R7 
+Oct 31 22:42:13.696 HYPERVISOR: exec_cmd: nio create_udp udp-f8f6c256-f599-4835-ba38-3937adc76179 10008 127.0.0.1 10009 
+Oct 31 22:42:13.698 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R7 1 0 udp-f8f6c256-f599-4835-ba38-3937adc76179 
+Oct 31 22:42:13.699 HYPERVISOR: exec_cmd: vm get_status R7 
+Oct 31 22:46:30.309 HYPERVISOR: exec_cmd: vm get_status R7 
+Oct 31 22:46:30.309 HYPERVISOR: exec_cmd: vm extract_config R7 
+Oct 31 23:25:14.446 HYPERVISOR: Stopped.
+Oct 31 23:25:14.447 VM: VM R7 destroyed.
+Oct 31 23:25:14.464 GENERAL: reset done.

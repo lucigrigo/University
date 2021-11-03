@@ -1,0 +1,32 @@
+Oct 31 22:42:11.511 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Oct 31 22:42:11.512 HYPERVISOR: Started on IP = localhost, TCP port = 53185.
+Oct 31 22:42:12.003 HYPERVISOR: exec_cmd: hypervisor version 
+Oct 31 22:42:12.003 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips 
+Oct 31 22:42:12.004 GENERAL: working_dir=C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips
+Oct 31 22:42:12.004 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips\c56fa038-6987-4cd3-806b-4c7afdbbdfcf 
+Oct 31 22:42:12.004 GENERAL: working_dir=C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips\c56fa038-6987-4cd3-806b-4c7afdbbdfcf
+Oct 31 22:42:12.004 HYPERVISOR: exec_cmd: vm create R9 9 c3600 
+Oct 31 22:42:12.005 VM: VM R9 created.
+Oct 31 22:42:12.005 HYPERVISOR: exec_cmd: vm set_con_tcp_port R9 5019 
+Oct 31 22:42:12.005 HYPERVISOR: exec_cmd: c3600 get_mac_addr R9 
+Oct 31 22:42:12.006 HYPERVISOR: exec_cmd: vm set_exec_area R9 64 
+Oct 31 22:42:12.006 HYPERVISOR: exec_cmd: vm set_ios R9 C:/Users/tudor_stefan.manea/Downloads/IOS/c3640-js.bin 
+Oct 31 22:42:12.006 HYPERVISOR: exec_cmd: c3600 set_mac_addr R9 cc09.1ca0.0000 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm set_nvram R9 256 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm set_ram R9 192 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm get_status R9 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm slot_add_binding R9 0 0 NM-1FE-TX 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm get_status R9 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm slot_add_binding R9 1 0 NM-1FE-TX 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm get_status R9 
+Oct 31 22:42:12.007 HYPERVISOR: exec_cmd: vm slot_add_binding R9 2 0 NM-1FE-TX 
+Oct 31 22:42:12.008 HYPERVISOR: exec_cmd: vm get_status R9 
+Oct 31 22:42:12.008 HYPERVISOR: exec_cmd: vm slot_add_binding R9 3 0 NM-1FE-TX 
+Oct 31 22:42:14.376 HYPERVISOR: exec_cmd: nio create_udp udp-283c6d56-00d1-45f3-a67a-ac9337432969 10028 127.0.0.1 10029 
+Oct 31 22:42:14.602 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R9 3 0 udp-283c6d56-00d1-45f3-a67a-ac9337432969 
+Oct 31 22:42:14.602 HYPERVISOR: exec_cmd: vm get_status R9 
+Oct 31 22:46:30.312 HYPERVISOR: exec_cmd: vm get_status R9 
+Oct 31 22:46:30.313 HYPERVISOR: exec_cmd: vm extract_config R9 
+Oct 31 23:25:14.446 HYPERVISOR: Stopped.
+Oct 31 23:25:14.447 VM: VM R9 destroyed.
+Oct 31 23:25:14.471 GENERAL: reset done.

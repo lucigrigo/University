@@ -1,0 +1,41 @@
+Oct 31 22:42:08.301 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Oct 31 22:42:08.302 HYPERVISOR: Started on IP = localhost, TCP port = 53163.
+Oct 31 22:42:08.787 HYPERVISOR: exec_cmd: hypervisor version 
+Oct 31 22:42:08.787 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips 
+Oct 31 22:42:08.787 GENERAL: working_dir=C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips
+Oct 31 22:42:08.787 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips\3b80c68b-7287-439b-b017-ab36f79792de 
+Oct 31 22:42:08.789 GENERAL: working_dir=C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips\3b80c68b-7287-439b-b017-ab36f79792de
+Oct 31 22:42:08.789 HYPERVISOR: exec_cmd: vm create R3 3 c3600 
+Oct 31 22:42:08.790 VM: VM R3 created.
+Oct 31 22:42:08.790 HYPERVISOR: exec_cmd: vm set_con_tcp_port R3 5013 
+Oct 31 22:42:08.791 HYPERVISOR: exec_cmd: c3600 get_mac_addr R3 
+Oct 31 22:42:08.792 HYPERVISOR: exec_cmd: vm set_exec_area R3 64 
+Oct 31 22:42:08.793 HYPERVISOR: exec_cmd: vm set_ios R3 C:/Users/tudor_stefan.manea/Downloads/IOS/c3640-js.bin 
+Oct 31 22:42:08.793 HYPERVISOR: exec_cmd: c3600 set_mac_addr R3 cc03.3c44.0000 
+Oct 31 22:42:08.793 HYPERVISOR: exec_cmd: vm set_nvram R3 256 
+Oct 31 22:42:08.794 HYPERVISOR: exec_cmd: vm set_ram R3 192 
+Oct 31 22:42:08.794 HYPERVISOR: exec_cmd: vm get_status R3 
+Oct 31 22:42:08.794 HYPERVISOR: exec_cmd: vm slot_add_binding R3 0 0 NM-1FE-TX 
+Oct 31 22:42:08.794 HYPERVISOR: exec_cmd: vm get_status R3 
+Oct 31 22:42:08.794 HYPERVISOR: exec_cmd: vm slot_add_binding R3 1 0 NM-1FE-TX 
+Oct 31 22:42:08.795 HYPERVISOR: exec_cmd: vm get_status R3 
+Oct 31 22:42:08.795 HYPERVISOR: exec_cmd: vm slot_add_binding R3 2 0 NM-1FE-TX 
+Oct 31 22:42:08.795 HYPERVISOR: exec_cmd: vm get_status R3 
+Oct 31 22:42:08.795 HYPERVISOR: exec_cmd: vm slot_add_binding R3 3 0 NM-1FE-TX 
+Oct 31 22:42:14.982 HYPERVISOR: exec_cmd: nio create_udp udp-de25ce1b-42f9-466b-82f9-c13afa8131c7 10038 127.0.0.1 10039 
+Oct 31 22:42:15.217 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R3 1 0 udp-de25ce1b-42f9-466b-82f9-c13afa8131c7 
+Oct 31 22:42:15.218 HYPERVISOR: exec_cmd: vm get_status R3 
+Oct 31 22:43:19.592 HYPERVISOR: exec_cmd: vm set_ghost_status R3 2 
+Oct 31 22:43:19.593 HYPERVISOR: exec_cmd: vm set_ghost_file R3 C:\Users\tudor_stefan.manea\Desktop\PR laboratoare Care merg\PR_Schelet-Laborator3\project-files\dynamips\c3640-js.bin-192.ghost 
+Oct 31 22:43:19.593 HYPERVISOR: exec_cmd: vm get_status R3 
+Oct 31 22:43:19.594 HYPERVISOR: exec_cmd: vm set_config R3 configs\i3_startup-config.cfg 
+Oct 31 22:43:19.594 HYPERVISOR: exec_cmd: vm start R3 
+Oct 31 22:43:49.903 HYPERVISOR: exec_cmd: vm extract_config R3 
+Oct 31 22:46:19.920 HYPERVISOR: exec_cmd: vm extract_config R3 
+Oct 31 22:46:30.089 HYPERVISOR: exec_cmd: vm get_status R3 
+Oct 31 22:46:30.090 HYPERVISOR: exec_cmd: vm stop R3 
+Oct 31 22:46:30.200 VM: VM R3 shutdown.
+Oct 31 22:46:30.201 HYPERVISOR: exec_cmd: vm extract_config R3 
+Oct 31 23:25:14.446 HYPERVISOR: Stopped.
+Oct 31 23:25:14.446 VM: VM R3 destroyed.
+Oct 31 23:25:14.471 GENERAL: reset done.
