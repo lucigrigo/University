@@ -76,6 +76,7 @@
             {
                 "filters": {},
                 "link_id": "37796002-a41e-44f7-9fd5-c1ae3d2ab18e",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 0,
@@ -107,6 +108,7 @@
             {
                 "filters": {},
                 "link_id": "e60d43f2-8dda-4c52-b829-eae3aea05acc",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 1,
@@ -138,6 +140,7 @@
             {
                 "filters": {},
                 "link_id": "58ac505c-1ad8-4b24-9e30-90497b5b2d72",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 0,
@@ -169,6 +172,7 @@
             {
                 "filters": {},
                 "link_id": "8f4710db-87e0-4b41-9798-a5df77928e89",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 1,
@@ -200,6 +204,7 @@
             {
                 "filters": {},
                 "link_id": "9abd8c3c-43a9-49d0-9b5c-22dfd305bf35",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 3,
@@ -231,6 +236,7 @@
             {
                 "filters": {},
                 "link_id": "4453c7dd-0cbf-4a88-b8f0-ab3db1a63b61",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 2,
@@ -262,6 +268,7 @@
             {
                 "filters": {},
                 "link_id": "cce46b72-3aad-42d5-b859-18429b5ef768",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 1,
@@ -293,6 +300,7 @@
             {
                 "filters": {},
                 "link_id": "1bde7a9b-3a5d-4750-b618-e3b6201d65b1",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 1,
@@ -324,6 +332,7 @@
             {
                 "filters": {},
                 "link_id": "3c6274a8-7b73-4344-8392-e2c0c325980b",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 0,
@@ -355,6 +364,7 @@
             {
                 "filters": {},
                 "link_id": "66102bf8-f24f-4d6f-adc3-76db18e88bf5",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 2,
@@ -386,6 +396,7 @@
             {
                 "filters": {},
                 "link_id": "fcb795a4-25f6-43d7-b2a0-d17290b2e8db",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 0,
@@ -417,6 +428,7 @@
             {
                 "filters": {},
                 "link_id": "ce6ee6c7-e9f2-431f-b3db-3978e1e391ec",
+                "link_style": {},
                 "nodes": [
                     {
                         "adapter_number": 0,
@@ -478,7 +490,7 @@
                     "dynamips_id": 1,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -534,7 +546,7 @@
                     "dynamips_id": 2,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -590,7 +602,7 @@
                     "dynamips_id": 3,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -646,7 +658,7 @@
                     "dynamips_id": 4,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -702,7 +714,7 @@
                     "dynamips_id": 5,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -758,7 +770,7 @@
                     "dynamips_id": 6,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -814,7 +826,7 @@
                     "dynamips_id": 7,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -870,7 +882,7 @@
                     "dynamips_id": 8,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -926,7 +938,7 @@
                     "dynamips_id": 9,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -982,7 +994,7 @@
                     "dynamips_id": 10,
                     "exec_area": 64,
                     "idlemax": 500,
-                    "idlepc": "",
+                    "idlepc": "0x605d9194",
                     "idlesleep": 30,
                     "image": "c3640-js.bin",
                     "image_md5sum": "dde4cf31a06e35a0af56ccbb8112e280",
@@ -1091,6 +1103,6 @@
     },
     "type": "topology",
     "variables": null,
-    "version": "2.2.14",
+    "version": "2.2.26",
     "zoom": 71
 }
