@@ -23,6 +23,14 @@ void EmitPoint(vec2 offset)
 {
     vec3 pos = right * offset.x + up * offset.y + vpos;
     gl_Position = Projection * View * vec4(pos, 1.0);
+    if (offset.x < 0)
+        texture_coord.x = 0;
+    if (offset.x > 0)
+        texture_coord.x = 1;
+    if (offset.y < 0)
+        texture_coord.y = 0;
+    if (offset.y > 0)
+        texture_coord.y = 1;
     EmitVertex();
 }
 
@@ -41,4 +49,13 @@ void main()
     //
     // Triangles: (0, 1, 3), (1, 2, 3)
 
+    EmitPoint(vec2(-ds, -ds));
+    EmitPoint(vec2(ds, -ds));
+    EmitPoint(vec2(-ds, ds));
+    EndPrimitive();
+
+    EmitPoint(vec2(ds, -ds));
+    EmitPoint(vec2(ds, ds));
+    EmitPoint(vec2(-ds, ds));
+    EndPrimitive();
 }
