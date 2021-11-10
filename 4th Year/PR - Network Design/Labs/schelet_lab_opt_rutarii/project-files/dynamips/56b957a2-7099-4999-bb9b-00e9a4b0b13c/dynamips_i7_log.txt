@@ -1,0 +1,41 @@
+Nov 07 12:10:58.395 HYPERVISOR: Release 0.2.17-amd64/Darwin (tag 2017072410)
+Nov 07 12:10:58.395 HYPERVISOR: Started on IP = localhost, TCP port = 65386.
+Nov 07 12:10:58.405 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 07 12:10:58.406 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips 
+Nov 07 12:10:58.406 GENERAL: working_dir=/Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips
+Nov 07 12:10:58.406 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips/073fb6b4-bcd6-4846-8c0f-46149da82968 
+Nov 07 12:10:58.406 GENERAL: working_dir=/Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips/073fb6b4-bcd6-4846-8c0f-46149da82968
+Nov 07 12:10:58.406 HYPERVISOR: exec_cmd: vm create R8 8 c3600 
+Nov 07 12:10:58.406 VM: VM R8 created.
+Nov 07 12:10:58.407 HYPERVISOR: exec_cmd: vm set_con_tcp_port R8 5019 
+Nov 07 12:10:58.407 HYPERVISOR: exec_cmd: c3600 get_mac_addr R8 
+Nov 07 12:10:58.407 HYPERVISOR: exec_cmd: vm set_ios R8 /Users/flavia/GNS3/images/IOS/c3640-js.bin 
+Nov 07 12:10:58.408 HYPERVISOR: exec_cmd: c3600 set_mac_addr R8 cc08.44b8.0000 
+Nov 07 12:10:58.408 HYPERVISOR: exec_cmd: vm set_nvram R8 256 
+Nov 07 12:10:58.408 HYPERVISOR: exec_cmd: vm set_ram R8 192 
+Nov 07 12:10:58.408 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:10:58.409 HYPERVISOR: exec_cmd: vm slot_add_binding R8 0 0 NM-1FE-TX 
+Nov 07 12:10:58.409 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:10:58.409 HYPERVISOR: exec_cmd: vm slot_add_binding R8 1 0 NM-1FE-TX 
+Nov 07 12:10:58.409 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:10:58.409 HYPERVISOR: exec_cmd: vm slot_add_binding R8 2 0 NM-1FE-TX 
+Nov 07 12:10:58.410 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:10:58.410 HYPERVISOR: exec_cmd: vm slot_add_binding R8 3 0 NM-1FE-TX 
+Nov 07 12:10:58.949 HYPERVISOR: exec_cmd: nio create_udp udp-bfa4e44f-0440-412e-b89d-dbc5aae93502 10004 127.0.0.1 10005 
+Nov 07 12:10:59.170 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R8 0 0 udp-bfa4e44f-0440-412e-b89d-dbc5aae93502 
+Nov 07 12:10:59.171 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:10:59.243 HYPERVISOR: exec_cmd: nio create_udp udp-eeeb44e3-1329-4bcd-9f0a-fa26489d4e48 10008 127.0.0.1 10009 
+Nov 07 12:10:59.244 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R8 1 0 udp-eeeb44e3-1329-4bcd-9f0a-fa26489d4e48 
+Nov 07 12:10:59.245 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:10:59.550 HYPERVISOR: exec_cmd: nio create_udp udp-e0a9b528-dcea-4b5e-84c9-980412b9a968 10014 127.0.0.1 10015 
+Nov 07 12:10:59.552 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R8 3 0 udp-e0a9b528-dcea-4b5e-84c9-980412b9a968 
+Nov 07 12:10:59.552 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:33:02.319 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:33:02.320 HYPERVISOR: exec_cmd: vm extract_config R8 
+Nov 07 12:33:02.650 HYPERVISOR: exec_cmd: vm get_status R8 
+Nov 07 12:33:02.650 HYPERVISOR: exec_cmd: vm extract_config R8 
+Nov 07 12:33:02.650 HYPERVISOR: exec_cmd: vm delete R8 
+Nov 07 12:33:02.650 VM: VM R8 destroyed.
+Nov 07 12:33:02.651 HYPERVISOR: exec_cmd: hypervisor stop 
+Nov 07 12:33:03.133 HYPERVISOR: Stopped.
+Nov 07 12:33:03.133 GENERAL: reset done.

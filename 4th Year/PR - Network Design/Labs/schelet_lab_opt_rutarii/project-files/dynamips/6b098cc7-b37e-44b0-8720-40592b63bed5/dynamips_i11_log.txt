@@ -1,0 +1,38 @@
+Nov 07 12:10:58.550 HYPERVISOR: Release 0.2.17-amd64/Darwin (tag 2017072410)
+Nov 07 12:10:58.550 HYPERVISOR: Started on IP = localhost, TCP port = 65398.
+Nov 07 12:10:58.558 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 07 12:10:58.559 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips 
+Nov 07 12:10:58.559 GENERAL: working_dir=/Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips
+Nov 07 12:10:58.559 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips/56b957a2-7099-4999-bb9b-00e9a4b0b13c 
+Nov 07 12:10:58.559 GENERAL: working_dir=/Users/flavia/Downloads/PR_Schelet-Laborator5/PR_schelet_laborator5/project-files/dynamips/56b957a2-7099-4999-bb9b-00e9a4b0b13c
+Nov 07 12:10:58.559 HYPERVISOR: exec_cmd: vm create R7 7 c3600 
+Nov 07 12:10:58.559 VM: VM R7 created.
+Nov 07 12:10:58.560 HYPERVISOR: exec_cmd: vm set_con_tcp_port R7 5006 
+Nov 07 12:10:58.560 HYPERVISOR: exec_cmd: c3600 get_mac_addr R7 
+Nov 07 12:10:58.561 HYPERVISOR: exec_cmd: vm set_ios R7 /Users/flavia/GNS3/images/IOS/c3640-js.bin 
+Nov 07 12:10:58.561 HYPERVISOR: exec_cmd: c3600 set_mac_addr R7 cc07.1a7c.0000 
+Nov 07 12:10:58.562 HYPERVISOR: exec_cmd: vm set_nvram R7 256 
+Nov 07 12:10:58.562 HYPERVISOR: exec_cmd: vm set_ram R7 192 
+Nov 07 12:10:58.562 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:10:58.562 HYPERVISOR: exec_cmd: vm slot_add_binding R7 0 0 NM-1FE-TX 
+Nov 07 12:10:58.563 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:10:58.563 HYPERVISOR: exec_cmd: vm slot_add_binding R7 1 0 NM-1FE-TX 
+Nov 07 12:10:58.563 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:10:58.563 HYPERVISOR: exec_cmd: vm slot_add_binding R7 2 0 NM-1FE-TX 
+Nov 07 12:10:58.564 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:10:58.564 HYPERVISOR: exec_cmd: vm slot_add_binding R7 3 0 NM-1FE-TX 
+Nov 07 12:11:01.836 HYPERVISOR: exec_cmd: nio create_udp udp-3da16566-f754-4f0e-8aa3-120c5bbc408b 10058 127.0.0.1 10059 
+Nov 07 12:11:02.057 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R7 1 0 udp-3da16566-f754-4f0e-8aa3-120c5bbc408b 
+Nov 07 12:11:02.058 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:11:02.136 HYPERVISOR: exec_cmd: nio create_udp udp-2dd2160a-0951-4a00-8b62-f526bdd266a4 10062 127.0.0.1 10063 
+Nov 07 12:11:02.138 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R7 0 0 udp-2dd2160a-0951-4a00-8b62-f526bdd266a4 
+Nov 07 12:11:02.138 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:33:02.326 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:33:02.328 HYPERVISOR: exec_cmd: vm extract_config R7 
+Nov 07 12:33:02.640 HYPERVISOR: exec_cmd: vm get_status R7 
+Nov 07 12:33:02.641 HYPERVISOR: exec_cmd: vm extract_config R7 
+Nov 07 12:33:02.643 HYPERVISOR: exec_cmd: vm delete R7 
+Nov 07 12:33:02.643 VM: VM R7 destroyed.
+Nov 07 12:33:02.646 HYPERVISOR: exec_cmd: hypervisor stop 
+Nov 07 12:33:03.134 HYPERVISOR: Stopped.
+Nov 07 12:33:03.134 GENERAL: reset done.
