@@ -1,0 +1,104 @@
+Inteligenta Artificiala - Laborator 5
+Grigore Lucian-Florin 343C4
+
+1.
+considerand valori binare
+p(A,B,C,D,E,F,G) -> 2^7 - 1 = 128 - 1 = 127 valori pentru probabilitatea comuna
+pentru RB din fig 2 -> 1 + 1 + 1 + 2 + 4 + 4 + 8 = 21 valori
+
+considerand valori ternare
+p(A,B,C,D,E,F,G) -> 3^7 - 1 = 2187 - 1 = 2186 valori pentru probabilitatea comuna
+pentru RB din fig 2 -> 2 + 2 + 2 + 2 * 3 + 2 * 9 + 2 * 9 + 2 * 27 = 6 + 6 + 18 + 18 + 54 = 48 + 54 = 102 valori
+
+2.
+a) 1 + 1 + 1 + 2 + 4 + 4 + 2 = 15 valori -> reprezentare cu RB
+b) 2^7 - 1 = 127 valori -> reprezentare tabulara
+
+3.
+a) adevarat -> cale blocata, inlantuire cauzala
+b) fals -> destinatie comuna, cale activa
+c) adevarat -> destinatie comuna, cale inactiva
+d) adevarat -> cazul 1 din D-sep
+e) fals -> cazul 2 din D-sep, dar nu stim D|B
+f) fals -> cale activa, destinatie comuna
+g) fals -> destinatie comuna, cazul 3 din D-sep
+
+4.
+pasi de urmat:
+1. verificam D-sep
+2. Bayes
+3. formula prob totale
+
+a) 
+observam ca F si G sunt indep cond (D-sep caz 2)
+
+P(D|F,G) = P(F,G|D)*P(D) / P(F,G) =
+= P(F|D)*P(G|D)*P(D) / P(F,G) =
+= 0.8*0.25*0.7 / 0.2375 = 0.59 (aprox)
+
+P(F,G) = P(F,G|D)*P(D) + P(F,G|~D)*P(~D) =
+= P(F|D)*P(G|D)*P(D) + P(F|~D)*P(G|~D)P(~D) = 
+= 0.8*0.25*0.7 + 0.5*0.65*0.3 =
+= 0.14 + 0.0975 = 0.2375
+
+b)
+la fel ca mai sus, F si G sunt indep cond
+
+P(F|G) = P(F) =
+= P(F|D)*P(D) + P(F|~D)*P(~D) =
+= 0.8*0.7 + 0.5*0.3 =
+= 0.56 + 0.15 = 0.71
+
+5.
+a)
+cu G neobservat, D si E sunt indep cond
+P(D|E) = P(D) = 0.7
+
+b) 
+pentru ca G este observat, P(D|E) = P(D) (cazul 2 din D-sep)
+
+P(D|G,E) = P(D|E) * P(G|D,E) / P(G|E) =
+= 0.7*0.9 / P(G|E) =
+= 0.63 / 0.81 = 0.77
+
+P(G|E) = P(G|E,D)*P(D) + P(G|E,~D)*P(~D) =
+= 0.9*0.7 + 0.6*0.3 =
+= 0.63 + 0.18 = 0.81
+
+6.
+a) P(B|F) = P(F|B) * P(B) / P(F) = 
+= 0.734 * 0.8 / 0.7106 = 0.826
+
+P(F|B) = P(F|B,D)*P(D|B) + P(F|B,~D)*P(~D|B) =
+= P(F|D)*P(D|B) + P(F|~D)*P(~D|B) =
+= 0.8*0.78 + 0.5*0.22 =
+= 0.624 + 0.11 = 0.734
+
+P(D|B) = P(D|B,A)*P(A|B) + P(D|B,~A)*P(~A|B) =
+= P(D|B,A)*P(A) + P(D|B,~A)*P(~A) =
+= 0.9*0.6 + 0.6*0.4 = 0.54 + 0.24 = 0.78
+
+P(D|~B) = P(D|~B,A)*P(A) + P(D|~B,~A)*P(~A) =
+= 0.6*0.6 + 0.05*0.6 =
+= 0.36 + 0.03 = 0.39
+
+P(F) = P(F|D)*P(D) + P(F|~D)*P(~D) =
+= P(F|D)*(P(D|B)*P(B) + P(D|~B)*P(~B)) +
++ P(F|~D)*(P(~D|B)*P(B) + P(~D|~B)*P(~B)) =
+= 0.8*(0.78*0.8 + 0.39*0.2) + 0.5(0.22*0.8 + 0.61*0.2) =
+= 0.8*(0.624 + 0.078) + 0.5*(0.176 + 0.122) =
+= 0.8*0.702 + 0.5*0.298 =
+= 0.5616 + 0.149 = 0.7106
+
+b)
+P(A|~F,~G) = P(~F,~G|A) * P(A) / P(~F,~G) = 
+= P(~F|A) * P(~G|A) * P(A) / P(~F) * P(~G)
+
+P(~F,~G|A) = P(~F|A) * P(~G|~F,A) = 
+= P(~F|A) * P(~G|A) (F si G D-sep)
+
+[...]
+
+c)
+D-sep cazul 2 in nodul G -> cale blocata
+P(B|~C) = P(B) = 0.8
