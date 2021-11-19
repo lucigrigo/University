@@ -1,0 +1,1 @@
+{"strategy": "Iterative Deepening DFS", "nodes_generated": 48, "nodes_expanded": 44, "time": 0.0642940000000003, "solution": [[1, 0, 1, 0, 1], [1, 1, 1, 1, 1], [0, 1, 1, 1, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0]]}

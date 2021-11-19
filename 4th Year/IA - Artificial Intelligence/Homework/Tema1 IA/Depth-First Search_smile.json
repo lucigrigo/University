@@ -1,0 +1,1 @@
+{"strategy": "Depth-First Search", "nodes_generated": 19, "nodes_expanded": 15, "time": 0.0031879999999997466, "solution": [[1, 1, 0, 1, 1], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]]}

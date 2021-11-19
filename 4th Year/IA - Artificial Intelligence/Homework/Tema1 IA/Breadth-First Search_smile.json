@@ -1,0 +1,1 @@
+{"strategy": "Breadth-First Search", "nodes_generated": 28, "nodes_expanded": 21, "time": 0.00465400000000038, "solution": [[1, 1, 0, 1, 1], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]]}

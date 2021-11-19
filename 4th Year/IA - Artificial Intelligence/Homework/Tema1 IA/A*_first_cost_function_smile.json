@@ -1,0 +1,1 @@
+{"strategy": "A*_first_cost_function", "nodes_generated": 13, "nodes_expanded": 6, "time": 0.006180000000000518, "solution": [[1, 1, 0, 1, 1], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]]}
