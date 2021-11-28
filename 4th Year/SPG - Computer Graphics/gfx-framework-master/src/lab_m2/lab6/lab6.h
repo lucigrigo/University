@@ -49,6 +49,6 @@ namespace m2
         int outputType;
 
         // TODO(student): Declare any class members you might need.
-
+        int gl_cull_mode;
     };
 }   // namespace m2

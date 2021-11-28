@@ -15,7 +15,6 @@ using namespace m2;
  *  and the order in which they are called, see `world.cpp`.
  */
 
-
 Lab6::Lab6()
 {
 }
@@ -89,6 +88,8 @@ void Lab6::Init()
             lights.push_back(L);
         }
     }
+
+    gl_cull_mode = GL_FRONT;
 }
 
 
@@ -178,9 +179,11 @@ void Lab6::Update(float deltaTimeSeconds)
         // If no culling is active (meaning that both GL_FRONT and GL_BACK
         // faces are rendered), then the light area will double the intensity
         // for each pixel.
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-
+        if (gl_cull_mode != GL_NONE) {
+            glEnable(GL_CULL_FACE);
+            glCullFace(gl_cull_mode);
+        }
+        
         for (auto &l : lights)
         {
             auto model = glm::translate(glm::mat4(1), l.position);
@@ -292,7 +295,18 @@ void Lab6::OnKeyPress(int key, int mods)
 
     // TODO(student): Add key mappings for face culling. For example:
     // Z: off, X: front, C: back, V: both
-
+    if (key == GLFW_KEY_Z) {
+        gl_cull_mode = GL_NONE;
+    }
+    else if (key == GLFW_KEY_X) {
+        gl_cull_mode = GL_FRONT;
+    }
+    else if (key == GLFW_KEY_C) {
+        gl_cull_mode = GL_BACK;
+    }
+    else if (key == GLFW_KEY_V) {
+        gl_cull_mode = GL_FRONT_AND_BACK;
+    }
 }
 
 
