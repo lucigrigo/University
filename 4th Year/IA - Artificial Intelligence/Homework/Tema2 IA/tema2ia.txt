@@ -1,0 +1,96 @@
+------ Problema A ------
+
+Evenimente
+A - invata pentru examenul teoretic
+B - trece examenul teoretic de permis
+C - conditiile meteo sunt favorabile
+D - trece examenul practic de permis
+E - vor vacanta
+F - isi cumpara masina
+
+Probabilitati
+a) P(F|D) = 
+formula probabilitatii totale
+= P(F|E,D)*P(E) + P(F|~E,D)*P(~E) =
+= 0,9 * 0,785 + 0,4 * 0,215 =
+= 0,7065 + 0,086 = 0,7925
+
+P(E) =
+formula probabilitatii totale
+= P(E|C)*P(C) + P(E|~C)*P(~C) =
+= 0,95 * 0,7 + 0,4 * 0,3 =
+= 0,665 + 0,12 = 0,785
+
+P(~E) =
+formula probabilitatii totale
+= P(~E|C)*P(C) + P(~E|~C)*P(~C) =
+= 0,05 * 0,7 + 0,6 * 0,3 =
+= 0,035 + 0,18 = 0,215
+
+b) P(~D|A,~C) = 
+formula probabilitatii totale
+= P(~D|B,~C,A)*P(B|~C,A) + P(~D|~B,~C,A)*P(~B|~C,A) =
+B si C evenimente independente
+= P(~D|B,~C)*P(B|A) + P*(~D|~B,~C)*P(~B|A) =
+au nevoie sa treaca proba teoretica pentru a putea sustine proba practica
+= 0,6 * 0,7 + 0 * [...] = 0,42
+
+c) P(D,E|~C) = 
+D si E independente conditional (cauza comuna)
+= P(D|~C) = 0,21
+
+P(D|~C) = 
+formula probabilitatii totale
+= P(D|~C,B)*P(B) + P(D|~C,~B)*P(~B) = 
+formula probabilitatii totale
+= P(D|~C,B)*[P(B|A)*P(A) + P(B|~A)*P(~A)] + 
++ P(D|~C,~B)*[P(~B|A)*P(A) + P(~B|~A)*P(~A)] =
+= 0,4 * [0,7 * 0,65 + 0,2 * 0,35] +
++ 0 * [...] =
+= 0,4 * [0,455 + 0,07] = 0,21
+
+d) P(F,E|~A,C) = 
+cazul 3 din D-sep -> F blocheaza calea de la A la C
+= P(E|~A,C) =
+independenta conditionala intre E si A
+= P(E|C) = 0,95
+
+------ Problema B ------
+
+Evenimente
+A - este soare
+B - bate vantul
+C - temperatura favorabila
+D - sistemul de panouri solare genereaza curent
+E - eoliana genereaza curent
+F - radiatorul produce caldura
+G - butelia este incarcata
+H - centrala produce caldura
+I - cabana este incalzita
+J - exista curent in cabana
+
+Probabilitati
+a) P(I|A,B) = ?
+b) P(I,H|~F,~C) = ?
+c) P(F,H) = ?
+d) P(J|~F,~B,G) = ?
+
+------ Problema C ------
+
+Evenimente
+A - lucreaza spiridusi priceputi
+B - furnizorul are vopsea
+C - Grinch se infiltreaza
+D - Mos Craciun este fericit
+E - fabrica A produce globuri de culoare rosie
+F - fabrica B produce globuri de culoare verde
+G - fabrica C produce globuri de culoare albastra
+H - magazinul A primeste globuri de culoare rosie
+I - magazinul B primeste globuri de culoare verde
+J - magazinul C primeste globuri de culoare albastra
+
+Probabilitati
+a) P(D|~C,E,F,G) = ?
+b) P(I) = ?
+c) P(~A,E,~C|D,~B) = ?
+d) P(~D|C) = ?
