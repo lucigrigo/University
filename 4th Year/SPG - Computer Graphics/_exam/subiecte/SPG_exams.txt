@@ -1,0 +1,25 @@
+1) Ce tip de curba de forma liniara este adecvat reprezentarii caracterelor
+de text? Justificati.
+2)Care sunt avantajele utilizarii peticului bicubic Bezier in aplicatiile
+de proiectare asistata de calculator ?
+3)a)In ce scop de foloseste metoda "mip-mapping" de aplicare a texturilor ?
+b)Explicati pe scurt metoda.
+4)Cum se obtine arborele octal al unui solid ? Mentionati avantaje si 
+dezavantaje.
+5)Exempleu de masca de convolutie pentru : a) filtru trece jos b) filtru
+trece sus
+6)Cum se recunosc frontierele in iesirea produsa de operatorul Laplacian?
+Descrieti o metoda de extragere a frontierelor din iesirea produsa de
+Laplacian.
+7) Descrieti pe scurt algoritmul de segmentare a imaginilor "prin extindere"
+Pot rezulta regiuni adiacente similare in urma aplicarii acestui algoritm?
+Cum pot fi recunoscute ?
+8)Algoritmul de extragere a tuturor conturilor unei regiuni.
+9)Care este functia prin care se codifica un contur in reprezentarea 
+tangentiala ? Care sunt avantajele ?
+
+
+2015
+
+-------------------------------------------------------------------------
+
