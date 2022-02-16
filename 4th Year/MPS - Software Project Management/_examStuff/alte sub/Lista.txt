@@ -1,0 +1,56 @@
+Programarea timpului - 60 de minute!!!
+Cauta intai in rezolvari.pdf si Rezumat scurt drive
+Rezolvari.pdf
+2019
+1A. Proiect paralelizat, dublarea resursei umane, efortul pentru proiect
+2A. Suntem siguri ca un dev va pleca. Il tratam ca un risc? + Legile lui Boehm, Matricea de risc
+3A. Definire proiect aflat "sub control"
+4A. E mai usor de implementat sa adaugi oameni pentru a dezvolta in timp redus sau sa maresti timpul si sa reduci oamenii (Project crashing)
+1B. Lines of code vs Function points
+2B. Exemple (trebuie sa te prinzi) Modelul incremental vs Spiral vs Agile (Aici sau Rezumat scurt drive.pdf)
+
+2018 Partea 1
+1A. Dezvoltare aplicatie prin incercari cu echipa 4 devi si 2 testeri + Open Unified Process + V Cycle + Nr. Exact Slideuri
+2A. X, n si Y, dezvoltare paralelizata, X + (n - 1) * Y ???
+3A. Drumul critic, Fii atent la dependentele activitatilor (Aici sau Find my taxi, A SS B (Critical path method wikipedia.html))
+1B. Caile A si B in proiect, Sanse, Riscuri, Managementul riscului, Score=p*i il vrem cat mai mic, Slide exact, Matricea riscurilor
+2B. Dezavantaje Scrum (Aici sau Rezumat scurt drive.pdf)
+3B. Diagrama Gantt, cand incep activitatile, cel mai devreme posibil, float time (slack) (Gantt chart Wikipedia.html sau Find my taxi)
+4B. Diferenta milestone livrabil
+
+2018 Partea 2
+1A. 2 proiecte, I. aplicatie complexa fara modificari, II. aplicatie normala, timp scurt, cu modificari, 5 devi, 3 testeri, planificare activitati, imbinare proiecte, riscuri si contracararea lor cu solutii (Aici sau Find my taxi)
+2A. Cacatul cu calitatile si rolurile in echipa (Aici sau Rezumat scurt drive.pdf la subiectul 3 sau Laborator 2.html)
+3A. Comparatie 2 proiecte, Cascada vs Scrum, Costuri, Durata, Riscuri (Aici sau Rezumat scurt drive.pdf sau Rezumat 2018.pdf)
+1B. Dezavantaje in dezvoltarea timeboxed (Aici sau 7 secrets to master timeboxing.pdf)
+2B. Dezavantaje prea putine sau prea multe milestone-uri in proiect (prea multe - stakeholders.html)
+3B. Pot exista 2 drumuri critice? Da, exemplu in critical path wikipedia.html (Drumuri critice tot aici mai sus)
+4B. Minimizam sau maximizam comunicatia intre membri intr-un proiect? Depinde de proiect.
+
+Subiecte poze
+1. N programatori, algoritmi de grupare, structura matriceala dintr-un proiect, slideuri exacte
+2. Grup 3-8 oameni, Solutii: facem media ? sau || Vrei sa vezi care sunt cele mai bune echipe, si atunci iei din echipele cu cei mai multi membrii, primul membru de la fiecare ca note. Ma gandesc ca daca sunt mai multi, sunt sanse mai mari ca media sa duca la o nota reala (sanse mici ca din 7 oameni sa fii atat de prietenos incat sa iti dea toti 10 dar tu sa fii pamant). sau || Vrei sa ai echipe echilibrate, adica sa nu fie cei mai buni cu cei mai buni. Caz in care i-as lua pe cei mai buni din echipele mari si i-as pune in echipa cu aia slabi de la echipele mici.
+
+2013.jpg / Rezumat scurt drive
+1. / 1. OK Cascada vs spirala (tot aici mai sus)
+2. X ~ Probabil ceva legat de tipuri de echipa (Agile, Scrum, etc.) si roluri in echipa
+3. 
+4. / 3. + Cacatul de mai sus cu calitatile OK
+5. Structura Automatica mai jos, doar ca pentru UPB OK
+6. / 2. OK
+7. X OK
+8. 5 riscuri proiect, efecte, prevenire, solutii concrete (Proiect1/2.html, Find my taxi sau Rezolvari.pdf CTRL F riscuriOK
+
+2015.jpg / Rezumat scurt drive
+1. 
+2. X 12 minute, 13 minute, ideea mea de ieri, ceva legat testare
+3. Folder Structura Departamente Automatica + Diagrame UML (eventual Class diagram(ar merge niste interfete + mosteniri) + use-case diagram)Rezumat 2018 pdf + PrezentareUML.pdf ~ OK 
+4. / Ultima pagina + folder Sortari ~ OK
+5. / 1. OK Agile vs Cascada vs V (tot aici mai sus) (mai sunt si pdfurile specifice in engleza)
+
+Rezumat scurt drive
+4. Institutiile fundamentale ale republicii + Diagrame UML (eventual Class diagram(ar merge niste interfete + mosteniri) + use-case diagram)Rezumat 2018 pdf + PrezentareUML.pdf ~ OK 
+5. X Ceva diagrama de clase (comunicare intre roluri - leader, PM ...)
+
+933 de pagini.pdf
+Rezolvari.pdf, Rezumat scurt drive, Problema cu drum critic (pag 59) ..., Laboratoare, Timeboxing, Cursuri
