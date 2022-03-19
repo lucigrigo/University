@@ -1,0 +1,22 @@
+
+==== 05. Is this even OTP? ====
+  * Someone applied [[https://en.wikipedia.org/wiki/One-time_pad|one time pad]] on a text.
+  * However, he failed to understand that you should not use the same byte for the entire key.
+    * **Hint:** bruteforce
+
+==== 06. Many Time Pad ====
+  * This time, he did use a proper key. Unfortunately for him, he used it for multiple encryptions.
+  * Knowing that the key starts with "ALEXCTF{", can you determine the rest?
+    * **Hint:** take a close look at the folder for this task.
+
+Source: [[https://ctflearn.com/challenge/177]]
+
+==== 07. We want Nudes instead of Nukes ====
+  * Donald has gone completely crazy. To prevent world chaos, you kidnapped him. Right before the kidnapping he tried to send one encrypted message to his wife Melania. Luckily you intercepted the message. Donald admits that he used AES256-CBC encryption - a block cipher operating with a block length of 16 bytes.
+  * The IV that he used is "7ec00bc6fd663984c1b6c6fd95ceeef1" (hex encoded). After torturing him by stealing his hairpiece, he tells you the plain text of the message is: "FIRE_NUKES_MELA!".
+  * As a passionate hacker you of course try to take advantage of this message. To get the flag alter the IV such that Melania will read: "SEND_NUDES_MELA!".
+    * **Hint 1:** The encrypted message and the key are not relevant. You will not break AES today. Look at the IV and the plaintext.
+    * **Hint 2:** How does [[https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_(CBC)|CBC]] work exactly? Take a look at the decryption process and remember that the message is only one block in length.
+    * **Hint 3:** Run the given oracle with the altered IV (hex encoded) to check that the message was modified correctly.
+
+Source: [[https://ctflearn.com/challenge/289]]
