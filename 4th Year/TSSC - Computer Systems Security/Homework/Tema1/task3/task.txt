@@ -1,0 +1,25 @@
+# Casino
+
+Hey there, fellow gambler,
+
+Are you good with them numbers? If so, you can try your skills on our new
+virtual casino headquartered in Saint Tropez!
+
+You will have plenty of fun and, if you are lucky enough, win boatloads of
+bitcoin!
+
+To start, you can train locally using the attached program.
+
+When you are ready to play the real game, the official casino is at the
+following address:
+`isc2022.1337.cx:10067`.
+
+Let's see if you have what it takes!
+
+
+### Hints:
+
+  - you don't have the source code :P #ghidra
+  - try to use some tools on this one (e.g., python + expect / pwntools);
+  - after succeeding locally, make sure to run your exploit on the server!
+  - you can use netcat (`nc`) for opening a socket pipe ;)

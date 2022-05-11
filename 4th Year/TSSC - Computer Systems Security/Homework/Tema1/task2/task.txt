@@ -1,0 +1,33 @@
+# Linux Access Control
+
+Dear Mr. Gigel,
+
+Congratulations for winning your new position as janitor in our company.
+
+Here, we have fully automated vacuum robots ready to do your bidding, you just
+need to log into the control server with the credentials we provided and
+issue them new orders.
+
+Note that, in order to prevent any rookie mistakes such as deleting our boss's
+precious stash (happened with the last employee, which is why you are here), we
+configured your account with minimal access privileges.
+
+Note that you can still run some custom scripts to do your job (find them in
+the system's local bin directory, which is inside PATH).
+You can even put your own executables in there (but you cannot delete anything
+you don't own, hah :P).
+
+Now, get to work!
+
+
+### Notes / Hints: 
+
+  - Containers are ephemeral (any data / command history is deleted after
+    exiting), but don't worry: they are created with the same data the next time
+    you login!
+  - Remember: what are you looking for? (a flag, maybe?)
+  - You don't have permissions? Well... who does?
+  - No binary exploiting is required for this task!
+  - Someone tried to implement his own sudo... that's not gonna end well!
+  - More hints may be hidden in there, find them if you need them :P 
+
