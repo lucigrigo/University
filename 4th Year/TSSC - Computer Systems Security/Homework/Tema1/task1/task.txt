@@ -1,0 +1,24 @@
+# Crypto Strikes Back!
+
+Hello, mighty hacker!
+
+Once again, we require your skills for decoding an important message we received
+from one of our undercover agents, along with some code.
+
+Please see the attached files.
+
+We also found a remote server which gladly accepts the message, but we don't
+know what it means... just try it yourself with netcat, you'll know what to do:
+`isc2022.1337.cx:11048`
+
+Good luck!
+
+
+### Hints:
+
+  - first, identify the encoding & cipher used!
+  - unfortunately, you cannot crack the private key :P (so... no bruteforcing!)
+  - server errors will be your blessing ;)
+  - pay attention to what the server gives you back!
+  - in case of emergency, break this: "KLT vahlxg vbiaxkmxqm tmmtvd"
+  - and here's good one: "eqqmp ttt.vlrqryb.zlj txqze?s aNt4t9TdUzN"
