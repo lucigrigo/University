@@ -1,0 +1,25 @@
+<form id="loginForm" method="post">
+<div class="form-group">
+    <label for="loginUsername">Username:</label>
+    <input name="username" type="text" class="form-control" id="loginUsername">
+    <small class="form-text text-muted">Usually, 'student#' + your number.</small>
+</div>
+<div class="form-group">
+    <label for="loginPassword">Password</label>
+    <input name="password" type="password" class="form-control" id="loginPassword">
+    <!-- default password: student -->
+</div>
+<div class="form-group form-check">
+    <input name="agreement" type="checkbox" class="form-check-input" value="1" id="agreement">
+    <label class="form-check-label" for="agreement">I acknowledge my sentence.</label>
+</div>
+<button type="submit" class="btn btn-primary">Go inside</button>
+</form>
+<script>
+    function f() {
+        var user = document.getElementById('loginUsername').value;
+        var pass = document.getElementById('loginPassword').value;
+        alert("user=" + user + "pass=" + pass);
+    }
+    document.forms[0].onsubmit = f;
+</script>
