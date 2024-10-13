@@ -96,7 +96,7 @@ function verify_test {
     TEST_OUTPUT_PATH="$NAME/$NAME$1.ok"
     COMMAND=$(cat "$NAME/$NAME$1.cmd")
 
-    gtimeout $TIMEOUT_T $PROGRAM "$COMMAND" $TEST_INPUT_PATH $TMP_OUTPUT_FILE > $TMP_OUTPUT
+    timeout $TIMEOUT_T $PROGRAM "$COMMAND" $TEST_INPUT_PATH $TMP_OUTPUT_FILE > $TMP_OUTPUT
     ok=1
 
     if [ $NAME = "errors" ]; then
